@@ -33,3 +33,4 @@ alwaysApply: true
 14. Лор игры: CYBERPUNK сеттинг.
 15. Жанры: MMORPG, шутер, экстрактшутер, социальная игра.
 16. Источники вдохновения: BALDUR GATE 3, CYBERPUNK 2077, VALORANT, TARKOV, ARC RAIDERS, MINECRAFT, WOW, LINEAGE, EVE online, KENSHI, The Witcher 3 Wild Hunt, RIMWORLD, MEGABONK, OBLIVION, SKYRIM.
+17. GIT COMMIT и PUSH: После завершения работы над задачей ОБЯЗАТЕЛЬНО делай git commit и git push изменений в соответствующий репозиторий GitHub. Коммит должен содержать понятное описание изменений на русском языке. Всегда сохраняй прогресс работы в репозиторий. Делай коммиты логическими блоками - после завершения каждой части работы, не накапливай изменения.
