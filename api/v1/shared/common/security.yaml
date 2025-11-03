@@ -1,0 +1,22 @@
+# Схемы безопасности
+# Источник: Общие компоненты для всех API
+# Версия: 1.0.0
+
+openapi: 3.0.3
+info:
+  title: Security Schemes
+  version: 1.0.0
+  description: |
+    Схемы безопасности для всех API.
+    Используйте эти схемы через $ref в других API файлах.
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        Аутентификация через JWT токен в заголовке Authorization.
+        Формат: `Authorization: Bearer <token>`
+

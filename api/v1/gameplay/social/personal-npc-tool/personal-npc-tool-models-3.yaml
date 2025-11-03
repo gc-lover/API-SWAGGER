@@ -1,0 +1,376 @@
+# Personal NPC Tool API - Модели данных (часть 3)
+# Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md (v1.0.0)
+# Раздел: Схема данных (лицензии, сертификаты, аудит, Request/Response)
+
+openapi: 3.0.3
+info:
+  title: Personal NPC Tool - Models Part 3
+  version: 1.0.0
+
+components:
+  schemas:
+    # Лицензии и сертификаты
+    License:
+      type: object
+      required:
+        - id
+        - owner_id
+        - type
+        - tier
+        - limits
+        - issued_at
+        - status
+      description: |
+        Лицензия/сертификат владельца.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> License
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор лицензии
+          example: "aa0e8400-e29b-41d4-a716-446655440001"
+        owner_id:
+          type: string
+          format: uuid
+          description: Идентификатор владельца лицензии
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        type:
+          type: string
+          enum: [npc_count, scenario_count, role_access, zone_access]
+          description: Тип лицензии
+          example: "npc_count"
+        tier:
+          type: string
+          enum: [L1, L2, L3]
+          description: Уровень лицензии (L1 - базовый, L3 - максимальный)
+          example: "L2"
+        scopes:
+          type: array
+          items:
+            type: string
+          description: Области действия лицензии {roles: string[], zones: string[], scenarios: string[]}
+          example: ["guard", "warehouse_zone"]
+        limits:
+          type: object
+          description: Лимиты лицензии {maxNPCs: int, maxScenarios: int, maxRoles: int}
+          properties:
+            max_npcs:
+              type: integer
+              minimum: 0
+            max_scenarios:
+              type: integer
+              minimum: 0
+            max_roles:
+              type: integer
+              minimum: 0
+          example:
+            max_npcs: 10
+            max_scenarios: 50
+            max_roles: 5
+        issued_at:
+          type: string
+          format: date-time
+          description: Дата выдачи
+          example: "2025-11-03T20:00:00Z"
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Дата истечения (если применимо)
+          example: "2026-11-03T20:00:00Z"
+        issuer:
+          type: string
+          nullable: true
+          description: Выдавший лицензию (фракция, организация, система)
+          example: "Arasaka Corporation"
+        status:
+          type: string
+          enum: [active, suspended, revoked, expired]
+          description: Статус лицензии
+          example: "active"
+
+    Certificate:
+      type: object
+      required:
+        - id
+        - owner_id
+        - type
+        - scope
+        - requirements
+        - issued_at
+      description: |
+        Сертификат/допуск для NPC или владельца.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> Certificate
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор сертификата
+          example: "bb0e8400-e29b-41d4-a716-446655440001"
+        npc_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Идентификатор NPC (если сертификат для NPC)
+          example: "660e8400-e29b-41d4-a716-446655440001"
+        owner_id:
+          type: string
+          format: uuid
+          description: Идентификатор владельца
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        type:
+          type: string
+          enum: [role_certification, zone_access, scenario_approval]
+          description: Тип сертификата
+          example: "role_certification"
+        scope:
+          type: string
+          description: Область действия (роль, зона, тип сценария)
+          example: "guard"
+        requirements:
+          type: object
+          description: Требования для получения сертификата {reputation: object, level: int, skills: object}
+          additionalProperties: true
+        issued_at:
+          type: string
+          format: date-time
+          description: Дата выдачи
+          example: "2025-11-03T20:00:00Z"
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Дата истечения
+          example: null
+        issuer:
+          type: string
+          nullable: true
+          description: Выдавший сертификат
+          example: "Militech"
+
+    # Аудит и журнал операций
+    AuditLog:
+      type: object
+      required:
+        - id
+        - timestamp
+        - entity_type
+        - entity_id
+        - action
+        - actor_id
+      description: |
+        Лог аудита - запись всех действий в системе.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> AuditLog
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор записи
+          example: "cc0e8400-e29b-41d4-a716-446655440001"
+        timestamp:
+          type: string
+          format: date-time
+          description: Дата и время события
+          example: "2025-11-03T20:45:00Z"
+        entity_type:
+          type: string
+          enum: [npc, scenario, contract, license, owner]
+          description: Тип сущности
+          example: "npc"
+        entity_id:
+          type: string
+          format: uuid
+          description: Идентификатор сущности
+          example: "660e8400-e29b-41d4-a716-446655440001"
+        action:
+          type: string
+          enum: [create, update, delete, start, stop, transfer, breach, fulfill]
+          description: Тип действия
+          example: "create"
+        actor_id:
+          type: string
+          format: uuid
+          description: Идентификатор инициатора действия (игрок/NPC/система)
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        details:
+          type: object
+          nullable: true
+          description: Детали действия (изменения, параметры, результаты)
+          additionalProperties: true
+        ip_address:
+          type: string
+          nullable: true
+          description: IP адрес (для безопасности)
+          example: "192.168.1.1"
+        signature:
+          type: string
+          nullable: true
+          description: Цифровая подпись (для валидации)
+          example: null
+
+    Ledger:
+      type: object
+      required:
+        - id
+        - transaction_id
+        - timestamp
+        - type
+        - owner_id
+        - amount
+        - currency
+        - description
+      description: |
+        Журнал финансовых операций.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> Ledger
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор записи
+          example: "dd0e8400-e29b-41d4-a716-446655440001"
+        transaction_id:
+          type: string
+          format: uuid
+          description: Идентификатор транзакции
+          example: "ee0e8400-e29b-41d4-a716-446655440001"
+        timestamp:
+          type: string
+          format: date-time
+          description: Дата и время транзакции
+          example: "2025-11-03T20:45:00Z"
+        type:
+          type: string
+          enum: [cost, reward, payment, transfer, fee]
+          description: Тип операции
+          example: "cost"
+        owner_id:
+          type: string
+          format: uuid
+          description: Идентификатор владельца
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        npc_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Идентификатор NPC (если применимо)
+          example: "660e8400-e29b-41d4-a716-446655440001"
+        scenario_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Идентификатор сценария (если применимо)
+          example: null
+        amount:
+          type: number
+          format: float
+          description: Сумма операции
+          example: -150.0
+        currency:
+          type: string
+          description: Валюта операции
+          example: "credits"
+        description:
+          type: string
+          description: Описание операции
+          example: "Содержание NPC за день"
+        reference:
+          type: string
+          nullable: true
+          description: Ссылка на связанную операцию/контракт
+          example: "contract_001"
+
+    # События и подписки
+    Event:
+      type: object
+      required:
+        - id
+        - entity_type
+        - entity_id
+        - event_type
+        - timestamp
+      description: Событие в системе
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор события
+          example: "ff0e8400-e29b-41d4-a716-446655440001"
+        entity_type:
+          type: string
+          enum: [npc, scenario, contract, license, owner]
+          description: Тип сущности
+          example: "npc"
+        entity_id:
+          type: string
+          format: uuid
+          description: Идентификатор сущности
+          example: "660e8400-e29b-41d4-a716-446655440001"
+        event_type:
+          type: string
+          description: Тип события
+          example: "npc.status_changed"
+        timestamp:
+          type: string
+          format: date-time
+          description: Дата и время события
+          example: "2025-11-03T20:45:00Z"
+        data:
+          type: object
+          nullable: true
+          description: Данные события
+          additionalProperties: true
+
+    Subscription:
+      type: object
+      required:
+        - id
+        - owner_id
+        - event_types
+        - notification_method
+        - created_at
+        - status
+      description: Подписка на события
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор подписки
+          example: "110e8400-e29b-41d4-a716-446655440001"
+        owner_id:
+          type: string
+          format: uuid
+          description: Идентификатор владельца подписки
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        event_types:
+          type: array
+          items:
+            type: string
+          description: Типы событий для подписки
+          example: ["npc.status_changed", "scenario.completed"]
+        filters:
+          type: object
+          nullable: true
+          description: Фильтры для событий
+          additionalProperties: true
+        notification_method:
+          type: string
+          enum: [webhook, email, in_game]
+          description: Метод уведомления
+          example: "webhook"
+        webhook_url:
+          type: string
+          format: uri
+          nullable: true
+          description: URL вебхука (если notification_method=webhook)
+          example: "https://example.com/webhook"
+        created_at:
+          type: string
+          format: date-time
+          description: Дата создания подписки
+          example: "2025-11-03T20:00:00Z"
+        status:
+          type: string
+          enum: [active, paused, cancelled]
+          description: Статус подписки
+          example: "active"
+

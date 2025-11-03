@@ -1,0 +1,179 @@
+# Personal NPC Tool API - Лицензии и сертификаты
+# Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md (v1.0.0)
+# Раздел: Endpoints для управления лицензиями и сертификатами
+
+openapi: 3.0.3
+info:
+  title: Personal NPC Tool - Licenses & Certificates
+  version: 1.0.0
+  description: |
+    Endpoints для управления лицензиями и сертификатами.
+    Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md (v1.0.0)
+
+paths:
+  # Лицензии
+  /gameplay/social/npc/licenses:
+    get:
+      summary: Получить список лицензий владельца
+      operationId: listLicenses
+      tags: [Licenses]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: owner_id
+          in: query
+          required: true
+          schema: {type: string, format: uuid}
+        - name: type
+          in: query
+          schema: {type: string, enum: [npc_count, scenario_count, role_access, zone_access]}
+        - name: tier
+          in: query
+          schema: {type: string, enum: [L1, L2, L3]}
+        - name: status
+          in: query
+          schema: {type: string, enum: [active, suspended, revoked, expired]}
+      responses:
+        '200':
+          description: Список лицензий
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '../personal-npc-tool-models-3.yaml#/components/schemas/License'
+        '400': {$ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'}
+        '500': {$ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'}
+
+  /gameplay/social/npc/licenses/{license_id}:
+    get:
+      summary: Получить информацию о лицензии
+      operationId: getLicense
+      tags: [Licenses]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: license_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200':
+          description: Информация о лицензии
+          content:
+            application/json:
+              schema:
+                $ref: '../personal-npc-tool-models-3.yaml#/components/schemas/License'
+        '404': {$ref: '../../shared/common/responses.yaml#/components/responses/NotFound'}
+        '500': {$ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'}
+
+  /gameplay/social/npc/licenses/{license_id}/activate:
+    post:
+      summary: Активировать лицензию
+      operationId: activateLicense
+      tags: [Licenses]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: license_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200':
+          description: Лицензия активирована
+          content:
+            application/json:
+              schema:
+                $ref: '../personal-npc-tool-models-3.yaml#/components/schemas/License'
+        '400': {$ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'}
+        '403': {$ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'}
+        '404': {$ref: '../../shared/common/responses.yaml#/components/responses/NotFound'}
+        '422': {$ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'}
+        '500': {$ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'}
+
+  /gameplay/social/npc/licenses/{license_id}/suspend:
+    post:
+      summary: Приостановить лицензию
+      operationId: suspendLicense
+      tags: [Licenses]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: license_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '../personal-npc-tool-requests.yaml#/components/schemas/SuspendLicenseRequest'
+      responses:
+        '200':
+          description: Лицензия приостановлена
+          content:
+            application/json:
+              schema:
+                $ref: '../personal-npc-tool-models-3.yaml#/components/schemas/License'
+        '400': {$ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'}
+        '403': {$ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'}
+        '404': {$ref: '../../shared/common/responses.yaml#/components/responses/NotFound'}
+        '422': {$ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'}
+        '500': {$ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'}
+
+  # Сертификаты
+  /gameplay/social/npc/certificates:
+    get:
+      summary: Получить список сертификатов
+      operationId: listCertificates
+      tags: [Certificates]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: owner_id
+          in: query
+          schema: {type: string, format: uuid}
+        - name: npc_id
+          in: query
+          schema: {type: string, format: uuid}
+        - name: type
+          in: query
+          schema: {type: string, enum: [role_certification, zone_access, scenario_approval]}
+        - name: status
+          in: query
+          schema: {type: string}
+      responses:
+        '200':
+          description: Список сертификатов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '../personal-npc-tool-models-3.yaml#/components/schemas/Certificate'
+        '400': {$ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'}
+        '500': {$ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'}
+
+  /gameplay/social/npc/certificates/{certificate_id}:
+    get:
+      summary: Получить информацию о сертификате
+      operationId: getCertificate
+      tags: [Certificates]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: certificate_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200':
+          description: Информация о сертификате
+          content:
+            application/json:
+              schema:
+                $ref: '../personal-npc-tool-models-3.yaml#/components/schemas/Certificate'
+        '404': {$ref: '../../shared/common/responses.yaml#/components/responses/NotFound'}
+        '500': {$ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'}
+

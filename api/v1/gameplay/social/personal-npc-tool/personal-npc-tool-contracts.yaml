@@ -1,0 +1,201 @@
+# Personal NPC Tool API - Управление контрактами
+# Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md (v1.0.0)
+# Раздел: Endpoints для управления контрактами
+
+openapi: 3.0.3
+info:
+  title: Personal NPC Tool - Contracts
+  version: 1.0.0
+  description: |
+    Endpoints для управления контрактами (ownership_transfer, lease, loan).
+    Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md (v1.0.0)
+
+paths:
+  /gameplay/social/npc/contracts:
+    post:
+      summary: Создать контракт
+      operationId: createContract
+      tags: [Contracts]
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../personal-npc-tool-requests.yaml#/components/schemas/CreateContractRequest'
+      responses:
+        '201':
+          description: Контракт создан
+          content:
+            application/json:
+              schema:
+                $ref: '../personal-npc-tool-models-2.yaml#/components/schemas/Contract'
+        '400': {$ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'}
+        '403': {$ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'}
+        '409': {$ref: '../../shared/common/responses.yaml#/components/responses/Conflict'}
+        '500': {$ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'}
+
+    get:
+      summary: Получить список контрактов
+      operationId: listContracts
+      tags: [Contracts]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: owner_id
+          in: query
+          schema: {type: string, format: uuid}
+        - name: npc_id
+          in: query
+          schema: {type: string, format: uuid}
+        - name: type
+          in: query
+          schema: {type: string, enum: [ownership_transfer, lease, loan]}
+        - name: status
+          in: query
+          schema: {type: string, enum: [draft, active, fulfilled, breached, cancelled]}
+      responses:
+        '200':
+          description: Список контрактов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '../personal-npc-tool-models-2.yaml#/components/schemas/Contract'
+        '400': {$ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'}
+        '500': {$ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'}
+
+  /gameplay/social/npc/contracts/{contract_id}:
+    get:
+      summary: Получить информацию о контракте
+      operationId: getContract
+      tags: [Contracts]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: contract_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200':
+          description: Информация о контракте
+          content:
+            application/json:
+              schema:
+                $ref: '../personal-npc-tool-models-2.yaml#/components/schemas/Contract'
+        '404': {$ref: '../../shared/common/responses.yaml#/components/responses/NotFound'}
+        '500': {$ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'}
+
+  /gameplay/social/npc/contracts/{contract_id}/sign:
+    post:
+      summary: Подписать контракт
+      operationId: signContract
+      tags: [Contracts]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: contract_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200':
+          description: Контракт подписан
+          content:
+            application/json:
+              schema:
+                $ref: '../personal-npc-tool-models-2.yaml#/components/schemas/Contract'
+        '400': {$ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'}
+        '403': {$ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'}
+        '404': {$ref: '../../shared/common/responses.yaml#/components/responses/NotFound'}
+        '422': {$ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'}
+        '500': {$ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'}
+
+  /gameplay/social/npc/contracts/{contract_id}/cancel:
+    post:
+      summary: Отменить контракт
+      operationId: cancelContract
+      tags: [Contracts]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: contract_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '../personal-npc-tool-requests.yaml#/components/schemas/CancelContractRequest'
+      responses:
+        '200':
+          description: Контракт отменен
+          content:
+            application/json:
+              schema:
+                $ref: '../personal-npc-tool-models-2.yaml#/components/schemas/Contract'
+        '400': {$ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'}
+        '403': {$ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'}
+        '404': {$ref: '../../shared/common/responses.yaml#/components/responses/NotFound'}
+        '422': {$ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'}
+        '500': {$ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'}
+
+  /gameplay/social/npc/contracts/{contract_id}/fulfill:
+    post:
+      summary: Выполнить контракт
+      operationId: fulfillContract
+      tags: [Contracts]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: contract_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200':
+          description: Контракт выполнен
+          content:
+            application/json:
+              schema:
+                $ref: '../personal-npc-tool-models-2.yaml#/components/schemas/Contract'
+        '400': {$ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'}
+        '403': {$ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'}
+        '404': {$ref: '../../shared/common/responses.yaml#/components/responses/NotFound'}
+        '422': {$ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'}
+        '500': {$ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'}
+
+  /gameplay/social/npc/contracts/{contract_id}/breach:
+    post:
+      summary: Нарушить контракт
+      operationId: breachContract
+      tags: [Contracts]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: contract_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '../personal-npc-tool-requests.yaml#/components/schemas/BreachContractRequest'
+      responses:
+        '200':
+          description: Контракт нарушен
+          content:
+            application/json:
+              schema:
+                $ref: '../personal-npc-tool-models-2.yaml#/components/schemas/Contract'
+        '400': {$ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'}
+        '403': {$ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'}
+        '404': {$ref: '../../shared/common/responses.yaml#/components/responses/NotFound'}
+        '422': {$ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'}
+        '500': {$ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'}
+

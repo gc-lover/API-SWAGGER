@@ -1,0 +1,180 @@
+# Personal NPC Tool API - Управление владельцами и ролями
+# Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md (v1.0.0)
+# Раздел: Endpoints для управления владельцами и ролями
+
+openapi: 3.0.3
+info:
+  title: Personal NPC Tool - Owners & Roles
+  version: 1.0.0
+  description: |
+    Endpoints для управления владельцами и ролями.
+    Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md (v1.0.0)
+
+paths:
+  # Управление владельцами
+  /gameplay/social/npc/owners/{owner_id}:
+    get:
+      summary: Получить информацию о владельце
+      description: |
+        Возвращает информацию о владельце NPC (игрок, клан или организация),
+        включая репутацию, лимиты и лицензии.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> Owner
+      operationId: getOwner
+      tags:
+        - Owners
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: owner_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор владельца
+      responses:
+        '200':
+          description: Информация о владельце
+          content:
+            application/json:
+              schema:
+                $ref: '../personal-npc-tool-models.yaml#/components/schemas/Owner'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  /gameplay/social/npc/owners/{owner_id}/limits:
+    get:
+      summary: Получить лимиты владельца
+      description: |
+        Возвращает лимиты владельца (максимальное количество NPC, сценариев, контрактов).
+        Лимиты зависят от лицензий (L1, L2, L3) и репутации.
+      operationId: getOwnerLimits
+      tags:
+        - Owners
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: owner_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор владельца
+      responses:
+        '200':
+          description: Лимиты владельца
+          content:
+            application/json:
+              schema:
+                $ref: '../personal-npc-tool-models.yaml#/components/schemas/Limits'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  /gameplay/social/npc/owners/{owner_id}/licenses:
+    get:
+      summary: Получить список лицензий владельца
+      description: |
+        Возвращает список всех активных лицензий владельца.
+        Лицензии определяют лимиты и возможности владельца.
+      operationId: getOwnerLicenses
+      tags:
+        - Owners
+        - Licenses
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: owner_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор владельца
+      responses:
+        '200':
+          description: Список лицензий
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '../personal-npc-tool-models-3.yaml#/components/schemas/License'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  # Управление ролями
+  /gameplay/social/npc/roles:
+    get:
+      summary: Получить список доступных ролей
+      description: |
+        Возвращает список доступных ролей с учетом разблокировки для владельца.
+        Роли могут быть разблокированы через репутацию, уровень или лицензии.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> RoleSet
+      operationId: listRoles
+      tags:
+        - Roles
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+            enum: [basic, intermediate, advanced]
+          description: Фильтр по категории роли
+        - name: owner_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор владельца (для проверки разблокировки)
+      responses:
+        '200':
+          description: Список доступных ролей
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '../personal-npc-tool-models.yaml#/components/schemas/RoleSet'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  /gameplay/social/npc/roles/{role_id}:
+    get:
+      summary: Получить информацию о роли
+      description: |
+        Возвращает полную информацию о роли, включая требования для разблокировки.
+      operationId: getRole
+      tags:
+        - Roles
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: role_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Идентификатор роли
+      responses:
+        '200':
+          description: Информация о роли
+          content:
+            application/json:
+              schema:
+                $ref: '../personal-npc-tool-models.yaml#/components/schemas/RoleSet'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+

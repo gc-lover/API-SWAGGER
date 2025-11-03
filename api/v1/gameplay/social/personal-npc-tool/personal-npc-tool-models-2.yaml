@@ -1,0 +1,429 @@
+# Personal NPC Tool API - Модели данных (часть 2)
+# Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md (v1.0.0)
+# Раздел: Схема данных (сценарии, контракты, лицензии, аудит)
+
+openapi: 3.0.3
+info:
+  title: Personal NPC Tool - Models Part 2
+  version: 1.0.0
+
+components:
+  schemas:
+    # Модели сценариев
+    ScenarioBlueprint:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - author_id
+        - version
+        - category
+        - created_at
+      description: |
+        Блупринт сценария - шаблон для создания инстансов.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> ScenarioBlueprint
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор блупринта
+          example: "770e8400-e29b-41d4-a716-446655440001"
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: Название сценария
+          example: "Охрана склада"
+        description:
+          type: string
+          description: Описание сценария
+          example: "Сценарий охраны склада с периодическими патрулями"
+        author_id:
+          type: string
+          format: uuid
+          description: Идентификатор автора (игрок/клан/организация)
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        version:
+          type: string
+          description: Версия блупринта (для версионирования)
+          example: "1.0.0"
+        category:
+          type: string
+          enum: [economy, social, combat, logistics]
+          description: Категория сценария
+          example: "combat"
+        required_roles:
+          type: array
+          items:
+            type: string
+          description: Требуемые роли для выполнения сценария
+          example: ["guard"]
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScenarioStep'
+          description: Набор шагов/правил сценария
+        parameters:
+          type: object
+          nullable: true
+          description: Параметры сценария (настройки, лимиты)
+          additionalProperties: true
+        conditions:
+          type: object
+          nullable: true
+          description: Условия запуска сценария
+          additionalProperties: true
+        rewards:
+          type: object
+          nullable: true
+          description: Награды за выполнение сценария
+          additionalProperties: true
+        costs:
+          type: object
+          nullable: true
+          description: Затраты на выполнение сценария
+          additionalProperties: true
+        is_public:
+          type: boolean
+          description: Публичный ли блупринт (для маркетплейса)
+          example: false
+        is_verified:
+          type: boolean
+          description: Верифицирован ли блупринт (модерация)
+          example: false
+        price:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Цена блупринта (если продается)
+          example: null
+        created_at:
+          type: string
+          format: date-time
+          description: Дата создания
+          example: "2025-11-03T20:33:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          description: Дата обновления
+          example: "2025-11-03T20:33:00Z"
+
+    ScenarioStep:
+      type: object
+      required:
+        - id
+        - order
+        - type
+        - action
+      description: |
+        Шаг сценария - единица выполнения в блупринте.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> ScenarioStep
+      properties:
+        id:
+          type: string
+          description: Идентификатор шага
+          example: "step_001"
+        order:
+          type: integer
+          minimum: 0
+          description: Порядок выполнения шага
+          example: 1
+        type:
+          type: string
+          enum: [action, condition, loop, parallel]
+          description: Тип шага
+          example: "action"
+        action:
+          type: string
+          description: Действие шага (описание или код действия)
+          example: "patrol_warehouse"
+        parameters:
+          type: object
+          nullable: true
+          description: Параметры действия
+          additionalProperties: true
+        conditions:
+          type: object
+          nullable: true
+          description: Условия выполнения шага
+          additionalProperties: true
+        on_success:
+          type: string
+          nullable: true
+          description: Следующий шаг при успехе
+          example: "step_002"
+        on_failure:
+          type: string
+          nullable: true
+          description: Следующий шаг при неудаче
+          example: "step_error"
+        timeout:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Таймаут выполнения шага (сек)
+          example: 60.0
+
+    ScenarioInstance:
+      type: object
+      required:
+        - id
+        - blueprint_id
+        - npc_id
+        - owner_id
+        - status
+        - current_step
+      description: |
+        Запущенный сценарий - инстанс блупринта.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> ScenarioInstance
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор инстанса
+          example: "880e8400-e29b-41d4-a716-446655440001"
+        blueprint_id:
+          type: string
+          format: uuid
+          description: Идентификатор блупринта
+          example: "770e8400-e29b-41d4-a716-446655440001"
+        npc_id:
+          type: string
+          format: uuid
+          description: Идентификатор NPC, выполняющего сценарий
+          example: "660e8400-e29b-41d4-a716-446655440001"
+        owner_id:
+          type: string
+          format: uuid
+          description: Идентификатор владельца
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        status:
+          type: string
+          enum: [pending, running, paused, completed, failed, cancelled]
+          description: Статус выполнения
+          example: "running"
+        current_step:
+          type: integer
+          minimum: 0
+          description: Текущий шаг выполнения
+          example: 3
+        parameters:
+          type: object
+          description: Параметры инстанса (переопределяют параметры блупринта)
+          additionalProperties: true
+        kpi:
+          $ref: '#/components/schemas/ScenarioKPI'
+          description: Показатели эффективности выполнения
+        started_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Дата начала выполнения
+          example: "2025-11-03T20:35:00Z"
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Дата завершения
+          example: null
+        scheduled_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Запланированное время запуска (для расписаний)
+          example: null
+        duration:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Длительность выполнения (сек)
+          example: null
+        result:
+          type: object
+          nullable: true
+          description: Результат выполнения сценария
+          additionalProperties: true
+
+    ScenarioKPI:
+      type: object
+      required:
+        - success_rate
+        - efficiency
+      description: |
+        Показатели эффективности выполнения сценария.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> ScenarioKPI
+      properties:
+        success_rate:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 100.0
+          description: Процент успешности выполнения
+          example: 95.5
+        efficiency:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 200.0
+          description: Эффективность выполнения в процентах
+          example: 120.0
+        time_to_complete:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Время выполнения (сек)
+          example: 3600.0
+        resources_used:
+          type: object
+          additionalProperties:
+            type: number
+          description: Использованные ресурсы {resourceId: amount}
+          example:
+            ammo: 100
+            fuel: 50
+        rewards_earned:
+          type: object
+          additionalProperties:
+            type: number
+          description: Заработанные награды {rewardId: amount}
+          example:
+            currency: 500
+            reputation: 10
+        costs_incurred:
+          type: object
+          additionalProperties:
+            type: number
+          description: Понесенные затраты {costId: amount}
+          example:
+            maintenance: 50
+        issues:
+          type: array
+          items:
+            type: string
+          description: Список проблем при выполнении
+          example: []
+
+    # Модели контрактов
+    Contract:
+      type: object
+      required:
+        - id
+        - type
+        - npc_id
+        - from_owner_id
+        - to_owner_id
+        - terms
+        - status
+      description: |
+        Контракт владения/лизинга NPC.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> Contract
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор контракта
+          example: "990e8400-e29b-41d4-a716-446655440001"
+        type:
+          type: string
+          enum: [ownership_transfer, lease, loan]
+          description: Тип контракта
+          example: "lease"
+        npc_id:
+          type: string
+          format: uuid
+          description: Идентификатор NPC
+          example: "660e8400-e29b-41d4-a716-446655440001"
+        from_owner_id:
+          type: string
+          format: uuid
+          description: Идентификатор текущего владельца
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        to_owner_id:
+          type: string
+          format: uuid
+          description: Идентификатор нового владельца/арендатора
+          example: "550e8400-e29b-41d4-a716-446655440002"
+        terms:
+          $ref: '#/components/schemas/ContractTerms'
+          description: Условия контракта
+        status:
+          type: string
+          enum: [draft, active, fulfilled, breached, cancelled]
+          description: Статус контракта
+          example: "active"
+        signed_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Дата подписания
+          example: "2025-11-03T20:40:00Z"
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Дата истечения (если применимо)
+          example: "2025-12-03T20:40:00Z"
+        fulfilled_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Дата выполнения
+          example: null
+
+    ContractTerms:
+      type: object
+      required:
+        - payment
+        - rights
+      description: |
+        Условия контракта.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> ContractTerms
+      properties:
+        duration:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Длительность контракта (дни)
+          example: 30.0
+        payment:
+          type: object
+          description: Условия оплаты {amount: float, currency: string, schedule: string}
+          properties:
+            amount:
+              type: number
+              format: float
+            currency:
+              type: string
+            schedule:
+              type: string
+          example:
+            amount: 1000.0
+            currency: "credits"
+            schedule: "daily"
+        obligations:
+          type: array
+          items:
+            type: object
+          description: Обязательства сторон
+          example: []
+        penalties:
+          type: object
+          nullable: true
+          description: Штрафы за нарушение условий
+          additionalProperties: true
+        guarantees:
+          type: object
+          nullable: true
+          description: Гарантии (эскроу, депозит)
+          additionalProperties: true
+        rights:
+          type: object
+          description: Права сторон (владение, делегирование, администрирование, запуск сценариев)
+          additionalProperties: true
+

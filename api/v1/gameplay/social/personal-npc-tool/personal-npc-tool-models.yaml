@@ -1,0 +1,371 @@
+# Personal NPC Tool API - Модели данных
+# Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md (v1.0.0)
+# Раздел: Схема данных
+
+openapi: 3.0.3
+info:
+  title: Personal NPC Tool - Models
+  version: 1.0.0
+
+components:
+  schemas:
+    # Основные модели владельца и NPC
+    Owner:
+      type: object
+      required:
+        - id
+        - type
+      description: |
+        Владелец NPC - может быть игроком, кланом или организацией.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> Owner
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор владельца
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        type:
+          type: string
+          enum: [player, clan, organization]
+          description: Тип владельца
+          example: "player"
+        player_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Идентификатор игрока (если type=player)
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        clan_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Идентификатор клана (если type=clan)
+          example: null
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Идентификатор организации (если type=organization)
+          example: null
+        reputation:
+          type: object
+          additionalProperties:
+            type: number
+          description: Репутация с фракциями {factionId: standing}
+          example:
+            faction_001: 50.5
+            faction_002: -20.0
+        limits:
+          $ref: '#/components/schemas/Limits'
+        licenses:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Список идентификаторов лицензий владельца
+          example: ["660e8400-e29b-41d4-a716-446655440001"]
+
+    Limits:
+      type: object
+      required:
+        - max_npcs
+        - max_scenarios
+      description: Лимиты владения для владельца
+      properties:
+        max_npcs:
+          type: integer
+          minimum: 0
+          description: Максимальное количество NPC
+          example: 10
+        max_scenarios:
+          type: integer
+          minimum: 0
+          description: Максимальное количество сценариев
+          example: 50
+        max_contracts:
+          type: integer
+          minimum: 0
+          description: Максимальное количество контрактов
+          example: 5
+
+    PersonalNPC:
+      type: object
+      required:
+        - id
+        - owner_id
+        - name
+        - type
+        - rank
+        - level
+        - status
+        - created_at
+      description: |
+        Персональный NPC - может быть человеком, роботом или андроидом.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> PersonalNPC
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор NPC
+          example: "660e8400-e29b-41d4-a716-446655440001"
+        owner_id:
+          type: string
+          format: uuid
+          description: Идентификатор владельца
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: Имя NPC
+          example: "John Doe"
+        type:
+          type: string
+          enum: [human, robot, android]
+          description: Тип NPC (человек, робот, андроид)
+          example: "human"
+        rank:
+          type: integer
+          minimum: 1
+          maximum: 10
+          description: Ранг NPC (рост от опыта/репутации)
+          example: 1
+        level:
+          type: integer
+          minimum: 1
+          description: Уровень NPC
+          example: 1
+        experience:
+          type: number
+          format: float
+          minimum: 0
+          description: Текущий опыт NPC
+          example: 0.0
+        specializations:
+          type: array
+          items:
+            type: string
+            enum: [guard, courier, merchant, informant, engineer, medic, diplomat, fixer, quest_giver]
+          description: Специализации NPC
+          example: ["guard", "courier"]
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleAssignment'
+          description: Назначенные роли и их параметры
+        stats:
+          $ref: '#/components/schemas/NPCStats'
+          description: Характеристики NPC
+        costs:
+          $ref: '#/components/schemas/NPCCosts'
+          description: Текущие расходы на содержание NPC
+        status:
+          type: string
+          enum: [idle, working, resting, training, maintenance]
+          description: Текущий статус NPC
+          example: "idle"
+        created_at:
+          type: string
+          format: date-time
+          description: Дата создания NPC
+          example: "2025-11-03T20:33:00Z"
+        last_maintenance:
+          type: string
+          format: date-time
+          nullable: true
+          description: Дата последнего обслуживания
+          example: "2025-11-03T20:33:00Z"
+
+    RoleAssignment:
+      type: object
+      required:
+        - role_id
+        - priority
+        - assigned_at
+        - is_active
+      description: |
+        Назначение роли NPC.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> RoleAssignment
+      properties:
+        role_id:
+          type: string
+          description: Идентификатор роли из RoleSet
+          example: "guard"
+        priority:
+          type: integer
+          minimum: 1
+          maximum: 10
+          description: Приоритет роли (для автоматизации)
+          example: 5
+        conditions:
+          type: object
+          nullable: true
+          description: Условия активации роли (опционально)
+          additionalProperties: true
+        assigned_at:
+          type: string
+          format: date-time
+          description: Дата назначения роли
+          example: "2025-11-03T20:33:00Z"
+        is_active:
+          type: boolean
+          description: Активна ли роль в данный момент
+          example: true
+
+    NPCStats:
+      type: object
+      required:
+        - efficiency
+        - loyalty
+        - health
+        - energy
+        - stress
+      description: |
+        Характеристики NPC (навыки, эффективность, лояльность).
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> NPCStats
+      properties:
+        skills:
+          type: object
+          additionalProperties:
+            type: number
+          description: Навыки NPC {skillId: level}
+          example:
+            combat: 5.0
+            trading: 3.0
+        efficiency:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 200.0
+          description: Эффективность работы в процентах
+          example: 100.0
+        loyalty:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 100.0
+          description: Лояльность к владельцу в процентах
+          example: 75.5
+        reputation:
+          type: object
+          additionalProperties:
+            type: number
+          description: Репутация NPC с другими NPC/фракциями {entityId: standing}
+          example:
+            npc_001: 30.0
+            faction_001: 10.0
+        health:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 100.0
+          description: Здоровье NPC в процентах
+          example: 100.0
+        energy:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 100.0
+          description: Энергия NPC в процентах
+          example: 80.0
+        stress:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 100.0
+          description: Уровень стресса NPC
+          example: 20.0
+
+    NPCCosts:
+      type: object
+      required:
+        - base_cost
+        - total_daily_cost
+      description: |
+        Расходы на содержание NPC.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> NPCCosts
+      properties:
+        base_cost:
+          type: number
+          format: float
+          minimum: 0
+          description: Базовая стоимость содержания (валютные единицы в день)
+          example: 100.0
+        maintenance_cost:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Стоимость обслуживания (для роботов/андроидов)
+          example: 50.0
+        license_cost:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Стоимость лицензий (если требуются)
+          example: null
+        insurance_cost:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Стоимость страховки (если застрахован)
+          example: null
+        total_daily_cost:
+          type: number
+          format: float
+          minimum: 0
+          description: Общая дневная стоимость содержания
+          example: 150.0
+
+    RoleSet:
+      type: object
+      required:
+        - id
+        - name
+        - category
+        - base_efficiency
+        - cost_multiplier
+      description: |
+        Доступные роли для NPC.
+        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> RoleSet
+      properties:
+        id:
+          type: string
+          description: Идентификатор роли
+          example: "guard"
+        name:
+          type: string
+          description: Название роли
+          example: "Охранник"
+        category:
+          type: string
+          enum: [basic, intermediate, advanced]
+          description: Категория роли
+          example: "basic"
+        unlock_requirements:
+          type: object
+          nullable: true
+          description: Требования для разблокировки {reputation: object, level: int, license: string[]}
+          additionalProperties: true
+        allowed_scenarios:
+          type: array
+          items:
+            type: string
+          description: Типы сценариев, доступные для роли
+          example: ["combat", "security"]
+        base_efficiency:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 100.0
+          description: Базовая эффективность роли (0.0-100.0)
+          example: 80.0
+        cost_multiplier:
+          type: number
+          format: float
+          minimum: 0
+          description: Множитель стоимости содержания для роли
+          example: 1.2
+
