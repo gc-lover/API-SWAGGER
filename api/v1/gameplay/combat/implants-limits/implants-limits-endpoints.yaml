@@ -1,0 +1,399 @@
+# Combat Implants Limits API - Endpoints
+# Источник: .BRAIN/02-gameplay/combat/combat-implants-limits.md (v1.0.0)
+# Раздел: Endpoints для ограничений и энергетики имплантов
+
+openapi: 3.0.3
+info:
+  title: Combat Implants Limits - Endpoints
+  version: 1.0.0
+  description: |
+    Endpoints для ограничений и энергетики имплантов.
+    Источник: .BRAIN/02-gameplay/combat/combat-implants-limits.md (v1.0.0)
+
+paths:
+  # Проверка ограничений имплантов
+  /gameplay/combat/implants/{player_id}/slots:
+    get:
+      summary: Получить доступные слоты имплантов игрока
+      description: Возвращает информацию о доступных слотах имплантов игрока по типам.
+      operationId: getImplantSlots
+      tags:
+        - Combat
+        - Implants
+        - Limits
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: player_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор игрока
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [combat, tactical, defensive, mobility, os]
+          description: Тип импланта (опционально, для фильтрации)
+      responses:
+        '200':
+          description: Информация о слотах имплантов
+          content:
+            application/json:
+              schema:
+                $ref: '../implants-limits-models.yaml#/components/schemas/ImplantSlots'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  /gameplay/combat/implants/{player_id}/compatibility:
+    post:
+      summary: Проверить совместимость импланта с установленными
+      description: Проверяет совместимость импланта с уже установленными имплантами игрока.
+      operationId: checkCompatibility
+      tags:
+        - Combat
+        - Implants
+        - Compatibility
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: player_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор игрока
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../implants-limits-requests.yaml#/components/schemas/CompatibilityCheckRequest'
+      responses:
+        '200':
+          description: Результат проверки совместимости
+          content:
+            application/json:
+              schema:
+                $ref: '../implants-limits-models.yaml#/components/schemas/CompatibilityResult'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  /gameplay/combat/implants/{player_id}/limits:
+    get:
+      summary: Получить лимиты имплантов игрока
+      description: Получает информацию о лимитах имплантов игрока, включая базовый лимит, бонусы от класса и прокачки, штрафы от человечности, и текущее использование.
+      operationId: getImplantLimits
+      tags:
+        - Combat
+        - Implants
+        - Limits
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: player_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор игрока
+      responses:
+        '200':
+          description: Информация о лимитах имплантов
+          content:
+            application/json:
+              schema:
+                $ref: '../implants-limits-models.yaml#/components/schemas/ImplantLimits'
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  # Управление лимитом имплантов
+  /gameplay/combat/implants/{player_id}/limit:
+    get:
+      summary: Получить текущий лимит имплантов
+      description: Получает текущий лимит имплантов игрока с детализацией бонусов и штрафов.
+      operationId: getImplantLimit
+      tags:
+        - Combat
+        - Implants
+        - Limits
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: player_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор игрока
+      responses:
+        '200':
+          description: Информация о лимите имплантов
+          content:
+            application/json:
+              schema:
+                $ref: '../implants-limits-models.yaml#/components/schemas/ImplantLimitInfo'
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  /gameplay/combat/implants/{player_id}/limit/calculate:
+    post:
+      summary: Рассчитать лимит имплантов с учетом всех факторов
+      description: Рассчитывает лимит имплантов с учетом базового лимита, бонусов от класса/прокачки и штрафов от человечности.
+      operationId: calculateImplantLimit
+      tags:
+        - Combat
+        - Implants
+        - Limits
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: player_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор игрока
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../implants-limits-requests.yaml#/components/schemas/CalculateLimitRequest'
+      responses:
+        '200':
+          description: Расчет лимита имплантов
+          content:
+            application/json:
+              schema:
+                $ref: '../implants-limits-models.yaml#/components/schemas/ImplantLimitCalculation'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  # Энергетический лимит
+  /gameplay/combat/implants/{player_id}/energy:
+    get:
+      summary: Получить информацию об энергетическом пуле
+      description: Получает информацию об энергетическом пуле игрока, включая общий пул, использованную и доступную энергию, скорость восстановления.
+      operationId: getEnergyPool
+      tags:
+        - Combat
+        - Implants
+        - Energy
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: player_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор игрока
+      responses:
+        '200':
+          description: Информация об энергетическом пуле
+          content:
+            application/json:
+              schema:
+                $ref: '../implants-limits-models.yaml#/components/schemas/EnergyPoolInfo'
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  /gameplay/combat/implants/{player_id}/energy/calculate:
+    post:
+      summary: Рассчитать энергетическое потребление имплантов
+      description: Рассчитывает энергетическое потребление имплантов и проверяет, можно ли установить импланты с учетом энергетического лимита.
+      operationId: calculateEnergyConsumption
+      tags:
+        - Combat
+        - Implants
+        - Energy
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: player_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор игрока
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../implants-limits-requests.yaml#/components/schemas/CalculateEnergyRequest'
+      responses:
+        '200':
+          description: Расчет энергетического потребления
+          content:
+            application/json:
+              schema:
+                $ref: '../implants-limits-models.yaml#/components/schemas/EnergyCalculation'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  /gameplay/combat/implants/{player_id}/energy/restore:
+    post:
+      summary: Восстановить энергию
+      description: Восстанавливает энергию игрока (если есть механизм восстановления).
+      operationId: restoreEnergy
+      tags:
+        - Combat
+        - Implants
+        - Energy
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: player_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор игрока
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../implants-limits-requests.yaml#/components/schemas/RestoreEnergyRequest'
+      responses:
+        '200':
+          description: Результат восстановления энергии
+          content:
+            application/json:
+              schema:
+                $ref: '../implants-limits-models.yaml#/components/schemas/EnergyRestoreResult'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '422':
+          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  /gameplay/combat/implants/{player_id}/energy/limits:
+    get:
+      summary: Получить индивидуальные энергетические ограничения имплантов
+      description: Получает индивидуальные энергетические ограничения для каждого установленного импланта.
+      operationId: getIndividualEnergyLimits
+      tags:
+        - Combat
+        - Implants
+        - Energy
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: player_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор игрока
+      responses:
+        '200':
+          description: Индивидуальные энергетические ограничения
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '../implants-limits-models.yaml#/components/schemas/IndividualEnergyLimits'
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  # Проверка установки импланта
+  /gameplay/combat/implants/{player_id}/validate-install:
+    post:
+      summary: Валидировать возможность установки импланта
+      description: Валидирует возможность установки импланта с проверкой всех ограничений: слоты, совместимость, лимит имплантов, энергетический лимит.
+      operationId: validateInstall
+      tags:
+        - Combat
+        - Implants
+        - Validation
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: player_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор игрока
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../implants-limits-requests.yaml#/components/schemas/ValidateInstallRequest'
+      responses:
+        '200':
+          description: Результат валидации установки
+          content:
+            application/json:
+              schema:
+                $ref: '../implants-limits-models.yaml#/components/schemas/ValidationResult'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+

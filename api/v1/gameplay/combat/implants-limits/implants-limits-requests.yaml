@@ -1,0 +1,93 @@
+# Combat Implants Limits API - Request/Response модели
+# Источник: .BRAIN/02-gameplay/combat/combat-implants-limits.md (v1.0.0)
+# Раздел: Request/Response модели для endpoints
+
+openapi: 3.0.3
+info:
+  title: Combat Implants Limits - Request/Response Models
+  version: 1.0.0
+
+components:
+  schemas:
+    # Request модели
+    CompatibilityCheckRequest:
+      type: object
+      required:
+        - implant_id
+        - target_slot
+      description: Запрос на проверку совместимости
+      properties:
+        implant_id:
+          type: string
+          format: uuid
+          description: Идентификатор импланта для проверки
+        target_slot:
+          type: string
+          format: uuid
+          description: Целевой слот для установки
+
+    CalculateLimitRequest:
+      type: object
+      description: Запрос на расчет лимита имплантов
+      properties:
+        class_bonus:
+          type: integer
+          minimum: 0
+          description: Бонус от класса
+        progression_bonus:
+          type: integer
+          minimum: 0
+          description: Бонус от прокачки
+        humanity_level:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          description: Уровень человечности (0-100)
+
+    CalculateEnergyRequest:
+      type: object
+      required:
+        - implant_ids
+      description: Запрос на расчет энергетического потребления
+      properties:
+        implant_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Идентификаторы имплантов для расчета
+
+    RestoreEnergyRequest:
+      type: object
+      required:
+        - amount
+        - method
+      description: Запрос на восстановление энергии
+      properties:
+        amount:
+          type: number
+          format: float
+          minimum: 0
+          description: Количество энергии для восстановления
+        method:
+          type: string
+          enum: [natural, consumable, ability, other]
+          description: Метод восстановления энергии
+
+    ValidateInstallRequest:
+      type: object
+      required:
+        - implant_id
+        - target_slot
+      description: Запрос на валидацию установки импланта
+      properties:
+        implant_id:
+          type: string
+          format: uuid
+          description: Идентификатор импланта для установки
+        target_slot:
+          type: string
+          format: uuid
+          description: Целевой слот для установки
+
