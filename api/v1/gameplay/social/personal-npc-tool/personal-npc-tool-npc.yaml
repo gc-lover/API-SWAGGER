@@ -115,8 +115,7 @@ paths:
   /gameplay/social/npc/{npc_id}:
     get:
       summary: Получить информацию о NPC
-      description: |
-        Возвращает полную информацию о NPC, включая роли, характеристики и расходы.
+      description: Возвращает полную информацию о NPC, включая роли, характеристики и расходы.
       operationId: getNPC
       tags:
         - NPC
@@ -144,9 +143,7 @@ paths:
 
     put:
       summary: Обновить информацию о NPC
-      description: |
-        Обновляет информацию о NPC (частичное обновление полей).
-        Проверяет права доступа (Ownership или Administration).
+      description: Обновляет информацию о NPC (частичное обновление). Проверяет права доступа.
       operationId: updateNPC
       tags:
         - NPC
@@ -187,9 +184,7 @@ paths:
 
     delete:
       summary: Удалить NPC
-      description: |
-        Удаляет NPC. Проверяет права доступа (Ownership).
-        Все связанные сценарии и контракты должны быть завершены или отменены.
+      description: Удаляет NPC. Проверяет права доступа. Все связанные сценарии и контракты должны быть завершены.
       operationId: deleteNPC
       tags:
         - NPC
@@ -223,10 +218,7 @@ paths:
   /gameplay/social/npc/{npc_id}/roles:
     post:
       summary: Назначить роль NPC
-      description: |
-        Назначает роль NPC. Проверяет права доступа (Administration или выше)
-        и доступность роли для владельца.
-        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> RoleAssignment
+      description: Назначает роль NPC. Проверяет права доступа и доступность роли.
       operationId: assignRole
       tags:
         - NPC
@@ -314,9 +306,7 @@ paths:
   /gameplay/social/npc/{npc_id}/stats:
     get:
       summary: Получить статистику NPC
-      description: |
-        Возвращает характеристики NPC (навыки, эффективность, лояльность, здоровье, энергия, стресс).
-        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> NPCStats
+      description: Возвращает характеристики NPC (навыки, эффективность, лояльность, здоровье, энергия, стресс).
       operationId: getNPCStats
       tags:
         - NPC
@@ -345,10 +335,7 @@ paths:
   /gameplay/social/npc/{npc_id}/costs:
     get:
       summary: Получить текущие расходы на содержание NPC
-      description: |
-        Возвращает текущие расходы на содержание NPC.
-        Расходы зависят от типа NPC (human/robot/android) и назначенных ролей.
-        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> NPCCosts
+      description: Возвращает текущие расходы на содержание NPC. Зависят от типа NPC и ролей.
       operationId: getNPCCosts
       tags:
         - NPC
@@ -378,10 +365,7 @@ paths:
   /gameplay/social/npc/{npc_id}/maintenance:
     post:
       summary: Выполнить обслуживание NPC
-      description: |
-        Выполняет обслуживание NPC (routine, urgent, emergency).
-        Восстанавливает здоровье, энергию и другие характеристики NPC.
-        Записывает операцию в Ledger.
+      description: Выполняет обслуживание NPC. Восстанавливает характеристики. Записывает в Ledger.
       operationId: performMaintenance
       tags:
         - NPC

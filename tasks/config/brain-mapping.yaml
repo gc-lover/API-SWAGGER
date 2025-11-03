@@ -175,6 +175,16 @@ mappings:
     updated: "2025-11-03 21:12"
     description: "Создание API спецификации для экстрактшутер механик"
 
+  - source: ".BRAIN/02-gameplay/combat/combat-abilities.md"
+    target: "api/v1/gameplay/combat/abilities.yaml"
+    task_id: "API-TASK-017"
+    task_file: "tasks/active/queue/task-017-combat-abilities-api.md"
+    status: "queued"
+    created: "2025-11-03 21:15"
+    version: "1.2.0"
+    updated: "2025-11-03 21:15"
+    description: "Создание API спецификации для системы способностей"
+
 # Примеры записей:
 #
 # mappings:

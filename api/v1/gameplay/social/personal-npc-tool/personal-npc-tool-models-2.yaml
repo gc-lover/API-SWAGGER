@@ -20,9 +20,7 @@ components:
         - version
         - category
         - created_at
-      description: |
-        Блупринт сценария - шаблон для создания инстансов.
-        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> ScenarioBlueprint
+      description: Блупринт сценария - шаблон для создания инстансов.
       properties:
         id:
           type: string
@@ -117,9 +115,7 @@ components:
         - order
         - type
         - action
-      description: |
-        Шаг сценария - единица выполнения в блупринте.
-        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> ScenarioStep
+      description: Шаг сценария - единица выполнения в блупринте.
       properties:
         id:
           type: string
@@ -176,9 +172,7 @@ components:
         - owner_id
         - status
         - current_step
-      description: |
-        Запущенный сценарий - инстанс блупринта.
-        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> ScenarioInstance
+      description: Запущенный сценарий - инстанс блупринта.
       properties:
         id:
           type: string
@@ -253,9 +247,7 @@ components:
       required:
         - success_rate
         - efficiency
-      description: |
-        Показатели эффективности выполнения сценария.
-        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> ScenarioKPI
+      description: Показатели эффективности выполнения сценария.
       properties:
         success_rate:
           type: number
@@ -290,23 +282,17 @@ components:
           type: object
           additionalProperties:
             type: number
-          description: Заработанные награды {rewardId: amount}
-          example:
-            currency: 500
-            reputation: 10
+          description: Заработанные награды
         costs_incurred:
           type: object
           additionalProperties:
             type: number
-          description: Понесенные затраты {costId: amount}
-          example:
-            maintenance: 50
+          description: Понесенные затраты
         issues:
           type: array
           items:
             type: string
           description: Список проблем при выполнении
-          example: []
 
     # Модели контрактов
     Contract:
@@ -319,9 +305,7 @@ components:
         - to_owner_id
         - terms
         - status
-      description: |
-        Контракт владения/лизинга NPC.
-        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> Contract
+      description: Контракт владения/лизинга NPC.
       properties:
         id:
           type: string
@@ -380,9 +364,7 @@ components:
       required:
         - payment
         - rights
-      description: |
-        Условия контракта.
-        Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md -> ContractTerms
+      description: Условия контракта.
       properties:
         duration:
           type: number
@@ -393,37 +375,25 @@ components:
           example: 30.0
         payment:
           type: object
-          description: Условия оплаты {amount: float, currency: string, schedule: string}
-          properties:
-            amount:
-              type: number
-              format: float
-            currency:
-              type: string
-            schedule:
-              type: string
-          example:
-            amount: 1000.0
-            currency: "credits"
-            schedule: "daily"
+          description: Условия оплаты
+          additionalProperties: true
         obligations:
           type: array
           items:
             type: object
           description: Обязательства сторон
-          example: []
         penalties:
           type: object
           nullable: true
-          description: Штрафы за нарушение условий
+          description: Штрафы за нарушение
           additionalProperties: true
         guarantees:
           type: object
           nullable: true
-          description: Гарантии (эскроу, депозит)
+          description: Гарантии
           additionalProperties: true
         rights:
           type: object
-          description: Права сторон (владение, делегирование, администрирование, запуск сценариев)
+          description: Права сторон
           additionalProperties: true
 
