@@ -1,0 +1,331 @@
+# Equipment Matrix API - Генерация и крафт
+# Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md (v1.0.0)
+# Задание: API-SWAGGER/tasks/active/queue/task-002-equipment-matrix-api.md
+# Task ID: API-TASK-002
+
+openapi: 3.0.3
+info:
+  title: Equipment Matrix - Generation & Crafting
+  version: 1.0.0
+
+components:
+  schemas:
+    # Правила генерации
+    GenerationRules:
+      type: object
+      required:
+        - id
+        - seed_version
+        - rarity_weights_by_zone
+        - affix_pools_by_type
+        - seed_policy
+      description: |
+        Правила генерации предметов.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> GenerationRules
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Идентификатор правил
+          example: "bb0e8400-e29b-41d4-a716-446655440001"
+        seed_version:
+          type: string
+          description: Версия генератора сидов
+          example: "v1.0.0"
+        rarity_weights_by_zone:
+          type: object
+          description: Веса редкостей по зонам {zoneTag: {rarity: weight}}
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: number
+              format: float
+          example: {}
+        affix_pools_by_type:
+          type: object
+          description: Пулы аффиксов по типам {itemType: {affixId: weight}}
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: number
+              format: float
+          example: {}
+        constraints:
+          type: object
+          nullable: true
+          description: Ограничения (caps по статам, запрещенные комбинации)
+          additionalProperties: true
+        seed_policy:
+          type: object
+          description: Политика сидов {format: string, components: string[]}
+          properties:
+            format:
+              type: string
+            components:
+              type: array
+              items:
+                type: string
+          example:
+            format: "{brandId}:{zoneTag}:{leagueId}:{rarity}:{rollIdx}:{seedVersion}"
+            components: ["brandId", "zoneTag", "leagueId", "rarity", "rollIdx", "seedVersion"]
+
+    # Веса редкостей
+    RarityWeights:
+      type: object
+      description: |
+        Веса редкостей для зоны.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> GenerationRules.rarityWeightsByZone
+      properties:
+        zone_tag:
+          type: string
+          description: Тег зоны
+          example: "downtown"
+        weights:
+          type: object
+          description: Веса редкостей
+          properties:
+            common:
+              type: number
+              format: float
+              minimum: 0
+            uncommon:
+              type: number
+              format: float
+              minimum: 0
+            rare:
+              type: number
+              format: float
+              minimum: 0
+            epic:
+              type: number
+              format: float
+              minimum: 0
+            legendary:
+              type: number
+              format: float
+              minimum: 0
+            artifact:
+              type: number
+              format: float
+              minimum: 0
+          example:
+            common: 40.0
+            uncommon: 30.0
+            rare: 20.0
+            epic: 7.0
+            legendary: 2.5
+            artifact: 0.5
+
+    # Расчет редкости
+    RarityCalculation:
+      type: object
+      required:
+        - selected_rarity
+        - weights
+        - modifiers_applied
+      description: |
+        Результат расчета редкости для зоны.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> Правила генерации
+      properties:
+        selected_rarity:
+          type: string
+          enum: [common, uncommon, rare, epic, legendary, artifact]
+          description: Выбранная редкость
+          example: "rare"
+        weights:
+          $ref: '#/components/schemas/RarityWeights'
+          description: Веса редкостей для зоны
+        modifiers_applied:
+          type: array
+          items:
+            type: object
+          description: Примененные модификаторы (PvP, экстракт, лига, фракция, события)
+          example: []
+
+    # Рецепт крафта
+    CraftingRecipe:
+      type: object
+      required:
+        - id
+        - item_type
+        - components
+        - facilities
+        - licenses
+        - quality
+      description: |
+        Рецепт крафта предмета.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> CraftingRecipe
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Идентификатор рецепта
+          example: "cc0e8400-e29b-41d4-a716-446655440001"
+        item_type:
+          type: string
+          enum: [weapon, armor, implant, cyberdeck, mod]
+          description: Тип предмета
+          example: "weapon"
+        components:
+          type: array
+          items:
+            type: object
+            required:
+              - item_id
+              - quantity
+            properties:
+              item_id:
+                type: string
+                format: uuid
+              quantity:
+                type: integer
+                minimum: 1
+          description: Компоненты {itemId: string, quantity: int}
+          example: []
+        facilities:
+          type: array
+          items:
+            type: string
+          description: Требуемые станции/оборудование
+          example: ["weapon_workshop", "advanced_forge"]
+        licenses:
+          type: array
+          items:
+            type: string
+          description: Требуемые лицензии
+          example: ["L2_weapon_crafting"]
+        skills:
+          type: object
+          nullable: true
+          description: Требуемые навыки {skillId: string, level: int}
+          additionalProperties:
+            type: integer
+          example: {}
+        reputation:
+          type: object
+          nullable: true
+          description: Требуемая репутация {factionId: string, standing: float}
+          additionalProperties:
+            type: number
+          example: {}
+        quality:
+          type: string
+          enum: [common, uncommon, rare, epic, legendary]
+          description: Качество результата (зависит от компонентов)
+          example: "rare"
+        risks:
+          type: object
+          nullable: true
+          description: Риски {failureChance: float, downgradeChance: float}
+          properties:
+            failure_chance:
+              type: number
+              format: float
+              minimum: 0.0
+              maximum: 1.0
+            downgrade_chance:
+              type: number
+              format: float
+              minimum: 0.0
+              maximum: 1.0
+          example:
+            failure_chance: 0.1
+            downgrade_chance: 0.05
+
+    # Результат крафта
+    CraftResult:
+      type: object
+      required:
+        - created_item
+        - success
+      description: |
+        Результат крафта предмета.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> Крафт и реролл
+      properties:
+        created_item:
+          type: object
+          description: Созданный предмет
+          additionalProperties: true
+        success:
+          type: boolean
+          description: Успешность крафта
+          example: true
+        quality:
+          type: string
+          enum: [common, uncommon, rare, epic, legendary]
+          nullable: true
+          description: Качество созданного предмета
+          example: "rare"
+        risks_triggered:
+          type: array
+          items:
+            type: string
+          description: Сработавшие риски (failure, downgrade)
+          example: []
+
+    # История рероллов
+    RerollHistory:
+      type: object
+      required:
+        - id
+        - item_id
+        - rerolled_at
+        - mode
+        - result
+      description: |
+        История рероллов предмета.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> Реролл/перековка
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Идентификатор записи
+          example: "dd0e8400-e29b-41d4-a716-446655440001"
+        item_id:
+          type: string
+          format: uuid
+          description: Идентификатор предмета
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        rerolled_at:
+          type: string
+          format: date-time
+          description: Дата реролла
+          example: "2025-11-03T20:45:00Z"
+        mode:
+          type: string
+          enum: [partial, full, calibrate]
+          description: Режим реролла
+          example: "partial"
+        result:
+          type: object
+          description: Результат реролла
+          additionalProperties: true
+
+    # Результат реролла
+    RerollResult:
+      type: object
+      required:
+        - updated_item
+        - rerolled_affixes
+      description: |
+        Результат реролла предмета.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> Реролл/перековка
+      properties:
+        updated_item:
+          type: object
+          description: Обновленный предмет
+          additionalProperties: true
+        rerolled_affixes:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Идентификаторы реролленных аффиксов
+          example: []
+        risks_triggered:
+          type: array
+          items:
+            type: string
+          description: Сработавшие риски (downgrade, break)
+          example: []
+

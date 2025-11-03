@@ -1,0 +1,333 @@
+# Equipment Matrix API - Статы по типам предметов
+# Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md (v1.0.0)
+# Задание: API-SWAGGER/tasks/active/queue/task-002-equipment-matrix-api.md
+# Task ID: API-TASK-002
+
+openapi: 3.0.3
+info:
+  title: Equipment Matrix - Item Stats
+  version: 1.0.0
+
+components:
+  schemas:
+    # Статы оружия
+    WeaponStats:
+      type: object
+      required:
+        - mag_size
+        - reload_time
+        - hipfire_penalty
+        - ads_bonus
+        - handling
+        - range
+      description: |
+        Специфичные характеристики оружия.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> WeaponStats
+      properties:
+        mag_size:
+          type: integer
+          minimum: 1
+          description: Размер магазина
+          example: 30
+        reload_time:
+          type: number
+          format: float
+          minimum: 0
+          description: Время перезарядки в секундах
+          example: 2.5
+        hipfire_penalty:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 100.0
+          description: Штраф к точности при стрельбе с бедра в процентах
+          example: 20.0
+        ads_bonus:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 100.0
+          description: Бонус к точности при прицеливании в процентах
+          example: 15.0
+        handling:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 100.0
+          description: Управляемость в процентах (скорость прицеливания, мобильность)
+          example: 70.0
+        range:
+          type: number
+          format: float
+          minimum: 0
+          description: Эффективная дальность в метрах
+          example: 80.0
+        cyberdeck_slots:
+          type: integer
+          nullable: true
+          minimum: 0
+          description: Количество слотов кибердеки для умного оружия
+          example: 2
+
+    # Статы брони
+    ArmorStats:
+      type: object
+      required:
+        - slot_type
+        - mod_slots
+        - noise_damp
+      description: |
+        Специфичные характеристики брони.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> ArmorStats
+      properties:
+        slot_type:
+          type: string
+          enum: [torso, head, arms, legs]
+          description: Тип слота брони
+          example: "torso"
+        mod_slots:
+          type: object
+          description: Слоты модов
+          properties:
+            optics:
+              type: integer
+              minimum: 0
+            plates:
+              type: integer
+              minimum: 0
+            rigs:
+              type: integer
+              minimum: 0
+            utility:
+              type: integer
+              minimum: 0
+          example:
+            optics: 1
+            plates: 2
+            rigs: 1
+            utility: 1
+        noise_damp:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 100.0
+          description: Подавление шума в процентах
+          example: 30.0
+        energy_buffer:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Энергетический буфер
+          example: 50.0
+
+    # Статы имплантов
+    ImplantStats:
+      type: object
+      required:
+        - slot_type
+        - energy_drain
+        - compat_level
+      description: |
+        Специфичные характеристики имплантов.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> ImplantStats
+      properties:
+        slot_type:
+          type: string
+          enum: [combat, tactical, defensive, mobility, os]
+          description: Тип слота импланта
+          example: "combat"
+        energy_drain:
+          type: number
+          format: float
+          minimum: 0
+          description: Потребление энергии
+          example: 25.0
+        compat_level:
+          type: integer
+          minimum: 1
+          maximum: 10
+          description: Уровень совместимости с другими имплантами
+          example: 7
+        ability_power:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Сила способностей (множитель)
+          example: 1.25
+        cooldown_mod:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Модификатор кулдауна способностей (множитель)
+          example: 0.85
+        stat_multipliers:
+          type: object
+          nullable: true
+          description: Множители характеристик
+          properties:
+            damage:
+              type: number
+              format: float
+            accuracy:
+              type: number
+              format: float
+            speed:
+              type: number
+              format: float
+            armor:
+              type: number
+              format: float
+          example:
+            damage: 1.15
+            accuracy: 1.10
+            speed: 1.05
+            armor: 1.20
+        humanity_impact:
+          type: number
+          format: float
+          nullable: true
+          minimum: -100.0
+          maximum: 0.0
+          description: Влияние на человечность (отрицательное значение)
+          example: -15.0
+        synergy_tags:
+          type: array
+          items:
+            type: string
+          description: Теги для синергии (weaponClass, deckLevel, brand)
+          example: ["weaponClass_assault", "brand_arasaka"]
+        maintenance_cost:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Стоимость обслуживания в валютных единицах
+          example: 100.0
+
+    # Статы кибердеков
+    CyberdeckStats:
+      type: object
+      required:
+        - quickhack_slots
+        - deck_energy
+        - regen_rate
+        - io_bandwidth
+      description: |
+        Специфичные характеристики кибердеков.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> CyberdeckStats
+      properties:
+        quickhack_slots:
+          type: integer
+          minimum: 1
+          description: Количество слотов для quickhacks
+          example: 4
+        deck_energy:
+          type: number
+          format: float
+          minimum: 0
+          description: Энергия кибердеки
+          example: 200.0
+        regen_rate:
+          type: number
+          format: float
+          minimum: 0
+          description: Скорость восстановления энергии в единицах/сек
+          example: 15.0
+        io_bandwidth:
+          type: number
+          format: float
+          minimum: 0
+          description: Пропускная способность I/O
+          example: 500.0
+        overheat_threshold:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Порог перегрева
+          example: 100.0
+        ice_bypass:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.0
+          maximum: 100.0
+          description: Обход ICE в процентах
+          example: 30.0
+        signal_distance:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Дистанция сигнала в метрах
+          example: 100.0
+        detection_footprint:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.0
+          maximum: 100.0
+          description: След обнаружения в процентах
+          example: 25.0
+        cyberpsychosis_risk_factor:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.0
+          maximum: 1.0
+          description: Фактор риска киберпсихоза (от перегрева/нагрузки)
+          example: 0.15
+
+    # Статы модов
+    ModStats:
+      type: object
+      required:
+        - slot
+        - stat_delta
+      description: |
+        Специфичные характеристики модов.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> ModStats
+      properties:
+        slot:
+          type: string
+          enum: [barrel, sight, plate, cooling, utility]
+          description: Тип слота мода
+          example: "barrel"
+        stat_delta:
+          type: object
+          description: Изменения характеристик (дельта значений)
+          additionalProperties:
+            type: number
+          example:
+            damage: 5
+            accuracy: 2
+            range: 10
+        drawbacks:
+          type: object
+          nullable: true
+          description: Недостатки (штрафы к характеристикам)
+          additionalProperties:
+            type: number
+          example:
+            handling: -5
+            weight: 0.5
+        conditional_procs:
+          type: array
+          items:
+            type: object
+          nullable: true
+          description: Условные эффекты (триггеры)
+        set_bonuses:
+          type: object
+          nullable: true
+          description: Сет-бонусы (при наличии нескольких модов одного бренда/набора)
+          additionalProperties: true
+        brand_lock:
+          type: string
+          nullable: true
+          description: Привязка к бренду (только для определенного бренда)
+          example: "arasaka"
+

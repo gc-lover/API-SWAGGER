@@ -185,6 +185,26 @@ mappings:
     updated: "2025-11-03 21:15"
     description: "Создание API спецификации для системы способностей"
 
+  - source: ".BRAIN/02-gameplay/combat/combat-pvp-pve.md"
+    target: "api/v1/gameplay/combat/pvp-pve.yaml"
+    task_id: "API-TASK-018"
+    task_file: "tasks/active/queue/task-018-combat-pvp-pve-api.md"
+    status: "queued"
+    created: "2025-11-03 21:16"
+    version: "1.1.0"
+    updated: "2025-11-03 21:16"
+    description: "Создание API спецификации для баланса PvP vs PvE"
+
+  - source: ".BRAIN/02-gameplay/combat/combat-implants-types.md"
+    target: "api/v1/gameplay/combat/implants-types.yaml"
+    task_id: "API-TASK-019"
+    task_file: "tasks/active/queue/task-019-combat-implants-types-api.md"
+    status: "queued"
+    created: "2025-11-03 21:17"
+    version: "1.1.0"
+    updated: "2025-11-03 21:17"
+    description: "Создание API спецификации для типов имплантов"
+
 # Примеры записей:
 #
 # mappings:

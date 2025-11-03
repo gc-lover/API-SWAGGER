@@ -1,0 +1,243 @@
+# Equipment Matrix API - Базовые модели данных
+# Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md (v1.0.0)
+# Задание: API-SWAGGER/tasks/active/queue/task-002-equipment-matrix-api.md
+# Task ID: API-TASK-002
+
+openapi: 3.0.3
+info:
+  title: Equipment Matrix - Base Models
+  version: 1.0.0
+
+components:
+  schemas:
+    # Базовые модели
+    ItemBase:
+      type: object
+      required:
+        - id
+        - type
+        - subtype
+        - brand_id
+        - rarity
+        - seed
+        - level
+        - created_at
+        - version
+      description: |
+        Базовая информация о предмете.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> ItemBase
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор предмета
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        type:
+          type: string
+          enum: [weapon, armor, implant, cyberdeck, mod]
+          description: Тип предмета
+          example: "weapon"
+        subtype:
+          type: string
+          description: Подтип предмета (пистолет, ПП, штурмовая для оружия; торс, голова для брони)
+          example: "pistol"
+        brand_id:
+          type: string
+          format: uuid
+          description: Идентификатор бренда
+          example: "660e8400-e29b-41d4-a716-446655440001"
+        rarity:
+          type: string
+          enum: [common, uncommon, rare, epic, legendary, artifact]
+          description: Редкость предмета
+          example: "rare"
+        seed:
+          type: string
+          description: Сид для генерации (детерминированная генерация)
+          example: "brand_001:zone_downtown:league_001:rare:roll_1:v1.0.0"
+        level:
+          type: integer
+          minimum: 1
+          maximum: 50
+          description: Уровень предмета
+          example: 25
+        zone_tag:
+          type: string
+          nullable: true
+          description: Тег зоны генерации (опционально)
+          example: "downtown"
+        league_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Идентификатор лиги (опционально)
+          example: "770e8800-e29b-41d4-a716-446655440002"
+        created_at:
+          type: string
+          format: date-time
+          description: Дата создания
+          example: "2025-11-03T20:40:00Z"
+        version:
+          type: string
+          description: Версия генератора (для обратной совместимости)
+          example: "v1.0.0"
+
+    StatsCore:
+      type: object
+      description: |
+        Общие характеристики предмета.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> StatsCore
+      properties:
+        damage:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Урон (только для оружия)
+          example: 35.5
+        rof:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Скорострельность, выстрелов/сек (только для оружия)
+          example: 8.5
+        accuracy:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 100.0
+          description: Точность в процентах (оружие)
+          example: 75.0
+        recoil:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 100.0
+          description: Отдача в процентах (оружие)
+          example: 25.0
+        weight:
+          type: number
+          format: float
+          minimum: 0
+          description: Вес предмета в кг (все типы)
+          example: 2.5
+        durability:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 100.0
+          description: Прочность в процентах (оружие, броня, импланты)
+          example: 85.0
+        armor:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Броня (только для брони)
+          example: 150.0
+        mobility_penalty:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.0
+          maximum: 100.0
+          description: Штраф к подвижности в процентах (только для брони)
+          example: 10.0
+
+    StatsExtended:
+      type: object
+      description: |
+        Расширенные характеристики предмета.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> StatsExtended
+      properties:
+        damage_type:
+          type: string
+          enum: [kinetic, energy, explosive, melee, smart, chemical, emp, cyber]
+          nullable: true
+          description: Тип урона (оружие)
+          example: "kinetic"
+        penetration:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.0
+          maximum: 100.0
+          description: Бронепробитие в процентах (оружие)
+          example: 15.0
+        noise:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.0
+          maximum: 100.0
+          description: Уровень шума в процентах (оружие, броня)
+          example: 30.0
+        heat_gen:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Генерация тепла (оружие, импланты, кибердеки)
+          example: 15.5
+        energy_use:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Потребление энергии (оружие, импланты, кибердеки)
+          example: 25.0
+        hack_resist:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.0
+          maximum: 100.0
+          description: Сопротивление взлому в процентах (импланты, кибердеки)
+          example: 50.0
+        heat_dissipation:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Рассеивание тепла (броня, импланты)
+          example: 20.0
+        implant_compat:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.0
+          maximum: 100.0
+          description: Совместимость с имплантами в процентах (оружие, броня)
+          example: 80.0
+        resistances:
+          type: object
+          nullable: true
+          description: Сопротивления урону в процентах (броня)
+          properties:
+            physical:
+              type: number
+              format: float
+              minimum: 0.0
+              maximum: 100.0
+            emp:
+              type: number
+              format: float
+              minimum: 0.0
+              maximum: 100.0
+            thermal:
+              type: number
+              format: float
+              minimum: 0.0
+              maximum: 100.0
+            chemical:
+              type: number
+              format: float
+              minimum: 0.0
+              maximum: 100.0
+          example:
+            physical: 25.0
+            emp: 15.0
+            thermal: 20.0
+            chemical: 10.0
+
