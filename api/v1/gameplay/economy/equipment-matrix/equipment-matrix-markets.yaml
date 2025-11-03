@@ -1,0 +1,302 @@
+# Equipment Matrix API - Рынки и заказные сборки
+# Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md (v1.0.0)
+# Задание: API-SWAGGER/tasks/active/queue/task-002-equipment-matrix-api.md
+# Task ID: API-TASK-002
+
+openapi: 3.0.3
+info:
+  title: Equipment Matrix - Markets & Orders
+  version: 1.0.0
+
+components:
+  schemas:
+    # Предмет на рынке
+    MarketItem:
+      type: object
+      required:
+        - id
+        - item_id
+        - seller_id
+        - price
+        - currency
+        - listed_at
+        - expires_at
+        - status
+      description: |
+        Предмет на рынке.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> Рынки
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор листинга
+          example: "ee0e8400-e29b-41d4-a716-446655440001"
+        item_id:
+          type: string
+          format: uuid
+          description: Идентификатор предмета
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        seller_id:
+          type: string
+          format: uuid
+          description: Идентификатор продавца
+          example: "ff0e8400-e29b-41d4-a716-446655440002"
+        price:
+          type: number
+          format: float
+          minimum: 0
+          description: Цена предмета
+          example: 5000.0
+        currency:
+          type: string
+          description: Валюта (credits, eddies и т.д.)
+          example: "credits"
+        listed_at:
+          type: string
+          format: date-time
+          description: Дата выставления на рынок
+          example: "2025-11-03T20:50:00Z"
+        expires_at:
+          type: string
+          format: date-time
+          description: Дата истечения листинга
+          example: "2025-11-10T20:50:00Z"
+        status:
+          type: string
+          enum: [active, sold, expired, cancelled]
+          description: Статус листинга
+          example: "active"
+
+    # Результат выставления на рынок
+    ListingResult:
+      type: object
+      required:
+        - listing_id
+        - expiration_time
+      description: |
+        Результат выставления предмета на рынок.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> Рынки
+      properties:
+        listing_id:
+          type: string
+          format: uuid
+          description: Идентификатор листинга
+          example: "ee0e8400-e29b-41d4-a716-446655440001"
+        expiration_time:
+          type: string
+          format: date-time
+          description: Время истечения листинга
+          example: "2025-11-10T20:50:00Z"
+
+    # Аукцион
+    Auction:
+      type: object
+      required:
+        - id
+        - item_id
+        - seller_id
+        - starting_price
+        - reserve_price
+        - duration
+        - format
+        - status
+        - created_at
+      description: |
+        Аукцион предмета.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> Аукционы
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор аукциона
+          example: "110e8400-e29b-41d4-a716-446655440001"
+        item_id:
+          type: string
+          format: uuid
+          description: Идентификатор предмета
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        seller_id:
+          type: string
+          format: uuid
+          description: Идентификатор продавца
+          example: "ff0e8400-e29b-41d4-a716-446655440002"
+        starting_price:
+          type: number
+          format: float
+          minimum: 0
+          description: Стартовая цена
+          example: 10000.0
+        reserve_price:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Резервная цена (опционально)
+          example: 15000.0
+        current_price:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0
+          description: Текущая цена (после ставок)
+          example: 12000.0
+        duration:
+          type: integer
+          minimum: 1
+          description: Длительность аукциона в часах
+          example: 24
+        format:
+          type: string
+          enum: [english, dutch, sealed_bid]
+          description: Формат аукциона
+          example: "english"
+        status:
+          type: string
+          enum: [active, closed, cancelled]
+          description: Статус аукциона
+          example: "active"
+        created_at:
+          type: string
+          format: date-time
+          description: Дата создания
+          example: "2025-11-03T20:50:00Z"
+        ends_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Дата окончания
+          example: "2025-11-04T20:50:00Z"
+        leading_bidder_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Идентификатор текущего лидера
+          example: "220e8400-e29b-41d4-a716-446655440003"
+
+    # Результат ставки
+    BidResult:
+      type: object
+      required:
+        - bid_id
+        - current_price
+        - is_leading
+      description: |
+        Результат ставки на аукционе.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> Аукционы
+      properties:
+        bid_id:
+          type: string
+          format: uuid
+          description: Идентификатор ставки
+          example: "330e8400-e29b-41d4-a716-446655440001"
+        current_price:
+          type: number
+          format: float
+          minimum: 0
+          description: Текущая цена после ставки
+          example: 12500.0
+        is_leading:
+          type: boolean
+          description: Является ли ставка лидирующей
+          example: true
+
+    # Заказная сборка
+    CustomOrder:
+      type: object
+      required:
+        - id
+        - client_id
+        - specification
+        - budget
+        - deadline
+        - status
+        - created_at
+      description: |
+        Заказная сборка предмета.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> Заказные сборки
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор заказа
+          example: "440e8400-e29b-41d4-a716-446655440001"
+        client_id:
+          type: string
+          format: uuid
+          description: Идентификатор клиента
+          example: "550e8400-e29b-41d4-a716-446655440004"
+        executor_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Идентификатор исполнителя (если принят)
+          example: "660e8400-e29b-41d4-a716-446655440005"
+        specification:
+          type: object
+          description: Спецификация заказа (бренд, диапазоны статов, аффиксы, требования)
+          additionalProperties: true
+          example: {}
+        budget:
+          type: number
+          format: float
+          minimum: 0
+          description: Бюджет заказа
+          example: 50000.0
+        deadline:
+          type: string
+          format: date-time
+          description: Крайний срок выполнения
+          example: "2025-11-10T20:50:00Z"
+        requirements:
+          type: object
+          nullable: true
+          description: Дополнительные требования (лицензии, навыки, репутация)
+          additionalProperties: true
+        status:
+          type: string
+          enum: [pending, in_progress, completed, cancelled, failed]
+          description: Статус заказа
+          example: "pending"
+        created_at:
+          type: string
+          format: date-time
+          description: Дата создания
+          example: "2025-11-03T20:50:00Z"
+        accepted_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Дата принятия исполнителем
+          example: null
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Дата выполнения
+          example: null
+
+    # Результат выполнения заказа
+    FulfillResult:
+      type: object
+      required:
+        - order
+        - rewards
+        - penalties
+      description: |
+        Результат выполнения заказной сборки.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> Заказные сборки
+      properties:
+        order:
+          $ref: '#/components/schemas/CustomOrder'
+          description: Обновленный заказ
+        rewards:
+          type: object
+          description: Награды за выполнение (оплата, бонусы, репутация)
+          additionalProperties: true
+          example: {}
+        penalties:
+          type: object
+          description: Штрафы при нарушении условий (просрочка, качество)
+          additionalProperties: true
+          example: {}
+

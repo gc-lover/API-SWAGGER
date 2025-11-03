@@ -1,0 +1,155 @@
+# Equipment Matrix API - Объединенные модели предметов
+# Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md (v1.0.0)
+# Задание: API-SWAGGER/tasks/active/queue/task-002-equipment-matrix-api.md
+# Task ID: API-TASK-002
+
+openapi: 3.0.3
+info:
+  title: Equipment Matrix - Items
+  version: 1.0.0
+
+components:
+  schemas:
+    # Сгенерированный предмет
+    GeneratedItem:
+      type: object
+      required:
+        - base
+        - stats_core
+      description: |
+        Сгенерированный предмет со всеми характеристиками.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> GeneratedItem (ItemBase + все Stats)
+      properties:
+        base:
+          $ref: '../equipment-matrix-models.yaml#/components/schemas/ItemBase'
+          description: Базовая информация о предмете
+        stats_core:
+          $ref: '../equipment-matrix-models.yaml#/components/schemas/StatsCore'
+          description: Общие характеристики
+        stats_extended:
+          $ref: '../equipment-matrix-models.yaml#/components/schemas/StatsExtended'
+          nullable: true
+          description: Расширенные характеристики
+        weapon_stats:
+          $ref: '../equipment-matrix-stats.yaml#/components/schemas/WeaponStats'
+          nullable: true
+          description: Характеристики оружия (если type=weapon)
+        armor_stats:
+          $ref: '../equipment-matrix-stats.yaml#/components/schemas/ArmorStats'
+          nullable: true
+          description: Характеристики брони (если type=armor)
+        implant_stats:
+          $ref: '../equipment-matrix-stats.yaml#/components/schemas/ImplantStats'
+          nullable: true
+          description: Характеристики импланта (если type=implant)
+        cyberdeck_stats:
+          $ref: '../equipment-matrix-stats.yaml#/components/schemas/CyberdeckStats'
+          nullable: true
+          description: Характеристики кибердека (если type=cyberdeck)
+        mod_stats:
+          $ref: '../equipment-matrix-stats.yaml#/components/schemas/ModStats'
+          nullable: true
+          description: Характеристики мода (если type=mod)
+        affixes:
+          type: array
+          items:
+            $ref: '../equipment-matrix-brands-affixes.yaml#/components/schemas/Affix'
+          description: Список аффиксов предмета
+          example: []
+
+    # Полная информация о предмете
+    Item:
+      type: object
+      required:
+        - generated_item
+        - owner_id
+        - status
+      description: |
+        Полная информация о предмете с метаданными.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> Item (GeneratedItem + метаданные)
+      properties:
+        generated_item:
+          $ref: '#/components/schemas/GeneratedItem'
+          description: Сгенерированный предмет
+        owner_id:
+          type: string
+          format: uuid
+          description: Идентификатор владельца
+          example: "550e8400-e29b-41d4-a716-446655440004"
+        status:
+          type: string
+          enum: [inventory, equipped, listed, auction, in_craft, in_reroll]
+          description: Статус предмета
+          example: "inventory"
+        equipped_slot:
+          type: string
+          nullable: true
+          description: Слот экипировки (если equipped)
+          example: "weapon_primary"
+        modifications:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Идентификаторы установленных модов
+          example: []
+        reroll_count:
+          type: integer
+          minimum: 0
+          description: Количество рероллов
+          example: 2
+        last_modified:
+          type: string
+          format: date-time
+          description: Дата последнего изменения
+          example: "2025-11-03T20:45:00Z"
+
+    # Результат валидации
+    ValidationResult:
+      type: object
+      required:
+        - can_generate
+      description: |
+        Результат валидации генерации/крафта/реролла.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> Валидация
+      properties:
+        can_generate:
+          type: boolean
+          description: Можно ли генерировать/крафтить/рероллить
+          example: true
+        can_craft:
+          type: boolean
+          nullable: true
+          description: Можно ли крафтить (для валидации крафта)
+          example: true
+        can_reroll:
+          type: boolean
+          nullable: true
+          description: Можно ли рероллить (для валидации реролла)
+          example: true
+        reasons:
+          type: array
+          items:
+            type: string
+          description: Причины отказа (если can_generate/can_craft/can_reroll=false)
+          example: []
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Предупреждения (риски, ограничения)
+          example: []
+        estimated_quality:
+          type: string
+          enum: [common, uncommon, rare, epic, legendary]
+          nullable: true
+          description: Оценка качества результата (для валидации крафта)
+          example: "rare"
+        estimated_risks:
+          type: array
+          items:
+            type: string
+          nullable: true
+          description: Оценка рисков (для валидации реролла)
+          example: ["downgrade", "break"]
+

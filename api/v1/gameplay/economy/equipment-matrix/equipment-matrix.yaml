@@ -1,0 +1,179 @@
+# Equipment Matrix API - Главный файл
+# Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md (v1.0.0)
+# Задание: API-SWAGGER/tasks/active/queue/task-002-equipment-matrix-api.md
+# Task ID: API-TASK-002
+
+openapi: 3.0.3
+info:
+  title: Equipment Matrix API
+  version: 1.0.0
+  description: |
+    # API для процедурной матрицы снаряжения
+    
+    ## Описание
+    
+    Процедурная матрица снаряжения определяет систему генерации и управления предметами 
+    (оружие, броня, импланты, кибердеки, моды). API предоставляет функционал для процедурной 
+    генерации, управления брендами и аффиксами, крафта и реролла, рынков и аукционов.
+    
+    ## Источники
+    
+    - Оригинальный документ: `.BRAIN/02-gameplay/economy/equipment-matrix.md`
+    - Версия документа: v1.0.0
+    - Задание: `API-SWAGGER/tasks/active/queue/task-002-equipment-matrix-api.md`
+    - Task ID: API-TASK-002
+    
+    ## Структура API
+    
+    API разбито на несколько файлов для удобства поддержки:
+    - Модели данных: `equipment-matrix-models.yaml`, `equipment-matrix-stats.yaml`, `equipment-matrix-brands-affixes.yaml`, `equipment-matrix-generation.yaml`, `equipment-matrix-markets.yaml`, `equipment-matrix-items.yaml`
+    - Request/Response: `equipment-matrix-requests.yaml`
+    - Endpoints генерации: `equipment-matrix-generation-endpoints.yaml`
+    - Endpoints брендов: `equipment-matrix-brands-endpoints.yaml`
+    - Endpoints крафта: `equipment-matrix-crafting-endpoints.yaml`
+    - Endpoints рынков: `equipment-matrix-markets-endpoints.yaml`
+    
+    ## Комментарии для исполнителя
+    
+    - Все данные хранятся в БД PostgreSQL
+    - Валидация выполняется на бекенде
+    - Процедурная генерация использует сид для воспроизводимости
+    - Все операции проверяют совместимость с имплантами, энергобюджет и киберпсихоз-риск
+    - Все операции проверяют лимиты и caps по статам
+    - Все операции проверяют запрещенные комбинации аффиксов/сигнатур
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  # Все endpoints определены в отдельных файлах через $ref
+  # См. equipment-matrix-generation-endpoints.yaml, equipment-matrix-brands-endpoints.yaml и т.д.
+
+components:
+  # Импорт схем из отдельных файлов
+  schemas:
+    # Базовые модели
+    ItemBase:
+      $ref: './equipment-matrix-models.yaml#/components/schemas/ItemBase'
+    StatsCore:
+      $ref: './equipment-matrix-models.yaml#/components/schemas/StatsCore'
+    StatsExtended:
+      $ref: './equipment-matrix-models.yaml#/components/schemas/StatsExtended'
+    
+    # Статы по типам
+    WeaponStats:
+      $ref: './equipment-matrix-stats.yaml#/components/schemas/WeaponStats'
+    ArmorStats:
+      $ref: './equipment-matrix-stats.yaml#/components/schemas/ArmorStats'
+    ImplantStats:
+      $ref: './equipment-matrix-stats.yaml#/components/schemas/ImplantStats'
+    CyberdeckStats:
+      $ref: './equipment-matrix-stats.yaml#/components/schemas/CyberdeckStats'
+    ModStats:
+      $ref: './equipment-matrix-stats.yaml#/components/schemas/ModStats'
+    
+    # Бренды и аффиксы
+    Brand:
+      $ref: './equipment-matrix-brands-affixes.yaml#/components/schemas/Brand'
+    SignatureBonuses:
+      $ref: './equipment-matrix-brands-affixes.yaml#/components/schemas/SignatureBonuses'
+    Affix:
+      $ref: './equipment-matrix-brands-affixes.yaml#/components/schemas/Affix'
+    AffixPool:
+      $ref: './equipment-matrix-brands-affixes.yaml#/components/schemas/AffixPool'
+    
+    # Генерация и крафт
+    GenerationRules:
+      $ref: './equipment-matrix-generation.yaml#/components/schemas/GenerationRules'
+    RarityWeights:
+      $ref: './equipment-matrix-generation.yaml#/components/schemas/RarityWeights'
+    RarityCalculation:
+      $ref: './equipment-matrix-generation.yaml#/components/schemas/RarityCalculation'
+    CraftingRecipe:
+      $ref: './equipment-matrix-generation.yaml#/components/schemas/CraftingRecipe'
+    CraftResult:
+      $ref: './equipment-matrix-generation.yaml#/components/schemas/CraftResult'
+    RerollHistory:
+      $ref: './equipment-matrix-generation.yaml#/components/schemas/RerollHistory'
+    RerollResult:
+      $ref: './equipment-matrix-generation.yaml#/components/schemas/RerollResult'
+    
+    # Рынки
+    MarketItem:
+      $ref: './equipment-matrix-markets.yaml#/components/schemas/MarketItem'
+    ListingResult:
+      $ref: './equipment-matrix-markets.yaml#/components/schemas/ListingResult'
+    Auction:
+      $ref: './equipment-matrix-markets.yaml#/components/schemas/Auction'
+    BidResult:
+      $ref: './equipment-matrix-markets.yaml#/components/schemas/BidResult'
+    CustomOrder:
+      $ref: './equipment-matrix-markets.yaml#/components/schemas/CustomOrder'
+    FulfillResult:
+      $ref: './equipment-matrix-markets.yaml#/components/schemas/FulfillResult'
+    
+    # Объединенные модели
+    GeneratedItem:
+      $ref: './equipment-matrix-items.yaml#/components/schemas/GeneratedItem'
+    Item:
+      $ref: './equipment-matrix-items.yaml#/components/schemas/Item'
+    ValidationResult:
+      $ref: './equipment-matrix-items.yaml#/components/schemas/ValidationResult'
+    
+    # Request/Response модели
+    GenerateItemRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/GenerateItemRequest'
+    GenerateBatchRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/GenerateBatchRequest'
+    ValidateGenerationRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/ValidateGenerationRequest'
+    CreateBrandRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/CreateBrandRequest'
+    UpdateBrandRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/UpdateBrandRequest'
+    CraftItemRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/CraftItemRequest'
+    ValidateCraftRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/ValidateCraftRequest'
+    RerollRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/RerollRequest'
+    ValidateRerollRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/ValidateRerollRequest'
+    ListItemRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/ListItemRequest'
+    CreateAuctionRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/CreateAuctionRequest'
+    PlaceBidRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/PlaceBidRequest'
+    CreateCustomOrderRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/CreateCustomOrderRequest'
+    AcceptOrderRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/AcceptOrderRequest'
+    FulfillOrderRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/FulfillOrderRequest'
+    CalculateRarityRequest:
+      $ref: './equipment-matrix-requests.yaml#/components/schemas/CalculateRarityRequest'
+  
+  # Импорт стандартных ответов
+  responses:
+    BadRequest:
+      $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+    Unauthorized:
+      $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+    Forbidden:
+      $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
+    NotFound:
+      $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+    Conflict:
+      $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
+    UnprocessableEntity:
+      $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+    InternalServerError:
+      $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+  
+  # Импорт схем безопасности
+  securitySchemes:
+    BearerAuth:
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+

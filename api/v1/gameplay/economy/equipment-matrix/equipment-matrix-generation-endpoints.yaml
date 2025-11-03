@@ -1,0 +1,244 @@
+# Equipment Matrix API - Endpoints генерации
+# Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md (v1.0.0)
+# Раздел: Endpoints для генерации предметов и правил генерации
+
+openapi: 3.0.3
+info:
+  title: Equipment Matrix - Generation Endpoints
+  version: 1.0.0
+  description: |
+    Endpoints для генерации предметов и управления правилами генерации.
+    Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md (v1.0.0)
+
+paths:
+  # Генерация предметов
+  /gameplay/economy/items/generate:
+    post:
+      summary: Сгенерировать предмет процедурно
+      description: |
+        Генерирует предмет процедурно по алгоритму из документа.
+        Использует сид для воспроизводимости результатов.
+        Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md -> Алгоритм генерации (7 шагов)
+      operationId: generateItem
+      tags:
+        - Items
+        - Generation
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../equipment-matrix-requests.yaml#/components/schemas/GenerateItemRequest'
+            examples:
+              generate_weapon:
+                summary: Сгенерировать оружие
+                value:
+                  type: "weapon"
+                  subtype: "pistol"
+                  zone_tag: "downtown"
+                  rarity_hint: "rare"
+      responses:
+        '201':
+          description: Предмет успешно сгенерирован
+          content:
+            application/json:
+              schema:
+                $ref: '../equipment-matrix-items.yaml#/components/schemas/GeneratedItem'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '403':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
+        '409':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  /gameplay/economy/items/generate/batch:
+    post:
+      summary: Сгенерировать несколько предметов
+      description: Генерирует несколько предметов процедурно.
+      operationId: generateBatch
+      tags:
+        - Items
+        - Generation
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../equipment-matrix-requests.yaml#/components/schemas/GenerateBatchRequest'
+      responses:
+        '201':
+          description: Предметы успешно сгенерированы
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '../equipment-matrix-items.yaml#/components/schemas/GeneratedItem'
+                  meta:
+                    $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  /gameplay/economy/items/{item_id}:
+    get:
+      summary: Получить информацию о предмете
+      description: Возвращает полную информацию о предмете.
+      operationId: getItem
+      tags:
+        - Items
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: item_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор предмета
+      responses:
+        '200':
+          description: Информация о предмете
+          content:
+            application/json:
+              schema:
+                $ref: '../equipment-matrix-items.yaml#/components/schemas/Item'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  /gameplay/economy/items/generate/validate:
+    post:
+      summary: Валидировать возможность генерации предмета
+      description: Проверяет возможность генерации предмета с заданными параметрами.
+      operationId: validateGeneration
+      tags:
+        - Items
+        - Generation
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../equipment-matrix-requests.yaml#/components/schemas/ValidateGenerationRequest'
+      responses:
+        '200':
+          description: Результат валидации
+          content:
+            application/json:
+              schema:
+                $ref: '../equipment-matrix-items.yaml#/components/schemas/ValidationResult'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  # Правила генерации
+  /gameplay/economy/generation-rules:
+    get:
+      summary: Получить правила генерации
+      description: Возвращает правила генерации для контекста (зона, лига).
+      operationId: getGenerationRules
+      tags:
+        - Generation
+        - Rules
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: zone_tag
+          in: query
+          schema:
+            type: string
+          description: Тег зоны
+          example: "downtown"
+        - name: league_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор лиги
+          example: "770e8800-e29b-41d4-a716-446655440002"
+      responses:
+        '200':
+          description: Правила генерации
+          content:
+            application/json:
+              schema:
+                $ref: '../equipment-matrix-generation.yaml#/components/schemas/GenerationRules'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  /gameplay/economy/generation-rules/rarity-weights:
+    get:
+      summary: Получить веса редкостей по зонам
+      description: Возвращает веса редкостей для указанной зоны.
+      operationId: getRarityWeights
+      tags:
+        - Generation
+        - Rules
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: zone_tag
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Тег зоны
+          example: "downtown"
+      responses:
+        '200':
+          description: Веса редкостей для зоны
+          content:
+            application/json:
+              schema:
+                $ref: '../equipment-matrix-generation.yaml#/components/schemas/RarityWeights'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  /gameplay/economy/generation-rules/calculate-rarity:
+    post:
+      summary: Рассчитать редкость для зоны с учетом модификаторов
+      description: Рассчитывает редкость для зоны с учетом модификаторов (PvP, экстракт, лига, фракция, события).
+      operationId: calculateRarity
+      tags:
+        - Generation
+        - Rules
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../equipment-matrix-requests.yaml#/components/schemas/CalculateRarityRequest'
+      responses:
+        '200':
+          description: Расчет редкости
+          content:
+            application/json:
+              schema:
+                $ref: '../equipment-matrix-generation.yaml#/components/schemas/RarityCalculation'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '500':
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+

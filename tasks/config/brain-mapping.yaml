@@ -26,13 +26,14 @@ mappings:
     description: "Создание API спецификации для системы персональных NPC"
 
   - source: ".BRAIN/02-gameplay/economy/equipment-matrix.md"
-    target: "api/v1/gameplay/economy/equipment-matrix.yaml"
+    target: "api/v1/gameplay/economy/equipment-matrix/"
     task_id: "API-TASK-002"
-    task_file: "tasks/active/queue/task-002-equipment-matrix-api.md"
-    status: "queued"
+    task_file: "tasks/completed/2025-01-25/task-002-equipment-matrix-api.md"
+    status: "completed"
     created: "2025-11-03 20:40"
     version: "1.0.0"
-    updated: "2025-11-03 20:40"
+    updated: "2025-01-25"
+    completed: "2025-01-25"
     description: "Создание API спецификации для процедурной матрицы снаряжения"
 
   - source: ".BRAIN/02-gameplay/combat/combat-implants-limits.md"
@@ -204,6 +205,16 @@ mappings:
     version: "1.1.0"
     updated: "2025-11-03 21:17"
     description: "Создание API спецификации для типов имплантов"
+
+  - source: ".BRAIN/02-gameplay/economy/economy-world-impact.md"
+    target: "api/v1/gameplay/economy/world-impact.yaml"
+    task_id: "API-TASK-020"
+    task_file: "tasks/active/queue/task-020-economy-world-impact-api.md"
+    status: "queued"
+    created: "2025-11-03 21:18"
+    version: "1.0.0"
+    updated: "2025-11-03 21:18"
+    description: "Создание API спецификации для влияния экономики на игровой мир"
 
 # Примеры записей:
 #
