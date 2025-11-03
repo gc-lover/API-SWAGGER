@@ -74,6 +74,56 @@ mappings:
     updated: "2025-11-03 21:02"
     description: "Создание API спецификации для системы фракций (корпорации, банды, организации)"
 
+  - source: ".BRAIN/03-lore/locations/locations-overview.md"
+    target: "api/v1/lore/locations.yaml"
+    task_id: "API-TASK-007"
+    task_file: "tasks/active/queue/task-007-locations-api.md"
+    status: "queued"
+    created: "2025-11-03 21:03"
+    version: "1.2.0"
+    updated: "2025-11-03 21:03"
+    description: "Создание API спецификации для системы локаций (города, зоны, территории)"
+
+  - source: ".BRAIN/03-lore/characters/characters-overview.md"
+    target: "api/v1/lore/characters.yaml"
+    task_id: "API-TASK-008"
+    task_file: "tasks/active/queue/task-008-characters-api.md"
+    status: "queued"
+    created: "2025-11-03 21:04"
+    version: "1.2.0"
+    updated: "2025-11-03 21:04"
+    description: "Создание API спецификации для системы персонажей (NPC, категории, роли)"
+
+  - source: ".BRAIN/02-gameplay/social/relationships-system.md"
+    target: "api/v1/gameplay/social/relationships.yaml"
+    task_id: "API-TASK-009"
+    task_file: "tasks/active/queue/task-009-relationships-system-api.md"
+    status: "queued"
+    created: "2025-11-03 21:05"
+    version: "1.2.0"
+    updated: "2025-11-03 21:05"
+    description: "Создание API спецификации для системы отношений и репутации (игроки, кланы, фракции)"
+
+  - source: ".BRAIN/02-gameplay/economy/economy-trading.md"
+    target: "api/v1/gameplay/economy/trading.yaml"
+    task_id: "API-TASK-010"
+    task_file: "tasks/active/queue/task-010-economy-trading-api.md"
+    status: "queued"
+    created: "2025-11-03 21:06"
+    version: null
+    updated: "2025-11-03 21:06"
+    description: "Создание API спецификации для системы торговли (рынки, фракции, маршруты)"
+
+  - source: ".BRAIN/02-gameplay/combat/combat-shooting.md"
+    target: "api/v1/gameplay/combat/shooting.yaml"
+    task_id: "API-TASK-011"
+    task_file: "tasks/active/queue/task-011-combat-shooting-api.md"
+    status: "queued"
+    created: "2025-11-03 21:07"
+    version: "1.1.0"
+    updated: "2025-11-03 21:07"
+    description: "Создание API спецификации для механик стрельбы и основ боя"
+
 # Примеры записей:
 #
 # mappings:
