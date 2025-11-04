@@ -1,0 +1,313 @@
+# Character Creation API - Модели данных
+# Источник: .BRAIN/05-technical/ui-character-creation.md (v1.1.0)
+# Задание: API-SWAGGER/tasks/active/queue/task-026-character-creation-api.md
+# Task ID: API-TASK-026
+
+openapi: 3.0.3
+info:
+  title: Character Creation API - Models
+  version: 1.0.0
+  description: |
+    Модели данных для API начального интерфейса: аутентификация и создание персонажей.
+    Используется через $ref в главном файле character-creation.yaml.
+
+components:
+  schemas:
+    # Request модели
+    RegisterRequest:
+      type: object
+      required:
+        - email
+        - username
+        - password
+        - password_confirm
+        - terms_accepted
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email адрес (должен быть уникальным)
+          example: "player@example.com"
+        username:
+          type: string
+          minLength: 3
+          maxLength: 20
+          pattern: '^[a-zA-Z0-9_]+$'
+          description: Логин пользователя (3-20 символов, буквы, цифры, подчеркивания, уникальный)
+          example: "player123"
+        password:
+          type: string
+          format: password
+          minLength: 8
+          description: Пароль (минимум 8 символов, буквы, цифры, спецсимволы)
+          example: "SecurePass123!"
+        password_confirm:
+          type: string
+          format: password
+          description: Подтверждение пароля (должно совпадать с password)
+          example: "SecurePass123!"
+        terms_accepted:
+          type: boolean
+          description: Согласие с условиями использования (обязательно true)
+          example: true
+    
+    LoginRequest:
+      type: object
+      required:
+        - login
+        - password
+      properties:
+        login:
+          type: string
+          description: Email или username для входа
+          example: "player@example.com"
+        password:
+          type: string
+          format: password
+          description: Пароль
+          example: "SecurePass123!"
+    
+    LoginResponse:
+      type: object
+      required:
+        - token
+        - account_id
+        - expires_at
+      properties:
+        token:
+          type: string
+          description: JWT токен для аутентификации
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        account_id:
+          type: string
+          format: uuid
+          description: Идентификатор аккаунта
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        expires_at:
+          type: string
+          format: date-time
+          description: Дата истечения токена
+          example: "2025-01-27T20:00:00Z"
+    
+    CreateCharacterRequest:
+      type: object
+      required:
+        - name
+        - class
+        - gender
+        - origin
+        - city_id
+        - appearance
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 20
+          pattern: '^[a-zA-Zа-яА-Я0-9\\s\\-]+$'
+          description: Имя персонажа (3-20 символов, буквы, цифры, пробелы, дефисы)
+          example: "John Doe"
+        class:
+          type: string
+          enum: [Solo, Netrunner, Fixer, Rockerboy, Media, Nomad, Corpo, Lawman, Medtech, Techie, Politician, Trader, Teacher]
+          description: Класс персонажа
+          example: "Solo"
+        subclass:
+          type: string
+          nullable: true
+          description: Подкласс персонажа (должен соответствовать выбранному классу)
+          example: null
+        gender:
+          type: string
+          enum: [male, female, other]
+          description: Пол персонажа
+          example: "male"
+        origin:
+          type: string
+          enum: [street_kid, corpo, nomad]
+          description: Происхождение персонажа
+          example: "street_kid"
+        faction_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Идентификатор фракции (должна быть доступна для выбранного происхождения)
+          example: null
+        city_id:
+          type: string
+          format: uuid
+          description: Идентификатор стартового города (должен быть доступен для выбранной фракции)
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        appearance:
+          $ref: './character-creation-reference-models.yaml#/components/schemas/GameCharacterAppearance'
+    
+    # Основные модели данных
+    Account:
+      type: object
+      required:
+        - id
+        - email
+        - username
+        - created_at
+        - is_active
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор аккаунта
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        email:
+          type: string
+          format: email
+          description: Email адрес
+          example: "player@example.com"
+        username:
+          type: string
+          description: Логин пользователя
+          example: "player123"
+        created_at:
+          type: string
+          format: date-time
+          description: Дата создания аккаунта
+          example: "2025-01-27T12:00:00Z"
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+          description: Дата последнего входа
+          example: "2025-01-27T12:00:00Z"
+        is_active:
+          type: boolean
+          description: Активен ли аккаунт
+          example: true
+    
+    GameCharacter:
+      type: object
+      required:
+        - id
+        - account_id
+        - name
+        - class
+        - gender
+        - origin
+        - city_id
+        - city_name
+        - appearance
+        - level
+        - created_at
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор персонажа
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        account_id:
+          type: string
+          format: uuid
+          description: Идентификатор аккаунта владельца
+          example: "550e8400-e29b-41d4-a716-446655440001"
+        name:
+          type: string
+          description: Имя персонажа
+          example: "John Doe"
+        class:
+          type: string
+          enum: [Solo, Netrunner, Fixer, Rockerboy, Media, Nomad, Corpo, Lawman, Medtech, Techie, Politician, Trader, Teacher]
+          description: Класс персонажа
+          example: "Solo"
+        subclass:
+          type: string
+          nullable: true
+          description: Подкласс персонажа
+          example: null
+        gender:
+          type: string
+          enum: [male, female, other]
+          description: Пол персонажа
+          example: "male"
+        origin:
+          type: string
+          enum: [street_kid, corpo, nomad]
+          description: Происхождение персонажа
+          example: "street_kid"
+        faction_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Идентификатор фракции
+          example: null
+        faction_name:
+          type: string
+          nullable: true
+          description: Название фракции
+          example: null
+        city_id:
+          type: string
+          format: uuid
+          description: Идентификатор стартового города
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        city_name:
+          type: string
+          description: Название стартового города
+          example: "Night City"
+        appearance:
+          $ref: './character-creation-reference-models.yaml#/components/schemas/GameCharacterAppearance'
+        level:
+          type: integer
+          minimum: 1
+          default: 1
+          description: Уровень персонажа
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          description: Дата создания персонажа
+          example: "2025-01-27T12:00:00Z"
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+          description: Дата последнего входа в игру
+          example: "2025-01-27T12:00:00Z"
+    
+    GameCharacterSummary:
+      type: object
+      required:
+        - id
+        - name
+        - class
+        - level
+        - city_name
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор персонажа
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        name:
+          type: string
+          description: Имя персонажа
+          example: "John Doe"
+        class:
+          type: string
+          description: Класс персонажа
+          example: "Solo"
+        level:
+          type: integer
+          description: Уровень персонажа
+          example: 5
+        faction_name:
+          type: string
+          nullable: true
+          description: Название фракции
+          example: "Arasaka"
+        city_name:
+          type: string
+          description: Название города
+          example: "Night City"
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+          description: Дата последнего входа в игру
+          example: "2025-01-27T10:00:00Z"
+

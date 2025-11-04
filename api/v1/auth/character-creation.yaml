@@ -1,0 +1,375 @@
+# Character Creation API
+# Источник: .BRAIN/05-technical/ui-character-creation.md (v1.1.0)
+# Task ID: API-TASK-026
+
+openapi: 3.0.3
+info:
+  title: Character Creation API
+  version: 1.0.0
+  description: |
+    API для начального интерфейса: аутентификация и создание персонажей.
+    Данные в БД PostgreSQL, валидация на бекенде.
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  # Аутентификация
+  /auth/register:
+    post:
+      summary: Регистрация нового аккаунта
+      description: Создает новый аккаунт игрока. Проверяет уникальность email и username.
+      operationId: register
+      tags:
+        - Auth
+        - Registration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+            examples:
+              valid_registration:
+                summary: Валидная регистрация
+                value:
+                  email: "player@example.com"
+                  username: "player123"
+                  password: "SecurePass123!"
+                  password_confirm: "SecurePass123!"
+                  terms_accepted: true
+      responses:
+        '201':
+          description: Аккаунт успешно создан
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - account_id
+                  - message
+                properties:
+                  account_id:
+                    type: string
+                    format: uuid
+                    description: Уникальный идентификатор созданного аккаунта
+                    example: "550e8400-e29b-41d4-a716-446655440000"
+                  message:
+                    type: string
+                    description: Сообщение об успешной регистрации
+                    example: "Account created successfully"
+        '400':
+          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+        '409':
+          $ref: '../shared/common/responses.yaml#/components/responses/Conflict'
+      security: []
+  
+  /auth/login:
+    post:
+      summary: Вход в систему
+      description: Аутентификация игрока по email или username и паролю. Возвращает JWT токен.
+      operationId: login
+      tags:
+        - Auth
+        - Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Успешный вход
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+      security: []
+  
+  # Персонажи
+  /characters:
+    get:
+      summary: Список персонажей игрока
+      description: Получает список всех персонажей текущего аккаунта с краткой информацией.
+      operationId: listCharacters
+      tags:
+        - Characters
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Список персонажей
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - characters
+                  - max_characters
+                  - current_count
+                properties:
+                  characters:
+                    type: array
+                    description: Список персонажей
+                    items:
+                      $ref: '#/components/schemas/GameCharacterSummary'
+                  max_characters:
+                    type: integer
+                    description: Максимальное количество персонажей на аккаунт
+                    example: 5
+                  current_count:
+                    type: integer
+                    description: Текущее количество персонажей
+                    example: 2
+        '401':
+          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+    
+    post:
+      summary: Создание нового персонажа
+      description: Создает нового персонажа для текущего аккаунта. Проверяет лимит персонажей и доступность фракции/города.
+      operationId: createCharacter
+      tags:
+        - Characters
+        - Character Creation
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCharacterRequest'
+      responses:
+        '201':
+          description: Персонаж успешно создан
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - character
+                properties:
+                  character:
+                    $ref: '#/components/schemas/GameCharacter'
+        '400':
+          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+        '403':
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+        '409':
+          $ref: '../shared/common/responses.yaml#/components/responses/Conflict'
+  
+  /characters/{character_id}:
+    delete:
+      summary: Удаление персонажа
+      description: Удаляет персонажа текущего аккаунта. Необратимое удаление всех данных.
+      operationId: deleteCharacter
+      tags:
+        - Characters
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: character_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор персонажа для удаления
+          example: "550e8400-e29b-41d4-a716-446655440000"
+      responses:
+        '200':
+          description: Персонаж успешно удален
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    description: Сообщение об успешном удалении
+                    example: "Character deleted successfully"
+        '401':
+          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+  
+  # Справочные данные
+  /characters/classes:
+    get:
+      summary: Список доступных классов
+      description: Получает список всех доступных классов персонажей с описаниями.
+      operationId: getCharacterClasses
+      tags:
+        - Characters
+        - Reference Data
+      responses:
+        '200':
+          description: Список классов
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - classes
+                properties:
+                  classes:
+                    type: array
+                    description: Список доступных классов
+                    items:
+                      $ref: '#/components/schemas/GameCharacterClass'
+        '500':
+          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+      security: []
+  
+  /characters/origins:
+    get:
+      summary: Список доступных происхождений
+      description: Получает список всех доступных происхождений с описаниями и доступными фракциями.
+      operationId: getCharacterOrigins
+      tags:
+        - Characters
+        - Reference Data
+      responses:
+        '200':
+          description: Список происхождений
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - origins
+                properties:
+                  origins:
+                    type: array
+                    description: Список доступных происхождений
+                    items:
+                      $ref: '#/components/schemas/GameCharacterOrigin'
+        '500':
+          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+      security: []
+  
+  /factions:
+    get:
+      summary: Список доступных фракций
+      description: Получает список всех доступных фракций. Может быть отфильтрован по происхождению.
+      operationId: getFactions
+      tags:
+        - Reference Data
+        - Factions
+      parameters:
+        - name: origin
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [street_kid, corpo, nomad]
+          description: Фильтр по происхождению (опционально)
+          example: "street_kid"
+      responses:
+        '200':
+          description: Список фракций
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - factions
+                properties:
+                  factions:
+                    type: array
+                    description: Список доступных фракций
+                    items:
+                      $ref: '#/components/schemas/Faction'
+        '400':
+          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+        '500':
+          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+      security: []
+  
+  /locations/cities:
+    get:
+      summary: Список доступных городов
+      description: Получает список всех доступных городов. Может быть отфильтрован по фракции и региону.
+      operationId: getCities
+      tags:
+        - Reference Data
+        - Locations
+      parameters:
+        - name: faction_id
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+          description: Фильтр по фракции (опционально)
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        - name: region
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Фильтр по региону/серверу (опционально)
+          example: "EU"
+      responses:
+        '200':
+          description: Список городов
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - cities
+                properties:
+                  cities:
+                    type: array
+                    description: Список доступных городов
+                    items:
+                      $ref: '#/components/schemas/City'
+        '400':
+          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+        '500':
+          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+      security: []
+
+components:
+  schemas:
+    RegisterRequest:
+      $ref: './character-creation-models.yaml#/components/schemas/RegisterRequest'
+    LoginRequest:
+      $ref: './character-creation-models.yaml#/components/schemas/LoginRequest'
+    LoginResponse:
+      $ref: './character-creation-models.yaml#/components/schemas/LoginResponse'
+    CreateCharacterRequest:
+      $ref: './character-creation-models.yaml#/components/schemas/CreateCharacterRequest'
+    Account:
+      $ref: './character-creation-models.yaml#/components/schemas/Account'
+    GameCharacter:
+      $ref: './character-creation-models.yaml#/components/schemas/GameCharacter'
+    GameCharacterSummary:
+      $ref: './character-creation-models.yaml#/components/schemas/GameCharacterSummary'
+    GameCharacterAppearance:
+      $ref: './character-creation-reference-models.yaml#/components/schemas/GameCharacterAppearance'
+    GameCharacterClass:
+      $ref: './character-creation-reference-models.yaml#/components/schemas/GameCharacterClass'
+    GameCharacterOrigin:
+      $ref: './character-creation-reference-models.yaml#/components/schemas/GameCharacterOrigin'
+    Faction:
+      $ref: './character-creation-reference-models.yaml#/components/schemas/Faction'
+    City:
+      $ref: './character-creation-reference-models.yaml#/components/schemas/City'
+  securitySchemes:
+    BearerAuth:
+      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+

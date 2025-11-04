@@ -74,19 +74,106 @@
 
 ### Q: Что делать, если файл превышает 400 строк?
 
-**A:** ОБЯЗАТЕЛЬНО разбей файл на несколько файлов:
-1. Определи логические группы endpoints и моделей
-2. Разбей по группам (например: CRUD, операции, управление, модели)
-3. Создай несколько файлов с именами:
-   - `resource-name.yaml` (главный файл с info, servers, ссылки)
-   - `resource-name-endpoints.yaml` (endpoints, до 400 строк)
-   - `resource-name-models.yaml` (модели данных, до 400 строк)
-   - `resource-name-operations.yaml` (специфичные операции, до 400 строк)
-4. Создай главный файл с `info`, `servers` и ссылками на остальные файлы через `$ref`
+**A:** ОБЯЗАТЕЛЬНО разбей файл на несколько файлов, но с учетом ограничений OpenAPI Generator:
+
+**КРИТИЧЕСКИ ВАЖНО:** OpenAPI Generator и стандарт OpenAPI 3.0 **НЕ ПОДДЕРЖИВАЮТ** `$ref` для paths (endpoints) из внешних файлов. Поэтому:
+
+1. **Paths (endpoints)** - ВСЕГДА должны быть в главном файле
+   - НЕЛЬЗЯ выносить endpoints в отдельные файлы через `$ref`
+   - Все endpoints должны быть в главном файле `resource-name.yaml`
+
+2. **Components** (schemas, responses, parameters) - МОЖНО выносить через `$ref`
+   - Можно выносить модели данных в `resource-name-models.yaml`
+   - Можно выносить request модели в `resource-name-requests.yaml`
+
+3. Правильная структура разбиения:
+   ```
+   resource-name.yaml          # Главный файл:
+                               # - info, servers
+                               # - ВСЕ paths (endpoints) - НЕ выносить!
+                               # - components с $ref на модели из других файлов
+   
+   resource-name-models.yaml   # Только components/schemas:
+                               # - Модели данных (response models)
+                               # - Использовать через $ref в главном файле
+   
+   resource-name-requests.yaml # Только components/schemas:
+                               # - Request модели
+                               # - Использовать через $ref в главном файле
+   ```
+
+4. Если главный файл с paths все еще превышает 400 строк:
+   - Сгруппируй endpoints логически с комментариями-разделителями
+   - Вынеси ВСЕ модели в отдельные файлы через `$ref`
+   - Используй структурированные комментарии для навигации:
+     ```yaml
+     paths:
+       # === CRUD операции ===
+       /resource:
+         get: ...
+         post: ...
+       
+       # === Специфичные операции ===
+       /resource/{id}/action:
+         post: ...
+     ```
+
 5. Создай README.md с описанием структуры разбиения
+
 6. **ВАЖНО:** Используй общие компоненты из `shared/common/` через `$ref`
+
 7. Убедись, что каждый файл не превышает 400 строк
-8. Проверь, что все связи между файлами работают через `$ref`
+
+8. Проверь, что все связи между файлами работают через `$ref` (только для components, не для paths)
+
+**Пример правильного разбиения:**
+```yaml
+# resource-name.yaml (главный файл)
+openapi: 3.0.3
+info: ...
+servers: ...
+paths:
+  # Все endpoints здесь - НЕ выносить через $ref!
+  /resource:
+    get: ...
+    post: ...
+components:
+  schemas:
+    ResourceModel:
+      $ref: './resource-name-models.yaml#/components/schemas/ResourceModel'
+    CreateRequest:
+      $ref: './resource-name-requests.yaml#/components/schemas/CreateRequest'
+```
+
+**Что делать, если главный файл с paths все еще превышает 400 строк?**
+
+1. **Вынеси ВСЕ модели в отдельные файлы:**
+   - Все response модели → `resource-name-models.yaml`
+   - Все request модели → `resource-name-requests.yaml`
+   - Все параметры → `resource-name-parameters.yaml` (если много)
+
+2. **Используй структурированные комментарии для группировки endpoints:**
+   ```yaml
+   paths:
+     # === CRUD операции ===
+     /resource:
+       get: ...
+       post: ...
+     
+     # === Специфичные операции ===
+     /resource/{id}/action:
+       post: ...
+     
+     # === Управление ===
+     /resource/{id}/manage:
+       put: ...
+   ```
+
+3. **Если файл все еще превышает 400 строк:**
+   - Это редкий случай, но возможно при очень большом количестве endpoints
+   - В таком случае нужно пересмотреть архитектуру API
+   - Возможно, стоит разделить функциональность на несколько API (например, по подсистемам)
+   - Или создать несколько версий API с разной функциональностью
 
 ---
 
