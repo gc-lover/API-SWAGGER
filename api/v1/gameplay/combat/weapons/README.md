@@ -29,3 +29,4 @@
 
 `.BRAIN/02-gameplay/combat/combat-weapon-classes-detailed.md` v1.0.0
 
+
