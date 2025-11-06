@@ -344,6 +344,127 @@ mappings:
       - "api/v1/gameplay/combat/shooting.yaml"
       - "api/v1/gameplay/combat/abilities.yaml"
 
+  # === СИСТЕМА ПРОКАЧКИ (Progression System) ===
+  
+  - source: ".BRAIN/02-gameplay/progression/classes-overview.md"
+    target: "api/v1/gameplay/progression/classes.yaml"
+    task_id: "API-TASK-048"
+    task_file: "tasks/active/queue/task-048-classes-overview-api.md"
+    status: "queued"
+    created: "2025-11-06 23:55"
+    version: "v1.0.0"
+    updated: "2025-11-06 23:55"
+    related_sources:
+      - ".BRAIN/02-gameplay/progression/classes-canon.md"
+      - ".BRAIN/02-gameplay/progression/classes-authored.md"
+      - ".BRAIN/02-gameplay/progression/classes-abilities.md"
+    related_targets:
+      - "api/v1/gameplay/progression/classes-canon.yaml"
+      - "api/v1/gameplay/progression/class-abilities.yaml"
+  
+  - source: ".BRAIN/02-gameplay/progression/classes-canon.md"
+    target: "api/v1/gameplay/progression/classes-canon.yaml"
+    task_id: "API-TASK-049"
+    task_file: "tasks/active/queue/task-049-classes-canon-api.md"
+    status: "queued"
+    created: "2025-11-07 00:00"
+    version: "v1.0.0"
+    updated: "2025-11-07 00:00"
+    related_sources:
+      - ".BRAIN/02-gameplay/progression/classes-overview.md"
+    related_targets:
+      - "api/v1/gameplay/progression/classes.yaml"
+  
+  - source: ".BRAIN/02-gameplay/progression/classes-abilities.md"
+    target: "api/v1/gameplay/progression/class-abilities.yaml"
+    task_id: "API-TASK-050"
+    task_file: "tasks/active/queue/task-050-classes-abilities-api.md"
+    status: "queued"
+    created: "2025-11-07 00:05"
+    version: "v1.0.0"
+    updated: "2025-11-07 00:05"
+    related_sources:
+      - ".BRAIN/02-gameplay/progression/classes-overview.md"
+      - ".BRAIN/02-gameplay/combat/combat-abilities.md"
+    related_targets:
+      - "api/v1/gameplay/progression/classes.yaml"
+      - "api/v1/gameplay/combat/abilities.yaml"
+  
+  - source: ".BRAIN/02-gameplay/progression/classes-authored.md"
+    target: "api/v1/gameplay/progression/classes-authored.yaml"
+    task_id: "API-TASK-051"
+    task_file: "tasks/active/queue/task-051-classes-authored-api.md"
+    status: "queued"
+    created: "2025-11-07 00:10"
+    version: "v1.0.0"
+    updated: "2025-11-07 00:10"
+    related_sources:
+      - ".BRAIN/02-gameplay/progression/classes-overview.md"
+    related_targets:
+      - "api/v1/gameplay/progression/classes.yaml"
+  
+  - source: ".BRAIN/02-gameplay/progression/classes-general-skills.md"
+    target: "api/v1/gameplay/progression/general-skills.yaml"
+    task_id: "API-TASK-052"
+    task_file: "tasks/active/queue/task-052-general-skills-api.md"
+    status: "queued"
+    created: "2025-11-07 00:15"
+    version: "v1.0.0"
+    updated: "2025-11-07 00:15"
+    related_sources:
+      - ".BRAIN/02-gameplay/progression/classes-overview.md"
+      - ".BRAIN/02-gameplay/progression/progression-attributes.md"
+    related_targets:
+      - "api/v1/gameplay/progression/classes.yaml"
+      - "api/v1/gameplay/progression/skills.yaml"
+  
+  - source: ".BRAIN/02-gameplay/progression/progression-skills.md"
+    target: "api/v1/gameplay/progression/skills.yaml"
+    task_id: "API-TASK-053"
+    task_file: "tasks/active/queue/task-053-progression-skills-api.md"
+    status: "queued"
+    created: "2025-11-07 00:20"
+    version: "draft"
+    updated: "2025-11-07 00:20"
+    related_sources:
+      - ".BRAIN/02-gameplay/progression/classes-overview.md"
+      - ".BRAIN/02-gameplay/progression/progression-attributes.md"
+    related_targets:
+      - "api/v1/gameplay/progression/classes.yaml"
+      - "api/v1/gameplay/progression/general-skills.yaml"
+  
+  - source: ".BRAIN/02-gameplay/progression/progression-perks.md"
+    target: "api/v1/gameplay/progression/perks.yaml"
+    task_id: "API-TASK-054"
+    task_file: "tasks/active/queue/task-054-perks-api.md"
+    status: "queued"
+    created: "2025-11-07 00:25"
+    version: "v1.0.0"
+    updated: "2025-11-07 00:25"
+    related_sources:
+      - ".BRAIN/02-gameplay/progression/classes-overview.md"
+      - ".BRAIN/02-gameplay/progression/classes-abilities.md"
+    related_targets:
+      - "api/v1/gameplay/progression/classes.yaml"
+      - "api/v1/gameplay/progression/skills.yaml"
+  
+  - source: ".BRAIN/02-gameplay/progression/progression-rebirth.md"
+    target: "api/v1/gameplay/progression/rebirth.yaml"
+    task_id: "API-TASK-055"
+    task_file: "tasks/active/queue/task-055-rebirth-api.md"
+    status: "queued"
+    created: "2025-11-07 00:30"
+    version: "v1.0.0"
+    updated: "2025-11-07 00:30"
+    related_sources:
+      - ".BRAIN/02-gameplay/progression/classes-overview.md"
+      - ".BRAIN/02-gameplay/progression/progression-skills.md"
+      - ".BRAIN/02-gameplay/progression/progression-perks.md"
+    related_targets:
+      - "api/v1/gameplay/progression/classes.yaml"
+      - "api/v1/gameplay/progression/skills.yaml"
+      - "api/v1/gameplay/progression/perks.yaml"
+
 # Примеры записей:
 #
 # mappings:

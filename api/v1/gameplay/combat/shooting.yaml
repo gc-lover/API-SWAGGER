@@ -1,0 +1,538 @@
+openapi: 3.0.3
+info:
+  title: Combat Shooting API
+  version: 1.0.0
+  description: |
+    API для механик стрельбы и основ боя.
+    
+    Источник концепции: .BRAIN/02-gameplay/combat/combat-shooting.md v1.1.0
+    
+    Особенности:
+    - MMORPG как основа, шутер добавляет экшен
+    - Аркадная стрельба с элементами реализма
+    - TTK зависит от зоны/режима (открытый мир = высокий, PvP = низкий)
+    - Система урона с частями тела и типами урона
+    - Кибер-части имеют разные модификаторы урона
+    - Проникающие пули и разрушаемые укрытия
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+  - url: https://api-dev.necp.game/v1
+    description: Development server
+
+tags:
+  - name: Combat
+    description: Боевые операции
+  - name: Shooting
+    description: Механики стрельбы
+  - name: Damage
+    description: Расчет урона
+
+paths:
+  /gameplay/combat/shoot:
+    post:
+      summary: Выполнить выстрел
+      description: |
+        Выполняет выстрел из указанного оружия в указанную цель.
+        Учитывает тип оружия, целевую часть тела, модификаторы движения,
+        импланты и все остальные факторы для расчета урона.
+      operationId: shoot
+      tags:
+        - Combat
+        - Shooting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShootRequest'
+            examples:
+              headshot:
+                summary: Выстрел в голову
+                value:
+                  shooter_id: "player_123"
+                  weapon_id: "weapon_pistol_001"
+                  target_id: "enemy_456"
+                  target_body_part: "head"
+                  aim_point:
+                    x: 10.5
+                    y: 2.3
+                    z: 5.1
+                  is_moving: false
+              moving_shot:
+                summary: Выстрел в движении
+                value:
+                  shooter_id: "player_123"
+                  weapon_id: "weapon_assault_rifle_001"
+                  target_id: "enemy_456"
+                  target_body_part: "torso"
+                  aim_point:
+                    x: 12.0
+                    y: 2.0
+                    z: 8.5
+                  is_moving: true
+      responses:
+        '200':
+          description: Успешный выстрел
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShootResult'
+              examples:
+                hit_headshot:
+                  summary: Попадание в голову
+                  value:
+                    hit: true
+                    body_part_hit: "head"
+                    damage_dealt: 180
+                    damage_type: "physical"
+                    is_critical: true
+                    modifiers_applied:
+                      - modifier_type: "body_part_multiplier"
+                        modifier_value: 2.0
+                      - modifier_type: "critical_hit"
+                        modifier_value: 1.5
+                    target_status:
+                      hp_remaining: 0
+                      is_dead: true
+                miss_example:
+                  summary: Промах
+                  value:
+                    hit: false
+                    body_part_hit: null
+                    damage_dealt: 0
+                    damage_type: "physical"
+                    is_critical: false
+                    modifiers_applied: []
+                    target_status:
+                      hp_remaining: 500
+                      is_dead: false
+        '400':
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '404':
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+        '409':
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict'
+
+  /gameplay/combat/calculate-damage:
+    post:
+      summary: Рассчитать урон
+      description: |
+        Рассчитывает урон с учетом всех модификаторов:
+        - Тип оружия
+        - Часть тела
+        - Броня цели
+        - Импланты цели
+        - Тип урона
+        - Зона/режим (для TTK)
+      operationId: calculateDamage
+      tags:
+        - Damage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DamageCalculationRequest'
+      responses:
+        '200':
+          description: Результат расчета урона
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DamageCalculationResult'
+        '400':
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+
+  /gameplay/combat/weapons/{weapon_id}:
+    get:
+      summary: Получить характеристики оружия
+      description: Возвращает детальные характеристики указанного оружия
+      operationId: getWeapon
+      tags:
+        - Combat
+        - Shooting
+      parameters:
+        - name: weapon_id
+          in: path
+          required: true
+          description: ID оружия
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Характеристики оружия
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Weapon'
+        '404':
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+
+  /gameplay/combat/damage-modifiers:
+    get:
+      summary: Получить модификаторы урона
+      description: |
+        Возвращает модификаторы урона для частей тела и зон.
+        Модификаторы зависят от типа зоны (открытый мир, PvP, арена).
+      operationId: getDamageModifiers
+      tags:
+        - Damage
+      parameters:
+        - name: zone_type
+          in: query
+          required: false
+          description: Тип зоны для TTK модификатора
+          schema:
+            type: string
+            enum: [open_world, pvp, arena, extraction, raid]
+      responses:
+        '200':
+          description: Модификаторы урона
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BodyPartModifiers'
+
+  /gameplay/combat/reload:
+    post:
+      summary: Перезарядить оружие
+      description: Выполняет перезарядку указанного оружия
+      operationId: reload
+      tags:
+        - Combat
+        - Shooting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - character_id
+                - weapon_id
+              properties:
+                character_id:
+                  type: string
+                  description: ID персонажа
+                weapon_id:
+                  type: string
+                  description: ID оружия
+      responses:
+        '200':
+          description: Успешная перезарядка
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  reload_time:
+                    type: number
+                    description: Время перезарядки в секундах
+                  ammo_loaded:
+                    type: integer
+                    description: Количество патронов в магазине
+        '404':
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+        '409':
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict'
+
+  /gameplay/combat/cover-penetration:
+    post:
+      summary: Проверить проникновение через укрытие
+      description: |
+        Проверяет, проникает ли пуля через укрытие.
+        Зависит от типа оружия, боеприпасов, материала и толщины укрытия.
+      operationId: checkCoverPenetration
+      tags:
+        - Combat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CoverPenetrationRequest'
+      responses:
+        '200':
+          description: Результат проникновения
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoverPenetrationResult'
+        '400':
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+
+components:
+  schemas:
+    ShootRequest:
+      type: object
+      required:
+        - shooter_id
+        - weapon_id
+        - target_id
+        - aim_point
+      properties:
+        shooter_id:
+          type: string
+          description: ID стреляющего персонажа
+        weapon_id:
+          type: string
+          description: ID оружия
+        target_id:
+          type: string
+          description: ID цели
+        target_body_part:
+          type: string
+          enum: [head, torso, arms, legs, cyber_head, cyber_torso, cyber_arms, cyber_legs]
+          description: |
+            Целевая часть тела.
+            Органика: head (x2), torso (x1), arms/legs (x0.7)
+            Кибер: cyber_head (x1.5), cyber_torso (x0.8), cyber_arms/legs (x0.5)
+        aim_point:
+          type: object
+          required:
+            - x
+            - y
+            - z
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+            z:
+              type: number
+          description: Точка прицеливания в 3D пространстве
+        is_moving:
+          type: boolean
+          description: Двигается ли стреляющий
+
+    ShootResult:
+      type: object
+      required:
+        - hit
+        - damage_dealt
+        - damage_type
+        - is_critical
+      properties:
+        hit:
+          type: boolean
+          description: Попал ли выстрел в цель
+        body_part_hit:
+          type: string
+          enum: [head, torso, arms, legs, cyber_head, cyber_torso, cyber_arms, cyber_legs]
+          description: Часть тела, в которую попал выстрел
+        damage_dealt:
+          type: number
+          minimum: 0
+          description: Фактический нанесенный урон с учетом всех модификаторов
+        damage_type:
+          type: string
+          enum: [physical, energy, chemical, thermal, emp, cyber, poison, electromagnetic]
+          description: |
+            Тип урона:
+            - physical: Кинетическое оружие
+            - energy: Лазеры, плазма
+            - chemical: Яд (только органика)
+            - thermal: Огненный урон
+            - emp: Только кибер-части
+            - cyber: Специальный урон по кибер-частям
+            - poison: Отравление (органика)
+            - electromagnetic: Электромагнитное оружие
+        is_critical:
+          type: boolean
+          description: Критическое попадание
+        modifiers_applied:
+          type: array
+          description: Примененные модификаторы урона
+          items:
+            type: object
+            properties:
+              modifier_type:
+                type: string
+              modifier_value:
+                type: number
+        target_status:
+          type: object
+          description: Статус цели после выстрела
+          properties:
+            hp_remaining:
+              type: number
+              minimum: 0
+            is_dead:
+              type: boolean
+
+    DamageCalculationRequest:
+      type: object
+      required:
+        - weapon_id
+        - target_body_part
+        - damage_type
+      properties:
+        weapon_id:
+          type: string
+        target_body_part:
+          type: string
+          enum: [head, torso, arms, legs, cyber_head, cyber_torso, cyber_arms, cyber_legs]
+        target_armor:
+          type: number
+          minimum: 0
+        target_implants:
+          type: array
+          items:
+            type: string
+        damage_type:
+          type: string
+          enum: [physical, energy, chemical, thermal, emp, cyber, poison, electromagnetic]
+        zone_type:
+          type: string
+          enum: [open_world, pvp, arena, extraction, raid]
+          description: Тип зоны для TTK модификатора
+
+    DamageCalculationResult:
+      type: object
+      properties:
+        base_damage:
+          type: number
+        body_part_multiplier:
+          type: number
+          description: Модификатор части тела (head=2.0, torso=1.0, limbs=0.7)
+        armor_reduction:
+          type: number
+        type_effectiveness:
+          type: number
+          description: Эффективность типа урона против цели
+        final_damage:
+          type: number
+        estimated_ttk:
+          type: number
+          description: Примерное время убийства (секунды)
+        modifiers:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: number
+              description:
+                type: string
+
+    Weapon:
+      type: object
+      required:
+        - id
+        - name
+        - weapon_class
+        - damage
+        - fire_rate
+        - accuracy
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        weapon_class:
+          type: string
+          enum: [pistol, revolver, assault_rifle, smg, shotgun, sniper, lmg, melee]
+        damage:
+          type: number
+          minimum: 1
+        fire_rate:
+          type: number
+          description: Выстрелов в секунду
+        accuracy:
+          type: number
+          minimum: 0
+          maximum: 100
+        magazine_size:
+          type: integer
+        reload_time:
+          type: number
+          description: Время перезарядки (секунды)
+        movement_penalty:
+          type: number
+          description: Штраф к точности при движении (%)
+        damage_type:
+          type: string
+          enum: [physical, energy, chemical, thermal, emp, cyber]
+        penetration:
+          type: number
+          description: Проникающая способность
+
+    BodyPartModifiers:
+      type: object
+      properties:
+        organic:
+          type: object
+          description: Модификаторы для органических частей тела
+          properties:
+            head:
+              type: number
+              example: 2.0
+            torso:
+              type: number
+              example: 1.0
+            arms:
+              type: number
+              example: 0.7
+            legs:
+              type: number
+              example: 0.7
+        cyber:
+          type: object
+          description: Модификаторы для кибер-частей
+          properties:
+            cyber_head:
+              type: number
+              example: 1.5
+            cyber_torso:
+              type: number
+              example: 0.8
+            cyber_arms:
+              type: number
+              example: 0.5
+            cyber_legs:
+              type: number
+              example: 0.5
+
+    CoverPenetrationRequest:
+      type: object
+      required:
+        - weapon_id
+        - ammo_type
+        - cover_material
+        - cover_thickness
+      properties:
+        weapon_id:
+          type: string
+        ammo_type:
+          type: string
+          enum: [standard, armor_piercing, energy, explosive]
+        cover_material:
+          type: string
+          enum: [wood, metal, concrete, energy_shield]
+        cover_thickness:
+          type: number
+          minimum: 0
+          description: Толщина в сантиметрах
+
+    CoverPenetrationResult:
+      type: object
+      properties:
+        penetrates:
+          type: boolean
+          description: Проникает ли пуля
+        damage_reduction:
+          type: number
+          description: Снижение урона при проникновении (%)
+        cover_destroyed:
+          type: boolean
+          description: Разрушено ли укрытие
+        cover_health_remaining:
+          type: number
+          description: Оставшаяся прочность укрытия
+
