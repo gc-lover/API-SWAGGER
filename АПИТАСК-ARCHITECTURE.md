@@ -82,6 +82,30 @@ api/v1/
 | /api/v1/narrative/* | narrative-service | 8087 | Квесты, диалоги, сюжет |
 | /api/v1/admin/* | admin-service | 8088 | Администрирование, модерация |
 
+**Дополнительные маппинги API путей:**
+
+| API Path | Микросервис | Порт | Примечание |
+|----------|-------------|------|------------|
+| /api/v1/players/* | character-service | 8082 | Player profiles |
+| /api/v1/inventory/* | character-service | 8082 | Инвентарь, equipment |
+| /api/v1/progression/* | gameplay-service | 8083 | Система прокачки |
+| /api/v1/combat/* | gameplay-service | 8083 | Боевые сессии |
+| /api/v1/loot/* | gameplay-service | 8083 | Система лута |
+| /api/v1/achievements/* | gameplay-service | 8083 | Достижения |
+| /api/v1/leaderboards/* | gameplay-service | 8083 | Рейтинги |
+| /api/v1/system/* | gameplay-service | 8083 | Системные функции |
+| /api/v1/guilds/* | social-service | 8084 | Система гильдий |
+| /api/v1/party/* | social-service | 8084 | Система групп |
+| /api/v1/mail/* | social-service | 8084 | Почтовая система |
+| /api/v1/notifications/* | social-service | 8084 | Уведомления |
+| /api/v1/romance/* | social-service | 8084 | Романтические отношения |
+| /api/v1/economy/* | economy-service | 8085 | Экономика, торговля |
+| /api/v1/trade/* | economy-service | 8085 | P2P торговля |
+| /api/v1/world/* | world-service | 8086 | Мировые события |
+| /api/v1/quests/* | narrative-service | 8087 | Квестовый движок |
+| /api/v1/mvp/* | Multiple services | N/A | MVP endpoints (Gateway routing) |
+| /api/v1/internal/* | Various services | N/A | Internal service-to-service |
+
 **Инфраструктура:**
 - API Gateway: порт 8080 (единая точка входа)
 - Service Discovery (Eureka): порт 8761
