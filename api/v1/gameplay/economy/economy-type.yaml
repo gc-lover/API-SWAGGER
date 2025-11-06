@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info:
+  title: Economy Type API
+  version: 1.0.0
+  description: API для типа экономики (Player-Driven + Controlled)
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Economy Type
+paths:
+  /gameplay/economy/type:
+    get:
+      summary: Получить тип экономики
+      operationId: getEconomyType
+      tags: [Economy Type]
+      responses:
+        '200':
+          description: Тип экономики
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+

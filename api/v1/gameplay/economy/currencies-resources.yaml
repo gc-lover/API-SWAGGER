@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info:
+  title: Currencies & Resources API
+  version: 1.0.0
+  description: API для валют и ресурсов
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Currencies & Resources
+paths:
+  /gameplay/economy/currencies:
+    get:
+      summary: Получить список валют
+      operationId: getCurrencies
+      tags: [Currencies & Resources]
+      responses:
+        '200':
+          description: Список валют
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+
