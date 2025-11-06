@@ -1,0 +1,399 @@
+openapi: 3.0.3
+info:
+  title: Authentication & Authorization API
+  version: 1.0.0
+  description: |
+    API для системы аутентификации и авторизации.
+    
+    Источник: .BRAIN/05-technical/backend/authentication-authorization-system.md v1.0.0
+    
+    КРИТИЧЕСКИЙ MVP БЛОКЕР! Без этой системы игра не запустится!
+    
+    Ключевые возможности:
+    - Регистрация аккаунтов (email/password + OAuth)
+    - Login/Logout flow
+    - JWT Token management (access 15min + refresh 7days)
+    - Password recovery (email reset)
+    - Two-Factor Authentication (TOTP)
+    - Roles & Permissions (PLAYER, MODERATOR, ADMIN, SUPER_ADMIN)
+    - Account linking (Steam, Google, Discord)
+    - Brute force protection, rate limiting
+    
+    БД структура:
+    - accounts (id, email, password_hash, created_at, etc.)
+    - account_roles (account_id, role)
+    - password_reset_tokens
+    - email_verification_tokens
+    - login_history (audit log)
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+tags:
+  - name: Authentication
+    description: Аутентификация
+  - name: Authorization
+    description: Авторизация и роли
+  - name: Password
+    description: Управление паролями
+  - name: OAuth
+    description: OAuth провайдеры
+
+paths:
+  /auth/register:
+    post:
+      summary: Регистрация нового аккаунта
+      description: |
+        Создает новый аккаунт игрока.
+        Email/password или OAuth (Steam, Google, Discord).
+      operationId: registerAccount
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 8
+                  description: Минимум 8 символов
+                username:
+                  type: string
+                  minLength: 3
+                  maxLength: 20
+                agree_to_terms:
+                  type: boolean
+                  description: Согласие с условиями использования
+            examples:
+              email_password:
+                summary: Email/Password регистрация
+                value:
+                  email: "player@example.com"
+                  password: "SecurePass123!"
+                  username: "CyberRunner"
+                  agree_to_terms: true
+      responses:
+        '201':
+          description: Аккаунт создан
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  account_id:
+                    type: string
+                  email:
+                    type: string
+                  verification_required:
+                    type: boolean
+                  message:
+                    type: string
+        '400':
+          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+        '409':
+          $ref: '../shared/common/responses.yaml#/components/responses/Conflict'
+
+  /auth/login:
+    post:
+      summary: Вход в аккаунт
+      description: |
+        Аутентификация игрока и выдача JWT токенов.
+        Access token (15 минут) + Refresh token (7 дней).
+      operationId: login
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                remember_me:
+                  type: boolean
+                  default: false
+                totp_code:
+                  type: string
+                  description: 2FA код (если включен)
+      responses:
+        '200':
+          description: Успешный вход
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+              examples:
+                successful_login:
+                  summary: Успешный вход
+                  value:
+                    access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    refresh_token: "refresh_token_example"
+                    token_type: "Bearer"
+                    expires_in: 900
+                    account_id: "account_123"
+                    roles: ["PLAYER"]
+        '401':
+          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+
+  /auth/logout:
+    post:
+      summary: Выход из аккаунта
+      description: |
+        Завершает сессию и инвалидирует токены.
+        Добавляет refresh token в blacklist.
+      operationId: logout
+      tags:
+        - Authentication
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - refresh_token
+              properties:
+                refresh_token:
+                  type: string
+      responses:
+        '200':
+          description: Успешный выход
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+
+  /auth/refresh:
+    post:
+      summary: Обновить access token
+      description: |
+        Обновляет access token используя refresh token.
+        Новый access token (15 минут).
+      operationId: refreshToken
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - refresh_token
+              properties:
+                refresh_token:
+                  type: string
+      responses:
+        '200':
+          description: Токен обновлен
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  token_type:
+                    type: string
+                  expires_in:
+                    type: integer
+        '401':
+          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+
+  /auth/password/forgot:
+    post:
+      summary: Запросить сброс пароля
+      description: |
+        Отправляет email с ссылкой для сброса пароля.
+        Токен действителен 1 час.
+      operationId: forgotPassword
+      tags:
+        - Password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+                  format: email
+      responses:
+        '200':
+          description: Email отправлен
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /auth/password/reset:
+    post:
+      summary: Сбросить пароль
+      description: |
+        Сбрасывает пароль используя токен из email.
+      operationId: resetPassword
+      tags:
+        - Password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+                - new_password
+              properties:
+                token:
+                  type: string
+                new_password:
+                  type: string
+                  minLength: 8
+      responses:
+        '200':
+          description: Пароль сброшен
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /auth/oauth/{provider}/authorize:
+    get:
+      summary: OAuth авторизация
+      description: |
+        Redirect на OAuth провайдер для авторизации.
+        Providers: steam, google, discord.
+      operationId: oauthAuthorize
+      tags:
+        - OAuth
+      parameters:
+        - name: provider
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [steam, google, discord]
+      responses:
+        '302':
+          description: Redirect на OAuth провайдер
+
+  /auth/oauth/{provider}/callback:
+    get:
+      summary: OAuth callback
+      description: |
+        Обрабатывает callback от OAuth провайдера.
+        Создает/связывает аккаунт, выдает JWT токены.
+      operationId: oauthCallback
+      tags:
+        - OAuth
+      parameters:
+        - name: provider
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: code
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: state
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OAuth успешен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+
+  /auth/roles:
+    get:
+      summary: Получить роли аккаунта
+      description: Возвращает список ролей текущего аккаунта
+      operationId: getRoles
+      tags:
+        - Authorization
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Список ролей
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  account_id:
+                    type: string
+                  roles:
+                    type: array
+                    items:
+                      type: string
+                      enum: [PLAYER, MODERATOR, ADMIN, SUPER_ADMIN]
+
+components:
+  schemas:
+    LoginResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: JWT access token (15 минут)
+        refresh_token:
+          type: string
+          description: Refresh token (7 дней)
+        token_type:
+          type: string
+          example: "Bearer"
+        expires_in:
+          type: integer
+          description: Время жизни access token (секунды)
+        account_id:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+

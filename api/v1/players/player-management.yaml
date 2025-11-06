@@ -1,0 +1,348 @@
+openapi: 3.0.3
+info:
+  title: Player & Character Management API
+  version: 1.0.0
+  description: |
+    API для управления игроками и персонажами.
+    
+    Источник: .BRAIN/05-technical/backend/player-character-management.md v1.0.0
+    
+    КРИТИЧЕСКИЙ MVP БЛОКЕР! Без этой системы игра не запустится!
+    
+    Player profiles:
+    - Account-wide settings
+    - Premium currency
+    - Global statistics
+    
+    Character management:
+    - Creation/Deletion (soft delete, 30 дней grace period)
+    - Switching between characters
+    - Character slots (3 базовых + 2 premium)
+    - Character data (attributes, skills, level, experience, reputation, position)
+    - Appearance customization
+    - Naming validation
+    
+    БД структура:
+    - players (id, account_id, premium_currency, settings, created_at)
+    - characters (id, player_id, name, class, level, position, etc.)
+    - character_slots (player_id, slot_number, character_id)
+    - character_stats_snapshot (backup для restore)
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+tags:
+  - name: Players
+    description: Управление игроками
+  - name: Characters
+    description: Управление персонажами
+
+paths:
+  /players/profile:
+    get:
+      summary: Получить профиль игрока
+      description: |
+        Возвращает профиль игрока (account-wide данные).
+        Premium currency, settings, статистика.
+      operationId: getPlayerProfile
+      tags:
+        - Players
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Профиль игрока
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerProfile'
+
+  /players/characters:
+    get:
+      summary: Получить список персонажей
+      description: |
+        Возвращает список всех персонажей игрока.
+        Включая удаленных (в grace period).
+      operationId: getCharacters
+      tags:
+        - Characters
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: include_deleted
+          in: query
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Список персонажей
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  characters:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GameCharacter'
+                  available_slots:
+                    type: integer
+                  total_slots:
+                    type: integer
+
+  /players/characters/create:
+    post:
+      summary: Создать персонажа
+      description: |
+        Создает нового персонажа.
+        Требует свободный слот (3 базовых + 2 premium).
+      operationId: createCharacter
+      tags:
+        - Characters
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - class_id
+                - appearance
+              properties:
+                name:
+                  type: string
+                  minLength: 3
+                  maxLength: 20
+                  description: Имя персонажа (уникальное)
+                class_id:
+                  type: string
+                appearance:
+                  type: object
+                  description: Внешность персонажа
+                  properties:
+                    body_type:
+                      type: string
+                    hair_style:
+                      type: string
+                    hair_color:
+                      type: string
+                    skin_tone:
+                      type: string
+                origin_id:
+                  type: string
+                  description: Life Path (опционально)
+            examples:
+              solo_character:
+                summary: Создание Solo
+                value:
+                  name: "V-Nomad"
+                  class_id: "class_solo"
+                  appearance:
+                    body_type: "athletic"
+                    hair_style: "mohawk"
+                    hair_color: "red"
+                    skin_tone: "medium"
+                  origin_id: "origin_nomad"
+      responses:
+        '201':
+          description: Персонаж создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameCharacter'
+        '400':
+          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+        '409':
+          $ref: '../shared/common/responses.yaml#/components/responses/Conflict'
+
+  /players/characters/{character_id}:
+    get:
+      summary: Получить детали персонажа
+      description: Возвращает полную информацию о персонаже
+      operationId: getCharacter
+      tags:
+        - Characters
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: character_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Детали персонажа
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameCharacterDetails'
+        '404':
+          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+
+    delete:
+      summary: Удалить персонажа
+      description: |
+        Удаляет персонажа (soft delete).
+        Grace period 30 дней - можно восстановить.
+      operationId: deleteCharacter
+      tags:
+        - Characters
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: character_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Персонаж удален
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  character_id:
+                    type: string
+                  deleted_at:
+                    type: string
+                    format: date-time
+                  restore_deadline:
+                    type: string
+                    format: date-time
+                  message:
+                    type: string
+
+  /players/characters/{character_id}/restore:
+    post:
+      summary: Восстановить персонажа
+      description: |
+        Восстанавливает удаленного персонажа.
+        Доступно в течение 30 дней после удаления.
+      operationId: restoreCharacter
+      tags:
+        - Characters
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: character_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Персонаж восстановлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameCharacter'
+        '404':
+          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+
+  /players/characters/switch:
+    post:
+      summary: Переключиться на персонажа
+      description: |
+        Переключает активного персонажа.
+        Завершает текущую сессию, начинает новую.
+      operationId: switchCharacter
+      tags:
+        - Characters
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - character_id
+              properties:
+                character_id:
+                  type: string
+      responses:
+        '200':
+          description: Персонаж переключен
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  character_id:
+                    type: string
+                  session_id:
+                    type: string
+
+components:
+  schemas:
+    PlayerProfile:
+      type: object
+      properties:
+        player_id:
+          type: string
+        account_id:
+          type: string
+        premium_currency:
+          type: integer
+          description: NECP Coins
+        settings:
+          type: object
+        created_at:
+          type: string
+          format: date-time
+
+    GameCharacter:
+      type: object
+      properties:
+        character_id:
+          type: string
+        player_id:
+          type: string
+        name:
+          type: string
+        class_id:
+          type: string
+        level:
+          type: integer
+        experience:
+          type: number
+        created_at:
+          type: string
+          format: date-time
+        last_login:
+          type: string
+          format: date-time
+        is_deleted:
+          type: boolean
+
+    GameCharacterDetails:
+      allOf:
+        - $ref: '#/components/schemas/GameCharacter'
+        - type: object
+          properties:
+            attributes:
+              type: object
+            skills:
+              type: object
+            reputation:
+              type: object
+            position:
+              type: object
+            appearance:
+              type: object
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+

@@ -1,0 +1,214 @@
+openapi: 3.0.3
+info:
+  title: Trade System API
+  version: 1.0.0
+  description: |
+    API для системы P2P торговли между игроками.
+    
+    Источник: .BRAIN/05-technical/backend/trade-system.md v1.0.0
+    
+    Tier 2 система. Критична для экономики!
+    
+    Возможности:
+    - Trade window (окно обмена)
+    - Trade offers (предложения items + gold)
+    - Dual confirmation (подтверждение обеими сторонами)
+    - Trade history (audit log)
+    - Restrictions (bound items не торгуются)
+    - Distance check (10m максимум)
+    - Anti-scam protection (показ всех items до подтверждения)
+    
+    БД структура:
+    - trade_sessions (id, initiator_id, receiver_id, status, created_at)
+    - trade_history (trade_id, items, gold, timestamp)
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+tags:
+  - name: Trade
+    description: P2P торговля
+
+paths:
+  /trade/initiate:
+    post:
+      summary: Начать торговлю
+      description: |
+        Отправляет запрос на торговлю другому игроку.
+        Требует distance check (10m).
+      operationId: initiateTrade
+      tags:
+        - Trade
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - initiator_character_id
+                - receiver_character_id
+              properties:
+                initiator_character_id:
+                  type: string
+                receiver_character_id:
+                  type: string
+      responses:
+        '200':
+          description: Запрос отправлен
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trade_session_id:
+                    type: string
+                  status:
+                    type: string
+                    enum: [pending, accepted, declined]
+
+  /trade/{session_id}/accept:
+    post:
+      summary: Принять торговлю
+      description: Принимает запрос на торговлю, открывает trade window
+      operationId: acceptTrade
+      tags:
+        - Trade
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Торговля принята
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /trade/{session_id}/offer:
+    post:
+      summary: Сделать предложение
+      description: |
+        Добавляет items/gold в trade window.
+        Можно изменять до подтверждения.
+      operationId: makeTradeOffer
+      tags:
+        - Trade
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                character_id:
+                  type: string
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      item_id:
+                        type: string
+                      quantity:
+                        type: integer
+                gold:
+                  type: number
+      responses:
+        '200':
+          description: Предложение обновлено
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /trade/{session_id}/confirm:
+    post:
+      summary: Подтвердить торговлю
+      description: |
+        Подтверждает торговлю.
+        Требует подтверждение обеих сторон для завершения.
+      operationId: confirmTrade
+      tags:
+        - Trade
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - character_id
+              properties:
+                character_id:
+                  type: string
+      responses:
+        '200':
+          description: Подтверждено
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [waiting_other, completed]
+                  trade_completed:
+                    type: boolean
+
+  /trade/{session_id}/cancel:
+    post:
+      summary: Отменить торговлю
+      description: Отменяет активную торговлю
+      operationId: cancelTrade
+      tags:
+        - Trade
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Торговля отменена
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas: {}
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+

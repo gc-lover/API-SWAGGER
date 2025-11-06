@@ -82,8 +82,6 @@ paths:
                       $ref: '#/components/schemas/AuctionLot'
                   pagination:
                     $ref: '../../shared/common/responses.yaml#/components/schemas/Pagination'
-
-  /gameplay/economy/auction/lots:
     post:
       summary: Создать лот
       description: |

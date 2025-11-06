@@ -1,0 +1,268 @@
+openapi: 3.0.3
+info:
+  title: Mail System API
+  version: 1.0.0
+  description: |
+    API для почтовой системы.
+    
+    Источник: .BRAIN/05-technical/backend/mail-system.md v1.0.0
+    
+    Tier 2 система. Критична для коммуникации и экономики!
+    
+    Возможности:
+    - Send mail (text + attachments до 10 предметов)
+    - Receive mail (inbox pagination)
+    - Item/gold attachments
+    - COD (Cash On Delivery - оплата при получении)
+    - System mail (награды, события от системы)
+    - Expiration (30 дней, затем удаление)
+    - Return to sender (если не прочитано 30 дней)
+    
+    БД структура:
+    - mail_messages (id, sender_id, receiver_id, subject, body, attachments_json, gold, cod_amount, expires_at)
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+tags:
+  - name: Mail
+    description: Почтовая система
+
+paths:
+  /mail/inbox:
+    get:
+      summary: Получить входящие письма
+      description: |
+        Возвращает список писем в inbox.
+        Поддерживает пагинацию и фильтрацию.
+      operationId: getInbox
+      tags:
+        - Mail
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: character_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+        - name: unread_only
+          in: query
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Список писем
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mail:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MailMessage'
+                  pagination:
+                    $ref: '../shared/common/responses.yaml#/components/schemas/Pagination'
+
+  /mail/send:
+    post:
+      summary: Отправить письмо
+      description: |
+        Отправляет письмо другому игроку.
+        Можно приложить items (до 10) и gold.
+        Можно установить COD (оплата при получении).
+      operationId: sendMail
+      tags:
+        - Mail
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - sender_character_id
+                - receiver_character_name
+                - subject
+              properties:
+                sender_character_id:
+                  type: string
+                receiver_character_name:
+                  type: string
+                subject:
+                  type: string
+                  maxLength: 100
+                body:
+                  type: string
+                  maxLength: 1000
+                attachments:
+                  type: array
+                  maxItems: 10
+                  items:
+                    type: object
+                    properties:
+                      item_id:
+                        type: string
+                      quantity:
+                        type: integer
+                gold:
+                  type: number
+                  minimum: 0
+                cod_amount:
+                  type: number
+                  minimum: 0
+                  description: Cash On Delivery amount
+            examples:
+              item_mail:
+                summary: Письмо с предметом
+                value:
+                  sender_character_id: "char_123"
+                  receiver_character_name: "V-Nomad"
+                  subject: "Legendary weapon for you!"
+                  body: "Found this in a raid. Enjoy!"
+                  attachments:
+                    - item_id: "item_legendary_katana"
+                      quantity: 1
+                  gold: 5000
+      responses:
+        '200':
+          description: Письмо отправлено
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mail_id:
+                    type: string
+
+  /mail/{mail_id}/read:
+    post:
+      summary: Прочитать письмо
+      description: Отмечает письмо как прочитанное
+      operationId: readMail
+      tags:
+        - Mail
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: mail_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Письмо прочитано
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /mail/{mail_id}/claim-attachments:
+    post:
+      summary: Забрать вложения
+      description: |
+        Забирает items/gold из письма.
+        Требует оплату COD (если установлен).
+      operationId: claimAttachments
+      tags:
+        - Mail
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: mail_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                character_id:
+                  type: string
+      responses:
+        '200':
+          description: Вложения получены
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /mail/{mail_id}/delete:
+    delete:
+      summary: Удалить письмо
+      description: Удаляет письмо из inbox
+      operationId: deleteMail
+      tags:
+        - Mail
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: mail_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Письмо удалено
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    MailMessage:
+      type: object
+      properties:
+        mail_id:
+          type: string
+        sender_name:
+          type: string
+        subject:
+          type: string
+        body:
+          type: string
+        has_attachments:
+          type: boolean
+        gold_attached:
+          type: number
+        cod_amount:
+          type: number
+        is_read:
+          type: boolean
+        is_system:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        expires_at:
+          type: string
+          format: date-time
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
