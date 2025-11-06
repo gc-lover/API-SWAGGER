@@ -4932,3 +4932,25 @@ mappings:
     version: "v1.0.0"
     updated: "2025-11-07 17:30"
 
+
+# === BATCH 9: ОРИГИНАЛЬНЫЕ ДОКУМЕНТЫ (2025-11-07 18:00) ===
+# Visual Quest Map + API Technical Summary
+
+  - source: ".BRAIN/04-narrative/quests/VISUAL-QUEST-MAP.md"
+    target: "api/v1/narrative/quest-map.yaml"
+    task_id: "API-TASK-179"
+    task_file: "tasks/active/queue/task-179-visual-quest-map-api.md"
+    status: "queued"
+    created: "2025-11-07 18:00"
+    version: "v1.0.0"
+    updated: "2025-11-07 18:00"
+
+  - source: ".BRAIN/05-technical/API-TECHNICAL-DOCUMENTATION-SUMMARY.md"
+    target: "api/v1/technical/api-documentation.yaml"
+    task_id: "API-TASK-180"
+    task_file: "tasks/active/queue/task-180-api-technical-summary-api.md"
+    status: "queued"
+    created: "2025-11-07 18:00"
+    version: "v1.0.0"
+    updated: "2025-11-07 18:00"
+
