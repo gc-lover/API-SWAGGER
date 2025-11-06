@@ -1408,6 +1408,38 @@ mappings:
       - "api/v1/narrative/quest-system.yaml"
       - "api/v1/technical/matchmaking.yaml"
 
+  # === ЭКОНОМИКА - ПРОДВИНУТЫЕ СИСТЕМЫ (Economy Advanced) ===
+  
+  - source: ".BRAIN/02-gameplay/economy/economy-analytics.md"
+    target: "api/v1/gameplay/economy/analytics.yaml"
+    task_id: "API-TASK-121"
+    task_file: "tasks/active/queue/task-121-economy-analytics-api.md"
+    status: "queued"
+    created: "2025-11-07 06:55"
+    version: "v1.0.0"
+    updated: "2025-11-07 06:55"
+    related_sources:
+      - ".BRAIN/02-gameplay/economy/economy-player-market.md"
+      - ".BRAIN/02-gameplay/economy/economy-auction-house.md"
+    related_targets:
+      - "api/v1/gameplay/economy/player-market.yaml"
+      - "api/v1/gameplay/economy/auction-house.yaml"
+  
+  - source: ".BRAIN/02-gameplay/economy/economy-stock-exchange.md"
+    target: "api/v1/gameplay/economy/stock-exchange.yaml"
+    task_id: "API-TASK-122"
+    task_file: "tasks/active/queue/task-122-stock-exchange-api.md"
+    status: "queued"
+    created: "2025-11-07 07:00"
+    version: "v1.0.0"
+    updated: "2025-11-07 07:00"
+    related_sources:
+      - ".BRAIN/02-gameplay/economy/economy-player-market.md"
+      - ".BRAIN/02-gameplay/world/world-state-player-impact.md"
+    related_targets:
+      - "api/v1/gameplay/economy/player-market.yaml"
+      - "api/v1/gameplay/world/world-state.yaml"
+
 # Примеры записей:
 #
 # mappings:

@@ -1,0 +1,481 @@
+openapi: 3.0.3
+info:
+  title: Economy Analytics API
+  version: 1.0.0
+  description: |
+    API для системы экономической аналитики и графиков.
+    
+    Источник: .BRAIN/02-gameplay/economy/economy-analytics.md v1.0.0
+    
+    Типы графиков:
+    - Line Charts (линейные)
+    - Candlestick Charts (японские свечи)
+    - OHLC Charts (открытие/максимум/минимум/закрытие)
+    - Volume Charts (объемы торгов)
+    
+    Технические индикаторы:
+    - Moving Averages (MA, EMA)
+    - RSI (Relative Strength Index)
+    - MACD (Moving Average Convergence Divergence)
+    - Bollinger Bands
+    
+    Market Sentiment: Bull/Bear indicators, Volume trends
+    Portfolio Analytics: Profit/Loss, ROI, diversification
+    Alerts: Price alerts, volume alerts
+    
+    Вдохновение: TradingView, Bloomberg Terminal, EVE Online
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+tags:
+  - name: Analytics
+    description: Экономическая аналитика
+  - name: Charts
+    description: Графики и индикаторы
+  - name: Portfolio
+    description: Портфолио
+
+paths:
+  /gameplay/economy/analytics/price-chart:
+    get:
+      summary: Получить график цен
+      description: |
+        Возвращает исторические данные цен для построения графиков.
+        Поддерживает разные типы: line, candlestick, OHLC.
+      operationId: getPriceChart
+      tags:
+        - Charts
+      parameters:
+        - name: item_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: chart_type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [line, candlestick, ohlc, volume]
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [1h, 4h, 1d, 1w, 1m]
+            description: Таймфрейм (1 час, 4 часа, 1 день, 1 неделя, 1 месяц)
+        - name: start_date
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: end_date
+          in: query
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: График цен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceChart'
+              examples:
+                candlestick:
+                  summary: Японские свечи
+                  value:
+                    item_id: "legendary_weapon_001"
+                    chart_type: "candlestick"
+                    timeframe: "1d"
+                    data_points:
+                      - timestamp: "2025-11-06T00:00:00Z"
+                        open: 4500
+                        high: 4800
+                        low: 4400
+                        close: 4700
+                        volume: 125
+                      - timestamp: "2025-11-07T00:00:00Z"
+                        open: 4700
+                        high: 5000
+                        low: 4650
+                        close: 4950
+                        volume: 156
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+
+  /gameplay/economy/analytics/indicators:
+    get:
+      summary: Получить технические индикаторы
+      description: |
+        Рассчитывает технические индикаторы для предмета.
+        MA, EMA, RSI, MACD, Bollinger Bands.
+      operationId: getTechnicalIndicators
+      tags:
+        - Charts
+      parameters:
+        - name: item_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: indicators
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [ma, ema, rsi, macd, bollinger]
+          style: form
+          explode: false
+        - name: period
+          in: query
+          schema:
+            type: integer
+            default: 14
+            description: Период для индикаторов
+      responses:
+        '200':
+          description: Технические индикаторы
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TechnicalIndicators'
+              examples:
+                rsi_macd:
+                  summary: RSI и MACD
+                  value:
+                    item_id: "legendary_weapon_001"
+                    indicators:
+                      rsi:
+                        value: 68.5
+                        signal: "overbought"
+                        period: 14
+                      macd:
+                        macd_line: 12.5
+                        signal_line: 10.3
+                        histogram: 2.2
+                        signal: "bullish"
+
+  /gameplay/economy/analytics/market-sentiment:
+    get:
+      summary: Получить настроение рынка
+      description: |
+        Возвращает индикаторы настроения рынка.
+        Bull/Bear ratio, Volume trends, Market momentum.
+      operationId: getMarketSentiment
+      tags:
+        - Analytics
+      parameters:
+        - name: market
+          in: query
+          schema:
+            type: string
+            enum: [all, weapons, implants, resources, rare_items]
+      responses:
+        '200':
+          description: Настроение рынка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketSentiment'
+
+  /gameplay/economy/analytics/heat-map:
+    get:
+      summary: Получить тепловую карту
+      description: |
+        Возвращает тепловую карту изменений цен.
+        Визуализация лучших/худших исполнителей рынка.
+      operationId: getHeatMap
+      tags:
+        - Analytics
+      parameters:
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [1h, 1d, 1w, 1m]
+      responses:
+        '200':
+          description: Тепловая карта
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  category:
+                    type: string
+                  timeframe:
+                    type: string
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        item_id:
+                          type: string
+                        item_name:
+                          type: string
+                        price_change_percent:
+                          type: number
+                        volume_change_percent:
+                          type: number
+
+  /gameplay/economy/analytics/portfolio:
+    get:
+      summary: Получить аналитику портфолио
+      description: |
+        Возвращает детальную аналитику портфолио игрока.
+        Profit/Loss, ROI, diversification, performance.
+      operationId: getPortfolioAnalytics
+      tags:
+        - Portfolio
+      parameters:
+        - name: character_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Аналитика портфолио
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortfolioAnalytics'
+              examples:
+                portfolio:
+                  summary: Пример портфолио
+                  value:
+                    character_id: "char_123"
+                    total_value: 500000
+                    total_invested: 400000
+                    profit_loss: 100000
+                    roi_percent: 25.0
+                    diversification:
+                      weapons: 40
+                      implants: 30
+                      resources: 20
+                      stocks: 10
+                    top_performers:
+                      - item_id: "legendary_weapon_001"
+                        roi: 150
+                      - item_id: "rare_implant_003"
+                        roi: 85
+
+  /gameplay/economy/analytics/trade-history:
+    get:
+      summary: Получить историю сделок с аналитикой
+      description: |
+        Возвращает историю торговых сделок с анализом.
+        Успешные/неуспешные сделки, win rate, средняя прибыль.
+      operationId: getTradeHistory
+      tags:
+        - Portfolio
+      parameters:
+        - name: character_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: История сделок
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  character_id:
+                    type: string
+                  statistics:
+                    type: object
+                    properties:
+                      total_trades:
+                        type: integer
+                      profitable_trades:
+                        type: integer
+                      win_rate:
+                        type: number
+                      average_profit:
+                        type: number
+                  trades:
+                    type: array
+                    items:
+                      type: object
+
+  /gameplay/economy/analytics/alerts/create:
+    post:
+      summary: Создать price alert
+      description: |
+        Создает оповещение о достижении определенной цены.
+        Уведомление когда цена достигнет target.
+      operationId: createPriceAlert
+      tags:
+        - Analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - character_id
+                - item_id
+                - alert_type
+                - target_price
+              properties:
+                character_id:
+                  type: string
+                item_id:
+                  type: string
+                alert_type:
+                  type: string
+                  enum: [price_above, price_below, volume_spike]
+                target_price:
+                  type: number
+                notification_method:
+                  type: string
+                  enum: [in_game, email, both]
+      responses:
+        '200':
+          description: Alert создан
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  alert_id:
+                    type: string
+                  status:
+                    type: string
+
+  /gameplay/economy/analytics/alerts:
+    get:
+      summary: Получить активные alerts
+      description: Возвращает список активных price alerts игрока
+      operationId: getActiveAlerts
+      tags:
+        - Analytics
+      parameters:
+        - name: character_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Активные alerts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  alerts:
+                    type: array
+                    items:
+                      type: object
+
+components:
+  schemas:
+    PriceChart:
+      type: object
+      properties:
+        item_id:
+          type: string
+        chart_type:
+          type: string
+        timeframe:
+          type: string
+        data_points:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/CandlestickDataPoint'
+              - $ref: '#/components/schemas/LineDataPoint'
+
+    CandlestickDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        open:
+          type: number
+        high:
+          type: number
+        low:
+          type: number
+        close:
+          type: number
+        volume:
+          type: integer
+
+    LineDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        price:
+          type: number
+        volume:
+          type: integer
+
+    TechnicalIndicators:
+      type: object
+      properties:
+        item_id:
+          type: string
+        indicators:
+          type: object
+          additionalProperties: true
+
+    MarketSentiment:
+      type: object
+      properties:
+        market:
+          type: string
+        bull_bear_ratio:
+          type: number
+        volume_trend:
+          type: string
+          enum: [increasing, decreasing, stable]
+        momentum:
+          type: string
+          enum: [strong_bullish, bullish, neutral, bearish, strong_bearish]
+
+    PortfolioAnalytics:
+      type: object
+      properties:
+        character_id:
+          type: string
+        total_value:
+          type: number
+        total_invested:
+          type: number
+        profit_loss:
+          type: number
+        roi_percent:
+          type: number
+        diversification:
+          type: object
+        top_performers:
+          type: array
+          items:
+            type: object
+
