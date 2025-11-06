@@ -56,8 +56,8 @@ paths:
           schema:
             type: string
             enum: [ON_FOOT, VEHICLE, FAST_TRAVEL]
-        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Travel события
@@ -65,7 +65,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '../../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
+                  - $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
                   - type: object
                     properties:
                       data:
