@@ -65,7 +65,7 @@ paths:
                   value:
                     available_npcs:
                       - npc_id: "bodyguard_001"
-                        name: "Viktor "Vik" Kozlov"
+                        name: 'Viktor "Vik" Kozlov'
                         type: "combat"
                         role: "bodyguard"
                         tier: 3

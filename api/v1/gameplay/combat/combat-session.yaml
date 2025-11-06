@@ -1,0 +1,527 @@
+openapi: 3.0.3
+info:
+  title: Combat Session API
+  version: 1.0.0
+  description: |
+    API для backend боевых сессий.
+    КРИТИЧЕСКИЙ MVP БЛОКЕР! Без этого нет боевого геймплея!
+    
+    Функционал:
+    - Combat instance creation (создание боевой сессии)
+    - Turn order (для turn-based элементов)
+    - Damage calculation (расчет урона)
+    - Death handling (обработка смерти)
+    - Combat rewards (опыт, лут)
+    - Session state management
+    - Participant tracking
+    - Combat events & logs
+    
+    Источник: .BRAIN/05-technical/backend/combat-session-backend.md v1.0.0
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+tags:
+  - name: Combat Sessions
+    description: Управление боевыми сессиями
+  - name: Combat Actions
+    description: Боевые действия
+  - name: Combat Results
+    description: Результаты боя
+
+paths:
+  /gameplay/combat/sessions:
+    post:
+      summary: Создать боевую сессию
+      operationId: createCombatSession
+      tags: [Combat Sessions]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCombatSessionRequest'
+      responses:
+        '201':
+          description: Боевая сессия создана
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CombatSession'
+        '400':
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+
+  /gameplay/combat/sessions/{session_id}:
+    get:
+      summary: Получить состояние боевой сессии
+      operationId: getCombatSession
+      tags: [Combat Sessions]
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Состояние боя
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CombatSession'
+        '404':
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+
+  /gameplay/combat/sessions/{session_id}/damage:
+    post:
+      summary: Нанести урон
+      operationId: applyDamage
+      tags: [Combat Actions]
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DamageRequest'
+      responses:
+        '200':
+          description: Урон применен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DamageResult'
+        '400':
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+
+  /gameplay/combat/sessions/{session_id}/turn/next:
+    post:
+      summary: Следующий ход
+      operationId: nextTurn
+      tags: [Combat Actions]
+      description: Для turn-based combat
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Новый ход начат
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  current_turn:
+                    type: integer
+                  active_participant:
+                    $ref: '#/components/schemas/Participant'
+
+  /gameplay/combat/sessions/{session_id}/end:
+    post:
+      summary: Завершить бой
+      operationId: endCombatSession
+      tags: [Combat Results]
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                outcome:
+                  type: string
+                  enum: [VICTORY, DEFEAT, DRAW, TIMEOUT]
+      responses:
+        '200':
+          description: Бой завершен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CombatEndResult'
+
+  /gameplay/combat/sessions/{session_id}/events:
+    get:
+      summary: Получить лог событий боя
+      operationId: getCombatEvents
+      tags: [Combat Sessions]
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: since_event_id
+          in: query
+          description: Получить события после указанного ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: События боя
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CombatEvent'
+
+  /gameplay/combat/sessions/{session_id}/participants/{participant_id}/status:
+    put:
+      summary: Обновить статус участника
+      operationId: updateParticipantStatus
+      tags: [Combat Actions]
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: participant_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hp:
+                  type: integer
+                status_effects:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/StatusEffect'
+      responses:
+        '200':
+          description: Статус обновлен
+
+components:
+  schemas:
+    CreateCombatSessionRequest:
+      type: object
+      required:
+        - combat_type
+        - participants
+      properties:
+        combat_type:
+          type: string
+          enum: [PVE, PVP_DUEL, PVP_ARENA, RAID_BOSS, EXTRACTION]
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParticipantInit'
+        location_id:
+          type: string
+          description: ID локации, где происходит бой
+        settings:
+          type: object
+          properties:
+            turn_based:
+              type: boolean
+              default: false
+            time_limit_seconds:
+              type: integer
+              nullable: true
+
+    ParticipantInit:
+      type: object
+      required:
+        - type
+        - id
+        - team
+      properties:
+        type:
+          type: string
+          enum: [PLAYER, NPC, AI_ENEMY]
+        id:
+          type: string
+          description: character_id для игроков, npc_id для NPC
+        team:
+          type: string
+          example: "A" или "B"
+        initial_position:
+          type: object
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+            z:
+              type: number
+
+    CombatSession:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        combat_type:
+          type: string
+          enum: [PVE, PVP_DUEL, PVP_ARENA, RAID_BOSS, EXTRACTION]
+        status:
+          type: string
+          enum: [STARTING, ACTIVE, PAUSED, ENDED]
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Participant'
+        current_turn:
+          type: integer
+          nullable: true
+        active_participant_id:
+          type: string
+          nullable: true
+        started_at:
+          type: string
+          format: date-time
+        ended_at:
+          type: string
+          format: date-time
+          nullable: true
+        duration_seconds:
+          type: integer
+        winner_team:
+          type: string
+          nullable: true
+
+    Participant:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: [PLAYER, NPC, AI_ENEMY]
+        team:
+          type: string
+        character_name:
+          type: string
+        hp:
+          type: integer
+        max_hp:
+          type: integer
+        status:
+          type: string
+          enum: [ALIVE, DOWNED, DEAD]
+        status_effects:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusEffect'
+        position:
+          type: object
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+            z:
+              type: number
+        stats:
+          type: object
+          properties:
+            damage_dealt:
+              type: integer
+            damage_taken:
+              type: integer
+            kills:
+              type: integer
+            deaths:
+              type: integer
+
+    StatusEffect:
+      type: object
+      properties:
+        effect_id:
+          type: string
+        name:
+          type: string
+          example: "Burning"
+        type:
+          type: string
+          enum: [BUFF, DEBUFF, DOT, HOT, STUN, ROOT]
+        duration_seconds:
+          type: integer
+        stacks:
+          type: integer
+          default: 1
+
+    DamageRequest:
+      type: object
+      required:
+        - attacker_id
+        - target_id
+        - damage_amount
+      properties:
+        attacker_id:
+          type: string
+        target_id:
+          type: string
+        damage_amount:
+          type: integer
+        damage_type:
+          type: string
+          enum: [PHYSICAL, ENERGY, FIRE, ICE, ELECTRIC, POISON, PSYCHIC]
+        is_critical:
+          type: boolean
+          default: false
+        weapon_id:
+          type: string
+          format: uuid
+          nullable: true
+        ability_id:
+          type: string
+          nullable: true
+
+    DamageResult:
+      type: object
+      properties:
+        damage_dealt:
+          type: integer
+          description: Финальный урон после защиты
+        damage_blocked:
+          type: integer
+          description: Урон, заблокированный броней/щитом
+        is_critical:
+          type: boolean
+        target_hp_before:
+          type: integer
+        target_hp_after:
+          type: integer
+        target_killed:
+          type: boolean
+        status_effects_applied:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusEffect'
+
+    CombatEndResult:
+      type: object
+      properties:
+        session_id:
+          type: string
+          format: uuid
+        outcome:
+          type: string
+          enum: [VICTORY, DEFEAT, DRAW, TIMEOUT]
+        winner_team:
+          type: string
+          nullable: true
+        duration_seconds:
+          type: integer
+        participant_results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParticipantResult'
+        rewards:
+          $ref: '#/components/schemas/CombatRewards'
+
+    ParticipantResult:
+      type: object
+      properties:
+        participant_id:
+          type: string
+        type:
+          type: string
+        final_status:
+          type: string
+          enum: [ALIVE, DOWNED, DEAD]
+        stats:
+          type: object
+          properties:
+            damage_dealt:
+              type: integer
+            damage_taken:
+              type: integer
+            kills:
+              type: integer
+            deaths:
+              type: integer
+            headshots:
+              type: integer
+            abilities_used:
+              type: integer
+
+    CombatRewards:
+      type: object
+      properties:
+        experience:
+          type: integer
+        currency:
+          type: object
+          properties:
+            eddies:
+              type: integer
+        loot:
+          type: array
+          items:
+            type: object
+            properties:
+              item_id:
+                type: string
+                format: uuid
+              quantity:
+                type: integer
+              rarity:
+                type: string
+
+    CombatEvent:
+      type: object
+      properties:
+        event_id:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+        event_type:
+          type: string
+          enum: [DAMAGE, HEAL, KILL, ABILITY_USED, STATUS_EFFECT, TURN_START, TURN_END]
+        actor_id:
+          type: string
+          nullable: true
+        target_id:
+          type: string
+          nullable: true
+        data:
+          type: object
+          additionalProperties: true
+          example:
+            damage: 150
+            is_critical: true
+            weapon: "Mantis Blades"
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerAuth: []
+

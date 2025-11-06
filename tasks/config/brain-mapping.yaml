@@ -1542,6 +1542,64 @@ mappings:
       - "api/v1/gameplay/world/global-events.yaml"
       - "api/v1/gameplay/mechanics/dnd-checks.yaml"
 
+  # === BATCH 1: MVP БЛОКЕРЫ (2025-11-07) ===
+  
+  - source: ".BRAIN/05-technical/backend/authentication-authorization-system.md"
+    target: "api/v1/auth/authentication.yaml"
+    task_id: "API-TASK-126"
+    task_file: "tasks/active/queue/task-126-authentication-authorization-api.md"
+    status: "queued"
+    created: "2025-11-07 10:00"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:00"
+    related_sources: []
+    related_targets:
+      - "api/v1/auth/authorization.yaml"
+      - "api/v1/auth/oauth.yaml"
+      - "api/v1/auth/tokens.yaml"
+  
+  - source: ".BRAIN/05-technical/backend/player-character-management.md"
+    target: "api/v1/players/players.yaml"
+    task_id: "API-TASK-127"
+    task_file: "tasks/active/queue/task-127-player-character-management-api.md"
+    status: "queued"
+    created: "2025-11-07 10:05"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:05"
+    related_sources:
+      - ".BRAIN/05-technical/backend/authentication-authorization-system.md"
+    related_targets:
+      - "api/v1/players/characters.yaml"
+  
+  - source: ".BRAIN/05-technical/backend/inventory-system.md"
+    target: "api/v1/inventory/inventory.yaml"
+    task_id: "API-TASK-128"
+    task_file: "tasks/active/queue/task-128-inventory-system-api.md"
+    status: "queued"
+    created: "2025-11-07 10:10"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:10"
+    related_sources:
+      - ".BRAIN/05-technical/backend/player-character-management.md"
+    related_targets:
+      - "api/v1/inventory/equipment.yaml"
+      - "api/v1/inventory/bank.yaml"
+  
+  - source: ".BRAIN/05-technical/backend/loot-system.md"
+    target: "api/v1/loot/loot-generation.yaml"
+    task_id: "API-TASK-129"
+    task_file: "tasks/active/queue/task-129-loot-system-api.md"
+    status: "queued"
+    created: "2025-11-07 10:15"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:15"
+    related_sources:
+      - ".BRAIN/05-technical/backend/inventory-system.md"
+      - ".BRAIN/02-gameplay/economy/loot-tables.md"
+    related_targets:
+      - "api/v1/loot/loot-distribution.yaml"
+      - "api/v1/loot/loot-rolls.yaml"
+
 # Примеры записей:
 #
 # mappings:
