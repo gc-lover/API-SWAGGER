@@ -1,0 +1,61 @@
+openapi: 3.0.3
+info:
+  title: Loot Tables API
+  version: 1.0.0
+  description: |
+    API для лут-таблиц.
+    
+    Источник: .BRAIN/02-gameplay/economy/loot-tables.md v1.0.0
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/economy/loot-tables:
+    get:
+      summary: Получить лут-таблицы
+      operationId: getLootTables
+      responses:
+        '200':
+          description: Лут-таблицы
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /gameplay/economy/loot-tables/generate:
+    post:
+      summary: Сгенерировать лут
+      operationId: generateLoot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source_type:
+                  type: string
+                source_id:
+                  type: string
+      responses:
+        '200':
+          description: Лут сгенерирован
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    LootTable:
+      type: object
+      properties:
+        table_id:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+

@@ -1,0 +1,42 @@
+openapi: 3.0.3
+info:
+  title: Reputation Formulas API
+  version: 1.0.0
+  description: |
+    API для формул расчета репутации.
+    
+    Источник: .BRAIN/02-gameplay/social/reputation-formulas.md v1.0.0
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/social/reputation-formulas/calculate:
+    post:
+      summary: Рассчитать изменение репутации
+      operationId: calculateReputationChange
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Результат расчета
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    ReputationFormula:
+      type: object
+      properties:
+        formula_type:
+          type: string
+        parameters:
+          type: object
+

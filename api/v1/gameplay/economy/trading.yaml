@@ -1,0 +1,56 @@
+openapi: 3.0.3
+info:
+  title: Trading API
+  version: 1.0.0
+  description: |
+    API для системы торговли.
+    
+    Источник: .BRAIN/02-gameplay/economy/economy-trading.md
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/economy/trading/markets:
+    get:
+      summary: Получить рынки
+      operationId: getMarkets
+      responses:
+        '200':
+          description: Список рынков
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /gameplay/economy/trading/trade:
+    post:
+      summary: Совершить сделку
+      operationId: executeTrade
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Сделка выполнена
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    Trade:
+      type: object
+      properties:
+        trade_id:
+          type: string
+        seller_id:
+          type: string
+        buyer_id:
+          type: string
+

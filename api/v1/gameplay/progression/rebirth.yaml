@@ -1,0 +1,60 @@
+openapi: 3.0.3
+info:
+  title: Rebirth API
+  version: 1.0.0
+  description: |
+    API для системы перерождений.
+    
+    Источник: .BRAIN/02-gameplay/progression/progression-rebirth.md v1.0.0
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/progression/rebirth:
+    post:
+      summary: Выполнить перерождение
+      operationId: performRebirth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Перерождение выполнено
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /gameplay/progression/rebirth/options:
+    get:
+      summary: Получить опции перерождения
+      operationId: getRebirthOptions
+      parameters:
+        - name: character_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Опции перерождения
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    RebirthOption:
+      type: object
+      properties:
+        type:
+          type: string
+        bonuses:
+          type: object
+

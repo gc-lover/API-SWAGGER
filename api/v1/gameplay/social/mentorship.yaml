@@ -1,0 +1,60 @@
+openapi: 3.0.3
+info:
+  title: Mentorship API
+  version: 1.0.0
+  description: |
+    API для системы наставничества.
+    
+    Источник: .BRAIN/02-gameplay/social/mentorship-system.md v1.1.0
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/social/mentorship:
+    get:
+      summary: Получить активные наставничества
+      operationId: getMentorships
+      parameters:
+        - name: character_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Активные наставничества
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /gameplay/social/mentorship/start:
+    post:
+      summary: Начать наставничество
+      operationId: startMentorship
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Наставничество начато
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    Mentorship:
+      type: object
+      properties:
+        mentor_id:
+          type: string
+        student_id:
+          type: string
+

@@ -1,0 +1,56 @@
+openapi: 3.0.3
+info:
+  title: Crafting API
+  version: 1.0.0
+  description: |
+    API для системы крафта.
+    
+    Источник: .BRAIN/02-gameplay/economy/economy-crafting.md
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/economy/crafting/recipes:
+    get:
+      summary: Получить рецепты
+      operationId: getCraftingRecipes
+      responses:
+        '200':
+          description: Список рецептов
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /gameplay/economy/crafting/craft:
+    post:
+      summary: Создать предмет
+      operationId: craftItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Предмет создан
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    Recipe:
+      type: object
+      properties:
+        recipe_id:
+          type: string
+        components:
+          type: array
+          items:
+            type: object
+

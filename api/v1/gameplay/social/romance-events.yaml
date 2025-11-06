@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info:
+  title: Romance Events API
+  version: 1.0.0
+  description: |
+    API для романтических событий и отношений.
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/social/romance-events:
+    get:
+      summary: Получить романтические события
+      operationId: getRomanceEvents
+      parameters:
+        - name: character_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: События
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    RomanceEvent:
+      type: object
+      properties:
+        event_id:
+          type: string
+        npc_id:
+          type: string
+

@@ -1,0 +1,53 @@
+openapi: 3.0.3
+info:
+  title: Player Orders API
+  version: 1.0.0
+  description: |
+    API для системы заказов игроков.
+    
+    Источник: .BRAIN/02-gameplay/social/player-orders-system.md v2.0.0
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/social/player-orders:
+    get:
+      summary: Получить заказы
+      operationId: getPlayerOrders
+      responses:
+        '200':
+          description: Список заказов
+          content:
+            application/json:
+              schema:
+                type: object
+
+    post:
+      summary: Создать заказ
+      operationId: createPlayerOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Заказ создан
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    PlayerOrder:
+      type: object
+      properties:
+        order_id:
+          type: string
+        type:
+          type: string
+

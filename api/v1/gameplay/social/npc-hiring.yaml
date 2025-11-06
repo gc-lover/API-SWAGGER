@@ -1,0 +1,56 @@
+openapi: 3.0.3
+info:
+  title: NPC Hiring API
+  version: 1.0.0
+  description: |
+    API для системы найма NPC.
+    
+    Источник: .BRAIN/02-gameplay/social/npc-hiring-system.md v1.1.0
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/social/npc-hiring/available:
+    get:
+      summary: Получить доступных NPC для найма
+      operationId: getAvailableNPCs
+      responses:
+        '200':
+          description: Доступные NPC
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /gameplay/social/npc-hiring/hire:
+    post:
+      summary: Нанять NPC
+      operationId: hireNPC
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: NPC нанят
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    HireableNPC:
+      type: object
+      properties:
+        npc_id:
+          type: string
+        role:
+          type: string
+        cost:
+          type: number
+

@@ -1,0 +1,58 @@
+openapi: 3.0.3
+info:
+  title: Currencies API
+  version: 1.0.0
+  description: |
+    API для системы валют.
+    
+    Источник: .BRAIN/02-gameplay/economy/economy-currencies-detailed.md v2.0.0
+    
+    12 валют: Eurodollar, региональные, фракционные, крипто, premium
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/economy/currencies:
+    get:
+      summary: Получить все валюты
+      operationId: getCurrencies
+      responses:
+        '200':
+          description: Список валют
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /gameplay/economy/currencies/exchange:
+    post:
+      summary: Обменять валюту
+      operationId: exchangeCurrency
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Обмен выполнен
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    Currency:
+      type: object
+      properties:
+        currency_id:
+          type: string
+        name:
+          type: string
+        exchange_rate:
+          type: number
+

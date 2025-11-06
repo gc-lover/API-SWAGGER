@@ -1,0 +1,45 @@
+openapi: 3.0.3
+info:
+  title: Authored Classes API
+  version: 1.0.0
+  description: |
+    API для авторских классов.
+    
+    Источник: .BRAIN/02-gameplay/progression/classes-authored.md v1.0.0
+    
+    3 авторских класса: Politician, Trader, Teacher
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/progression/classes-authored:
+    get:
+      summary: Получить авторские классы
+      operationId: getAuthoredClasses
+      responses:
+        '200':
+          description: Авторские классы
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  classes:
+                    type: array
+                    items:
+                      type: object
+
+components:
+  schemas:
+    AuthoredClass:
+      type: object
+      properties:
+        class_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+

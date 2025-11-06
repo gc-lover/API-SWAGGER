@@ -1,0 +1,36 @@
+openapi: 3.0.3
+info:
+  title: General Skills API
+  version: 1.0.0
+  description: |
+    API для общих навыков, доступных всем классам.
+    
+    Источник: .BRAIN/02-gameplay/progression/classes-general-skills.md v1.0.0
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/progression/general-skills:
+    get:
+      summary: Получить общие навыки
+      operationId: getGeneralSkills
+      responses:
+        '200':
+          description: Список общих навыков
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    GeneralSkill:
+      type: object
+      properties:
+        skill_id:
+          type: string
+        category:
+          type: string
+

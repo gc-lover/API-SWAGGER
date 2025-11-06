@@ -1,0 +1,62 @@
+openapi: 3.0.3
+info:
+  title: Skills API
+  version: 1.0.0
+  description: |
+    API для системы навыков.
+    
+    Источник: .BRAIN/02-gameplay/progression/progression-skills.md v1.1.0
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/progression/skills:
+    get:
+      summary: Получить навыки персонажа
+      operationId: getSkills
+      parameters:
+        - name: character_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Навыки персонажа
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /gameplay/progression/skills/increase:
+    post:
+      summary: Повысить навык
+      operationId: increaseSkill
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Навык повышен
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    Skill:
+      type: object
+      properties:
+        skill_id:
+          type: string
+        rank:
+          type: integer
+        progress:
+          type: number
+

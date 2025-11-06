@@ -1,0 +1,36 @@
+openapi: 3.0.3
+info:
+  title: Equipment Matrix API
+  version: 1.0.0
+  description: |
+    API для матрицы снаряжения.
+    
+    Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md v1.0.0
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/economy/equipment-matrix:
+    get:
+      summary: Получить матрицу снаряжения
+      operationId: getEquipmentMatrix
+      responses:
+        '200':
+          description: Матрица снаряжения
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    EquipmentMatrix:
+      type: object
+      properties:
+        item_type:
+          type: string
+        stats:
+          type: object
+

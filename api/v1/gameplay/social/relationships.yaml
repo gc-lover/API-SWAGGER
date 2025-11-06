@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  title: Relationships API
+  version: 1.0.0
+  description: |
+    API для системы отношений.
+    
+    Источник: .BRAIN/02-gameplay/social/relationships-system.md v1.2.0
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/social/relationships:
+    get:
+      summary: Получить отношения
+      operationId: getRelationships
+      parameters:
+        - name: character_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Отношения персонажа
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    Relationship:
+      type: object
+      properties:
+        character_id:
+          type: string
+        target_id:
+          type: string
+        relationship_level:
+          type: number
+

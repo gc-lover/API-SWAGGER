@@ -1,0 +1,62 @@
+openapi: 3.0.3
+info:
+  title: Reputation Tiers API
+  version: 1.0.0
+  description: |
+    API для репутационных тиров.
+    
+    Источник: .BRAIN/02-gameplay/social/reputation-tiers-detailed.md v2.0.0
+    
+    8 тиров: Hated → Legendary
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/social/reputation-tiers:
+    get:
+      summary: Получить репутационные тиры
+      operationId: getReputationTiers
+      responses:
+        '200':
+          description: Список тиров
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /gameplay/social/reputation-tiers/{character_id}/{faction_id}:
+    get:
+      summary: Получить тир с фракцией
+      operationId: getReputationTier
+      parameters:
+        - name: character_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: faction_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Репутационный тир
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    ReputationTier:
+      type: object
+      properties:
+        tier:
+          type: string
+          enum: [hated, hostile, unfriendly, neutral, friendly, trusted, honored, legendary]
+        benefits:
+          type: object
+

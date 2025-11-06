@@ -1,0 +1,59 @@
+openapi: 3.0.3
+info:
+  title: Personal NPC Tool API
+  version: 1.0.0
+  description: |
+    API для инструмента личных NPC.
+    
+    Источник: .BRAIN/02-gameplay/social/personal-npc-tool.md v1.0.0
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/social/personal-npcs:
+    get:
+      summary: Получить личных NPC
+      operationId: getPersonalNPCs
+      parameters:
+        - name: owner_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Список личных NPC
+          content:
+            application/json:
+              schema:
+                type: object
+
+    post:
+      summary: Создать личного NPC
+      operationId: createPersonalNPC
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: NPC создан
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    PersonalNPC:
+      type: object
+      properties:
+        npc_id:
+          type: string
+        owner_id:
+          type: string
+

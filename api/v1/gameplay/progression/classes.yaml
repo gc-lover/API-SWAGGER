@@ -1,0 +1,166 @@
+openapi: 3.0.3
+info:
+  title: Classes API
+  version: 1.0.0
+  description: |
+    API для системы классов персонажей.
+    
+    Источник: .BRAIN/02-gameplay/progression/classes-overview.md v2.0.0
+    
+    13 классов: 10 из Cyberpunk + 3 авторских
+    Подклассы (2-3 на класс), "Свой путь", связь с прокачкой
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+tags:
+  - name: Classes
+    description: Система классов
+
+paths:
+  /gameplay/progression/classes:
+    get:
+      summary: Получить все доступные классы
+      operationId: getClasses
+      tags:
+        - Classes
+      parameters:
+        - name: include_custom_path
+          in: query
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Список классов
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  classes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GameClass'
+
+  /gameplay/progression/classes/{class_id}:
+    get:
+      summary: Получить детали класса
+      operationId: getClass
+      tags:
+        - Classes
+      parameters:
+        - name: class_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Детали класса
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameClass'
+        '404':
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+
+  /gameplay/progression/classes/{class_id}/subclasses:
+    get:
+      summary: Получить подклассы
+      operationId: getSubclasses
+      tags:
+        - Classes
+      parameters:
+        - name: class_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Подклассы
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  subclasses:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Subclass'
+
+  /gameplay/progression/classes/select:
+    post:
+      summary: Выбрать класс
+      operationId: selectClass
+      tags:
+        - Classes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - character_id
+                - class_id
+              properties:
+                character_id:
+                  type: string
+                class_id:
+                  type: string
+                subclass_id:
+                  type: string
+      responses:
+        '200':
+          description: Класс выбран
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    GameClass:
+      type: object
+      properties:
+        class_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        source:
+          type: string
+          enum: [cyberpunk_canon, authored, custom_path]
+        role:
+          type: string
+        starting_bonuses:
+          type: object
+        skill_tree_access:
+          type: array
+          items:
+            type: string
+        unique_abilities:
+          type: array
+          items:
+            type: string
+
+    Subclass:
+      type: object
+      properties:
+        subclass_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        focus:
+          type: string
+        bonus_abilities:
+          type: array
+          items:
+            type: string
+
