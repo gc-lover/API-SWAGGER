@@ -34,6 +34,36 @@ Note: Некоторые могут дублировать task-160, нужно 
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** world-service  
+**Порт:** 8086  
+**API пути:** /api/v1/world/events/*
+
+### Frontend (модуль):
+
+**Модуль:** world  
+**Путь:** modules/world/travel-events  
+**State Store:** useWorldStore (travelEvents, epochEvents)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- EventCard, TravelEventModal, EpochFilter
+
+**Готовые формы (@shared/forms):**
+- EventChoiceForm
+
+**Layouts (@shared/layouts):**
+- GameLayout (event overlay при путешествии)
+
+**Хуки (@shared/hooks):**
+- useRealtime (для event triggers при перемещении)
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/world/events/travel** - Travel события по периоду

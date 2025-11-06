@@ -50,6 +50,36 @@ api/v1/narrative/start-content/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** narrative-service  
+**Порт:** 8087  
+**API пути:** /api/v1/narrative/start-content/*
+
+### Frontend (модуль):
+
+**Модуль:** narrative  
+**Путь:** modules/narrative/start-content  
+**State Store:** useNarrativeStore (originStory, classQuests, startQuests)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, QuestCard, OriginCard, ClassBadge
+
+**Готовые формы (@shared/forms):**
+- OriginSelectionForm, QuestAcceptForm
+
+**Layouts (@shared/layouts):**
+- AuthLayout (для origin selection), GameLayout
+
+**Хуки (@shared/hooks):**
+- useCharacter (для class quests)
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/narrative/start-content/origins** - Origin stories

@@ -24,6 +24,36 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** narrative-service  
+**Порт:** 8087  
+**API пути:** /api/v1/narrative/coherence/*
+
+### Frontend (модуль):
+
+**Модуль:** narrative  
+**Путь:** modules/narrative/coherence  
+**State Store:** useNarrativeStore (eventMatrix, playerImpact, coherenceState)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, MatrixView, ImpactChart, CoherenceIndicator
+
+**Готовые формы (@shared/forms):**
+- N/A (системная функция, не требует форм)
+
+**Layouts (@shared/layouts):**
+- GameLayout (индикаторы в UI)
+
+**Хуки (@shared/hooks):**
+- useRealtime (для синхронизации narrative state)
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/narrative/coherence/event-matrix** - Событийная матрица

@@ -59,6 +59,37 @@ api/v1/romance/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** social-service  
+**Порт:** 8084  
+**API пути:** /api/v1/romance/*
+
+### Frontend (модуль):
+
+**Модуль:** social  
+**Путь:** modules/social/romance  
+**State Store:** useSocialStore (romances, romanceEvents, npcRelationships)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- NPCCard, RomanceCard, EventCard, RelationshipBar, HeartMeter
+
+**Готовые формы (@shared/forms):**
+- DialogueChoiceForm, RomanceActionForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для romance event triggers)
+- useDebounce
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/romance/npcs** - Романтические NPC по региону

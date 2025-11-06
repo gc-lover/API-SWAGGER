@@ -37,6 +37,37 @@ api/v1/narrative/quests-specific/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** narrative-service  
+**Порт:** 8087  
+**API пути:** /api/v1/narrative/quests-specific/*
+
+### Frontend (модуль):
+
+**Модуль:** narrative  
+**Путь:** modules/narrative/quests  
+**State Store:** useNarrativeStore (specificQuests, mqNodes, sqList)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- QuestCard, DialogueBox, ChoiceButton, SkillCheckDisplay
+
+**Готовые формы (@shared/forms):**
+- QuestAcceptForm, DialogueChoiceForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce (для поиска квестов)
+- useRealtime (для quest progress)
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/narrative/quests-specific/sq** - Side quests SQ-XXXX

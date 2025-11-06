@@ -45,6 +45,38 @@ docs/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** admin-service (для anti-cheat/moderation)  
+**Порт:** 8088  
+**API пути:** /api/v1/admin/*
+
+**Документация:** (gateway, db, cache, cdn - архитектурные документы, не API)
+
+### Frontend (модуль):
+
+**Модуль:** N/A (admin панель, отдельное приложение)  
+**Путь:** src/features/admin/  
+**State Store:** useAdminStore (reports, moderationQueue)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, Table, Button, Badge (status), Chart (analytics)
+
+**Готовые формы (@shared/forms):**
+- ModerationActionForm, BanForm
+
+**Layouts (@shared/layouts):**
+- AdminLayout (специальный layout для admin панели)
+
+**Хуки (@shared/hooks):**
+- useRealtime (для real-time модерации)
+
+---
+
 ## ✅ Задача
 
 Создать admin API (anti-cheat, moderation) и архитектурные документы (gateway, db, cache, cdn).

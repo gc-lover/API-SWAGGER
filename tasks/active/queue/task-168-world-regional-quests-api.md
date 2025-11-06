@@ -40,6 +40,37 @@ api/v1/narrative/world-quests/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** narrative-service  
+**Порт:** 8087  
+**API пути:** /api/v1/narrative/world-quests/*
+
+### Frontend (модуль):
+
+**Модуль:** narrative  
+**Путь:** modules/narrative/daily-quests  
+**State Store:** useNarrativeStore (dailyQuests, weeklyQuests, regionalQuests)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- QuestCard, RegionBadge, Timer (reset countdown), RewardDisplay
+
+**Готовые формы (@shared/forms):**
+- QuestAcceptForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для daily/weekly reset)
+- useDebounce (для фильтра по регионам)
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/narrative/world-quests/daily** - Daily quests по региону

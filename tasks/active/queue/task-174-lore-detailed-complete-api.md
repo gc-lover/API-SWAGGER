@@ -50,6 +50,38 @@
 
 ## 📁 Целевая структура
 
+---
+
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** world-service  
+**Порт:** 8086  
+**API пути:** /api/v1/lore/detailed/*
+
+### Frontend (модуль):
+
+**Модуль:** world  
+**Путь:** modules/world/lore-detailed  
+**State Store:** useWorldStore (cities, factions, timeline, technology, events, culture)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, CityDistrictCard, FactionCard, Timeline, TechTree, EventCard, CultureCard
+
+**Готовые формы (@shared/forms):**
+- N/A (только просмотр детального лора)
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce (для поиска по лору)
+
+---
+
 ```
 api/v1/lore/detailed/
 ├── cities/
