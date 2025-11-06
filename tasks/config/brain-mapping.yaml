@@ -1469,6 +1469,79 @@ mappings:
       - "api/v1/gameplay/economy/stock-exchange-trading.yaml"
       - "api/v1/gameplay/economy/stock-exchange-indices.yaml"
 
+  - source: ".BRAIN/05-technical/start-content/endgame-raids/raid-blackwall-expedition.md"
+    target: "api/v1/narrative/raids/raid-blackwall.yaml"
+    task_id: "API-TASK-119"
+    task_file: "tasks/completed/2025-11-07-batch2/task-119-raid-blackwall-api.md"
+    status: "completed"
+    created: "2025-11-07 06:40"
+    version: "v1.0.0"
+    updated: "2025-11-07 23:30"
+    completed: "2025-11-07 23:30"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/quest-system.md"
+    related_targets:
+      - "api/v1/technical/matchmaking.yaml"
+
+  - source: ".BRAIN/05-technical/start-content/endgame-raids/raid-corpo-tower-assault.md"
+    target: "api/v1/narrative/raids/raid-corpo-tower.yaml"
+    task_id: "API-TASK-120"
+    task_file: "tasks/completed/2025-11-07-batch2/task-120-raid-corpo-tower-api.md"
+    status: "completed"
+    created: "2025-11-07 06:45"
+    version: "v1.0.0"
+    updated: "2025-11-07 23:30"
+    completed: "2025-11-07 23:30"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/quest-system.md"
+    related_targets:
+      - "api/v1/technical/matchmaking.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/events/world-events-2020-2040.md"
+    target: "api/v1/gameplay/world/events-2020-2040.yaml"
+    task_id: "API-TASK-123"
+    task_file: "tasks/completed/2025-11-07-batch2/task-123-world-events-2020-2040-api.md"
+    status: "completed"
+    created: "2025-11-07 07:20"
+    version: "v0.1.0"
+    updated: "2025-11-07 23:30"
+    completed: "2025-11-07 23:30"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/global-events.md"
+    related_targets:
+      - "api/v1/gameplay/world/global-events.yaml"
+      - "api/v1/gameplay/mechanics/dnd-checks.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/events/world-events-2040-2060.md"
+    target: "api/v1/gameplay/world/events-2040-2060.yaml"
+    task_id: "API-TASK-124"
+    task_file: "tasks/completed/2025-11-07-batch2/task-124-world-events-2040-2060-api.md"
+    status: "completed"
+    created: "2025-11-07 07:20"
+    version: "v0.1.0"
+    updated: "2025-11-07 23:30"
+    completed: "2025-11-07 23:30"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/global-events.md"
+    related_targets:
+      - "api/v1/gameplay/world/global-events.yaml"
+      - "api/v1/gameplay/mechanics/dnd-checks.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/events/world-events-2060-2077.md"
+    target: "api/v1/gameplay/world/events-2060-2077.yaml"
+    task_id: "API-TASK-125"
+    task_file: "tasks/completed/2025-11-07-batch2/task-125-world-events-2060-2077-api.md"
+    status: "completed"
+    created: "2025-11-07 07:20"
+    version: "v0.1.0"
+    updated: "2025-11-07 23:30"
+    completed: "2025-11-07 23:30"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/global-events.md"
+    related_targets:
+      - "api/v1/gameplay/world/global-events.yaml"
+      - "api/v1/gameplay/mechanics/dnd-checks.yaml"
+
 # Примеры записей:
 #
 # mappings:
