@@ -1440,6 +1440,35 @@ mappings:
       - "api/v1/gameplay/economy/player-market.yaml"
       - "api/v1/gameplay/world/world-state.yaml"
 
+  - source: ".BRAIN/02-gameplay/economy/economy-analytics.md"
+    target: "api/v1/gameplay/economy/analytics.yaml"
+    task_id: "API-TASK-121"
+    task_file: "tasks/completed/2025-11-07-batch2/task-121-economy-analytics-api.md"
+    status: "completed"
+    created: "2025-11-07 06:55"
+    version: "v1.0.0"
+    updated: "2025-11-07 22:50"
+    completed: "2025-11-07 22:50"
+    related_sources:
+      - ".BRAIN/02-gameplay/economy/economy-player-market.md"
+      - ".BRAIN/02-gameplay/economy/economy-auction-house.md"
+
+  - source: ".BRAIN/02-gameplay/economy/economy-stock-exchange.md"
+    target: "api/v1/gameplay/economy/stock-exchange-core.yaml"
+    task_id: "API-TASK-122"
+    task_file: "tasks/completed/2025-11-07-batch2/task-122-stock-exchange-api.md"
+    status: "completed"
+    created: "2025-11-07 07:00"
+    version: "v1.0.0"
+    updated: "2025-11-07 22:50"
+    completed: "2025-11-07 22:50"
+    related_sources:
+      - ".BRAIN/02-gameplay/economy/economy-player-market.md"
+      - ".BRAIN/02-gameplay/world/world-state-player-impact.md"
+    related_targets:
+      - "api/v1/gameplay/economy/stock-exchange-trading.yaml"
+      - "api/v1/gameplay/economy/stock-exchange-indices.yaml"
+
 # Примеры записей:
 #
 # mappings:
