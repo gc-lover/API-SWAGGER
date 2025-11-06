@@ -291,9 +291,7 @@ info:
 
 ---
 
-### Удалено (перенесено в АПИТАСК-PROCESS-FINALIZATION.md)
-
-**Шаг 5: Валидация и проверка** - см. АПИТАСК-PROCESS-FINALIZATION.md
+**Продолжение процесса:** См. [АПИТАСК-PROCESS-FINALIZATION.md](./АПИТАСК-PROCESS-FINALIZATION.md)
 
 Агент должен:
 
