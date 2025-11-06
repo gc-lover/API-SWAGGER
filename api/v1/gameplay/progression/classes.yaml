@@ -64,7 +64,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/GameClass'
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
 
   /gameplay/progression/classes/{class_id}/subclasses:
     get:
