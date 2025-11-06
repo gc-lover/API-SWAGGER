@@ -86,7 +86,7 @@ paths:
                   characters:
                     type: array
                     items:
-                      $ref: '#/components/schemas/GameCharacter'
+                      $ref: '#/components/schemas/PlayerCharacter'
                   available_slots:
                     type: integer
                   total_slots:
@@ -154,7 +154,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GameCharacter'
+                $ref: '#/components/schemas/PlayerCharacter'
         '400':
           $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
         '409':
@@ -181,7 +181,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GameCharacterDetails'
+                $ref: '#/components/schemas/PlayerCharacterDetails'
         '404':
           $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
 
@@ -243,7 +243,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GameCharacter'
+                $ref: '#/components/schemas/PlayerCharacter'
         '404':
           $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
 
@@ -300,7 +300,7 @@ components:
           type: string
           format: date-time
 
-    GameCharacter:
+    PlayerCharacter:
       type: object
       properties:
         character_id:
@@ -324,9 +324,9 @@ components:
         is_deleted:
           type: boolean
 
-    GameCharacterDetails:
+    PlayerCharacterDetails:
       allOf:
-        - $ref: '#/components/schemas/GameCharacter'
+        - $ref: '#/components/schemas/PlayerCharacter'
         - type: object
           properties:
             attributes:
