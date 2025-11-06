@@ -31,6 +31,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** economy-service  
+**Порт:** 8085  
+**API пути:** /api/v1/economy/investments/*
+
+### Frontend (модуль):
+
+**Модуль:** economy  
+**Путь:** modules/economy/investments  
+**State Store:** useEconomyStore (portfolio, investments, roi)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, InvestmentCard, PortfolioChart, ROIDisplay, RiskIndicator
+
+**Готовые формы (@shared/forms):**
+- InvestmentForm, WithdrawForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для ROI updates)
+- useDebounce
+
+---
+
 ## ✅ Endpoints
 
 1. **POST /api/v1/economy/investments/invest** - Инвестировать

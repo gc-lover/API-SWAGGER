@@ -37,6 +37,36 @@ api/v1/progression/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** gameplay-service  
+**Порт:** 8083  
+**API пути:** /api/v1/progression/attributes/*, /api/v1/progression/skills/*
+
+### Frontend (модуль):
+
+**Модуль:** progression  
+**Путь:** modules/progression/attributes  
+**State Store:** useProgressionStore (attributes, skillModifiers, mapping)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- StatBlock, AttributeDisplay, SkillTree, MatrixTable
+
+**Готовые формы (@shared/forms):**
+- AttributeAssignmentForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useCharacter (для current attributes)
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/progression/attributes** - Список атрибутов

@@ -31,6 +31,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** economy-service  
+**Порт:** 8085  
+**API пути:** /api/v1/economy/crafting/*
+
+### Frontend (модуль):
+
+**Модуль:** economy  
+**Путь:** modules/economy/crafting  
+**State Store:** useEconomyStore (recipes, knownRecipes, craftingQueue)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, RecipeCard, ItemCard, ProgressBar (crafting time), MaterialsList
+
+**Готовые формы (@shared/forms):**
+- CraftingForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce (для поиска рецептов)
+- useInventory (для проверки materials)
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/economy/crafting/recipes** - Список рецептов

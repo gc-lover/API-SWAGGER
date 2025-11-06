@@ -42,6 +42,37 @@ api/v1/world/events/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** world-service  
+**Порт:** 8086  
+**API пути:** /api/v1/world/events/*
+
+### Frontend (модуль):
+
+**Модуль:** world  
+**Путь:** modules/world/events  
+**State Store:** useWorldStore (worldEvents, eventsByEpoch, activeEvents)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- EventCard, TimelineView, EpochFilter, EventModal
+
+**Готовые формы (@shared/forms):**
+- EventChoiceForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для world event triggers)
+- useDebounce (для фильтров по эпохам)
+
+---
+
 ## ✅ Задача
 
 Создать API для мировых событий по всем эпохам с унифицированной логикой.

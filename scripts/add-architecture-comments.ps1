@@ -1,5 +1,5 @@
 # Add Architecture Comments to OpenAPI Files
-# Добавляет комментарии о целевой архитектуре в OpenAPI спецификации
+# Script to add target architecture comments to OpenAPI specifications
 
 param(
     [string]$RootPath = "api\v1",
@@ -7,7 +7,7 @@ param(
     [switch]$Verbose = $false
 )
 
-# Функция для определения микросервиса по API path
+# Function to determine microservice by API path
 function Get-Microservice {
     param([string]$Path)
     
@@ -30,7 +30,7 @@ function Get-Microservice {
     return @{Name="gameplay-service"; Port=8083}
 }
 
-# Функция для определения фронтенд-модуля по категории
+# Function to determine frontend module by category
 function Get-FrontendModule {
     param([string]$Path)
     
@@ -120,7 +120,7 @@ function Get-FrontendModule {
     }
 }
 
-# Функция для создания комментария об архитектуре
+# Function to create architecture comment
 function New-ArchitectureComment {
     param(
         [hashtable]$Microservice,
@@ -143,14 +143,14 @@ function New-ArchitectureComment {
     return $comment
 }
 
-# Функция для проверки наличия комментария об архитектуре
+# Function to check if architecture comment exists
 function Test-HasArchitectureComment {
     param([string]$Content)
     
     return $Content -match "# Target Architecture:"
 }
 
-# Функция для обработки файла
+# Function to process file
 function Update-OpenAPIFile {
     param(
         [string]$FilePath,
@@ -158,58 +158,58 @@ function Update-OpenAPIFile {
     )
     
     if ($Verbose) {
-        Write-Host "Обработка: $RelativePath" -ForegroundColor Cyan
+        Write-Host "Processing: $RelativePath" -ForegroundColor Cyan
     }
     
-    # Читаем файл
+    # Read file
     $content = Get-Content -Path $FilePath -Raw -Encoding UTF8
     
-    # Проверяем, есть ли уже комментарий
+    # Check if comment already exists
     if (Test-HasArchitectureComment -Content $content) {
         if ($Verbose) {
-            Write-Host "  ✓ Уже содержит комментарий об архитектуре" -ForegroundColor Green
+            Write-Host "  Already has architecture comment" -ForegroundColor Green
         }
         return $false
     }
     
-    # Определяем микросервис и модуль
+    # Determine microservice and module
     $microservice = Get-Microservice -Path $RelativePath
     $frontend = Get-FrontendModule -Path $RelativePath
     
-    # Создаём комментарий
+    # Create comment
     $archComment = New-ArchitectureComment -Microservice $microservice -Frontend $frontend -APIPath $RelativePath
     
-    # Проверяем, начинается ли файл с "openapi:"
+    # Check if file starts with "openapi:"
     if ($content -match "^openapi:\s*\d+\.\d+\.\d+") {
-        # Добавляем комментарий после строки openapi
+        # Add comment after openapi line
         $newContent = $content -replace "(openapi:\s*\d+\.\d+\.\d+)", "`$1`n$archComment"
         
         if (-not $DryRun) {
             Set-Content -Path $FilePath -Value $newContent -Encoding UTF8 -NoNewline
-            Write-Host "  ✓ Добавлен комментарий: $($microservice.Name) → $($frontend.Module)" -ForegroundColor Green
+            Write-Host "  Added comment: $($microservice.Name) -> $($frontend.Module)" -ForegroundColor Green
         } else {
-            Write-Host "  [DRY RUN] Будет добавлен: $($microservice.Name) → $($frontend.Module)" -ForegroundColor Yellow
+            Write-Host "  [DRY RUN] Will add: $($microservice.Name) -> $($frontend.Module)" -ForegroundColor Yellow
         }
         
         return $true
     } else {
-        Write-Host "  ✗ Файл не начинается с 'openapi:', пропуск" -ForegroundColor Red
+        Write-Host "  File does not start with 'openapi:', skipping" -ForegroundColor Red
         return $false
     }
 }
 
-# Основная логика
-Write-Host "`n=== Добавление комментариев об архитектуре в OpenAPI файлы ===" -ForegroundColor Magenta
-Write-Host "Корневой путь: $RootPath" -ForegroundColor Magenta
+# Main logic
+Write-Host "`n=== Adding Architecture Comments to OpenAPI Files ===" -ForegroundColor Magenta
+Write-Host "Root path: $RootPath" -ForegroundColor Magenta
 if ($DryRun) {
-    Write-Host "РЕЖИМ ТЕСТИРОВАНИЯ (изменения не будут применены)" -ForegroundColor Yellow
+    Write-Host "DRY RUN MODE (changes will not be applied)" -ForegroundColor Yellow
 }
 Write-Host ""
 
-# Получаем все YAML файлы
+# Get all YAML files
 $yamlFiles = Get-ChildItem -Path $RootPath -Filter "*.yaml" -Recurse -File
 
-Write-Host "Найдено файлов: $($yamlFiles.Count)" -ForegroundColor Cyan
+Write-Host "Files found: $($yamlFiles.Count)" -ForegroundColor Cyan
 Write-Host ""
 
 $updated = 0
@@ -227,21 +227,20 @@ foreach ($file in $yamlFiles) {
             $skipped++
         }
     } catch {
-        Write-Host "  ✗ Ошибка: $_" -ForegroundColor Red
+        Write-Host "  Error: $_" -ForegroundColor Red
         $errors++
     }
 }
 
 Write-Host ""
-Write-Host "=== Итого ===" -ForegroundColor Magenta
-Write-Host "Обработано файлов: $($yamlFiles.Count)" -ForegroundColor Cyan
-Write-Host "Обновлено: $updated" -ForegroundColor Green
-Write-Host "Пропущено (уже содержат комментарии): $skipped" -ForegroundColor Yellow
-Write-Host "Ошибок: $errors" -ForegroundColor Red
+Write-Host "=== Summary ===" -ForegroundColor Magenta
+Write-Host "Processed files: $($yamlFiles.Count)" -ForegroundColor Cyan
+Write-Host "Updated: $updated" -ForegroundColor Green
+Write-Host "Skipped (already have comments): $skipped" -ForegroundColor Yellow
+Write-Host "Errors: $errors" -ForegroundColor Red
 
 if ($DryRun) {
-    Write-Host "`nДля применения изменений запустите без флага -DryRun" -ForegroundColor Yellow
+    Write-Host "`nTo apply changes run without -DryRun flag" -ForegroundColor Yellow
 }
 
 Write-Host ""
-

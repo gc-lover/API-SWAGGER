@@ -30,6 +30,36 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** economy-service  
+**Порт:** 8085  
+**API пути:** /api/v1/economy/events/*
+
+### Frontend (модуль):
+
+**Модуль:** economy  
+**Путь:** modules/economy/events  
+**State Store:** useEconomyStore (economyEvents, eventImpact)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- EventCard, ImpactChart, PriceChangeIndicator
+
+**Готовые формы (@shared/forms):**
+- N/A (только просмотр)
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для event triggers)
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/economy/events** - Текущие экономические события

@@ -46,6 +46,37 @@ api/v1/social/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** social-service  
+**Порт:** 8084  
+**API пути:** /api/v1/social/mentorship/*, /api/v1/social/npc-hiring/*, /api/v1/social/player-orders/*
+
+### Frontend (модуль):
+
+**Модуль:** social  
+**Путь:** modules/social/  
+**State Store:** useSocialStore (mentorships, hiredNpcs, playerOrders)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, NPCCard, MentorCard, OrderCard, AbilityDisplay
+
+**Готовые формы (@shared/forms):**
+- MentorshipForm, NpcHiringForm, OrderCreationForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce
+- useRealtime (для order status)
+
+---
+
 ## ✅ Задача
 
 Создать детальные API для социальных механик, разбить по логическим файлам (не более 400 строк каждый).

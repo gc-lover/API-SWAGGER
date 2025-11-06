@@ -31,6 +31,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** economy-service  
+**Порт:** 8085  
+**API пути:** /api/v1/economy/production/*
+
+### Frontend (модуль):
+
+**Модуль:** economy  
+**Путь:** modules/economy/production  
+**State Store:** useEconomyStore (productionChains, jobs, profitability)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, ChainDiagram, ProfitabilityChart, ResourceBar
+
+**Готовые формы (@shared/forms):**
+- ProductionStartForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce
+- useRealtime (для production progress)
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/economy/production/chains** - Доступные цепочки

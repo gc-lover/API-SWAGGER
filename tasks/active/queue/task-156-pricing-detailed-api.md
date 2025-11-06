@@ -31,6 +31,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** economy-service  
+**Порт:** 8085  
+**API пути:** /api/v1/economy/pricing/*
+
+### Frontend (модуль):
+
+**Модуль:** economy  
+**Путь:** modules/economy/pricing  
+**State Store:** useEconomyStore (itemPrices, marketData)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- PriceDisplay, PriceChart, ModifiersList
+
+**Готовые формы (@shared/forms):**
+- N/A (динамический расчёт)
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для dynamic pricing)
+- useDebounce
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/economy/pricing/item/{item_id}** - Цена предмета
