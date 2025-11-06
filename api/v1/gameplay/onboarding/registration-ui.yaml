@@ -1,0 +1,36 @@
+openapi: 3.0.3
+info:
+  title: Registration UI API
+  version: 1.0.0
+  description: API для UI регистрации (аккаунт, email, верификация)
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Registration
+paths:
+  /gameplay/onboarding/registration:
+    post:
+      summary: Зарегистрировать аккаунт
+      operationId: registerAccount
+      tags: [Registration]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password, username]
+              properties:
+                email: {type: string}
+                password: {type: string}
+                username: {type: string}
+      responses:
+        '200':
+          description: Регистрация успешна
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+

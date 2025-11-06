@@ -1,0 +1,31 @@
+openapi: 3.0.3
+info:
+  title: First Quest API
+  version: 1.0.0
+  description: API для первого квеста (зависит от Life Path)
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: First Quest
+paths:
+  /narrative/first-quest:
+    get:
+      summary: Получить первый квест персонажа
+      operationId: getFirstQuest
+      tags: [First Quest]
+      parameters:
+        - name: character_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Первый квест
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+

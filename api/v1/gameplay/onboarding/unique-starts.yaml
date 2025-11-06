@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info:
+  title: Unique Starts API
+  version: 1.0.0
+  description: API для уникальных стартов (специальные сценарии, события, бонусы)
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Unique Starts
+paths:
+  /gameplay/onboarding/unique-starts:
+    get:
+      summary: Получить доступные уникальные старты
+      operationId: getUniqueStarts
+      tags: [Unique Starts]
+      responses:
+        '200':
+          description: Уникальные старты
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+

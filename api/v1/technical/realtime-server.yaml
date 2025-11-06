@@ -1,0 +1,34 @@
+openapi: 3.0.3
+info:
+  title: Realtime Server API
+  version: 1.0.0
+  description: API для realtime сервера (WebSocket, UDP, синхронизация)
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Realtime Server
+paths:
+  /technical/realtime/connect:
+    post:
+      summary: Подключиться к realtime серверу
+      operationId: connectToRealtime
+      tags: [Realtime Server]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [session_id]
+              properties:
+                session_id: {type: string}
+      responses:
+        '200':
+          description: Подключение установлено
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+

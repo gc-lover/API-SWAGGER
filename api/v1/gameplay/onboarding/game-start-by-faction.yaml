@@ -1,0 +1,35 @@
+openapi: 3.0.3
+info:
+  title: Game Start by Faction API
+  version: 1.0.0
+  description: API для старта игры по выбранной фракции
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Game Start
+paths:
+  /gameplay/onboarding/game-start/by-faction:
+    post:
+      summary: Начать игру с выбранной фракцией
+      operationId: startGameByFaction
+      tags: [Game Start]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [character_id, faction_id]
+              properties:
+                character_id: {type: string}
+                faction_id: {type: string}
+      responses:
+        '200':
+          description: Игра начата
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+

@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info:
+  title: Character Creation UI API
+  version: 1.0.0
+  description: API для UI создания персонажа
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Character Creation
+paths:
+  /gameplay/onboarding/character-creation/ui-data:
+    get:
+      summary: Получить данные для UI создания персонажа
+      operationId: getCharacterCreationUI
+      tags: [Character Creation]
+      responses:
+        '200':
+          description: Данные UI
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+
