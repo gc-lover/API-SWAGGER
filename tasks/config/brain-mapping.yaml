@@ -588,6 +588,92 @@ mappings:
     related_targets:
       - "api/v1/gameplay/social/npc-hiring.yaml"
 
+  # === КВЕСТЫ И ПОВЕСТВОВАНИЕ (Quests & Narrative) ===
+  
+  - source: ".BRAIN/04-narrative/quests/romantic/romance-events-system.md"
+    target: "api/v1/narrative/romance-events.yaml"
+    task_id: "API-TASK-064"
+    task_file: "tasks/active/queue/task-064-romance-events-api.md"
+    status: "queued"
+    created: "2025-11-07 01:15"
+    version: "v1.0.0"
+    updated: "2025-11-07 01:15"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/relationships-system.md"
+    related_targets:
+      - "api/v1/gameplay/social/relationships.yaml"
+
+  # === ЭКОНОМИКА (Economy) ===
+  
+  - source: ".BRAIN/02-gameplay/economy/equipment-matrix.md"
+    target: "api/v1/gameplay/economy/equipment-matrix.yaml"
+    task_id: "API-TASK-065"
+    task_file: "tasks/active/queue/task-065-equipment-matrix-api.md"
+    status: "queued"
+    created: "2025-11-07 01:20"
+    version: "v1.0.0"
+    updated: "2025-11-07 01:20"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-weapon-classes-detailed.md"
+      - ".BRAIN/02-gameplay/combat/combat-implants-types.md"
+    related_targets:
+      - "api/v1/gameplay/combat/weapons.yaml"
+      - "api/v1/gameplay/combat/implants.yaml"
+  
+  - source: ".BRAIN/02-gameplay/economy/economy-crafting.md"
+    target: "api/v1/gameplay/economy/crafting.yaml"
+    task_id: "API-TASK-066"
+    task_file: "tasks/active/queue/task-066-crafting-api.md"
+    status: "queued"
+    created: "2025-11-07 01:25"
+    version: "v1.0.0"
+    updated: "2025-11-07 01:25"
+    related_sources:
+      - ".BRAIN/02-gameplay/economy/equipment-matrix.md"
+    related_targets:
+      - "api/v1/gameplay/economy/equipment-matrix.yaml"
+  
+  - source: ".BRAIN/02-gameplay/economy/economy-trading.md"
+    target: "api/v1/gameplay/economy/trading.yaml"
+    task_id: "API-TASK-067"
+    task_file: "tasks/active/queue/task-067-trading-api.md"
+    status: "queued"
+    created: "2025-11-07 01:30"
+    version: "v1.0.0"
+    updated: "2025-11-07 01:30"
+    related_sources:
+      - ".BRAIN/02-gameplay/economy/equipment-matrix.md"
+      - ".BRAIN/02-gameplay/social/relationships-system.md"
+    related_targets:
+      - "api/v1/gameplay/economy/equipment-matrix.yaml"
+      - "api/v1/gameplay/social/relationships.yaml"
+  
+  - source: ".BRAIN/02-gameplay/economy/economy-currencies-detailed.md"
+    target: "api/v1/gameplay/economy/currencies.yaml"
+    task_id: "API-TASK-068"
+    task_file: "tasks/active/queue/task-068-currencies-api.md"
+    status: "queued"
+    created: "2025-11-07 01:35"
+    version: "v2.0.0"
+    updated: "2025-11-07 01:35"
+    related_sources:
+      - ".BRAIN/02-gameplay/economy/economy-trading.md"
+    related_targets:
+      - "api/v1/gameplay/economy/trading.yaml"
+  
+  - source: ".BRAIN/02-gameplay/economy/loot-tables.md"
+    target: "api/v1/gameplay/economy/loot-tables.yaml"
+    task_id: "API-TASK-069"
+    task_file: "tasks/active/queue/task-069-loot-tables-api.md"
+    status: "queued"
+    created: "2025-11-07 01:40"
+    version: "v1.0.0"
+    updated: "2025-11-07 01:40"
+    related_sources:
+      - ".BRAIN/02-gameplay/economy/equipment-matrix.md"
+    related_targets:
+      - "api/v1/gameplay/economy/equipment-matrix.yaml"
+
 # Примеры записей:
 #
 # mappings:
