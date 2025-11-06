@@ -1,0 +1,603 @@
+# Inventory API
+# Источник: .BRAIN/05-technical/ui-main-game.md (v1.1.0)
+# Task ID: API-TASK-029
+
+openapi: 3.0.3
+info:
+  title: Inventory API
+  version: 1.0.0
+  description: |
+    API для управления инвентарем персонажа в текстовой версии NECPGAME.
+    Реализует просмотр, экипировку, использование и управление предметами.
+    
+    ## Источники
+    - Оригинальный документ: `.BRAIN/05-technical/ui-main-game.md` (v1.1.0, Раздел 3)
+    - Задание: `API-SWAGGER/tasks/active/queue/task-029-inventory-api.md`
+    - Task ID: API-TASK-029
+    - Дополнительные данные: `.BRAIN/05-technical/mvp-data-json/items.json`
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /inventory:
+    get:
+      summary: Получить инвентарь персонажа
+      description: |
+        Возвращает инвентарь персонажа со всеми предметами, весом и лимитом.
+        
+        **Бизнес-логика:**
+        - Возвращает все предметы в инвентаре
+        - Группирует предметы по категориям
+        - Складывает stackable предметы
+        - Показывает текущий вес и лимит
+        
+        **Источник:** `.BRAIN/05-technical/ui-main-game.md` (Раздел 3.1)
+      operationId: getInventory
+      tags:
+        - Inventory
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: characterId
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID персонажа
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        - name: category
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/ItemCategory'
+          description: Фильтр по категории предметов
+      responses:
+        '200':
+          description: Инвентарь персонажа
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryResponse'
+        '404':
+          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+        '401':
+          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+
+  /inventory/equipment:
+    get:
+      summary: Получить экипировку персонажа
+      description: |
+        Возвращает текущую экипировку персонажа (все слоты с предметами).
+        
+        **Бизнес-логика:**
+        - Возвращает все слоты экипировки
+        - Показывает какие слоты заняты и какие свободны
+        - Возвращает бонусы от экипированных предметов
+        
+        **Источник:** `.BRAIN/05-technical/ui-main-game.md` (Раздел 3.1)
+      operationId: getEquipment
+      tags:
+        - Inventory
+        - Equipment
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: characterId
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID персонажа
+          example: "550e8400-e29b-41d4-a716-446655440000"
+      responses:
+        '200':
+          description: Экипировка персонажа
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - slots
+                  - totalBonuses
+                properties:
+                  slots:
+                    type: array
+                    description: Слоты экипировки
+                    items:
+                      $ref: '#/components/schemas/EquipmentSlot'
+                  totalBonuses:
+                    type: object
+                    description: Суммарные бонусы от всей экипировки
+                    additionalProperties:
+                      type: integer
+                    example:
+                      health: 50
+                      armor: 25
+                      damage: 15
+        '404':
+          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+        '401':
+          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+
+  /inventory/equip:
+    post:
+      summary: Экипировать предмет
+      description: |
+        Экипирует предмет из инвентаря в соответствующий слот экипировки.
+        
+        **Бизнес-логика:**
+        - Проверяет наличие предмета в инвентаре
+        - Проверяет требования для экипировки (уровень, характеристики)
+        - Если слот занят - автоматически снимает текущий предмет
+        - Применяет бонусы от нового предмета
+        
+        **Источник:** `.BRAIN/05-technical/ui-main-game.md` (Раздел 3.1)
+      operationId: equipItem
+      tags:
+        - Inventory
+        - Equipment
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EquipRequest'
+            examples:
+              equip_weapon:
+                summary: Экипировать оружие
+                value:
+                  characterId: "550e8400-e29b-41d4-a716-446655440000"
+                  itemId: "item_pistol_01"
+                  slotType: "weapon_primary"
+      responses:
+        '200':
+          description: Предмет успешно экипирован
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - equipment
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Предмет успешно экипирован"
+                  equipment:
+                    $ref: '#/components/schemas/EquipmentSlot'
+                  unequippedItem:
+                    $ref: '#/components/schemas/InventoryItem'
+                    description: Предмет, который был снят (если слот был занят)
+        '400':
+          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+        '403':
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+        '401':
+          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+
+  /inventory/unequip:
+    post:
+      summary: Снять экипированный предмет
+      description: |
+        Снимает предмет из слота экипировки и помещает в инвентарь.
+        
+        **Бизнес-логика:**
+        - Проверяет, что слот занят
+        - Проверяет наличие места в инвентаре (вес)
+        - Снимает бонусы от предмета
+        - Помещает предмет в инвентарь
+        
+        **Источник:** `.BRAIN/05-technical/ui-main-game.md` (Раздел 3.1)
+      operationId: unequipItem
+      tags:
+        - Inventory
+        - Equipment
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - characterId
+                - slotType
+              properties:
+                characterId:
+                  type: string
+                  format: uuid
+                  description: ID персонажа
+                slotType:
+                  type: string
+                  enum: [head, body, hands, legs, weapon_primary, weapon_secondary, implant_1, implant_2, implant_3]
+                  description: Тип слота экипировки
+      responses:
+        '200':
+          description: Предмет успешно снят
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - item
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Предмет успешно снят"
+                  item:
+                    $ref: '#/components/schemas/InventoryItem'
+        '400':
+          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+        '403':
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+        '401':
+          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+
+  /inventory/use:
+    post:
+      summary: Использовать предмет
+      description: |
+        Использует предмет из инвентаря (медикаменты, расходники).
+        
+        **Бизнес-логика:**
+        - Проверяет наличие предмета в инвентаре
+        - Проверяет, что предмет можно использовать
+        - Применяет эффекты от предмета
+        - Уменьшает количество на 1 (или удаляет, если был последний)
+        
+        **Источник:** `.BRAIN/05-technical/ui-main-game.md` (Раздел 3.1)
+      operationId: useItem
+      tags:
+        - Inventory
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UseItemRequest'
+            examples:
+              use_health_pack:
+                summary: Использовать аптечку
+                value:
+                  characterId: "550e8400-e29b-41d4-a716-446655440000"
+                  itemId: "item_health_pack"
+                  quantity: 1
+      responses:
+        '200':
+          description: Предмет успешно использован
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - effects
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Предмет успешно использован"
+                  effects:
+                    type: array
+                    description: Примененные эффекты от предмета
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum: [heal, energy, buff, debuff]
+                        value:
+                          type: integer
+                        description:
+                          type: string
+                    example:
+                      - type: "heal"
+                        value: 50
+                        description: "Восстановлено 50 HP"
+        '400':
+          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+        '403':
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+        '401':
+          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+
+  /inventory/drop:
+    delete:
+      summary: Выбросить предмет
+      description: |
+        Удаляет предмет из инвентаря персонажа (выбрасывает).
+        
+        **Бизнес-логика:**
+        - Проверяет наличие предмета в инвентаре
+        - Проверяет, что предмет не экипирован
+        - Проверяет, что предмет не квестовый (нельзя выбросить)
+        - Удаляет предмет (или уменьшает количество, если stackable)
+        
+        **Источник:** `.BRAIN/05-technical/ui-main-game.md` (Раздел 3.1)
+      operationId: dropItem
+      tags:
+        - Inventory
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: characterId
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID персонажа
+        - name: itemId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: ID предмета для выбрасывания
+        - name: quantity
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          description: Количество предметов для выбрасывания (для stackable)
+      responses:
+        '200':
+          description: Предмет успешно выброшен
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Предмет успешно выброшен"
+        '400':
+          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+        '403':
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+        '401':
+          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+
+components:
+  schemas:
+    InventoryResponse:
+      type: object
+      required:
+        - items
+        - currentWeight
+        - maxWeight
+      properties:
+        items:
+          type: array
+          description: Предметы в инвентаре
+          items:
+            $ref: '#/components/schemas/InventoryItem'
+        currentWeight:
+          type: number
+          format: float
+          description: Текущий вес инвентаря (кг)
+          example: 45.5
+        maxWeight:
+          type: number
+          format: float
+          description: Максимальный вес инвентаря (кг)
+          example: 100.0
+        categories:
+          type: object
+          description: Количество предметов по категориям
+          additionalProperties:
+            type: integer
+          example:
+            weapons: 3
+            armor: 5
+            consumables: 10
+
+    InventoryItem:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - category
+        - weight
+        - quantity
+        - stackable
+      properties:
+        id:
+          type: string
+          description: ID предмета
+          example: "item_pistol_01"
+        name:
+          type: string
+          description: Название предмета
+          example: "M-10AF Lexington"
+        description:
+          type: string
+          description: Описание предмета
+          example: "Стандартный пистолет калибра 10мм"
+        category:
+          $ref: '#/components/schemas/ItemCategory'
+        weight:
+          type: number
+          format: float
+          description: Вес одного предмета (кг)
+          example: 1.5
+        quantity:
+          type: integer
+          minimum: 1
+          description: Количество предметов (для stackable)
+          example: 1
+        stackable:
+          type: boolean
+          description: Можно ли складывать предметы
+          example: false
+        rarity:
+          type: string
+          enum: [common, uncommon, rare, epic, legendary]
+          description: Редкость предмета
+          example: "common"
+        value:
+          type: integer
+          description: Стоимость предмета (eddies)
+          example: 500
+        equippable:
+          type: boolean
+          description: Можно ли экипировать предмет
+          example: true
+        usable:
+          type: boolean
+          description: Можно ли использовать предмет
+          example: false
+        questItem:
+          type: boolean
+          description: Является ли квестовым предметом
+          example: false
+        requirements:
+          type: object
+          description: Требования для использования/экипировки
+          properties:
+            minLevel:
+              type: integer
+            minStrength:
+              type: integer
+            minDexterity:
+              type: integer
+            minIntelligence:
+              type: integer
+
+    EquipmentSlot:
+      type: object
+      required:
+        - slotType
+        - slotName
+        - isEmpty
+      properties:
+        slotType:
+          type: string
+          enum: [head, body, hands, legs, weapon_primary, weapon_secondary, implant_1, implant_2, implant_3]
+          description: Тип слота экипировки
+          example: "weapon_primary"
+        slotName:
+          type: string
+          description: Название слота для отображения
+          example: "Основное оружие"
+        isEmpty:
+          type: boolean
+          description: Пустой ли слот
+          example: false
+        item:
+          $ref: '#/components/schemas/InventoryItem'
+          description: Экипированный предмет (если слот не пустой)
+        bonuses:
+          type: object
+          description: Бонусы от экипированного предмета
+          additionalProperties:
+            type: integer
+          example:
+            damage: 25
+            accuracy: 10
+
+    ItemCategory:
+      type: string
+      enum:
+        - weapons
+        - armor
+        - implants
+        - consumables
+        - resources
+        - quest_items
+        - misc
+      description: |
+        Категория предмета:
+        - weapons: Оружие (пистолеты, винтовки, ножи)
+        - armor: Броня (голова, тело, руки, ноги)
+        - implants: Импланты (кибернетика)
+        - consumables: Расходники (медикаменты, еда, энергетики)
+        - resources: Ресурсы для крафта
+        - quest_items: Квестовые предметы
+        - misc: Прочее
+
+    EquipRequest:
+      type: object
+      required:
+        - characterId
+        - itemId
+        - slotType
+      properties:
+        characterId:
+          type: string
+          format: uuid
+          description: ID персонажа
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        itemId:
+          type: string
+          description: ID предмета для экипировки
+          example: "item_pistol_01"
+        slotType:
+          type: string
+          enum: [head, body, hands, legs, weapon_primary, weapon_secondary, implant_1, implant_2, implant_3]
+          description: Тип слота экипировки
+          example: "weapon_primary"
+
+    UseItemRequest:
+      type: object
+      required:
+        - characterId
+        - itemId
+      properties:
+        characterId:
+          type: string
+          format: uuid
+          description: ID персонажа
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        itemId:
+          type: string
+          description: ID предмета для использования
+          example: "item_health_pack"
+        quantity:
+          type: integer
+          minimum: 1
+          default: 1
+          description: Количество предметов для использования
+          example: 1
+
+  securitySchemes:
+    BearerAuth:
+      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+
