@@ -3,34 +3,67 @@ info:
   title: Equipment Matrix API
   version: 1.0.0
   description: |
-    API для матрицы снаряжения.
+    API для матрицы экипировки.
     
-    Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md v1.0.0
+    Источник: .BRAIN/02-gameplay/economy/equipment-matrix.md v1.2.0
+    
+    Категории: оружие, броня, импланты, киберварь, аксессуары
+    Параметры: tier, rarity, stats, mods, set bonuses
+    Прогрессия: от T1 Common до T5 Legendary
 
 servers:
   - url: https://api.necp.game/v1
     description: Production server
 
+tags:
+  - name: Equipment
+    description: Экипировка
+
 paths:
-  /gameplay/economy/equipment-matrix:
+  /gameplay/economy/equipment:
     get:
-      summary: Получить матрицу снаряжения
-      operationId: getEquipmentMatrix
+      summary: Получить каталог экипировки
+      description: Возвращает список доступной экипировки
+      operationId: getEquipment
+      tags:
+        - Equipment
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: tier
+          in: query
+          schema:
+            type: integer
       responses:
         '200':
-          description: Матрица снаряжения
+          description: Список экипировки
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /gameplay/economy/equipment/{item_id}:
+    get:
+      summary: Получить детали экипировки
+      description: Возвращает детальную информацию о предмете
+      operationId: getEquipmentDetails
+      tags:
+        - Equipment
+      parameters:
+        - name: item_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Детали предмета
           content:
             application/json:
               schema:
                 type: object
 
 components:
-  schemas:
-    EquipmentMatrix:
-      type: object
-      properties:
-        item_type:
-          type: string
-        stats:
-          type: object
-
+  schemas: {}
