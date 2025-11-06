@@ -64,7 +64,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Inventory'
+                $ref: '#/components/schemas/CharacterInventory'
               examples:
                 inventory:
                   summary: Пример инвентаря
@@ -313,7 +313,7 @@ paths:
 
 components:
   schemas:
-    Inventory:
+    CharacterInventory:
       type: object
       properties:
         character_id:
