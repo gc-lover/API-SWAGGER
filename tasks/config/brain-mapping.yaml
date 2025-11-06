@@ -187,6 +187,163 @@ mappings:
       - "api/v1/characters/status.yaml"
       - "api/v1/combat/combat.yaml"
 
+  # === БОЕВАЯ СИСТЕМА (Combat System) ===
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-shooting.md"
+    target: "api/v1/gameplay/combat/shooting.yaml"
+    task_id: "API-TASK-037"
+    task_file: "tasks/active/queue/task-037-combat-shooting-api.md"
+    status: "queued"
+    created: "2025-11-06 23:00"
+    version: "v1.1.0"
+    updated: "2025-11-06 23:00"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-overview.md"
+      - ".BRAIN/02-gameplay/combat/combat-weapon-classes-detailed.md"
+    related_targets:
+      - "api/v1/gameplay/combat/abilities.yaml"
+      - "api/v1/gameplay/combat/implants.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-abilities.md"
+    target: "api/v1/gameplay/combat/abilities.yaml"
+    task_id: "API-TASK-038"
+    task_file: "tasks/active/queue/task-038-combat-abilities-api.md"
+    status: "queued"
+    created: "2025-11-06 23:05"
+    version: "v1.2.0"
+    updated: "2025-11-06 23:05"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-abilities-catalog.md"
+      - ".BRAIN/02-gameplay/combat/combat-implants-types.md"
+    related_targets:
+      - "api/v1/gameplay/combat/shooting.yaml"
+      - "api/v1/gameplay/combat/abilities-catalog.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-abilities-catalog.md"
+    target: "api/v1/gameplay/combat/abilities-catalog.yaml"
+    task_id: "API-TASK-039"
+    task_file: "tasks/active/queue/task-039-abilities-catalog-api.md"
+    status: "queued"
+    created: "2025-11-06 23:10"
+    version: "v1.0.0"
+    updated: "2025-11-06 23:10"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-abilities.md"
+    related_targets:
+      - "api/v1/gameplay/combat/abilities.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-roles-detailed.md"
+    target: "api/v1/gameplay/combat/roles.yaml"
+    task_id: "API-TASK-040"
+    task_file: "tasks/active/queue/task-040-combat-roles-api.md"
+    status: "queued"
+    created: "2025-11-06 23:15"
+    version: "v1.0.0"
+    updated: "2025-11-06 23:15"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-abilities.md"
+    related_targets:
+      - "api/v1/gameplay/combat/abilities.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-combos-synergies.md"
+    target: "api/v1/gameplay/combat/combos-synergies.yaml"
+    task_id: "API-TASK-041"
+    task_file: "tasks/active/queue/task-041-combos-synergies-api.md"
+    status: "queued"
+    created: "2025-11-06 23:20"
+    version: "v1.0.0"
+    updated: "2025-11-06 23:20"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-abilities.md"
+      - ".BRAIN/02-gameplay/combat/combat-abilities-catalog.md"
+    related_targets:
+      - "api/v1/gameplay/combat/abilities.yaml"
+      - "api/v1/gameplay/combat/abilities-catalog.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-weapon-classes-detailed.md"
+    target: "api/v1/gameplay/combat/weapons.yaml"
+    task_id: "API-TASK-042"
+    task_file: "tasks/active/queue/task-042-weapon-classes-api.md"
+    status: "queued"
+    created: "2025-11-06 23:25"
+    version: "v1.0.0"
+    updated: "2025-11-06 23:25"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-shooting.md"
+    related_targets:
+      - "api/v1/gameplay/combat/shooting.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-implants-types.md"
+    target: "api/v1/gameplay/combat/implants.yaml"
+    task_id: "API-TASK-043"
+    task_file: "tasks/active/queue/task-043-implants-types-api.md"
+    status: "queued"
+    created: "2025-11-06 23:30"
+    version: "v1.1.0"
+    updated: "2025-11-06 23:30"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-implants.md"
+      - ".BRAIN/02-gameplay/combat/combat-abilities.md"
+    related_targets:
+      - "api/v1/gameplay/combat/abilities.yaml"
+      - "api/v1/gameplay/combat/implants-limits.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-implants-limits.md"
+    target: "api/v1/gameplay/combat/implants-limits.yaml"
+    task_id: "API-TASK-044"
+    task_file: "tasks/active/queue/task-044-implants-limits-api.md"
+    status: "queued"
+    created: "2025-11-06 23:35"
+    version: "v1.0.0"
+    updated: "2025-11-06 23:35"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-implants-types.md"
+    related_targets:
+      - "api/v1/gameplay/combat/implants.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-cyberpsychosis.md"
+    target: "api/v1/gameplay/combat/cyberpsychosis.yaml"
+    task_id: "API-TASK-045"
+    task_file: "tasks/active/queue/task-045-cyberpsychosis-api.md"
+    status: "queued"
+    created: "2025-11-06 23:40"
+    version: "v1.1.0"
+    updated: "2025-11-06 23:40"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-implants-types.md"
+      - ".BRAIN/02-gameplay/combat/combat-implants-limits.md"
+    related_targets:
+      - "api/v1/gameplay/combat/implants.yaml"
+      - "api/v1/gameplay/combat/implants-limits.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-extract.md"
+    target: "api/v1/gameplay/combat/extraction.yaml"
+    task_id: "API-TASK-046"
+    task_file: "tasks/active/queue/task-046-extraction-api.md"
+    status: "queued"
+    created: "2025-11-06 23:45"
+    version: "v1.3.0"
+    updated: "2025-11-06 23:45"
+    related_sources:
+      - ".BRAIN/02-gameplay/economy/equipment-matrix.md"
+    related_targets:
+      - "api/v1/gameplay/combat/shooting.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-ai-enemies.md"
+    target: "api/v1/gameplay/combat/ai-enemies.yaml"
+    task_id: "API-TASK-047"
+    task_file: "tasks/active/queue/task-047-ai-enemies-api.md"
+    status: "queued"
+    created: "2025-11-06 23:50"
+    version: "v1.0.0"
+    updated: "2025-11-06 23:50"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-shooting.md"
+      - ".BRAIN/02-gameplay/combat/combat-abilities.md"
+    related_targets:
+      - "api/v1/gameplay/combat/shooting.yaml"
+      - "api/v1/gameplay/combat/abilities.yaml"
+
 # Примеры записей:
 #
 # mappings:
