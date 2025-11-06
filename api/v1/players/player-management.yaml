@@ -190,7 +190,7 @@ paths:
       description: |
         Удаляет персонажа (soft delete).
         Grace period 30 дней - можно восстановить.
-      operationId: deleteCharacter
+      operationId: deletePlayerCharacter
       tags:
         - Characters
       security:
