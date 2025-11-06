@@ -1,0 +1,219 @@
+openapi: 3.0.3
+info:
+  title: D&D Shooter Integration API
+  version: 1.0.0
+  description: |
+    API для интеграции D&D проверок с шутер-боем.
+    
+    Источник: .BRAIN/02-gameplay/combat/combat-dnd-integration-shooter.md v1.1.0
+    
+    Модель гибрида: realtime стрельба + d20 проверки при событиях
+    
+    Микро-события:
+    - Трюки паркура под огнем
+    - Хитман-маневры (скрытные убийства)
+    - Snapshot-шоты (быстрая стрельба)
+    - Вскрытие дверей под таймер
+    
+    Преимущества/помехи: укрытие, импланты, баффы, ранения, подавление, киберпсихоз
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+tags:
+  - name: DnD Shooter Integration
+    description: Интеграция D&D с шутером
+
+paths:
+  /gameplay/mechanics/dnd-shooter/micro-check:
+    post:
+      summary: Микро-проверка в бою
+      description: |
+        Выполняет микро-проверку d20 во время боя.
+        Применяется к специальным действиям (трюки, сложные манипуляции).
+      operationId: performMicroCheck
+      tags:
+        - DnD Shooter Integration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - character_id
+                - check_type
+                - dc
+              properties:
+                character_id:
+                  type: string
+                check_type:
+                  type: string
+                  enum: [parkour_under_fire, snapshot_shot, door_breach, stealth_kill, quick_hack]
+                dc:
+                  type: integer
+                modifiers:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      value:
+                        type: integer
+      responses:
+        '200':
+          description: Проверка выполнена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  roll:
+                    type: integer
+                  total:
+                    type: integer
+                  dc:
+                    type: integer
+                  success:
+                    type: boolean
+                  critical:
+                    type: boolean
+                  effect:
+                    type: string
+
+  /gameplay/mechanics/dnd-shooter/parkour-check:
+    post:
+      summary: Проверка паркура под огнем
+      description: |
+        Выполняет проверку паркура во время боя.
+        Повышенная DC из-за стресса и огня врагов.
+      operationId: performParkourCheck
+      tags:
+        - DnD Shooter Integration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - character_id
+                - maneuver_type
+              properties:
+                character_id:
+                  type: string
+                maneuver_type:
+                  type: string
+                  enum: [wall_run, roof_jump, slide_under, vault_over]
+                under_fire:
+                  type: boolean
+                  default: false
+                  description: Под обстрелом (повышает DC)
+      responses:
+        '200':
+          description: Паркур проверка выполнена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  roll_result:
+                    type: integer
+                  dc:
+                    type: integer
+                  consequences:
+                    type: string
+                    enum: [success, partial_success, failure, critical_failure]
+
+  /gameplay/mechanics/dnd-shooter/stealth-kill-check:
+    post:
+      summary: Проверка скрытного убийства
+      description: |
+        Выполняет проверку для скрытной нейтрализации.
+        Требует COOL check.
+      operationId: performStealthKillCheck
+      tags:
+        - DnD Shooter Integration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - character_id
+                - target_id
+                - approach_type
+              properties:
+                character_id:
+                  type: string
+                target_id:
+                  type: string
+                approach_type:
+                  type: string
+                  enum: [behind, from_above, distracted, sleeping]
+      responses:
+        '200':
+          description: Проверка убийства выполнена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  detection_risk:
+                    type: number
+                  noise_generated:
+                    type: integer
+                  instant_kill:
+                    type: boolean
+
+  /gameplay/mechanics/dnd-shooter/snapshot-check:
+    post:
+      summary: Проверка snapshot-шота
+      description: |
+        Выполняет проверку для быстрого выстрела.
+        Высокий DC, но большой бонус к урону при успехе.
+      operationId: performSnapshotCheck
+      tags:
+        - DnD Shooter Integration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - character_id
+                - target_id
+              properties:
+                character_id:
+                  type: string
+                target_id:
+                  type: string
+                aiming_time:
+                  type: number
+                  description: Время прицеливания (секунды)
+      responses:
+        '200':
+          description: Snapshot проверка выполнена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  damage_bonus:
+                    type: number
+                  critical_multiplier:
+                    type: number
+
+components:
+  schemas: {}
+
