@@ -1,0 +1,543 @@
+openapi: 3.0.3
+info:
+  title: Crafting System API
+  version: 1.0.0
+  description: |
+    API для системы крафта.
+    
+    Функционал:
+    - 13 детальных рецептов (weapons, armor, implants, mods, consumables)
+    - Blueprint system
+    - Component requirements
+    - Crafting time
+    - Success rates (depends on skills)
+    - Progression tiers (T1-T5)
+    - Rare materials
+    - Crafting stations
+    - Mass production
+    - Quality levels
+    
+    Категории крафта:
+    - Weapons (pistols, rifles, swords)
+    - Armor (head, chest, legs, cyberware)
+    - Implants (combat, utility, stealth)
+    - Mods (weapon attachments, armor upgrades)
+    - Consumables (healing, buffs, hacks)
+    
+    Источник: .BRAIN/02-gameplay/economy/economy-crafting-recipes.md v2.0.0
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+tags:
+  - name: Recipes
+    description: Рецепты крафта
+  - name: Crafting
+    description: Процесс крафта
+  - name: Blueprints
+    description: Чертежи
+
+paths:
+  /gameplay/economy/crafting/recipes:
+    get:
+      summary: Получить список рецептов
+      operationId: listRecipes
+      tags: [Recipes]
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+            enum: [WEAPONS, ARMOR, IMPLANTS, MODS, CONSUMABLES]
+        - name: tier
+          in: query
+          description: Tier рецепта
+          schema:
+            type: string
+            enum: [T1, T2, T3, T4, T5]
+        - name: min_skill_level
+          in: query
+          schema:
+            type: integer
+        - $ref: '../../../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../../../shared/common/pagination.yaml#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Список рецептов
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '../../../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/CraftingRecipe'
+
+  /gameplay/economy/crafting/recipes/{recipe_id}:
+    get:
+      summary: Получить детали рецепта
+      operationId: getRecipe
+      tags: [Recipes]
+      parameters:
+        - name: recipe_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Детали рецепта
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CraftingRecipeDetailed'
+        '404':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/NotFound'
+
+  /gameplay/economy/crafting/character/{character_id}/known-recipes:
+    get:
+      summary: Получить известные рецепты персонажа
+      operationId: getKnownRecipes
+      tags: [Recipes]
+      parameters:
+        - name: character_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Известные рецепты
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  known_recipes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CraftingRecipe'
+                  total_recipes:
+                    type: integer
+                  recipes_by_category:
+                    type: object
+                    additionalProperties:
+                      type: integer
+
+  /gameplay/economy/crafting/character/{character_id}/learn-recipe:
+    post:
+      summary: Изучить новый рецепт
+      operationId: learnRecipe
+      tags: [Blueprints]
+      parameters:
+        - name: character_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipe_id:
+                  type: string
+                blueprint_item_id:
+                  type: string
+                  format: uuid
+                  description: ID чертежа в инвентаре
+      responses:
+        '200':
+          description: Рецепт изучен
+        '400':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
+
+  /gameplay/economy/crafting/craft:
+    post:
+      summary: Крафтнуть предмет
+      operationId: craftItem
+      tags: [Crafting]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CraftRequest'
+      responses:
+        '200':
+          description: Крафт начат
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CraftingSession'
+        '400':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
+
+  /gameplay/economy/crafting/sessions/{session_id}:
+    get:
+      summary: Получить статус крафтинга
+      operationId: getCraftingSession
+      tags: [Crafting]
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Статус сессии
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CraftingSession'
+        '404':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/NotFound'
+
+  /gameplay/economy/crafting/sessions/{session_id}/complete:
+    post:
+      summary: Завершить крафтинг
+      operationId: completeCrafting
+      tags: [Crafting]
+      description: Вызывается когда время истекло
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Крафт завершен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CraftingResult'
+        '400':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
+
+  /gameplay/economy/crafting/stations:
+    get:
+      summary: Получить доступные крафтинг станции
+      operationId: getCraftingStations
+      tags: [Crafting]
+      responses:
+        '200':
+          description: Станции крафта
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CraftingStation'
+
+  /gameplay/economy/crafting/calculate:
+    post:
+      summary: Рассчитать шанс успеха и время крафта
+      operationId: calculateCraftingChance
+      tags: [Crafting]
+      description: Для UI - показать перед крафтом
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                character_id:
+                  type: string
+                  format: uuid
+                recipe_id:
+                  type: string
+                station_id:
+                  type: string
+                  nullable: true
+      responses:
+        '200':
+          description: Расчет крафта
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CraftingCalculation'
+
+components:
+  schemas:
+    CraftingRecipe:
+      type: object
+      properties:
+        recipe_id:
+          type: string
+        name:
+          type: string
+          example: "Legendary Mantis Blades"
+        description:
+          type: string
+        category:
+          type: string
+          enum: [WEAPONS, ARMOR, IMPLANTS, MODS, CONSUMABLES]
+        tier:
+          type: string
+          enum: [T1, T2, T3, T4, T5]
+        required_skill:
+          type: string
+          example: "CRAFTING"
+        required_skill_level:
+          type: integer
+          example: 15
+        base_crafting_time_seconds:
+          type: integer
+          example: 300
+        base_success_rate:
+          type: number
+          format: float
+          example: 0.75
+        components_count:
+          type: integer
+
+    CraftingRecipeDetailed:
+      allOf:
+        - $ref: '#/components/schemas/CraftingRecipe'
+        - type: object
+          properties:
+            components:
+              type: array
+              items:
+                $ref: '#/components/schemas/ComponentRequirement'
+            result_item:
+              type: object
+              properties:
+                item_id:
+                  type: string
+                  format: uuid
+                name:
+                  type: string
+                quality_range:
+                  type: object
+                  properties:
+                    min:
+                      type: string
+                      enum: [POOR, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY]
+                    max:
+                      type: string
+            station_requirement:
+              type: string
+              nullable: true
+              example: "WEAPONS_BENCH"
+            unlock_source:
+              type: string
+              description: Откуда получен рецепт
+              example: "Blueprint: Legendary Mantis Blades"
+
+    ComponentRequirement:
+      type: object
+      properties:
+        component_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        quantity:
+          type: integer
+        rarity:
+          type: string
+          enum: [COMMON, UNCOMMON, RARE, EPIC, LEGENDARY]
+        alternatives:
+          type: array
+          description: Альтернативные компоненты
+          items:
+            type: object
+            properties:
+              component_id:
+                type: string
+                format: uuid
+              quantity:
+                type: integer
+
+    CraftRequest:
+      type: object
+      required:
+        - character_id
+        - recipe_id
+      properties:
+        character_id:
+          type: string
+          format: uuid
+        recipe_id:
+          type: string
+        station_id:
+          type: string
+          nullable: true
+        quantity:
+          type: integer
+          default: 1
+          maximum: 100
+          description: Для mass production
+        use_boosts:
+          type: array
+          description: Использовать буст-предметы
+          items:
+            type: string
+            format: uuid
+
+    CraftingSession:
+      type: object
+      properties:
+        session_id:
+          type: string
+          format: uuid
+        character_id:
+          type: string
+          format: uuid
+        recipe:
+          $ref: '#/components/schemas/CraftingRecipe'
+        status:
+          type: string
+          enum: [IN_PROGRESS, COMPLETED, FAILED, CANCELLED]
+        quantity:
+          type: integer
+        completed_count:
+          type: integer
+        started_at:
+          type: string
+          format: date-time
+        estimated_completion:
+          type: string
+          format: date-time
+        time_remaining_seconds:
+          type: integer
+        success_chance:
+          type: number
+          format: float
+
+    CraftingResult:
+      type: object
+      properties:
+        session_id:
+          type: string
+          format: uuid
+        success:
+          type: boolean
+        items_crafted:
+          type: array
+          items:
+            type: object
+            properties:
+              item_id:
+                type: string
+                format: uuid
+              quality:
+                type: string
+              quantity:
+                type: integer
+        experience_gained:
+          type: integer
+        components_consumed:
+          type: array
+          items:
+            type: object
+            properties:
+              component_id:
+                type: string
+                format: uuid
+              quantity:
+                type: integer
+
+    CraftingStation:
+      type: object
+      properties:
+        station_id:
+          type: string
+        name:
+          type: string
+          example: "Legendary Weapons Bench"
+        type:
+          type: string
+          enum: [WEAPONS_BENCH, ARMOR_BENCH, CYBERWARE_LAB, CHEMISTRY_LAB, GENERAL_WORKBENCH]
+        location_id:
+          type: string
+        available:
+          type: boolean
+        bonuses:
+          type: object
+          properties:
+            success_rate_bonus:
+              type: number
+              format: float
+            time_reduction:
+              type: number
+              format: float
+            quality_chance_bonus:
+              type: number
+              format: float
+
+    CraftingCalculation:
+      type: object
+      properties:
+        recipe_id:
+          type: string
+        character_skill_level:
+          type: integer
+        base_success_rate:
+          type: number
+        final_success_rate:
+          type: number
+          description: С учетом навыков и бонусов
+        base_time_seconds:
+          type: integer
+        final_time_seconds:
+          type: integer
+        quality_chances:
+          type: object
+          description: Шансы качества
+          properties:
+            poor:
+              type: number
+            common:
+              type: number
+            uncommon:
+              type: number
+            rare:
+              type: number
+            epic:
+              type: number
+            legendary:
+              type: number
+        missing_components:
+          type: array
+          items:
+            type: object
+            properties:
+              component_id:
+                type: string
+                format: uuid
+              required:
+                type: integer
+              available:
+                type: integer
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerAuth: []
+
