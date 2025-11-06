@@ -1600,6 +1600,147 @@ mappings:
       - "api/v1/loot/loot-distribution.yaml"
       - "api/v1/loot/loot-rolls.yaml"
 
+  # === BATCH 2: TIER 2 СИСТЕМЫ (2025-11-07) ===
+  
+  - source: ".BRAIN/05-technical/backend/trade-system.md"
+    target: "api/v1/trade/trade-system.yaml"
+    task_id: "API-TASK-130"
+    task_file: "tasks/active/queue/task-130-trade-system-api.md"
+    status: "queued"
+    created: "2025-11-07 10:20"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:20"
+    related_sources:
+      - ".BRAIN/05-technical/backend/inventory-system.md"
+    related_targets: []
+  
+  - source: ".BRAIN/05-technical/backend/mail-system.md"
+    target: "api/v1/mail/mail-system.yaml"
+    task_id: "API-TASK-131"
+    task_file: "tasks/active/queue/task-131-mail-system-api.md"
+    status: "queued"
+    created: "2025-11-07 10:22"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:22"
+    related_sources:
+      - ".BRAIN/05-technical/backend/inventory-system.md"
+    related_targets: []
+  
+  - source: ".BRAIN/05-technical/backend/notification-system.md"
+    target: "api/v1/notifications/notifications.yaml"
+    task_id: "API-TASK-132"
+    task_file: "tasks/active/queue/task-132-notification-system-api.md"
+    status: "queued"
+    created: "2025-11-07 10:24"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:24"
+    related_sources: []
+    related_targets: []
+  
+  - source: ".BRAIN/05-technical/backend/party-system.md"
+    target: "api/v1/party/party-system.yaml"
+    task_id: "API-TASK-133"
+    task_file: "tasks/active/queue/task-133-party-system-api.md"
+    status: "queued"
+    created: "2025-11-07 10:26"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:26"
+    related_sources:
+      - ".BRAIN/05-technical/backend/loot-system.md"
+    related_targets: []
+  
+  - source: ".BRAIN/05-technical/backend/friend-system.md"
+    target: "api/v1/social/friends.yaml"
+    task_id: "API-TASK-134"
+    task_file: "tasks/active/queue/task-134-friend-system-api.md"
+    status: "queued"
+    created: "2025-11-07 10:28"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:28"
+    related_sources: []
+    related_targets: []
+  
+  - source: ".BRAIN/05-technical/backend/guild-system-backend.md"
+    target: "api/v1/guilds/guild-system.yaml"
+    task_id: "API-TASK-135"
+    task_file: "tasks/active/queue/task-135-guild-system-api.md"
+    status: "queued"
+    created: "2025-11-07 10:30"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:30"
+    related_sources:
+      - ".BRAIN/05-technical/backend/party-system.md"
+    related_targets: []
+  
+  - source: ".BRAIN/05-technical/backend/achievement-system.md"
+    target: "api/v1/achievements/achievements.yaml"
+    task_id: "API-TASK-136"
+    task_file: "tasks/active/queue/task-136-achievement-system-api.md"
+    status: "queued"
+    created: "2025-11-07 10:32"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:32"
+    related_sources: []
+    related_targets: []
+  
+  - source: ".BRAIN/05-technical/backend/leaderboard-system.md"
+    target: "api/v1/leaderboards/leaderboards.yaml"
+    task_id: "API-TASK-137"
+    task_file: "tasks/active/queue/task-137-leaderboard-system-api.md"
+    status: "queued"
+    created: "2025-11-07 10:34"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:34"
+    related_sources: []
+    related_targets: []
+  
+  - source: ".BRAIN/05-technical/backend/quest-engine-backend.md"
+    target: "api/v1/quests/quest-engine.yaml"
+    task_id: "API-TASK-138"
+    task_file: "tasks/active/queue/task-138-quest-engine-api.md"
+    status: "queued"
+    created: "2025-11-07 10:36"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:36"
+    related_sources:
+      - ".BRAIN/05-technical/backend/player-character-management.md"
+    related_targets: []
+  
+  - source: ".BRAIN/05-technical/backend/combat-session-backend.md"
+    target: "api/v1/combat/combat-session.yaml"
+    task_id: "API-TASK-139"
+    task_file: "tasks/active/queue/task-139-combat-session-api.md"
+    status: "queued"
+    created: "2025-11-07 10:38"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:38"
+    related_sources:
+      - ".BRAIN/05-technical/backend/inventory-system.md"
+    related_targets: []
+  
+  - source: ".BRAIN/05-technical/backend/progression-backend.md"
+    target: "api/v1/progression/progression-engine.yaml"
+    task_id: "API-TASK-140"
+    task_file: "tasks/active/queue/task-140-progression-backend-api.md"
+    status: "queued"
+    created: "2025-11-07 10:40"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:40"
+    related_sources:
+      - ".BRAIN/05-technical/backend/player-character-management.md"
+    related_targets: []
+  
+  - source: ".BRAIN/05-technical/backend/daily-weekly-reset-system.md"
+    target: "api/v1/system/reset-system.yaml"
+    task_id: "API-TASK-141"
+    task_file: "tasks/active/queue/task-141-daily-reset-api.md"
+    status: "queued"
+    created: "2025-11-07 10:42"
+    version: "v1.0.0"
+    updated: "2025-11-07 10:42"
+    related_sources: []
+    related_targets: []
+
 # Примеры записей:
 #
 # mappings:
