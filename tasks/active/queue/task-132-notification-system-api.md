@@ -32,6 +32,36 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** social-service  
+**Порт:** 8084  
+**API пути:** /api/v1/notifications/*
+
+### Frontend (модуль):
+
+**Модуль:** N/A (глобальная функция для всех модулей)  
+**Путь:** src/features/notifications/  
+**State Store:** useNotificationStore (notifications, unreadCount, preferences)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- NotificationToast, NotificationBell, Badge (unread count)
+
+**Готовые формы (@shared/forms):**
+- NotificationPreferencesForm
+
+**Layouts (@shared/layouts):**
+- Используется в GameLayout (global notification component)
+
+**Хуки (@shared/hooks):**
+- useRealtime (для WebSocket push)
+
+---
+
 ## ✅ Endpoints (план)
 
 1. **GET /api/v1/notifications** - Список уведомлений (pagination)

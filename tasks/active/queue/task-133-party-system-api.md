@@ -33,6 +33,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** social-service  
+**Порт:** 8084  
+**API пути:** /api/v1/party/*
+
+### Frontend (модуль):
+
+**Модуль:** social  
+**Путь:** modules/social/party  
+**State Store:** useSocialStore (party, partyMembers, partySettings)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, CharacterCard (для party members), HealthBar (HP party members), Button
+
+**Готовые формы (@shared/forms):**
+- PartyInviteForm, PartySettingsForm
+
+**Layouts (@shared/layouts):**
+- GameLayout (party UI в sidebar)
+
+**Хуки (@shared/hooks):**
+- useRealtime (для обновления party state)
+- useCharacter (для отображения party members)
+
+---
+
 ## ✅ Endpoints (план)
 
 1. **POST /api/v1/party** - Создать party

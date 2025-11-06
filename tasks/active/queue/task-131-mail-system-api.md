@@ -32,6 +32,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** social-service  
+**Порт:** 8084  
+**API пути:** /api/v1/mail/*
+
+### Frontend (модуль):
+
+**Модуль:** social  
+**Путь:** modules/social/mail  
+**State Store:** useSocialStore (inbox, unreadCount)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, ItemCard, Button, ProgressBar (expiration timer)
+
+**Готовые формы (@shared/forms):**
+- MailComposeForm (send mail with attachments)
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce
+- useRealtime (для новых писем)
+
+---
+
 ## ✅ Endpoints (план)
 
 1. **GET /api/v1/mail/inbox** - Список писем (pagination)

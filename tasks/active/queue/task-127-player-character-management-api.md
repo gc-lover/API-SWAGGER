@@ -59,6 +59,39 @@ api/v1/players/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** character-service  
+**Порт:** 8082  
+**API пути:** /api/v1/players/*, /api/v1/characters/*
+
+### Frontend (модуль):
+
+**Модуль:** N/A (базовая функция создания персонажа, не игровой модуль)  
+**Путь:** src/features/character-creation/  
+**State Store:** useCharacterStore (characters, activeCharacter, playerProfile)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Button, Input, Card, Select, Checkbox
+- CharacterCard, StatBlock, ProgressBar
+
+**Готовые формы (@shared/forms):**
+- CharacterCreationForm, CharacterAppearanceForm
+
+**Layouts (@shared/layouts):**
+- GameLayout (для управления персонажами)
+- AuthLayout (для выбора персонажа при входе)
+
+**Хуки (@shared/hooks):**
+- useDebounce (для валидации имени)
+- useCharacter (для работы с активным персонажем)
+
+---
+
 ## ✅ Что нужно сделать (план)
 
 ### Файл 1: players.yaml

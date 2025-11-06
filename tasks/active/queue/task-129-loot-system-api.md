@@ -59,6 +59,37 @@ api/v1/loot/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** gameplay-service  
+**Порт:** 8083  
+**API пути:** /api/v1/loot/*
+
+### Frontend (модуль):
+
+**Модуль:** combat (лут после боя)  
+**Путь:** modules/combat/loot  
+**State Store:** useCombatStore (loot, lootRolls)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- ItemCard, LootCard, RollButton, ProgressBar (timer)
+
+**Готовые формы (@shared/forms):**
+- N/A (простые кнопки need/greed/pass)
+
+**Layouts (@shared/layouts):**
+- GameLayout, CombatLayout (лут после боя)
+
+**Хуки (@shared/hooks):**
+- useDebounce
+- useRealtime (для обновления roll timer)
+
+---
+
 ## ✅ Что нужно сделать (план)
 
 ### Файл 1: loot-generation.yaml

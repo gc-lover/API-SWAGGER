@@ -59,6 +59,37 @@ api/v1/inventory/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** character-service  
+**Порт:** 8082  
+**API пути:** /api/v1/inventory/*
+
+### Frontend (модуль):
+
+**Модуль:** N/A (базовая функция, используется во всех модулях)  
+**Путь:** src/features/inventory/  
+**State Store:** useInventoryStore (items, equipment, bank, weight)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- ItemCard, InventorySlot, EquipmentSlot, WeightBar, ProgressBar
+
+**Готовые формы (@shared/forms):**
+- N/A (базовые drag-and-drop компоненты)
+
+**Layouts (@shared/layouts):**
+- GameLayout (инвентарь как часть игрового UI)
+
+**Хуки (@shared/hooks):**
+- useInventory (работа с инвентарем)
+- useDebounce (для поиска по предметам)
+
+---
+
 ## ✅ Что нужно сделать (план)
 
 ### Файл 1: inventory.yaml

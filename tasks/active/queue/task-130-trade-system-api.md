@@ -31,6 +31,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** economy-service  
+**Порт:** 8085  
+**API пути:** /api/v1/trade/*
+
+### Frontend (модуль):
+
+**Модуль:** economy  
+**Путь:** modules/economy/trade  
+**State Store:** useEconomyStore (tradeSession, offers)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- ItemCard, TradeWindow, ConfirmButton, PriceDisplay
+
+**Готовые формы (@shared/forms):**
+- TradeForm (offer items + gold)
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce
+- useRealtime (для обновления trade session)
+
+---
+
 ## ✅ Endpoints (план)
 
 1. **POST /api/v1/trade/sessions** - Создать trade session
