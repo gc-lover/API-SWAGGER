@@ -1195,6 +1195,45 @@ mappings:
     related_targets:
       - "api/v1/gameplay/economy/equipment-matrix.yaml"
 
+  # === BACKEND СИСТЕМЫ (Backend Systems) ===
+  
+  - source: ".BRAIN/05-technical/backend/session-management-system.md"
+    target: "api/v1/technical/session-management.yaml"
+    task_id: "API-TASK-106"
+    task_file: "tasks/active/queue/task-106-session-management-api.md"
+    status: "queued"
+    created: "2025-11-07 05:20"
+    version: "v1.0.0"
+    updated: "2025-11-07 05:20"
+    related_sources: []
+    related_targets: []
+  
+  - source: ".BRAIN/05-technical/backend/chat-system.md"
+    target: "api/v1/technical/chat-system.yaml"
+    task_id: "API-TASK-107"
+    task_file: "tasks/active/queue/task-107-chat-system-api.md"
+    status: "queued"
+    created: "2025-11-07 05:25"
+    version: "v1.0.0"
+    updated: "2025-11-07 05:25"
+    related_sources:
+      - ".BRAIN/05-technical/backend/session-management-system.md"
+    related_targets:
+      - "api/v1/technical/session-management.yaml"
+  
+  - source: ".BRAIN/05-technical/backend/matchmaking-system.md"
+    target: "api/v1/technical/matchmaking.yaml"
+    task_id: "API-TASK-108"
+    task_file: "tasks/active/queue/task-108-matchmaking-api.md"
+    status: "queued"
+    created: "2025-11-07 05:30"
+    version: "v1.0.0"
+    updated: "2025-11-07 05:30"
+    related_sources:
+      - ".BRAIN/05-technical/backend/session-management-system.md"
+    related_targets:
+      - "api/v1/technical/session-management.yaml"
+
 # Примеры записей:
 #
 # mappings:
