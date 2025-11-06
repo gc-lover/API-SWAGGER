@@ -112,11 +112,11 @@ paths:
                       hp_remaining: 500
                       is_dead: false
         '400':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
         '409':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
 
   /gameplay/combat/calculate-damage:
     post:
@@ -146,7 +146,7 @@ paths:
               schema:
                 $ref: './shooting/shooting-models.yaml#/components/schemas/DamageCalculationResult'
         '400':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
 
   /gameplay/combat/weapons/{weapon_id}:
     get:
@@ -171,7 +171,7 @@ paths:
               schema:
                 $ref: './shooting/shooting-models.yaml#/components/schemas/Weapon'
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
 
   /gameplay/combat/damage-modifiers:
     get:
@@ -239,9 +239,9 @@ paths:
                     type: integer
                     description: Количество патронов в магазине
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
         '409':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
 
   /gameplay/combat/cover-penetration:
     post:
@@ -266,4 +266,4 @@ paths:
               schema:
                 $ref: './shooting/shooting-models.yaml#/components/schemas/CoverPenetrationResult'
         '400':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'

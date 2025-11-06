@@ -93,7 +93,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Implant'
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
 
   /gameplay/combat/implants/by-type/{type}:
     get:
@@ -146,9 +146,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ImplantInstallResult'
         '400':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
         '409':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
 
   /gameplay/combat/implants/remove:
     delete:
@@ -184,7 +184,7 @@ paths:
                   humanity_restored:
                     type: number
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
 
   /gameplay/combat/implants/synergies:
     get:

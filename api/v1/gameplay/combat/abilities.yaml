@@ -14,6 +14,9 @@ info:
     - Гибридные билды с мягкими ограничениями
     - Синергии между способностями, имплантами и экипировкой
     - Влияние на киберпсихоз (перегрев системы)
+    
+    ПРИМЕЧАНИЕ: Модели данных вынесены в abilities/abilities-models.yaml
+    для соблюдения лимита 400 строк на файл.
 
 servers:
   - url: https://api.necp.game/v1
@@ -98,8 +101,8 @@ paths:
           description: Детали способности
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/Ability'
+            schema:
+              $ref: './abilities/abilities-models.yaml#/components/schemas/Ability'
         '404':
           description: Not Found
           content:
@@ -127,14 +130,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AbilityUseRequest'
+              $ref: './abilities/abilities-models.yaml#/components/schemas/AbilityUseRequest'
       responses:
         '200':
           description: Способность успешно использована
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AbilityUseResult'
+                $ref: './abilities/abilities-models.yaml#/components/schemas/AbilityUseResult'
         '400':
           description: Bad Request
         '409':
@@ -188,7 +191,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AbilityLoadout'
+              $ref: './abilities/abilities-models.yaml#/components/schemas/AbilityLoadout'
       responses:
         '200':
           description: Loadout обновлен
@@ -228,7 +231,7 @@ paths:
                   synergies:
                     type: array
                     items:
-                      $ref: '#/components/schemas/AbilitySynergy'
+                      $ref: './abilities/abilities-models.yaml#/components/schemas/AbilitySynergy'
 
   /gameplay/combat/abilities/cooldowns:
     get:
@@ -255,11 +258,8 @@ paths:
                   cooldowns:
                     type: array
                     items:
-                      $ref: '#/components/schemas/AbilityCooldown'
+                      $ref: './abilities/abilities-models.yaml#/components/schemas/AbilityCooldown'
 
-components:
-  schemas:
-    Ability:
       type: object
       required:
         - id

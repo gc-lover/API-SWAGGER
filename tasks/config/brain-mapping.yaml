@@ -965,6 +965,62 @@ mappings:
     related_targets:
       - "api/v1/gameplay/economy/trading.yaml"
 
+  # === БОЕВАЯ СИСТЕМА - ДОПОЛНЕНИЯ #2 (Combat Extensions #2) ===
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-pvp-pve.md"
+    target: "api/v1/gameplay/combat/pvp-pve-balance.yaml"
+    task_id: "API-TASK-090"
+    task_file: "tasks/active/queue/task-090-pvp-pve-balance-api.md"
+    status: "queued"
+    created: "2025-11-07 04:00"
+    version: "v1.1.0"
+    updated: "2025-11-07 04:00"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-shooting.md"
+    related_targets:
+      - "api/v1/gameplay/combat/shooting.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-implants-visuals.md"
+    target: "api/v1/gameplay/combat/implants-visuals.yaml"
+    task_id: "API-TASK-091"
+    task_file: "tasks/active/queue/task-091-implants-visuals-api.md"
+    status: "queued"
+    created: "2025-11-07 04:05"
+    version: "v1.1.0"
+    updated: "2025-11-07 04:05"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-implants-types.md"
+    related_targets:
+      - "api/v1/gameplay/combat/implants.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-implants-mechanics.md"
+    target: "api/v1/gameplay/combat/implants-mechanics.yaml"
+    task_id: "API-TASK-092"
+    task_file: "tasks/active/queue/task-092-implants-mechanics-api.md"
+    status: "queued"
+    created: "2025-11-07 04:10"
+    version: "v1.1.0"
+    updated: "2025-11-07 04:10"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-implants-types.md"
+    related_targets:
+      - "api/v1/gameplay/combat/implants.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-implants-acquisition.md"
+    target: "api/v1/gameplay/combat/implants-acquisition.yaml"
+    task_id: "API-TASK-093"
+    task_file: "tasks/active/queue/task-093-implants-acquisition-api.md"
+    status: "queued"
+    created: "2025-11-07 04:15"
+    version: "v1.1.0"
+    updated: "2025-11-07 04:15"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-implants-types.md"
+      - ".BRAIN/02-gameplay/economy/economy-crafting.md"
+    related_targets:
+      - "api/v1/gameplay/combat/implants.yaml"
+      - "api/v1/gameplay/economy/crafting.yaml"
+
 # Примеры записей:
 #
 # mappings:
