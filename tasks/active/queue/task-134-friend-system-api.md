@@ -31,6 +31,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** social-service  
+**Порт:** 8084  
+**API пути:** /api/v1/social/friends*, /api/v1/social/block*
+
+### Frontend (модуль):
+
+**Модуль:** social  
+**Путь:** modules/social/friends  
+**State Store:** useSocialStore (friends, friendRequests, onlineStatus)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, CharacterCard, Badge (online status), Button
+
+**Готовые формы (@shared/forms):**
+- FriendRequestForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для online status)
+- useDebounce (для поиска друзей)
+
+---
+
 ## ✅ Endpoints (план)
 
 1. **GET /api/v1/social/friends** - Список друзей с online status

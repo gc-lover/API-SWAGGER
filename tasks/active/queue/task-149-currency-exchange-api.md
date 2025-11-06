@@ -32,6 +32,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** economy-service  
+**Порт:** 8085  
+**API пути:** /api/v1/economy/currency-exchange/*
+
+### Frontend (модуль):
+
+**Модуль:** economy  
+**Путь:** modules/economy/currency-exchange  
+**State Store:** useEconomyStore (exchangeRates, currencies)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, CurrencyPairCard, PriceDisplay, Chart (rate history)
+
+**Готовые формы (@shared/forms):**
+- CurrencyExchangeForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для обновления курсов)
+- useDebounce
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/economy/currency-exchange/rates** - Текущие курсы

@@ -32,6 +32,36 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** economy-service  
+**Порт:** 8085  
+**API пути:** /api/v1/economy/trading-guilds/*
+
+### Frontend (модуль):
+
+**Модуль:** economy  
+**Путь:** modules/economy/trading-guilds  
+**State Store:** useEconomyStore (tradingGuild, treasury, routes)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- GuildCard, TreasuryDisplay, RouteCard, ProfitChart
+
+**Готовые формы (@shared/forms):**
+- TradingGuildCreationForm, ContributeForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для guild treasury updates)
+
+---
+
 ## ✅ Endpoints
 
 1. **POST /api/v1/economy/trading-guilds** - Создать торговую гильдию

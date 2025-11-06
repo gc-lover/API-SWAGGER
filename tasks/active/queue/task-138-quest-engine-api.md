@@ -31,6 +31,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** narrative-service  
+**Порт:** 8087  
+**API пути:** /api/v1/quests/*
+
+### Frontend (модуль):
+
+**Модуль:** narrative  
+**Путь:** modules/narrative/quests  
+**State Store:** useNarrativeStore (activeQuests, questProgress, dialogueState)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- QuestCard, DialogueBox, ChoiceButton, SkillCheckDisplay
+
+**Готовые формы (@shared/forms):**
+- QuestAcceptForm, ChoiceSelectionForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce
+- useRealtime (для quest updates)
+
+---
+
 ## ✅ Endpoints (план)
 
 1. **POST /api/v1/quests/{quest_id}/start** - Начать квест

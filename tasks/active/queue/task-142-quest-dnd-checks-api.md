@@ -31,6 +31,36 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** narrative-service  
+**Порт:** 8087  
+**API пути:** /api/v1/narrative/quest-checks/*
+
+### Frontend (модуль):
+
+**Модуль:** narrative  
+**Путь:** modules/narrative/skill-checks  
+**State Store:** useNarrativeStore (checkResult, modifiers)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- SkillCheckDisplay, DiceRoll, ModifierList, ResultBanner
+
+**Готовые формы (@shared/forms):**
+- N/A (только отображение результата)
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/narrative/quest-checks/categories** - Категории проверок

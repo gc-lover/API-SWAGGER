@@ -31,6 +31,36 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** gameplay-service  
+**Порт:** 8083  
+**API пути:** /api/v1/achievements/*
+
+### Frontend (модуль):
+
+**Модуль:** progression  
+**Путь:** modules/progression/achievements  
+**State Store:** useProgressionStore (achievements, achievementProgress)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, AchievementCard, Badge (rarity), ProgressBar (progress)
+
+**Готовые формы (@shared/forms):**
+- N/A (только просмотр)
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для уведомлений о разблокировке)
+
+---
+
 ## ✅ Endpoints (план)
 
 1. **GET /api/v1/achievements** - Список всех достижений

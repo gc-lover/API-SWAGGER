@@ -24,6 +24,36 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** world-service  
+**Порт:** 8086  
+**API пути:** /api/v1/world/random-events/*
+
+### Frontend (модуль):
+
+**Модуль:** world  
+**Путь:** modules/world/random-events  
+**State Store:** useWorldStore (randomEvents, triggeredEvents)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- EventCard, EventModal, ChoiceButton
+
+**Готовые формы (@shared/forms):**
+- EventChoiceForm
+
+**Layouts (@shared/layouts):**
+- GameLayout (event popup overlay)
+
+**Хуки (@shared/hooks):**
+- useRealtime (для триггера событий)
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/narrative/random-events** - Список событий

@@ -43,6 +43,37 @@ api/v1/narrative/faction-quests/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** narrative-service  
+**Порт:** 8087  
+**API пути:** /api/v1/narrative/faction-quests/*
+
+### Frontend (модуль):
+
+**Модуль:** narrative  
+**Путь:** modules/narrative/faction-quests  
+**State Store:** useNarrativeStore (factionQuests, factionReputation, endings)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- QuestCard, FactionBadge, DialogueBox, EndingPreview (12+ endings)
+
+**Готовые формы (@shared/forms):**
+- DialogueChoiceForm, FactionChoiceForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce (для фильтра по фракциям)
+- useRealtime
+
+---
+
 ## ✅ Endpoints
 
 1. **GET /api/v1/narrative/faction-quests** - Список по фракциям

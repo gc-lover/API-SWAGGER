@@ -4874,3 +4874,61 @@ mappings:
 # - Файл обновляется автоматически при создании нового задания
 # - При изменении статуса задания нужно обновить этот файл
 # - При завершении задания можно переместить запись в архив или отметить как completed
+
+# === BATCH 8: MICROFEATURES (2025-11-07 17:30) ===
+# Backend Audit + Quest Branching microfeatures
+
+  - source: ".BRAIN/06-tasks/active/CURRENT-WORK/active/backend-audit-part1.md"
+    target: "api/v1/technical/backend-audit.yaml"
+    task_id: "API-TASK-177"
+    task_file: "tasks/active/queue/task-177-backend-audit-complete-api.md"
+    status: "queued"
+    created: "2025-11-07 17:30"
+    version: "v1.0.0"
+    updated: "2025-11-07 17:30"
+
+  - source: ".BRAIN/06-tasks/active/CURRENT-WORK/active/backend-audit-part2.md"
+    target: "api/v1/technical/backend-audit.yaml"
+    task_id: "API-TASK-177"
+    task_file: "tasks/active/queue/task-177-backend-audit-complete-api.md"
+    status: "queued"
+    created: "2025-11-07 17:30"
+    version: "v1.0.0"
+    updated: "2025-11-07 17:30"
+
+  - source: ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-db-schema.md"
+    target: "api/v1/gameplay/quests/branching.yaml"
+    task_id: "API-TASK-178"
+    task_file: "tasks/active/queue/task-178-quest-branching-complete-api.md"
+    status: "queued"
+    created: "2025-11-07 17:30"
+    version: "v1.0.0"
+    updated: "2025-11-07 17:30"
+
+  - source: ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-er-part1.md"
+    target: "api/v1/gameplay/quests/branching.yaml"
+    task_id: "API-TASK-178"
+    task_file: "tasks/active/queue/task-178-quest-branching-complete-api.md"
+    status: "queued"
+    created: "2025-11-07 17:30"
+    version: "v1.0.0"
+    updated: "2025-11-07 17:30"
+
+  - source: ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-er-part2.md"
+    target: "api/v1/gameplay/quests/branching.yaml"
+    task_id: "API-TASK-178"
+    task_file: "tasks/active/queue/task-178-quest-branching-complete-api.md"
+    status: "queued"
+    created: "2025-11-07 17:30"
+    version: "v1.0.0"
+    updated: "2025-11-07 17:30"
+
+  - source: ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-logic.md"
+    target: "api/v1/gameplay/quests/branching.yaml"
+    task_id: "API-TASK-178"
+    task_file: "tasks/active/queue/task-178-quest-branching-complete-api.md"
+    status: "queued"
+    created: "2025-11-07 17:30"
+    version: "v1.0.0"
+    updated: "2025-11-07 17:30"
+

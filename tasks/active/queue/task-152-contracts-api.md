@@ -31,6 +31,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** economy-service  
+**Порт:** 8085  
+**API пути:** /api/v1/economy/contracts/*
+
+### Frontend (модуль):
+
+**Модуль:** economy  
+**Путь:** modules/economy/contracts  
+**State Store:** useEconomyStore (contracts, disputes, escrow)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, ContractCard, EscrowDisplay, DisputeButton
+
+**Готовые формы (@shared/forms):**
+- ContractCreationForm, DisputeForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce
+- useRealtime (для contract status)
+
+---
+
 ## ✅ Endpoints
 
 1. **POST /api/v1/economy/contracts** - Создать контракт

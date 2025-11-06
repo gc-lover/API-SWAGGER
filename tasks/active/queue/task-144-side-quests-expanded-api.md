@@ -37,6 +37,37 @@ api/v1/narrative/side-quests/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** narrative-service  
+**Порт:** 8087  
+**API пути:** /api/v1/narrative/side-quests/*
+
+### Frontend (модуль):
+
+**Модуль:** narrative  
+**Путь:** modules/narrative/side-quests  
+**State Store:** useNarrativeStore (sideQuests, questsByPeriod)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- QuestCard, DialogueBox, ChoiceButton, PeriodFilter
+
+**Готовые формы (@shared/forms):**
+- DialogueChoiceForm, QuestAcceptForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce (для поиска квестов)
+- useRealtime
+
+---
+
 ## ✅ Endpoints (унифицированные)
 
 1. **GET /api/v1/narrative/side-quests** - Список квестов по периоду

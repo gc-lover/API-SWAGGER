@@ -31,6 +31,36 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** gameplay-service  
+**Порт:** 8083  
+**API пути:** /api/v1/combat/*
+
+### Frontend (модуль):
+
+**Модуль:** combat  
+**Путь:** modules/combat/session  
+**State Store:** useCombatStore (session, participants, combatLog)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- HealthBar, ActionButton, CharacterCard, CombatLog, TurnIndicator
+
+**Готовые формы (@shared/forms):**
+- N/A (action buttons)
+
+**Layouts (@shared/layouts):**
+- CombatLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для обновления боя)
+
+---
+
 ## ✅ Endpoints (план)
 
 1. **POST /api/v1/combat/session/start** - Начать бой

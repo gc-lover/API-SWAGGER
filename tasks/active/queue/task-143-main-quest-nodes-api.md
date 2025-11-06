@@ -41,6 +41,37 @@ api/v1/narrative/main-quests/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** narrative-service  
+**Порт:** 8087  
+**API пути:** /api/v1/narrative/main-quests/*
+
+### Frontend (модуль):
+
+**Модуль:** narrative  
+**Путь:** modules/narrative/main-quests  
+**State Store:** useNarrativeStore (mainQuests, currentNode, branches)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- QuestCard, DialogueBox, ChoiceButton, SkillCheckDisplay, BranchIndicator
+
+**Готовые формы (@shared/forms):**
+- DialogueChoiceForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce
+- useRealtime (для синхронизации состояния квеста)
+
+---
+
 ## ✅ Endpoints (для каждого квеста)
 
 1. **GET /api/v1/narrative/main-quests/{quest_id}/nodes** - Dialogue nodes

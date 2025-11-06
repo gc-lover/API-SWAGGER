@@ -32,6 +32,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** social-service  
+**Порт:** 8084  
+**API пути:** /api/v1/guilds/*
+
+### Frontend (модуль):
+
+**Модуль:** social  
+**Путь:** modules/social/guild  
+**State Store:** useSocialStore (guild, guildMembers, guildBank, permissions)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, GuildCard, CharacterCard (members), ProgressBar (guild level), ItemCard (bank)
+
+**Готовые формы (@shared/forms):**
+- GuildCreationForm, GuildInviteForm, GuildBankForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для guild events)
+- useDebounce
+
+---
+
 ## ✅ Endpoints (план)
 
 1. **POST /api/v1/guilds** - Создать гильдию

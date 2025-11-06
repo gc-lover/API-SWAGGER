@@ -30,6 +30,36 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** gameplay-service  
+**Порт:** 8083  
+**API пути:** /api/v1/system/*
+
+### Frontend (модуль):
+
+**Модуль:** N/A (системная функция)  
+**Путь:** src/features/system/  
+**State Store:** useSystemStore (nextReset, resetStatus)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, Timer (countdown до reset), Badge
+
+**Готовые формы (@shared/forms):**
+- N/A
+
+**Layouts (@shared/layouts):**
+- GameLayout (timer в header)
+
+**Хуки (@shared/hooks):**
+- useRealtime (для countdown timer)
+
+---
+
 ## ✅ Endpoints (план)
 
 1. **GET /api/v1/system/reset/daily/next** - Время до daily reset

@@ -31,6 +31,36 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** gameplay-service  
+**Порт:** 8083  
+**API пути:** /api/v1/progression/*
+
+### Frontend (модуль):
+
+**Модуль:** progression  
+**Путь:** modules/progression/leveling  
+**State Store:** useProgressionStore (level, experience, attributes, skills)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- ProgressBar (exp bar), LevelProgress, StatBlock, SkillTree
+
+**Готовые формы (@shared/forms):**
+- AttributeAssignmentForm, SkillUpgradeForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для level up notification)
+
+---
+
 ## ✅ Endpoints (план)
 
 1. **POST /api/v1/progression/experience/award** - Начислить exp (internal)

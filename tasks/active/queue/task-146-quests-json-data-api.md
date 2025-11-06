@@ -47,6 +47,36 @@ api/v1/narrative/quests-data/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** narrative-service  
+**Порт:** 8087  
+**API пути:** /api/v1/narrative/quests-data/*
+
+### Frontend (модуль):
+
+**Модуль:** narrative  
+**Путь:** modules/narrative/quests  
+**State Store:** useNarrativeStore (allQuests, questsByPeriod)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- QuestCard, PeriodFilter, DialoguePreview, LootPreview
+
+**Готовые формы (@shared/forms):**
+- QuestAcceptForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce (для поиска квестов по периоду)
+
+---
+
 ## ✅ Задача
 
 Преобразовать JSON квестовые данные в OpenAPI спецификацию. Использовать единую структуру для всех квестов.

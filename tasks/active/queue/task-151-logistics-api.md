@@ -31,6 +31,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** economy-service  
+**Порт:** 8085  
+**API пути:** /api/v1/economy/logistics/*
+
+### Frontend (модуль):
+
+**Модуль:** economy  
+**Путь:** modules/economy/logistics  
+**State Store:** useEconomyStore (shipments, routes, vehicles)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- ShipmentCard, RouteMap, VehicleCard, RiskIndicator, ProgressBar (delivery)
+
+**Готовые формы (@shared/forms):**
+- ShipmentCreationForm, InsuranceForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для tracking доставки)
+- useDebounce
+
+---
+
 ## ✅ Endpoints
 
 1. **POST /api/v1/economy/logistics/shipment** - Создать доставку

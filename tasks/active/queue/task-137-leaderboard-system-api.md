@@ -32,6 +32,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** gameplay-service  
+**Порт:** 8083  
+**API пути:** /api/v1/leaderboards/*
+
+### Frontend (модуль):
+
+**Модуль:** progression  
+**Путь:** modules/progression/leaderboards  
+**State Store:** useProgressionStore (leaderboards, myRank)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, LeaderboardEntry, Badge (rank), CharacterCard
+
+**Готовые формы (@shared/forms):**
+- N/A (только просмотр)
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useDebounce (для фильтров)
+- useRealtime (для обновления рейтингов)
+
+---
+
 ## ✅ Endpoints (план)
 
 1. **GET /api/v1/leaderboards/{category}** - Топ игроков по категории
