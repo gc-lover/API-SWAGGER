@@ -1,0 +1,39 @@
+# Task ID: API-TASK-175
+**Тип:** API Generation | **Приоритет:** низкий | **Статус:** queued
+**Создано:** 2025-11-07 12:54 | **Создатель:** AI Agent | **Зависимости:** API-TASK-164
+
+---
+
+## 📋 Описание
+
+Создать API для алгоритмов и AI систем (5 split документов). Romance algorithms (3), NPC personality (2).
+
+---
+
+## 📚 Источники (5 документов)
+
+**Romance Algorithms (3):**
+- algorithms/romance/romance-dialogue.md
+- algorithms/romance/romance-relationship.md
+- algorithms/romance/romance-triggers.md
+
+**AI Systems (2):**
+- ai-systems/npc-personality/personality-engine.md
+- ai-systems/npc-personality/romance-ai.md
+
+---
+
+## 📁 Целевой файл
+
+`api/v1/internal/algorithms/romance-ai-algorithms.yaml`
+
+---
+
+## ✅ Endpoints
+
+Это внутренние алгоритмы, не требуют public API endpoints. Только для internal services.
+
+---
+
+**Источников:** 5 algorithms/AI документов
+
