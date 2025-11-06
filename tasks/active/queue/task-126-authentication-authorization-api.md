@@ -93,6 +93,37 @@ API-SWAGGER/
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** auth-service  
+**Порт:** 8081  
+**API пути:** /api/v1/auth/*
+
+### Frontend (модуль):
+
+**Модуль:** N/A (это базовая аутентификация, не игровой модуль)  
+**Путь:** src/features/auth/  
+**State Store:** useAuthStore (currentUser, tokens, loginStatus)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Button, Input, Card, Checkbox
+
+**Готовые формы (@shared/forms):**
+- LoginForm, RegistrationForm, PasswordResetForm, TwoFactorForm
+
+**Layouts (@shared/layouts):**
+- AuthLayout (центрированная форма без game navigation)
+
+**Хуки (@shared/hooks):**
+- useDebounce (для валидации email)
+- useLocalStorage (для remember me)
+
+---
+
 ## ✅ Что нужно сделать (детальный план)
 
 ### Шаг 1: Создать authentication.yaml
