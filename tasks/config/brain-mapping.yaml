@@ -950,6 +950,21 @@ mappings:
       - "api/v1/meta/league-system.yaml"
       - "api/v1/gameplay/world/global-events.yaml"
 
+  # === ЭКОНОМИКА - ДОПОЛНЕНИЯ (Economy Extensions) ===
+  
+  - source: ".BRAIN/02-gameplay/economy/trading-routes-global.md"
+    target: "api/v1/gameplay/economy/trading-routes.yaml"
+    task_id: "API-TASK-089"
+    task_file: "tasks/active/queue/task-089-trading-routes-api.md"
+    status: "queued"
+    created: "2025-11-07 03:35"
+    version: "v1.0.0"
+    updated: "2025-11-07 03:35"
+    related_sources:
+      - ".BRAIN/02-gameplay/economy/economy-trading.md"
+    related_targets:
+      - "api/v1/gameplay/economy/trading.yaml"
+
 # Примеры записей:
 #
 # mappings:
