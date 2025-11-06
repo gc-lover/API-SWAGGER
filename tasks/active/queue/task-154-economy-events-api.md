@@ -1,0 +1,45 @@
+# Task ID: API-TASK-154
+**Тип:** API Generation | **Приоритет:** средний | **Статус:** queued
+**Создано:** 2025-11-07 11:10 | **Создатель:** AI Agent | **Зависимости:** none
+
+---
+
+## 📋 Описание
+
+Создать API для экономических событий. Crisis, inflation, recession, boom, торговые войны.
+
+---
+
+## 📚 Источник
+
+**Документ:** `.BRAIN/02-gameplay/economy/economy-events.md` (v1.0.0, ready)
+
+**Ключевые механики:**
+- 4 основных типа (crisis, inflation, recession, boom)
+- Торговые войны и санкции
+- Корпоративные события (scandals, M&A, breakthroughs)
+- Commodity events (дефицит ресурсов)
+- Влияние на цены и доступность
+- Триггеры событий
+
+---
+
+## 📁 Целевой файл
+
+`api/v1/economy/economy-events.yaml`
+
+---
+
+## ✅ Endpoints
+
+1. **GET /api/v1/economy/events** - Текущие экономические события
+2. **GET /api/v1/economy/events/{event_id}** - Детали события
+3. **GET /api/v1/economy/events/history** - История событий
+4. **POST /api/v1/economy/events/trigger** - Trigger event (admin)
+
+**Models:** EconomyEvent, EventImpact, EventTrigger
+
+---
+
+**Источник:** `.BRAIN/02-gameplay/economy/economy-events.md`
+

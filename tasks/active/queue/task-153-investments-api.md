@@ -1,0 +1,47 @@
+# Task ID: API-TASK-153
+**Тип:** API Generation | **Приоритет:** средний | **Статус:** queued
+**Создано:** 2025-11-07 11:08 | **Создатель:** AI Agent | **Зависимости:** none
+
+---
+
+## 📋 Описание
+
+Создать API для инвестиций. 5 типов инвестиций, portfolio management, ROI расчёты.
+
+---
+
+## 📚 Источник
+
+**Документ:** `.BRAIN/02-gameplay/economy/economy-investments.md` (v1.0.0, ready)
+
+**Ключевые механики:**
+- 5 типов инвестиций (corporate, faction, regional, real estate, production chains)
+- Portfolio management
+- Диверсификация рисков
+- Risk analysis
+- ROI расчёты
+- Дивиденды
+- Инвестиционные фонды
+
+---
+
+## 📁 Целевой файл
+
+`api/v1/economy/investments.yaml`
+
+---
+
+## ✅ Endpoints
+
+1. **POST /api/v1/economy/investments/invest** - Инвестировать
+2. **GET /api/v1/economy/investments/portfolio** - Портфель инвестиций
+3. **POST /api/v1/economy/investments/withdraw** - Вывести средства
+4. **GET /api/v1/economy/investments/opportunities** - Доступные инвестиции
+5. **GET /api/v1/economy/investments/roi** - ROI расчёт
+
+**Models:** Investment, Portfolio, InvestmentOpportunity, ROI
+
+---
+
+**Источник:** `.BRAIN/02-gameplay/economy/economy-investments.md`
+
