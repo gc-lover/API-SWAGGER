@@ -58,6 +58,67 @@ api/v1/
     └── quests/
 ```
 
+**Шаг 2.5: Определение целевой архитектуры**
+
+**ОБЯЗАТЕЛЬНО определить для каждого API:**
+
+1. **Целевой микросервис (Backend):**
+   - Определи по API пути, куда пойдёт реализация
+   - Укажи порт микросервиса
+   - Укажи паттерн API путей
+
+2. **Целевой фронтенд-модуль:**
+   - Определи по домену функциональности
+   - Укажи путь к модулю
+   - Укажи state store
+
+3. **Требуемые библиотеки компонентов:**
+   - UI компоненты из @shared/ui
+   - Готовые формы из @shared/forms
+   - Layouts из @shared/layouts
+
+**Таблица маппинга API путей → Микросервисы:**
+
+| API Путь | Микросервис | Порт | Описание |
+|----------|-------------|------|----------|
+| `/api/v1/auth/*` | auth-service | 8081 | Аутентификация, аккаунты |
+| `/api/v1/characters/*` | character-service | 8082 | Персонажи, управление |
+| `/api/v1/gameplay/combat/*` | gameplay-service | 8083 | Боевая система, способности |
+| `/api/v1/gameplay/progression/*` | gameplay-service | 8083 | Прокачка, навыки |
+| `/api/v1/gameplay/social/*` | social-service | 8084 | Социальные механики, NPC |
+| `/api/v1/social/*` | social-service | 8084 | Друзья, гильдии, чат |
+| `/api/v1/gameplay/economy/*` | economy-service | 8085 | Экономика, торговля |
+| `/api/v1/gameplay/world/*` | world-service | 8086 | Локации, события, мир |
+| `/api/v1/world/*` | world-service | 8086 | Мировые события |
+| `/api/v1/lore/*` | world-service | 8086 | Лор, фракции, вселенная |
+| `/api/v1/narrative/*` | narrative-service | 8087 | Квесты, диалоги, сюжет |
+
+**Таблица маппинга Домен → Фронтенд-модули:**
+
+| Домен | Фронтенд-модуль | State Store | Типичные компоненты |
+|-------|-----------------|-------------|---------------------|
+| Social | modules/social/ | useSocialStore | PersonalNpcCard, FriendCard, GuildCard |
+| Economy | modules/economy/ | useEconomyStore | AuctionCard, TradeForm, PriceDisplay |
+| Combat | modules/combat/ | useCombatStore | WeaponCard, HealthBar, AbilityButton |
+| World | modules/world/ | useWorldStore | LocationCard, EventCard, MapView |
+| Progression | modules/progression/ | useProgressionStore | SkillTree, LevelProgress, StatBlock |
+| Narrative | modules/narrative/ | useNarrativeStore | QuestCard, DialogueBox, StoryPanel |
+
+**Пример определения целевой архитектуры:**
+
+Для API: `api/v1/gameplay/social/personal-npc-tool.yaml`
+
+**Backend:**
+- Микросервис: social-service (порт 8084)
+- API пути: /api/v1/gameplay/social/*
+
+**Frontend:**
+- Модуль: modules/social/personal-npc
+- State: useSocialStore (personalNpcs state)
+- UI компоненты: @shared/ui (PersonalNpcCard, ItemCard, HealthBar)
+- Формы: @shared/forms (NpcInteractionForm, NpcHiringForm)
+- Layouts: @shared/layouts (GameLayout)
+
 ---
 
 ### Шаг 3: Извлечение информации для задания

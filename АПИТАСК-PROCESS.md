@@ -36,7 +36,81 @@
 
 ---
 
-### Шаг 3: Создание API спецификации
+### Шаг 3: Определение целевой архитектуры (⚠️ КРИТИЧЕСКИ ВАЖНО!)
+
+Агент должен:
+
+#### 1. Определить целевой микросервис (для бекенда):
+
+**На основе API path определить микросервис:**
+
+| API Path | Микросервис | Порт |
+|----------|-------------|------|
+| /api/v1/auth/* | auth-service | 8081 |
+| /api/v1/characters/* | character-service | 8082 |
+| /api/v1/gameplay/combat/* | gameplay-service | 8083 |
+| /api/v1/gameplay/progression/* | gameplay-service | 8083 |
+| /api/v1/gameplay/social/* | social-service | 8084 |
+| /api/v1/social/* | social-service | 8084 |
+| /api/v1/gameplay/economy/* | economy-service | 8085 |
+| /api/v1/gameplay/world/* | world-service | 8086 |
+| /api/v1/lore/* | world-service | 8086 |
+| /api/v1/narrative/* | narrative-service | 8087 |
+| /api/v1/admin/* | admin-service | 8088 |
+
+#### 2. Определить фронтенд-модуль (для фронтенда):
+
+**На основе категории API определить модуль:**
+
+| Категория | Фронтенд-модуль | State Store |
+|-----------|-----------------|-------------|
+| social | modules/social/ | useSocialStore |
+| economy | modules/economy/ | useEconomyStore |
+| combat | modules/combat/ | useCombatStore |
+| world | modules/world/ | useWorldStore |
+| progression | modules/progression/ | useProgressionStore |
+| narrative | modules/narrative/ | useNarrativeStore |
+
+#### 3. Определить требуемые UI компоненты и формы:
+
+**На основе типа API определить компоненты:**
+
+- **Социальные:** PersonalNpcCard, FriendCard, GuildCard, NpcInteractionForm
+- **Экономика:** AuctionCard, ItemCard, TradeForm, AuctionBidForm
+- **Боевая:** WeaponCard, HealthBar, AbilityButton, WeaponConfigForm
+- **Мир:** LocationCard, EventCard, MapView
+- **Прогрессия:** SkillTree, LevelProgress, StatBlock
+- **Нарратив:** QuestCard, DialogueBox, StoryPanel
+
+#### 4. Добавить комментарии об архитектуре в API спецификацию:
+
+**В начало файла (после `openapi: 3.0.3`) добавить:**
+```yaml
+# Target Architecture:
+# - Microservice: [service-name] (port [port])
+# - Frontend Module: modules/[module]/[feature]
+# - UI Components: @shared/ui ([components]), @shared/forms ([forms])
+# - State: use[Module]Store ([state])
+# - API Base: /api/v1/[domain]/*
+```
+
+**Пример:**
+```yaml
+openapi: 3.0.3
+# Target Architecture:
+# - Microservice: social-service (port 8084)
+# - Frontend Module: modules/social/personal-npc
+# - UI Components: @shared/ui (PersonalNpcCard, NPCAvatar), @shared/forms (NpcInteractionForm)
+# - State: useSocialStore (personalNpcs)
+# - API Base: /api/v1/gameplay/social/*
+info:
+  title: Personal NPC Tool API
+  ...
+```
+
+---
+
+### Шаг 4: Создание API спецификации
 
 Агент должен:
 
@@ -161,7 +235,7 @@ components:
 
 ---
 
-### Шаг 4: Валидация и проверка
+### Шаг 5: Валидация и проверка
 
 Агент должен:
 
@@ -211,7 +285,7 @@ components:
 
 ---
 
-### Шаг 5: Обновление статуса задания
+### Шаг 6: Обновление статуса задания
 
 Агент должен:
 1. Открыть `API-SWAGGER/tasks/config/brain-mapping.yaml`
@@ -230,7 +304,7 @@ components:
 
 ---
 
-### Шаг 6: Создание записи в implementation-tracker.yaml (⚠️ ОБЯЗАТЕЛЬНО!)
+### Шаг 7: Создание записи в implementation-tracker.yaml (⚠️ ОБЯЗАТЕЛЬНО!)
 
 **КРИТИЧЕСКИ ВАЖНО:** Этот шаг ОБЯЗАТЕЛЕН для отслеживания реализации backend и frontend!
 
@@ -276,7 +350,7 @@ components:
 
 ---
 
-### Шаг 7: Финализация
+### Шаг 8: Финализация
 
 Агент должен:
 1. Проверить, что API спецификация создана и сохранена
@@ -289,7 +363,7 @@ components:
 
 ---
 
-### Шаг 8: Коммит изменений
+### Шаг 9: Коммит изменений
 
 **ОБЯЗАТЕЛЬНО:** После завершения работы над заданием нужно сделать коммит для сохранения истории и лучшего контроля действий агентов.
 

@@ -64,6 +64,106 @@ api/v1/
 
 ---
 
+## Микросервисная архитектура (Backend)
+
+**Распределение API по микросервисам:**
+
+| API Path | Микросервис | Порт | Домен |
+|----------|-------------|------|-------|
+| /api/v1/auth/* | auth-service | 8081 | Аутентификация, аккаунты |
+| /api/v1/characters/* | character-service | 8082 | Персонажи, управление |
+| /api/v1/gameplay/combat/* | gameplay-service | 8083 | Боевая система, способности |
+| /api/v1/gameplay/progression/* | gameplay-service | 8083 | Прокачка, навыки |
+| /api/v1/gameplay/social/* | social-service | 8084 | Социальные механики, NPC |
+| /api/v1/social/* | social-service | 8084 | Друзья, гильдии, чат |
+| /api/v1/gameplay/economy/* | economy-service | 8085 | Экономика, торговля |
+| /api/v1/gameplay/world/* | world-service | 8086 | Локации, события, мир |
+| /api/v1/lore/* | world-service | 8086 | Лор, фракции, вселенная |
+| /api/v1/narrative/* | narrative-service | 8087 | Квесты, диалоги, сюжет |
+| /api/v1/admin/* | admin-service | 8088 | Администрирование, модерация |
+
+**Инфраструктура:**
+- API Gateway: порт 8080 (единая точка входа)
+- Service Discovery (Eureka): порт 8761
+- Config Server: порт 8888
+
+**Подробнее:** См. [БЭКТАСК-MICROSERVICES.md](../../BACK-GO/docs/БЭКТАСК-MICROSERVICES.md)
+
+---
+
+## Модульная архитектура (Frontend)
+
+**Распределение API по фронтенд-модулям:**
+
+| Категория | Фронтенд-модуль | State Store | Типичные компоненты |
+|-----------|-----------------|-------------|---------------------|
+| social | modules/social/ | useSocialStore | PersonalNpcCard, FriendCard, GuildCard |
+| economy | modules/economy/ | useEconomyStore | AuctionCard, TradeForm, PriceDisplay |
+| combat | modules/combat/ | useCombatStore | WeaponCard, HealthBar, AbilityButton |
+| world | modules/world/ | useWorldStore | LocationCard, EventCard, MapView |
+| progression | modules/progression/ | useProgressionStore | SkillTree, LevelProgress, StatBlock |
+| narrative | modules/narrative/ | useNarrativeStore | QuestCard, DialogueBox, StoryPanel |
+
+**Библиотеки компонентов:**
+- **@shared/ui** - базовые UI компоненты (поверх Material UI)
+- **@shared/forms** - готовые переиспользуемые формы
+- **@shared/layouts** - layout компоненты (GameLayout, AuthLayout)
+- **@shared/hooks** - общие хуки
+
+**Подробнее:** См. [ФРОНТТАСК-MODULES.md](../../FRONT-WEB/docs/ФРОНТТАСК-MODULES.md) и [ФРОНТТАСК-LIBRARIES.md](../../FRONT-WEB/docs/ФРОНТТАСК-LIBRARIES.md)
+
+---
+
+## Комментарии об архитектуре в API
+
+**В каждом API файле ОБЯЗАТЕЛЬНО добавлять комментарии о целевой архитектуре:**
+
+```yaml
+openapi: 3.0.3
+# Target Architecture:
+# - Microservice: [service-name] (port [port])
+# - Frontend Module: modules/[module]/[feature]
+# - UI Components: @shared/ui ([components]), @shared/forms ([forms])
+# - State: use[Module]Store ([state])
+# - API Base: /api/v1/[domain]/*
+info:
+  ...
+```
+
+**Примеры:**
+
+**Социальные механики:**
+```yaml
+# Target Architecture:
+# - Microservice: social-service (port 8084)
+# - Frontend Module: modules/social/personal-npc
+# - UI Components: @shared/ui (PersonalNpcCard, NPCAvatar), @shared/forms (NpcInteractionForm)
+# - State: useSocialStore (personalNpcs)
+# - API Base: /api/v1/gameplay/social/*
+```
+
+**Экономика:**
+```yaml
+# Target Architecture:
+# - Microservice: economy-service (port 8085)
+# - Frontend Module: modules/economy/auction-house
+# - UI Components: @shared/ui (AuctionCard, ItemCard, PriceDisplay), @shared/forms (AuctionBidForm)
+# - State: useEconomyStore (auctions)
+# - API Base: /api/v1/gameplay/economy/*
+```
+
+**Боевая система:**
+```yaml
+# Target Architecture:
+# - Microservice: gameplay-service (port 8083)
+# - Frontend Module: modules/combat/shooting
+# - UI Components: @shared/ui (WeaponCard, AmmoDisplay, HealthBar), @shared/forms (WeaponConfigForm)
+# - State: useCombatStore (weapons, shooting)
+# - API Base: /api/v1/gameplay/combat/*
+```
+
+---
+
 ## Структура файлов проекта
 
 ```

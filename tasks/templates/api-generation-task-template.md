@@ -80,6 +80,131 @@ API-SWAGGER/
 
 ---
 
+## 🏗️ Целевая архитектура (⚠️ ОБЯЗАТЕЛЬНО)
+
+### Для бекенда (микросервисная архитектура):
+
+**Целевой микросервис:** gameplay-service
+**Порт:** 8083
+**API Base Path:** /api/v1/gameplay/combat/*
+**Домен:** Боевая система, способности
+
+**Определение микросервиса:**
+- По API path: `/api/v1/gameplay/combat/*` → gameplay-service
+- Зависимости: auth-service (для аутентификации), character-service (для данных персонажа)
+
+### Для фронтенда (модульная архитектура):
+
+**Целевой модуль:** modules/combat/shooting
+**State Store:** useCombatStore
+**State:** weapons, shooting, ammo
+
+**UI компоненты:**
+- **@shared/ui:** WeaponCard, AmmoDisplay, HealthBar, CrosshairOverlay
+- **@shared/forms:** WeaponConfigForm, ShootingSettingsForm
+
+**Определение модуля:**
+- По категории: combat → modules/combat/
+- Feature: shooting (механики стрельбы)
+
+### Комментарий для API спецификации:
+
+**В начале файла добавить:**
+```yaml
+# Target Architecture:
+# - Microservice: gameplay-service (port 8083)
+# - Frontend Module: modules/combat/shooting
+# - UI Components: @shared/ui (WeaponCard, AmmoDisplay, HealthBar, CrosshairOverlay), @shared/forms (WeaponConfigForm)
+# - State: useCombatStore (weapons, shooting, ammo)
+# - API Base: /api/v1/gameplay/combat/*
+```
+
+---
+
+## 🏗️ Целевая архитектура
+
+**⚠️ ОБЯЗАТЕЛЬНО ЗАПОЛНИТЬ ДЛЯ КАЖДОГО ЗАДАНИЯ!**
+
+### Backend (микросервис):
+
+**Микросервис:** [auth-service | character-service | gameplay-service | social-service | economy-service | world-service | narrative-service]  
+**Порт:** [8081 | 8082 | 8083 | 8084 | 8085 | 8086 | 8087]  
+**API пути:** [указать паттерн, например: /api/v1/gameplay/social/*]
+
+**Определение по API пути:**
+- `/api/v1/auth/*` → auth-service (8081)
+- `/api/v1/characters/*` → character-service (8082)
+- `/api/v1/gameplay/combat/*` → gameplay-service (8083)
+- `/api/v1/gameplay/progression/*` → gameplay-service (8083)
+- `/api/v1/gameplay/social/*` → social-service (8084)
+- `/api/v1/social/*` → social-service (8084)
+- `/api/v1/gameplay/economy/*` → economy-service (8085)
+- `/api/v1/gameplay/world/*` → world-service (8086)
+- `/api/v1/world/*` → world-service (8086)
+- `/api/v1/lore/*` → world-service (8086)
+- `/api/v1/narrative/*` → narrative-service (8087)
+
+### Frontend (модуль):
+
+**Модуль:** [social | economy | combat | world | progression | narrative]  
+**Путь:** modules/[module-name]/[feature-name]  
+**State Store:** use[Module]Store (например: useSocialStore, useEconomyStore)
+
+**Определение по домену:**
+- Social функции → modules/social/
+- Economy функции → modules/economy/
+- Combat функции → modules/combat/
+- World функции → modules/world/
+- Progression функции → modules/progression/
+- Narrative функции → modules/narrative/
+
+### Frontend (библиотеки компонентов):
+
+**UI компоненты (@shared/ui):**
+- Базовые: Button, Input, Card, Modal, Checkbox, Select, Textarea
+- Игровые: CharacterCard, ItemCard, NPCCard, WeaponCard, QuestCard
+- Индикаторы: HealthBar, ProgressBar, StatBlock, LevelProgress
+- [Перечислить конкретные компоненты, нужные для этой фичи]
+
+**Готовые формы (@shared/forms):**
+- CharacterCreationForm, TradeForm, AuctionBidForm, CraftingForm, QuestAcceptForm
+- NpcInteractionForm, NpcHiringForm, WeaponConfigForm
+- [Перечислить конкретные формы, нужные для этой фичи]
+
+**Layouts (@shared/layouts):**
+- GameLayout (основной layout для игровых страниц)
+- CombatLayout (для боевых экранов)
+- AuthLayout (для аутентификации)
+- [Указать конкретный layout для этой фичи]
+
+**Хуки (@shared/hooks):**
+- useDebounce, useLocalStorage, useCharacter, useInventory, useRealtime
+- [Перечислить конкретные хуки, нужные для этой фичи]
+
+**Пример заполнения:**
+
+Для API `api/v1/gameplay/social/personal-npc-tool.yaml`:
+
+```markdown
+### Backend (микросервис):
+- Микросервис: social-service
+- Порт: 8084
+- API пути: /api/v1/gameplay/social/*
+
+### Frontend (модуль):
+- Модуль: social
+- Путь: modules/social/personal-npc
+- State Store: useSocialStore (personalNpcs state)
+
+### Frontend (библиотеки):
+- UI компоненты: PersonalNpcCard, NPCAvatar, ItemCard, HealthBar
+- Формы: NpcInteractionForm, NpcHiringForm
+- Layouts: GameLayout
+- Хуки: useDebounce, useCharacter
+```
+
+---
+
 ## ✅ Что нужно сделать (детальный план)
 
 ### Шаг 1: Анализ исходного документа
