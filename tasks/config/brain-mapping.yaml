@@ -748,6 +748,208 @@ mappings:
     updated: "2025-11-06 21:42"
     completed: "2025-11-06 21:42"
 
+  # === D&D СИСТЕМА ПРОВЕРОК (D&D Checks System) ===
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-dnd-core.md"
+    target: "api/v1/gameplay/mechanics/dnd-checks.yaml"
+    task_id: "API-TASK-075"
+    task_file: "tasks/active/queue/task-075-dnd-checks-api.md"
+    status: "queued"
+    created: "2025-11-07 02:10"
+    version: "v1.0.0"
+    updated: "2025-11-07 02:10"
+    related_sources:
+      - ".BRAIN/02-gameplay/progression/progression-skills.md"
+    related_targets:
+      - "api/v1/gameplay/progression/skills.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-dnd-integration-shooter.md"
+    target: "api/v1/gameplay/mechanics/dnd-shooter-integration.yaml"
+    task_id: "API-TASK-076"
+    task_file: "tasks/active/queue/task-076-dnd-shooter-integration-api.md"
+    status: "queued"
+    created: "2025-11-07 02:15"
+    version: "v1.0.0"
+    updated: "2025-11-07 02:15"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-shooting.md"
+    related_targets:
+      - "api/v1/gameplay/combat/shooting.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-dnd-mechanics-integration.md"
+    target: "api/v1/gameplay/mechanics/dnd-mechanics-integration.yaml"
+    task_id: "API-TASK-077"
+    task_file: "tasks/active/queue/task-077-dnd-mechanics-integration-api.md"
+    status: "queued"
+    created: "2025-11-07 02:20"
+    version: "v1.0.0"
+    updated: "2025-11-07 02:20"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-dnd-core.md"
+    related_targets:
+      - "api/v1/gameplay/mechanics/dnd-checks.yaml"
+
+  # === СОЦИАЛЬНЫЕ СИСТЕМЫ - ДОПОЛНЕНИЯ (Social Extensions) ===
+  
+  - source: ".BRAIN/02-gameplay/social/npc-relationships-system.md"
+    target: "api/v1/gameplay/social/npc-relationships.yaml"
+    task_id: "API-TASK-078"
+    task_file: "tasks/active/queue/task-078-npc-relationships-api.md"
+    status: "queued"
+    created: "2025-11-07 02:25"
+    version: "v1.0.0"
+    updated: "2025-11-07 02:25"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/relationships-system.md"
+    related_targets:
+      - "api/v1/gameplay/social/relationships.yaml"
+  
+  - source: ".BRAIN/02-gameplay/social/family-relationships-system.md"
+    target: "api/v1/gameplay/social/family-relationships.yaml"
+    task_id: "API-TASK-079"
+    task_file: "tasks/active/queue/task-079-family-relationships-api.md"
+    status: "queued"
+    created: "2025-11-07 02:30"
+    version: "v1.0.0"
+    updated: "2025-11-07 02:30"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/npc-relationships-system.md"
+    related_targets:
+      - "api/v1/gameplay/social/npc-relationships.yaml"
+
+  # === БОЕВАЯ СИСТЕМА - ДОПОЛНЕНИЯ (Combat Extensions) ===
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-freerun.md"
+    target: "api/v1/gameplay/combat/freerun.yaml"
+    task_id: "API-TASK-080"
+    task_file: "tasks/active/queue/task-080-freerun-parkour-api.md"
+    status: "queued"
+    created: "2025-11-07 02:35"
+    version: "v1.1.0"
+    updated: "2025-11-07 02:35"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-shooting.md"
+    related_targets:
+      - "api/v1/gameplay/combat/shooting.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-stealth.md"
+    target: "api/v1/gameplay/combat/stealth.yaml"
+    task_id: "API-TASK-081"
+    task_file: "tasks/active/queue/task-081-stealth-api.md"
+    status: "queued"
+    created: "2025-11-07 02:40"
+    version: "v1.1.0"
+    updated: "2025-11-07 02:40"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-shooting.md"
+    related_targets:
+      - "api/v1/gameplay/combat/shooting.yaml"
+
+  # === СИСТЕМА ХАКЕРСТВА (Hacking System) ===
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-hacking-types.md"
+    target: "api/v1/gameplay/combat/hacking-types.yaml"
+    task_id: "API-TASK-082"
+    task_file: "tasks/active/queue/task-082-hacking-types-api.md"
+    status: "queued"
+    created: "2025-11-07 02:45"
+    version: "v1.0.0"
+    updated: "2025-11-07 02:45"
+    related_sources:
+      - ".BRAIN/02-gameplay/progression/progression-skills.md"
+      - ".BRAIN/02-gameplay/combat/combat-implants-types.md"
+    related_targets:
+      - "api/v1/gameplay/progression/skills.yaml"
+      - "api/v1/gameplay/combat/implants.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-hacking-networks.md"
+    target: "api/v1/gameplay/combat/hacking-networks.yaml"
+    task_id: "API-TASK-083"
+    task_file: "tasks/active/queue/task-083-hacking-networks-api.md"
+    status: "queued"
+    created: "2025-11-07 02:50"
+    version: "v1.0.0"
+    updated: "2025-11-07 02:50"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-hacking-types.md"
+    related_targets:
+      - "api/v1/gameplay/combat/hacking-types.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-cyberspace.md"
+    target: "api/v1/gameplay/cyberspace/cyberspace.yaml"
+    task_id: "API-TASK-084"
+    task_file: "tasks/active/queue/task-084-cyberspace-api.md"
+    status: "queued"
+    created: "2025-11-07 02:55"
+    version: "v1.0.0"
+    updated: "2025-11-07 02:55"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-hacking-types.md"
+      - ".BRAIN/02-gameplay/combat/combat-hacking-networks.md"
+    related_targets:
+      - "api/v1/gameplay/combat/hacking-types.yaml"
+      - "api/v1/gameplay/combat/hacking-networks.yaml"
+  
+  - source: ".BRAIN/02-gameplay/combat/combat-hacking-combat-integration.md"
+    target: "api/v1/gameplay/combat/hacking-combat-integration.yaml"
+    task_id: "API-TASK-085"
+    task_file: "tasks/active/queue/task-085-hacking-combat-integration-api.md"
+    status: "queued"
+    created: "2025-11-07 03:00"
+    version: "v1.0.0"
+    updated: "2025-11-07 03:00"
+    related_sources:
+      - ".BRAIN/02-gameplay/combat/combat-hacking-types.md"
+      - ".BRAIN/02-gameplay/combat/combat-shooting.md"
+    related_targets:
+      - "api/v1/gameplay/combat/hacking-types.yaml"
+      - "api/v1/gameplay/combat/shooting.yaml"
+
+  # === НАРРАТИВНАЯ СИСТЕМА (Narrative System) ===
+  
+  - source: ".BRAIN/04-narrative/main-story/NECPGAME-MAIN-STORY-2090-2093.md"
+    target: "api/v1/narrative/main-story.yaml"
+    task_id: "API-TASK-086"
+    task_file: "tasks/active/queue/task-086-main-story-api.md"
+    status: "queued"
+    created: "2025-11-07 03:05"
+    version: "v1.0.0"
+    updated: "2025-11-07 03:05"
+    related_sources:
+      - ".BRAIN/04-narrative/quest-system.md"
+    related_targets:
+      - "api/v1/narrative/quest-system.yaml"
+  
+  - source: ".BRAIN/04-narrative/quests/meta/the-truth-beyond-blackwall-quest.md"
+    target: "api/v1/narrative/meta-quest-blackwall.yaml"
+    task_id: "API-TASK-087"
+    task_file: "tasks/active/queue/task-087-meta-quest-blackwall-api.md"
+    status: "queued"
+    created: "2025-11-07 03:10"
+    version: "v1.0.0"
+    updated: "2025-11-07 03:10"
+    related_sources:
+      - ".BRAIN/04-narrative/main-story/NECPGAME-MAIN-STORY-2090-2093.md"
+      - ".BRAIN/02-gameplay/meta/league-system-mechanics.md"
+    related_targets:
+      - "api/v1/narrative/main-story.yaml"
+      - "api/v1/meta/league-system.yaml"
+  
+  - source: ".BRAIN/04-narrative/events/final-league-concert-2093-07-27.md"
+    target: "api/v1/narrative/events/final-league-concert.yaml"
+    task_id: "API-TASK-088"
+    task_file: "tasks/active/queue/task-088-final-league-concert-api.md"
+    status: "queued"
+    created: "2025-11-07 03:15"
+    version: "v1.0.0"
+    updated: "2025-11-07 03:15"
+    related_sources:
+      - ".BRAIN/02-gameplay/meta/league-system-mechanics.md"
+      - ".BRAIN/02-gameplay/world/events/global-events-2020-2093.md"
+    related_targets:
+      - "api/v1/meta/league-system.yaml"
+      - "api/v1/gameplay/world/global-events.yaml"
+
 # Примеры записей:
 #
 # mappings:
