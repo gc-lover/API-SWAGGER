@@ -136,9 +136,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/AbilityUseResult'
         '400':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+          description: Bad Request
         '409':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict'
+          description: Conflict
 
   /gameplay/combat/abilities/loadout:
     get:
@@ -197,9 +197,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/AbilityLoadout'
         '400':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+          description: Bad Request
         '409':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict'
+          description: Conflict
 
   /gameplay/combat/abilities/synergies:
     get:
