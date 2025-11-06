@@ -1,0 +1,64 @@
+openapi: 3.0.3
+info:
+  title: World State API
+  version: 1.0.0
+  description: |
+    API для глобального состояния мира.
+    
+    Источник: .BRAIN/02-gameplay/world/world-state-player-impact.md v1.0.0
+    
+    5 уровней влияния: Individual → Group → Faction → Regional → Global
+    Категории: Territory, Faction Power, Economy, Technology, Social, Quest, Environmental
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/world/world-state:
+    get:
+      summary: Получить глобальное состояние мира
+      operationId: getWorldState
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Состояние мира
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /gameplay/world/world-state/impact:
+    post:
+      summary: Зарегистрировать влияние на мир
+      operationId: registerWorldImpact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Влияние зарегистрировано
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    WorldState:
+      type: object
+      properties:
+        state_id:
+          type: string
+        category:
+          type: string
+        level:
+          type: string
+

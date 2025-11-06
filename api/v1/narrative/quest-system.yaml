@@ -1,0 +1,100 @@
+openapi: 3.0.3
+info:
+  title: Quest System API
+  version: 1.0.0
+  description: |
+    API для системы квестов.
+    
+    Источник: .BRAIN/04-narrative/quest-system.md v1.0.0
+    
+    10 типов квестов, ветвление, последствия, интеграция с сюжетом 2090-2093
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /narrative/quests:
+    get:
+      summary: Получить доступные квесты
+      operationId: getQuests
+      parameters:
+        - name: character_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: quest_type
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Список квестов
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /narrative/quests/{quest_id}/accept:
+    post:
+      summary: Принять квест
+      operationId: acceptQuest
+      parameters:
+        - name: quest_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Квест принят
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /narrative/quests/{quest_id}/complete:
+    post:
+      summary: Завершить квест
+      operationId: completeQuest
+      parameters:
+        - name: quest_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Квест завершен
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    Quest:
+      type: object
+      properties:
+        quest_id:
+          type: string
+        type:
+          type: string
+        branches:
+          type: array
+          items:
+            type: object
+

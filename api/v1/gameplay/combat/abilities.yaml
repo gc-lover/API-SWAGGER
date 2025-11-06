@@ -67,7 +67,17 @@ paths:
                     items:
                       $ref: '#/components/schemas/Ability'
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
 
   /gameplay/combat/abilities/{ability_id}:
     get:
@@ -91,7 +101,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/Ability'
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
 
   /gameplay/combat/abilities/use:
     post:
@@ -143,7 +163,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/AbilityLoadout'
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
 
     put:
       summary: Обновить loadout способностей

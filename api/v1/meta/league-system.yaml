@@ -1,0 +1,56 @@
+openapi: 3.0.3
+info:
+  title: League System API
+  version: 1.0.0
+  description: |
+    API для системы лиг (сезонов).
+    
+    Источник: .BRAIN/02-gameplay/meta/league-system-mechanics.md v1.0.0
+    
+    Цикл: 73 года игровых (2020-2093), 3-6 месяцев реальных
+    5 фаз, глобальный сброс, мета-прогресс
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /meta/league/current:
+    get:
+      summary: Получить текущую лигу
+      operationId: getCurrentLeague
+      responses:
+        '200':
+          description: Текущая лига
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /meta/league/rankings:
+    get:
+      summary: Получить рейтинги лиги
+      operationId: getLeagueRankings
+      responses:
+        '200':
+          description: Рейтинги
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    League:
+      type: object
+      properties:
+        league_id:
+          type: string
+        start_date:
+          type: string
+        end_date:
+          type: string
+        phase:
+          type: string
+          enum: [start, rise, crisis, endgame, finale]
+

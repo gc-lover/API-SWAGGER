@@ -1,0 +1,72 @@
+openapi: 3.0.3
+info:
+  title: Global Events API
+  version: 1.0.0
+  description: |
+    API для глобальных событий 2020-2093.
+    
+    Источник: .BRAIN/02-gameplay/world/events/global-events-2020-2093.md v1.0.0
+    
+    Типы: Political, Economic, Tech, Environmental, Social
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+paths:
+  /gameplay/world/global-events:
+    get:
+      summary: Получить все глобальные события
+      operationId: getGlobalEvents
+      responses:
+        '200':
+          description: Список событий
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /gameplay/world/global-events/active:
+    get:
+      summary: Получить активные события
+      operationId: getActiveGlobalEvents
+      responses:
+        '200':
+          description: Активные события
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /gameplay/world/global-events/{event_id}:
+    get:
+      summary: Детали события
+      operationId: getGlobalEvent
+      parameters:
+        - name: event_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Детали события
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    GlobalEvent:
+      type: object
+      properties:
+        event_id:
+          type: string
+        type:
+          type: string
+        era:
+          type: string
+        impact:
+          type: object
+

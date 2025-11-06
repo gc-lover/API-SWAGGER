@@ -696,6 +696,58 @@ mappings:
     related_targets:
       - "api/v1/gameplay/economy/equipment-matrix.yaml"
 
+  # === МИРОВЫЕ СИСТЕМЫ (World Systems) ===
+  
+  - source: ".BRAIN/02-gameplay/world/world-state-player-impact.md"
+    target: "api/v1/gameplay/world/world-state.yaml"
+    task_id: "API-TASK-070"
+    task_file: "tasks/completed/2025-11-06/task-070-world-state-impact-api.md"
+    status: "completed"
+    created: "2025-11-07 01:45"
+    version: "v1.0.0"
+    updated: "2025-11-06 21:42"
+    completed: "2025-11-06 21:42"
+
+  - source: ".BRAIN/02-gameplay/meta/league-system-mechanics.md"
+    target: "api/v1/meta/league-system.yaml"
+    task_id: "API-TASK-071"
+    task_file: "tasks/completed/2025-11-06/task-071-league-system-api.md"
+    status: "completed"
+    created: "2025-11-07 01:50"
+    version: "v1.0.0"
+    updated: "2025-11-06 21:42"
+    completed: "2025-11-06 21:42"
+
+  - source: ".BRAIN/04-narrative/quest-system.md"
+    target: "api/v1/narrative/quest-system.yaml"
+    task_id: "API-TASK-072"
+    task_file: "tasks/completed/2025-11-06/task-072-quest-system-api.md"
+    status: "completed"
+    created: "2025-11-07 01:55"
+    version: "v1.0.0"
+    updated: "2025-11-06 21:42"
+    completed: "2025-11-06 21:42"
+
+  - source: ".BRAIN/02-gameplay/world/events/global-events-2020-2093.md"
+    target: "api/v1/gameplay/world/global-events.yaml"
+    task_id: "API-TASK-073"
+    task_file: "tasks/completed/2025-11-06/task-073-global-events-api.md"
+    status: "completed"
+    created: "2025-11-07 02:00"
+    version: "v1.0.0"
+    updated: "2025-11-06 21:42"
+    completed: "2025-11-06 21:42"
+
+  - source: ".BRAIN/05-technical/global-state-system.md"
+    target: "api/v1/technical/global-state.yaml"
+    task_id: "API-TASK-074"
+    task_file: "tasks/completed/2025-11-06/task-074-global-state-system-api.md"
+    status: "completed"
+    created: "2025-11-07 02:05"
+    version: "v1.0.0"
+    updated: "2025-11-06 21:42"
+    completed: "2025-11-06 21:42"
+
 # Примеры записей:
 #
 # mappings:
