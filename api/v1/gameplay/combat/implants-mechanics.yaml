@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info:
+  title: Implants Mechanics API
+  version: 1.0.0
+  description: API для механик работы имплантов (перегрузка, синергии, деградация)
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Implants Mechanics
+paths:
+  /gameplay/combat/implants/mechanics:
+    get:
+      summary: Получить механики имплантов
+      operationId: getImplantsMechanics
+      tags: [Implants Mechanics]
+      responses:
+        '200':
+          description: Механики имплантов
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+

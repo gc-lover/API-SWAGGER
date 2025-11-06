@@ -1,0 +1,31 @@
+openapi: 3.0.3
+info:
+  title: Family Relationships API
+  version: 1.0.0
+  description: API для семейных отношений (родители, дети, родственники)
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Family Relationships
+paths:
+  /gameplay/social/family-relationships:
+    get:
+      summary: Получить семейные связи
+      operationId: getFamilyRelationships
+      tags: [Family Relationships]
+      parameters:
+        - name: character_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Семейные связи
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+

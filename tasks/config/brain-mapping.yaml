@@ -1376,6 +1376,38 @@ mappings:
       - "api/v1/narrative/quest-system.yaml"
       - "api/v1/game/tutorial-flow.yaml"
 
+  # === ENDGAME RAIDS (Endgame Raids) ===
+  
+  - source: ".BRAIN/05-technical/start-content/endgame-raids/raid-blackwall-expedition.md"
+    target: "api/v1/narrative/raids/raid-blackwall.yaml"
+    task_id: "API-TASK-119"
+    task_file: "tasks/active/queue/task-119-raid-blackwall-api.md"
+    status: "queued"
+    created: "2025-11-07 06:40"
+    version: "v1.0.0"
+    updated: "2025-11-07 06:40"
+    related_sources:
+      - ".BRAIN/04-narrative/quest-system.md"
+      - ".BRAIN/05-technical/backend/matchmaking-system.md"
+    related_targets:
+      - "api/v1/narrative/quest-system.yaml"
+      - "api/v1/technical/matchmaking.yaml"
+  
+  - source: ".BRAIN/05-technical/start-content/endgame-raids/raid-corpo-tower-assault.md"
+    target: "api/v1/narrative/raids/raid-corpo-tower.yaml"
+    task_id: "API-TASK-120"
+    task_file: "tasks/active/queue/task-120-raid-corpo-tower-api.md"
+    status: "queued"
+    created: "2025-11-07 06:45"
+    version: "v1.0.0"
+    updated: "2025-11-07 06:45"
+    related_sources:
+      - ".BRAIN/04-narrative/quest-system.md"
+      - ".BRAIN/05-technical/backend/matchmaking-system.md"
+    related_targets:
+      - "api/v1/narrative/quest-system.yaml"
+      - "api/v1/technical/matchmaking.yaml"
+
 # Примеры записей:
 #
 # mappings:

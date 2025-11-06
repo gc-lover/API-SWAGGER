@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info:
+  title: Classes Progression Link API
+  version: 1.0.0
+  description: API для связи классов с системой прокачки
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Classes Progression Link
+paths:
+  /gameplay/progression/classes-progression-link:
+    get:
+      summary: Получить связи классов с прокачкой
+      operationId: getClassesProgressionLink
+      tags: [Classes Progression Link]
+      responses:
+        '200':
+          description: Связи классов
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+

@@ -1,0 +1,31 @@
+openapi: 3.0.3
+info:
+  title: Implants Visuals API
+  version: 1.0.0
+  description: API для визуальных эффектов имплантов
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Implants Visuals
+paths:
+  /gameplay/combat/implants/visuals:
+    get:
+      summary: Получить визуальные эффекты имплантов
+      operationId: getImplantsVisuals
+      tags: [Implants Visuals]
+      parameters:
+        - name: character_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Визуальные эффекты
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+

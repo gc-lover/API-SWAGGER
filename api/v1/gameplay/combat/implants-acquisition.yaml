@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info:
+  title: Implants Acquisition API
+  version: 1.0.0
+  description: API для получения имплантов (покупка, крафт, квесты, лут)
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Implants Acquisition
+paths:
+  /gameplay/combat/implants/acquisition:
+    get:
+      summary: Получить способы получения имплантов
+      operationId: getImplantsAcquisition
+      tags: [Implants Acquisition]
+      responses:
+        '200':
+          description: Способы получения
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+

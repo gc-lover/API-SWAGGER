@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info:
+  title: Final League Concert API
+  version: 1.0.0
+  description: API для финального концерта лиги (Samurai reunion)
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Final League Concert
+paths:
+  /narrative/final-league-concert:
+    get:
+      summary: Получить информацию о финальном концерте
+      operationId: getFinalConcertInfo
+      tags: [Final League Concert]
+      responses:
+        '200':
+          description: Информация о концерте
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+

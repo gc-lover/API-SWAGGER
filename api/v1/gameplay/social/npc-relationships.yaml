@@ -1,0 +1,31 @@
+openapi: 3.0.3
+info:
+  title: NPC Relationships API
+  version: 1.0.0
+  description: API для отношений между NPC (динамический мир, реакции NPC друг на друга)
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: NPC Relationships
+paths:
+  /gameplay/social/npc-relationships:
+    get:
+      summary: Получить отношения между NPC
+      operationId: getNPCRelationships
+      tags: [NPC Relationships]
+      parameters:
+        - name: npc_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Отношения NPC
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+

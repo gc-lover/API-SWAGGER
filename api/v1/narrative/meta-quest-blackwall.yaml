@@ -1,0 +1,31 @@
+openapi: 3.0.3
+info:
+  title: Meta Quest Blackwall API
+  version: 1.0.0
+  description: API для мета-квеста про Blackwall (прорыв AI)
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Meta Quest Blackwall
+paths:
+  /narrative/meta-quest/blackwall:
+    get:
+      summary: Получить прогресс квеста Blackwall
+      operationId: getBlackwallProgress
+      tags: [Meta Quest Blackwall]
+      parameters:
+        - name: character_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Прогресс квеста
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+

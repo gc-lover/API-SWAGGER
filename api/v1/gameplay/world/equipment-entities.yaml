@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info:
+  title: Equipment Entities API
+  version: 1.0.0
+  description: API для сущностей экипировки (структура, слоты, наборы)
+servers:
+  - url: https://api.necp.game/v1
+tags:
+  - name: Equipment Entities
+paths:
+  /gameplay/world/equipment-entities:
+    get:
+      summary: Получить сущности экипировки
+      operationId: getEquipmentEntities
+      tags: [Equipment Entities]
+      responses:
+        '200':
+          description: Сущности экипировки
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+
