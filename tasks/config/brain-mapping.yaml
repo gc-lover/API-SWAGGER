@@ -1233,6 +1233,51 @@ mappings:
       - ".BRAIN/05-technical/backend/session-management-system.md"
     related_targets:
       - "api/v1/technical/session-management.yaml"
+  
+  - source: ".BRAIN/05-technical/backend/realtime-server-architecture.md"
+    target: "api/v1/technical/realtime-server.yaml"
+    task_id: "API-TASK-111"
+    task_file: "tasks/active/queue/task-111-realtime-server-api.md"
+    status: "queued"
+    created: "2025-11-07 05:55"
+    version: "v1.0.0"
+    updated: "2025-11-07 05:55"
+    related_sources:
+      - ".BRAIN/05-technical/backend/session-management-system.md"
+    related_targets:
+      - "api/v1/technical/session-management.yaml"
+
+  # === UI СИСТЕМЫ (UI Systems) ===
+  
+  - source: ".BRAIN/05-technical/ui-character-creation.md"
+    target: "api/v1/ui/character-creation.yaml"
+    task_id: "API-TASK-110"
+    task_file: "tasks/active/queue/task-110-character-creation-ui-api.md"
+    status: "queued"
+    created: "2025-11-07 05:50"
+    version: "v1.1.0"
+    updated: "2025-11-07 05:50"
+    related_sources:
+      - ".BRAIN/02-gameplay/progression/classes-overview.md"
+    related_targets:
+      - "api/v1/gameplay/progression/classes.yaml"
+
+  # === GAME START СИСТЕМЫ (Game Start Systems) ===
+  
+  - source: ".BRAIN/05-technical/game-start-by-class.md"
+    target: "api/v1/game/start-by-class.yaml"
+    task_id: "API-TASK-109"
+    task_file: "tasks/active/queue/task-109-game-start-by-class-api.md"
+    status: "queued"
+    created: "2025-11-07 05:45"
+    version: "v1.0.0"
+    updated: "2025-11-07 05:45"
+    related_sources:
+      - ".BRAIN/02-gameplay/progression/classes-overview.md"
+      - ".BRAIN/05-technical/start-content/origin-stories/origin-system-overview.md"
+    related_targets:
+      - "api/v1/gameplay/progression/classes.yaml"
+      - "api/v1/narrative/origin-stories.yaml"
 
 # Примеры записей:
 #

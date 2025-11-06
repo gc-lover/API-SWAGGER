@@ -1,0 +1,323 @@
+openapi: 3.0.3
+info:
+  title: D&D Checks API
+  version: 1.0.0
+  description: |
+    API для D&D системы проверок (кубики и DC).
+    
+    Источник: .BRAIN/02-gameplay/combat/combat-dnd-core.md v1.1.0
+    
+    Базовая формула: `d20 + АтрибутныйМод + НавыковыйБонус + Ситуационные >= DC`
+    Атрибутный модификатор: `floor((ATTR - 10) / 2)`
+    Навыковые бонусы: Novice (+1) → Legendary (+5)
+    
+    Критические:
+    - 1 = критический провал (автофейл)
+    - 20 = критический успех (автоуспех)
+    
+    Преимущества/помехи: бросок 2d20, берем лучший/худший
+    
+    DC шкала:
+    - Легкая (10)
+    - Средняя (15)
+    - Сложная (20)
+    - Очень сложная (25)
+    - Экстремальная (30+)
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+tags:
+  - name: DnD Checks
+    description: Система проверок D&D
+
+paths:
+  /gameplay/mechanics/dnd-checks/roll:
+    post:
+      summary: Бросить проверку
+      description: |
+        Выполняет проверку d20 с модификаторами.
+        Применяет атрибуты, навыки, ситуационные модификаторы.
+      operationId: rollCheck
+      tags:
+        - DnD Checks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckRequest'
+            examples:
+              athletics_check:
+                summary: Проверка атлетики (лазание)
+                value:
+                  character_id: "char_123"
+                  dice_type: "d20"
+                  check_type: "skill"
+                  attribute: "body"
+                  skill: "athletics"
+                  dc: 15
+                  situation_modifiers:
+                    - type: "wet_surface"
+                      value: -2
+              persuasion_check:
+                summary: Проверка убеждения
+                value:
+                  character_id: "char_456"
+                  dice_type: "d20"
+                  check_type: "social"
+                  attribute: "cool"
+                  skill: "persuasion"
+                  dc: 20
+                  advantage: true
+      responses:
+        '200':
+          description: Результат проверки
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckResult'
+              examples:
+                success:
+                  summary: Успешная проверка
+                  value:
+                    roll: 15
+                    attribute_modifier: 3
+                    skill_bonus: 2
+                    situation_modifiers: -2
+                    total: 18
+                    dc: 15
+                    success: true
+                    critical: false
+                    margin: 3
+                critical_success:
+                  summary: Критический успех
+                  value:
+                    roll: 20
+                    total: 20
+                    dc: 30
+                    success: true
+                    critical: true
+                    critical_type: "success"
+
+  /gameplay/mechanics/dnd-checks/calculate-modifier:
+    post:
+      summary: Рассчитать модификатор
+      description: |
+        Рассчитывает модификаторы на основе атрибутов и навыков.
+        Формула атрибута: floor((ATTR - 10) / 2)
+      operationId: calculateModifier
+      tags:
+        - DnD Checks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - character_id
+                - attribute
+              properties:
+                character_id:
+                  type: string
+                attribute:
+                  type: string
+                  enum: [body, reflex, tech, intelligence, cool]
+                skill:
+                  type: string
+                  description: Опционально, для навыкового бонуса
+            examples:
+              body_modifier:
+                summary: Модификатор тела (16 BODY)
+                value:
+                  character_id: "char_123"
+                  attribute: "body"
+                  skill: "athletics"
+      responses:
+        '200':
+          description: Рассчитанные модификаторы
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  attribute_value:
+                    type: integer
+                  attribute_modifier:
+                    type: integer
+                  skill_rank:
+                    type: string
+                    enum: [novice, competent, proficient, expert, legendary]
+                  skill_bonus:
+                    type: integer
+                  total_modifier:
+                    type: integer
+
+  /gameplay/mechanics/dnd-checks/dc-scale:
+    get:
+      summary: Получить шкалу DC
+      description: |
+        Возвращает стандартную шкалу сложностей (Difficulty Class).
+      operationId: getDCScale
+      tags:
+        - DnD Checks
+      responses:
+        '200':
+          description: Шкала DC
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  difficulties:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        dc:
+                          type: integer
+                        description:
+                          type: string
+              example:
+                difficulties:
+                  - name: "Easy"
+                    dc: 10
+                    description: "Легкая задача"
+                  - name: "Medium"
+                    dc: 15
+                    description: "Средняя задача"
+                  - name: "Hard"
+                    dc: 20
+                    description: "Сложная задача"
+                  - name: "Very Hard"
+                    dc: 25
+                    description: "Очень сложная задача"
+                  - name: "Extreme"
+                    dc: 30
+                    description: "Экстремально сложная задача"
+
+  /gameplay/mechanics/dnd-checks/advantage-roll:
+    post:
+      summary: Бросок с преимуществом/помехой
+      description: |
+        Выполняет бросок с преимуществом (advantage) или помехой (disadvantage).
+        Бросает 2d20, берет лучший (advantage) или худший (disadvantage).
+      operationId: rollWithAdvantage
+      tags:
+        - DnD Checks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CheckRequest'
+                - type: object
+                  properties:
+                    advantage_type:
+                      type: string
+                      enum: [advantage, disadvantage]
+            examples:
+              advantage:
+                summary: Бросок с преимуществом
+                value:
+                  character_id: "char_123"
+                  attribute: "reflex"
+                  skill: "stealth"
+                  dc: 15
+                  advantage_type: "advantage"
+      responses:
+        '200':
+          description: Результат с преимуществом/помехой
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/CheckResult'
+                  - type: object
+                    properties:
+                      rolls:
+                        type: array
+                        items:
+                          type: integer
+                        description: Два броска d20
+                      selected_roll:
+                        type: integer
+
+components:
+  schemas:
+    CheckRequest:
+      type: object
+      required:
+        - character_id
+        - dice_type
+        - check_type
+        - dc
+      properties:
+        character_id:
+          type: string
+        dice_type:
+          type: string
+          enum: [d20, d100]
+          default: d20
+        check_type:
+          type: string
+          enum: [skill, combat, social, crafting, hacking]
+        attribute:
+          type: string
+          enum: [body, reflex, tech, intelligence, cool]
+        skill:
+          type: string
+          description: Навык для бонуса
+        dc:
+          type: integer
+          minimum: 1
+          description: Difficulty Class
+        situation_modifiers:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              value:
+                type: integer
+        advantage:
+          type: boolean
+          default: false
+        disadvantage:
+          type: boolean
+          default: false
+
+    CheckResult:
+      type: object
+      properties:
+        roll:
+          type: integer
+          description: Результат броска кубика
+        attribute_modifier:
+          type: integer
+        skill_bonus:
+          type: integer
+        situation_modifiers:
+          type: integer
+        total:
+          type: integer
+          description: Итоговое значение проверки
+        dc:
+          type: integer
+        success:
+          type: boolean
+        critical:
+          type: boolean
+        critical_type:
+          type: string
+          enum: [success, failure]
+        margin:
+          type: integer
+          description: Разница между total и DC
+
