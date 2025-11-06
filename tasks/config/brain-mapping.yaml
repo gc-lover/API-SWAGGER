@@ -118,6 +118,19 @@ mappings:
     related_sources:
       - ".BRAIN/05-technical/mvp-data-json/items.json"
 
+  - source: ".BRAIN/05-technical/ui-main-game.md"
+    target: "api/v1/gameplay/actions/actions.yaml"
+    task_id: "API-TASK-034"
+    task_file: "tasks/active/queue/task-034-gameplay-actions-api.md"
+    status: "queued"
+    created: "2025-11-06 21:00"
+    version: "v1.1.0"
+    updated: "2025-11-06 21:00"
+    related_sources:
+      - ".BRAIN/05-technical/mvp-content/actions-descriptions.json"
+    related_targets:
+      - "api/v1/locations/locations.yaml"
+
 # Примеры записей:
 #
 # mappings:
