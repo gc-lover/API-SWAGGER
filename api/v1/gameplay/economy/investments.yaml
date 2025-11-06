@@ -58,8 +58,8 @@ paths:
           description: Минимальный ROI (%)
           schema:
             type: number
-        - $ref: '../../../../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../../../../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Инвестиционные возможности
@@ -67,7 +67,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '../../../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
+                  - $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
                   - type: object
                     properties:
                       data:
