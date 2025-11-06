@@ -203,6 +203,111 @@ components:
 
 ---
 
+### Q: Как определить целевой микросервис для API?
+
+**A:** Определяется по API пути из секции "Целевая архитектура" задания:
+
+**Таблица маппинга API путей → Микросервисы:**
+
+| API Путь | Микросервис | Порт | Описание |
+|----------|-------------|------|----------|
+| `/api/v1/auth/*` | auth-service | 8081 | Аутентификация, аккаунты |
+| `/api/v1/characters/*` | character-service | 8082 | Персонажи, управление |
+| `/api/v1/players/*` | character-service | 8082 | Player profiles |
+| `/api/v1/inventory/*` | character-service | 8082 | Инвентарь персонажа |
+| `/api/v1/gameplay/combat/*` | gameplay-service | 8083 | Боевая система |
+| `/api/v1/gameplay/progression/*` | gameplay-service | 8083 | Прокачка, навыки |
+| `/api/v1/progression/*` | gameplay-service | 8083 | Система прокачки |
+| `/api/v1/loot/*` | gameplay-service | 8083 | Система лута |
+| `/api/v1/achievements/*` | gameplay-service | 8083 | Достижения |
+| `/api/v1/leaderboards/*` | gameplay-service | 8083 | Рейтинги |
+| `/api/v1/combat/*` | gameplay-service | 8083 | Боевые сессии |
+| `/api/v1/gameplay/social/*` | social-service | 8084 | Социальные механики NPC |
+| `/api/v1/social/*` | social-service | 8084 | Друзья, гильдии |
+| `/api/v1/guilds/*` | social-service | 8084 | Система гильдий |
+| `/api/v1/party/*` | social-service | 8084 | Система групп |
+| `/api/v1/mail/*` | social-service | 8084 | Почтовая система |
+| `/api/v1/notifications/*` | social-service | 8084 | Уведомления |
+| `/api/v1/romance/*` | social-service | 8084 | Романтические отношения |
+| `/api/v1/gameplay/economy/*` | economy-service | 8085 | Экономика игровая |
+| `/api/v1/economy/*` | economy-service | 8085 | Экономика, торговля |
+| `/api/v1/trade/*` | economy-service | 8085 | P2P торговля |
+| `/api/v1/gameplay/world/*` | world-service | 8086 | Игровой мир |
+| `/api/v1/world/*` | world-service | 8086 | Мировые события |
+| `/api/v1/lore/*` | world-service | 8086 | Лор, фракции |
+| `/api/v1/narrative/*` | narrative-service | 8087 | Квесты, диалоги |
+| `/api/v1/quests/*` | narrative-service | 8087 | Квестовый движок |
+| `/api/v1/admin/*` | admin-service | 8088 | Администрирование |
+
+**Примеры:**
+- API `api/v1/gameplay/social/personal-npc-tool.yaml` → social-service (8084)
+- API `api/v1/economy/crafting-recipes.yaml` → economy-service (8085)
+- API `api/v1/narrative/quests/main-quests.yaml` → narrative-service (8087)
+
+**Где указывать:**
+В комментариях в начале API файла (см. АПИТАСК-PROCESS.md, шаг 3.5).
+
+---
+
+### Q: Как определить целевой фронтенд-модуль?
+
+**A:** Определяется по домену функциональности из секции "Целевая архитектура" задания:
+
+**Таблица маппинга Домен → Фронтенд-модули:**
+
+| Домен | Фронтенд-модуль | State Store | Типичные компоненты |
+|-------|-----------------|-------------|---------------------|
+| Social | modules/social/ | useSocialStore | NPCCard, FriendCard, GuildCard, RomanceCard |
+| Economy | modules/economy/ | useEconomyStore | AuctionCard, TradeForm, PriceDisplay |
+| Combat | modules/combat/ | useCombatStore | WeaponCard, HealthBar, AbilityButton |
+| World | modules/world/ | useWorldStore | LocationCard, EventCard, MapView |
+| Progression | modules/progression/ | useProgressionStore | SkillTree, LevelProgress, StatBlock |
+| Narrative | modules/narrative/ | useNarrativeStore | QuestCard, DialogueBox, StoryPanel |
+
+**Примеры:**
+- API `api/v1/gameplay/social/personal-npc-tool.yaml` → modules/social/personal-npc
+- API `api/v1/economy/crafting-recipes.yaml` → modules/economy/crafting
+- API `api/v1/narrative/quests/main-quests.yaml` → modules/narrative/main-quests
+
+**Где указывать:**
+В секции "Целевая архитектура" задания и в комментариях API файла.
+
+---
+
+### Q: Какие компоненты использовать из библиотек @shared?
+
+**A:** Определяется на основе функциональности фичи. Используй библиотеки компонентов:
+
+**@shared/ui (UI компоненты):**
+- **Базовые:** Button, Input, Card, Modal, Checkbox, Select, Textarea
+- **Игровые:** CharacterCard, ItemCard, NPCCard, WeaponCard, QuestCard
+- **Индикаторы:** HealthBar, ProgressBar, StatBlock, LevelProgress
+- **Специфичные:** TradeWindow, DialogueBox, SkillTree, Timeline
+
+**@shared/forms (готовые формы):**
+- CharacterCreationForm, TradeForm, AuctionBidForm, CraftingForm
+- QuestAcceptForm, NpcInteractionForm, NpcHiringForm, WeaponConfigForm
+- LoginForm, RegistrationForm, PasswordResetForm
+
+**@shared/layouts (layouts):**
+- GameLayout (основной layout для игровых страниц)
+- CombatLayout (для боевых экранов)
+- AuthLayout (для аутентификации/выбора персонажа)
+- AdminLayout (для admin панели)
+
+**@shared/hooks (хуки):**
+- useDebounce, useLocalStorage, useCharacter, useInventory, useRealtime
+
+**Примеры:**
+- Для API social/personal-npc-tool → PersonalNpcCard, NPCAvatar, NpcInteractionForm, GameLayout
+- Для API economy/crafting → RecipeCard, ItemCard, MaterialsList, CraftingForm, GameLayout
+- Для API narrative/quests → QuestCard, DialogueBox, ChoiceButton, QuestAcceptForm, GameLayout
+
+**Где указывать:**
+В секции "Целевая архитектура" задания, подраздел "Frontend (библиотеки)".
+
+---
+
 ### Q: Как использовать общие компоненты из shared/common/?
 
 **A:** ОБЯЗАТЕЛЬНО используй общие компоненты через `$ref`:

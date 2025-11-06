@@ -32,6 +32,37 @@
 
 ---
 
+## 🏗️ Целевая архитектура
+
+### Backend (микросервис):
+
+**Микросервис:** narrative-service  
+**Порт:** 8087  
+**API пути:** /api/v1/narrative/systems/*
+
+### Frontend (модуль):
+
+**Модуль:** narrative  
+**Путь:** modules/narrative/systems  
+**State Store:** useNarrativeStore (narrativeCoherence, generatedNpcs, sideQuests)
+
+### Frontend (библиотеки):
+
+**UI компоненты (@shared/ui):**
+- Card, NPCCard, QuestCard, SystemIndicator
+
+**Готовые формы (@shared/forms):**
+- DialogueChoiceForm, QuestAcceptForm
+
+**Layouts (@shared/layouts):**
+- GameLayout
+
+**Хуки (@shared/hooks):**
+- useRealtime (для narrative coherence)
+- useDebounce
+
+---
+
 ## ✅ Endpoints
 
 Интеграция с существующими narrative API.
