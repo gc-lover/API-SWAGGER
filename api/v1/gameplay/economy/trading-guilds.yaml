@@ -60,8 +60,8 @@ paths:
           in: query
           schema:
             type: string
-        - $ref: '../../../../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../../../../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Список гильдий
@@ -69,7 +69,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '../../../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
+                  - $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
                   - type: object
                     properties:
                       data:
@@ -95,7 +95,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/TradingGuild'
         '400':
-          $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
 
   /gameplay/economy/trading-guilds/{guild_id}:
     get:
@@ -117,7 +117,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/TradingGuildDetailed'
         '404':
-          $ref: '../../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
 
   /gameplay/economy/trading-guilds/{guild_id}/members:
     get:
@@ -176,7 +176,7 @@ paths:
         '200':
           description: Член добавлен
         '400':
-          $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
 
   /gameplay/economy/trading-guilds/{guild_id}/treasury:
     get:
@@ -230,7 +230,7 @@ paths:
                   new_balance:
                     type: integer
         '400':
-          $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
 
   /gameplay/economy/trading-guilds/{guild_id}/profits/distribute:
     post:
@@ -275,7 +275,7 @@ paths:
                         amount:
                           type: integer
         '403':
-          $ref: '../../../../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
 
   /gameplay/economy/trading-guilds/{guild_id}/trade-routes:
     get:
@@ -358,7 +358,7 @@ paths:
         '200':
           description: Улучшение применено
         '400':
-          $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
 
 components:
   schemas:
