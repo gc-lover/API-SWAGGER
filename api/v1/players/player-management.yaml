@@ -98,7 +98,7 @@ paths:
       description: |
         Создает нового персонажа.
         Требует свободный слот (3 базовых + 2 premium).
-      operationId: createCharacter
+      operationId: createPlayerCharacter
       tags:
         - Characters
       security:
