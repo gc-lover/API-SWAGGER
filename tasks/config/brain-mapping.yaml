@@ -1315,6 +1315,66 @@ mappings:
       - ".BRAIN/05-technical/ui-game-start.md"
     related_targets:
       - "api/v1/ui/game-start.yaml"
+  
+  - source: ".BRAIN/05-technical/game-start-by-faction.md"
+    target: "api/v1/game/start-by-faction.yaml"
+    task_id: "API-TASK-115"
+    task_file: "tasks/active/queue/task-115-game-start-by-faction-api.md"
+    status: "queued"
+    created: "2025-11-07 06:20"
+    version: "v1.0.0"
+    updated: "2025-11-07 06:20"
+    related_sources:
+      - ".BRAIN/05-technical/game-start-by-class.md"
+    related_targets:
+      - "api/v1/game/start-by-class.yaml"
+  
+  - source: ".BRAIN/05-technical/game-start-by-origin.md"
+    target: "api/v1/game/start-by-origin.yaml"
+    task_id: "API-TASK-116"
+    task_file: "tasks/active/queue/task-116-game-start-by-origin-api.md"
+    status: "queued"
+    created: "2025-11-07 06:25"
+    version: "v1.0.0"
+    updated: "2025-11-07 06:25"
+    related_sources:
+      - ".BRAIN/05-technical/game-start-by-class.md"
+      - ".BRAIN/05-technical/start-content/origin-stories/origin-system-overview.md"
+    related_targets:
+      - "api/v1/game/start-by-class.yaml"
+      - "api/v1/narrative/origin-stories.yaml"
+  
+  - source: ".BRAIN/05-technical/game-start-unique-starts.md"
+    target: "api/v1/game/unique-starts.yaml"
+    task_id: "API-TASK-117"
+    task_file: "tasks/active/queue/task-117-unique-starts-api.md"
+    status: "queued"
+    created: "2025-11-07 06:30"
+    version: "v1.0.0"
+    updated: "2025-11-07 06:30"
+    related_sources:
+      - ".BRAIN/05-technical/game-start-by-class.md"
+      - ".BRAIN/05-technical/game-start-by-faction.md"
+      - ".BRAIN/05-technical/game-start-by-origin.md"
+    related_targets:
+      - "api/v1/game/start-by-class.yaml"
+      - "api/v1/game/start-by-faction.yaml"
+      - "api/v1/game/start-by-origin.yaml"
+  
+  - source: ".BRAIN/05-technical/game-first-quest-intro.md"
+    target: "api/v1/game/first-quest.yaml"
+    task_id: "API-TASK-118"
+    task_file: "tasks/active/queue/task-118-first-quest-api.md"
+    status: "queued"
+    created: "2025-11-07 06:35"
+    version: "v1.0.0"
+    updated: "2025-11-07 06:35"
+    related_sources:
+      - ".BRAIN/04-narrative/quest-system.md"
+      - ".BRAIN/05-technical/game-tutorial-flow.md"
+    related_targets:
+      - "api/v1/narrative/quest-system.yaml"
+      - "api/v1/game/tutorial-flow.yaml"
 
 # Примеры записей:
 #

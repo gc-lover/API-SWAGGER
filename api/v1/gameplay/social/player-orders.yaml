@@ -1,21 +1,38 @@
 openapi: 3.0.3
 info:
-  title: Player Orders API
+  title: Player Orders System API
   version: 1.0.0
   description: |
     API для системы заказов игроков.
     
-    Источник: .BRAIN/02-gameplay/social/player-orders-system.md v2.0.0
+    Источник: .BRAIN/02-gameplay/social/player-orders-system.md v1.1.0
+    
+    Типы заказов: крафт, добыча ресурсов, охота, охрана, доставка, квесты
+    Механика: заказчик создает → исполнитель принимает → выполняет → получает награду
+    Репутация: влияет на доступ к заказам и награды
 
 servers:
   - url: https://api.necp.game/v1
     description: Production server
 
+tags:
+  - name: Player Orders
+    description: Заказы игроков
+
 paths:
   /gameplay/social/player-orders:
     get:
-      summary: Получить заказы
+      summary: Получить доступные заказы
+      description: Возвращает список активных заказов от игроков
       operationId: getPlayerOrders
+      tags:
+        - Player Orders
+      parameters:
+        - name: order_type
+          in: query
+          schema:
+            type: string
+            enum: [craft, gather, hunt, escort, delivery, quest]
       responses:
         '200':
           description: Список заказов
@@ -23,16 +40,38 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  orders:
+                    type: array
+                    items:
+                      type: object
 
     post:
       summary: Создать заказ
+      description: Создает новый заказ от игрока
       operationId: createPlayerOrder
+      tags:
+        - Player Orders
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
+              required:
+                - creator_id
+                - order_type
+                - description
+                - reward
+              properties:
+                creator_id:
+                  type: string
+                order_type:
+                  type: string
+                description:
+                  type: string
+                reward:
+                  type: number
       responses:
         '200':
           description: Заказ создан
@@ -40,14 +79,41 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  order_id:
+                    type: string
+
+  /gameplay/social/player-orders/{order_id}/accept:
+    post:
+      summary: Принять заказ
+      description: Исполнитель принимает заказ
+      operationId: acceptPlayerOrder
+      tags:
+        - Player Orders
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - executor_id
+              properties:
+                executor_id:
+                  type: string
+      responses:
+        '200':
+          description: Заказ принят
+          content:
+            application/json:
+              schema:
+                type: object
 
 components:
-  schemas:
-    PlayerOrder:
-      type: object
-      properties:
-        order_id:
-          type: string
-        type:
-          type: string
-
+  schemas: {}

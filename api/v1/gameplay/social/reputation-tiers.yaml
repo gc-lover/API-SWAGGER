@@ -3,12 +3,13 @@ info:
   title: Reputation Tiers API
   version: 1.0.0
   description: |
-    API для репутационных тиров.
+    API для системы уровней репутации.
     
-    Источник: .BRAIN/02-gameplay/social/reputation-tiers-detailed.md v2.0.0
+    Источник: .BRAIN/02-gameplay/social/reputation-system-formulas.md v2.0.0
     
-    8 тиров: Hated (-1000 до -750) → Hostile → Unfriendly → Neutral → Friendly → Trusted → Honored → Legendary (10000+)
-    Каждый тир дает бонусы: скидки, доступ к NPC, специальные квесты, титулы
+    Тиры репутации: Hated → Hostile → Unfriendly → Neutral → Friendly → Honored → Revered → Exalted
+    Значения: от -3000 (Hated) до +3000 (Exalted)
+    Влияние: доступ к контенту, цены, квесты, способности
 
 servers:
   - url: https://api.necp.game/v1
@@ -19,171 +20,72 @@ tags:
     description: Система репутации
 
 paths:
-  /gameplay/social/reputation-tiers:
+  /gameplay/social/reputation:
     get:
-      summary: Получить репутационные тиры
-      description: |
-        Возвращает список всех репутационных тиров с breakpoints и преимуществами.
-      operationId: getReputationTiers
-      tags:
-        - Reputation
-      responses:
-        '200':
-          description: Список тиров
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  tiers:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/ReputationTier'
-              examples:
-                all_tiers:
-                  summary: Все репутационные тиры
-                  value:
-                    tiers:
-                      - tier: "hated"
-                        min_reputation: -1000
-                        max_reputation: -750
-                        price_modifier: 2.0
-                        access_level: "restricted"
-                        penalties:
-                          - "Attacked on sight"
-                          - "No trading"
-                      - tier: "legendary"
-                        min_reputation: 10000
-                        max_reputation: null
-                        price_modifier: 0.5
-                        access_level: "vip"
-                        benefits:
-                          - "Unique quests"
-                          - "Legendary items access"
-                          - "Special title"
-
-  /gameplay/social/reputation-tiers/{character_id}/{faction_id}:
-    get:
-      summary: Получить текущий тир с фракцией
-      description: |
-        Возвращает текущий репутационный тир персонажа с указанной фракцией.
-        Включает преимущества/недостатки тира.
-      operationId: getReputationTier
+      summary: Получить репутацию персонажа
+      description: Возвращает репутацию персонажа с разными фракциями
+      operationId: getReputation
       tags:
         - Reputation
       parameters:
         - name: character_id
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: faction_id
-          in: path
+          in: query
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: Репутационный тир
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CharacterReputationTier'
-        '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
-
-  /gameplay/social/reputation-tiers/benefits/{tier}:
-    get:
-      summary: Получить преимущества тира
-      description: Возвращает детальные преимущества указанного тира
-      operationId: getTierBenefits
-      tags:
-        - Reputation
-      parameters:
-        - name: tier
-          in: path
-          required: true
-          schema:
-            type: string
-            enum: [hated, hostile, unfriendly, neutral, friendly, trusted, honored, legendary]
-      responses:
-        '200':
-          description: Преимущества тира
+          description: Репутация персонажа
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  tier:
-                    type: string
-                  benefits:
+                  reputations:
                     type: array
                     items:
-                      type: string
-                  penalties:
-                    type: array
-                    items:
-                      type: string
-                  price_modifier:
-                    type: number
-                  access_level:
-                    type: string
+                      type: object
+                      properties:
+                        faction_id:
+                          type: string
+                        value:
+                          type: number
+                        tier:
+                          type: string
+
+  /gameplay/social/reputation/modify:
+    post:
+      summary: Изменить репутацию
+      description: Изменяет репутацию персонажа с фракцией
+      operationId: modifyReputation
+      tags:
+        - Reputation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - character_id
+                - faction_id
+                - change
+              properties:
+                character_id:
+                  type: string
+                faction_id:
+                  type: string
+                change:
+                  type: number
+                reason:
+                  type: string
+      responses:
+        '200':
+          description: Репутация изменена
+          content:
+            application/json:
+              schema:
+                type: object
 
 components:
-  schemas:
-    ReputationTier:
-      type: object
-      properties:
-        tier:
-          type: string
-          enum: [hated, hostile, unfriendly, neutral, friendly, trusted, honored, legendary]
-        min_reputation:
-          type: number
-          description: Минимальная репутация для тира
-        max_reputation:
-          type: number
-          description: Максимальная репутация (null для legendary)
-          nullable: true
-        price_modifier:
-          type: number
-          description: Модификатор цен (0.5 = скидка 50%, 2.0 = наценка 100%)
-        access_level:
-          type: string
-          enum: [blocked, restricted, standard, privileged, vip]
-        benefits:
-          type: array
-          items:
-            type: string
-        penalties:
-          type: array
-          items:
-            type: string
-        special_title:
-          type: string
-          description: Специальный титул за достижение тира
-
-    CharacterReputationTier:
-      type: object
-      properties:
-        character_id:
-          type: string
-        faction_id:
-          type: string
-        faction_name:
-          type: string
-        current_reputation:
-          type: number
-        current_tier:
-          type: string
-        next_tier:
-          type: string
-        reputation_to_next:
-          type: number
-        active_benefits:
-          type: array
-          items:
-            type: string
-        active_penalties:
-          type: array
-          items:
-            type: string
+  schemas: {}
