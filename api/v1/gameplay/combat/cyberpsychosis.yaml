@@ -1,568 +1,127 @@
-# Combat Cyberpsychosis API
-# Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md (v1.1.0)
-# Задание: API-SWAGGER/tasks/active/queue/task-004-combat-cyberpsychosis-api.md
-# Task ID: API-TASK-004
-
 openapi: 3.0.3
 info:
-  title: Combat Cyberpsychosis API
+  title: Cyberpsychosis API
   version: 1.0.0
   description: |
-    # API для системы киберпсихоза
+    API для системы киберпсихоза.
     
-    ## Описание
+    Источник концепции: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md v1.1.0
     
-    Система киберпсихоза определяет влияние имплантов на человечность персонажа и последствия потери человечности.
-    API предоставляет функционал для управления системой человечности, отслеживания симптомов, прогрессии,
-    последствий и управления (профилактика, лечение, управление симптомами).
-    
-    ## Источники
-    
-    - Оригинальный документ: `.BRAIN/02-gameplay/combat/combat-cyberpsychosis.md`
-    - Версия документа: v1.1.0
-    - Задание: `API-SWAGGER/tasks/active/queue/task-004-combat-cyberpsychosis-api.md`
-    - Task ID: API-TASK-004
-    
-    ## Комментарии для исполнителя
-    
-    - Все данные хранятся в БД PostgreSQL
-    - Валидация выполняется на бекенде
-    - Все операции проверяют стадию киберпсихоза и влияние на характеристики
-    - Все операции проверяют стоимость лечения и профилактики
-    - Все операции учитывают влияние на социальные взаимодействия и репутацию
+    Особенности:
+    - Система человечности (Humanity): 0-100%
+    - 4 стадии: Ранняя (10-25%), Средняя (25-50%), Поздняя (50-75%), Киберпсихоз (75-100%)
+    - Детальные симптомы по стадиям
+    - Динамическая прогрессия (базовые + динамические факторы + триггеры)
+    - Управление: профилактика, лечение, препараты, детоксикация
+    - Влияние на социальные взаимодействия и репутацию
+    - Экономика управления (стоимость лечения)
 
 servers:
   - url: https://api.necp.game/v1
     description: Production server
 
+tags:
+  - name: Cyberpsychosis
+    description: Система киберпсихоза
+
 paths:
-  # Управление человечностью
-  /gameplay/combat/cyberpsychosis/{player_id}/humanity:
+  /gameplay/combat/cyberpsychosis/{character_id}:
     get:
-      summary: Получить текущий уровень человечности
-      description: |
-        Возвращает текущий уровень человечности игрока, включая процент потери и текущую стадию.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Система человечности
-      operationId: getHumanity
+      summary: Получить текущий статус киберпсихоза
+      description: Возвращает полную информацию о текущем состоянии киберпсихоза персонажа
+      operationId: getCyberpsychosisStatus
       tags:
-        - Combat
         - Cyberpsychosis
-        - Humanity
-      security:
-        - BearerAuth: []
       parameters:
-        - name: player_id
+        - name: character_id
           in: path
           required: true
           schema:
             type: string
-            format: uuid
-          description: Идентификатор игрока
       responses:
         '200':
-          description: Информация о человечности
+          description: Статус киберпсихоза
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HumanityInfo'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+                $ref: '#/components/schemas/CyberpsychosisStatus'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
 
-  /gameplay/combat/cyberpsychosis/{player_id}/humanity/calculate-loss:
+  /gameplay/combat/cyberpsychosis/update:
     post:
-      summary: Рассчитать потерю человечности при установке импланта
+      summary: Обновить прогрессию киберпсихоза
       description: |
-        Рассчитывает потерю человечности при установке импланта с учетом всех факторов.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Система человечности
-      operationId: calculateHumanityLoss
+        Обновляет прогрессию киберпсихоза на основе действий персонажа.
+        Учитывает базовые и динамические факторы.
+      operationId: updateCyberpsychosis
       tags:
-        - Combat
         - Cyberpsychosis
-        - Humanity
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CalculateLossRequest'
+              type: object
+              required:
+                - character_id
+              properties:
+                character_id:
+                  type: string
+                event_type:
+                  type: string
+                  enum: [implant_installed, combat_stress, implant_damaged, limit_exceeded, hacking, critical_event]
+                event_data:
+                  type: object
       responses:
         '200':
-          description: Расчет потери человечности
+          description: Прогрессия обновлена
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HumanityLossCalculation'
-        '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+                $ref: '#/components/schemas/CyberpsychosisStatus'
 
-  /gameplay/combat/cyberpsychosis/{player_id}/humanity/apply-loss:
-    post:
-      summary: Применить потерю человечности
-      description: |
-        Применяет потерю человечности при установке импланта и проверяет переходы между стадиями.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Система человечности
-      operationId: applyHumanityLoss
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Humanity
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ApplyLossRequest'
-      responses:
-        '200':
-          description: Потеря человечности применена
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HumanityUpdateResult'
-        '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '422':
-          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  # Стадии и симптомы
-  /gameplay/combat/cyberpsychosis/{player_id}/stage:
+  /gameplay/combat/cyberpsychosis/symptoms:
     get:
-      summary: Получить текущую стадию киберпсихоза
-      description: |
-        Возвращает текущую стадию киберпсихоза игрока с симптомами и эффектами.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Симптомы и прогрессия
-      operationId: getCyberpsychosisStage
+      summary: Получить текущие симптомы
+      description: Возвращает список активных симптомов киберпсихоза
+      operationId: getCyberpsychosisSymptoms
       tags:
-        - Combat
         - Cyberpsychosis
-        - Stages
-      security:
-        - BearerAuth: []
       parameters:
-        - name: player_id
-          in: path
+        - name: character_id
+          in: query
           required: true
           schema:
             type: string
-            format: uuid
-          description: Идентификатор игрока
       responses:
         '200':
-          description: Информация о стадии киберпсихоза
+          description: Текущие симптомы
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CyberpsychosisStage'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+                type: object
+                properties:
+                  symptoms:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CyberpsychosisSymptom'
 
-  /gameplay/combat/cyberpsychosis/{player_id}/symptoms:
-    get:
-      summary: Получить список активных симптомов
-      description: Возвращает список активных симптомов игрока с их эффектами.
-      operationId: getSymptoms
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Symptoms
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
-      responses:
-        '200':
-          description: Список активных симптомов
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Symptom'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  /gameplay/combat/cyberpsychosis/stages/{stage_name}:
-    get:
-      summary: Получить информацию о стадии
-      description: Возвращает информацию о стадии киберпсихоза (ранняя, средняя, поздняя, киберпсихоз).
-      operationId: getStageInfo
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Stages
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: stage_name
-          in: path
-          required: true
-          schema:
-            type: string
-            enum: [early, middle, late, cyberpsychosis]
-          description: Название стадии
-      responses:
-        '200':
-          description: Информация о стадии
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StageInfo'
-        '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  # Прогрессия
-  /gameplay/combat/cyberpsychosis/{player_id}/progression:
-    get:
-      summary: Получить информацию о прогрессии
-      description: |
-        Возвращает информацию о прогрессии киберпсихоза, включая факторы, триггеры и скорость.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Прогрессия
-      operationId: getProgression
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Progression
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
-      responses:
-        '200':
-          description: Информация о прогрессии
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProgressionInfo'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  /gameplay/combat/cyberpsychosis/{player_id}/progression/calculate:
-    post:
-      summary: Рассчитать прогрессию с учетом всех факторов
-      description: |
-        Рассчитывает прогрессию киберпсихоза с учетом базовых и динамических факторов, триггеров.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Прогрессия
-      operationId: calculateProgression
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Progression
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CalculateProgressionRequest'
-      responses:
-        '200':
-          description: Расчет прогрессии
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProgressionCalculation'
-        '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  /gameplay/combat/cyberpsychosis/{player_id}/progression/trigger:
-    post:
-      summary: Сработать триггер прогрессии
-      description: |
-        Срабатывает триггер прогрессии (критические моменты, накопление стресса, временные всплески).
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Триггеры прогрессии
-      operationId: triggerProgression
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Progression
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TriggerProgressionRequest'
-      responses:
-        '200':
-          description: Триггер прогрессии сработан
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProgressionTriggerResult'
-        '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  # Последствия
-  /gameplay/combat/cyberpsychosis/{player_id}/consequences:
-    get:
-      summary: Получить список последствий киберпсихоза
-      description: |
-        Возвращает список последствий киберпсихоза: штрафы к характеристикам, социальные эффекты, влияние на контроль.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Последствия
-      operationId: getConsequences
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Consequences
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
-      responses:
-        '200':
-          description: Информация о последствиях
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ConsequencesInfo'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  /gameplay/combat/cyberpsychosis/{player_id}/stat-penalties:
-    get:
-      summary: Получить штрафы к характеристикам
-      description: Возвращает штрафы к характеристикам от киберпсихоза.
-      operationId: getStatPenalties
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Consequences
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
-      responses:
-        '200':
-          description: Штрафы к характеристикам
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StatPenalties'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  /gameplay/combat/cyberpsychosis/{player_id}/social-effects:
-    get:
-      summary: Получить влияние на социальные взаимодействия
-      description: |
-        Возвращает влияние киберпсихоза на социальные взаимодействия: репутацию, доступ к NPC.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Социальные механики
-      operationId: getSocialEffects
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Consequences
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
-      responses:
-        '200':
-          description: Социальные эффекты
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SocialEffects'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  # Управление
-  /gameplay/combat/cyberpsychosis/{player_id}/prevention/apply:
-    post:
-      summary: Применить профилактическую меру
-      description: |
-        Применяет профилактическую меру для замедления прогрессии киберпсихоза.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Профилактика
-      operationId: applyPrevention
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Management
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ApplyPreventionRequest'
-      responses:
-        '200':
-          description: Профилактическая мера применена
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PreventionResult'
-        '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '422':
-          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  /gameplay/combat/cyberpsychosis/{player_id}/treatment/apply:
+  /gameplay/combat/cyberpsychosis/treatment:
     post:
       summary: Применить лечение
       description: |
-        Применяет лечение для восстановления человечности.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Лечение
-      operationId: applyTreatment
+        Применяет лечение киберпсихоза.
+        Может быть терапия, препараты, удаление имплантов или детоксикация.
+      operationId: applyCyberpsychosisTreatment
       tags:
-        - Combat
         - Cyberpsychosis
-        - Management
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ApplyTreatmentRequest'
+              $ref: '#/components/schemas/TreatmentRequest'
       responses:
         '200':
           description: Лечение применено
@@ -571,1243 +130,167 @@ paths:
               schema:
                 $ref: '#/components/schemas/TreatmentResult'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '422':
-          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '409':
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict'
 
-  /gameplay/combat/cyberpsychosis/treatments:
+  /gameplay/combat/cyberpsychosis/management-options:
     get:
-      summary: Получить список доступных методов лечения
-      description: Возвращает список доступных методов лечения с описанием, стоимостью и эффективностью.
-      operationId: getTreatments
+      summary: Получить опции управления
+      description: Возвращает доступные опции управления киберпсихозом для персонажа
+      operationId: getManagementOptions
       tags:
-        - Combat
         - Cyberpsychosis
-        - Management
-      security:
-        - BearerAuth: []
       parameters:
-        - name: player_id
+        - name: character_id
           in: query
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока (для проверки доступности)
-        - $ref: '../../shared/common/pagination.yaml#/components/parameters/Page'
-        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
-      responses:
-        '200':
-          description: Список методов лечения
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/TreatmentOption'
-                  meta:
-                    $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
-        '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  /gameplay/combat/cyberpsychosis/{player_id}/symptom-management/apply:
-    post:
-      summary: Применить управление симптомами
-      description: |
-        Применяет управление симптомами для контроля их влияния.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Управление симптомами
-      operationId: applySymptomManagement
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Management
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
           required: true
           schema:
             type: string
-            format: uuid
-          description: Идентификатор игрока
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ApplySymptomManagementRequest'
       responses:
         '200':
-          description: Управление симптомами применено
+          description: Опции управления
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SymptomManagementResult'
-        '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '422':
-          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  /gameplay/combat/cyberpsychosis/{player_id}/adaptation:
-    get:
-      summary: Получить информацию об адаптации к симптомам
-      description: |
-        Возвращает информацию об адаптации игрока к симптомам (привыкание через время).
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Адаптация
-      operationId: getAdaptation
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Management
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
-      responses:
-        '200':
-          description: Информация об адаптации
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AdaptationInfo'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  /gameplay/combat/cyberpsychosis/{player_id}/implant-removal:
-    post:
-      summary: Удалить имплант для восстановления человечности
-      description: |
-        Удаляет имплант через фиксёра для частичного восстановления человечности.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Удаление имплантов
-      operationId: removeImplant
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Management
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RemoveImplantRequest'
-      responses:
-        '200':
-          description: Имплант удален
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ImplantRemovalResult'
-        '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '422':
-          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  /gameplay/combat/cyberpsychosis/{player_id}/detoxification:
-    post:
-      summary: Выполнить детоксикацию
-      description: |
-        Выполняет детоксикацию для восстановления человечности.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Детоксикация
-      operationId: performDetoxification
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Management
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DetoxificationRequest'
-      responses:
-        '200':
-          description: Детоксикация выполнена
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DetoxificationResult'
-        '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '422':
-          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  # Экономика и социальные механики
-  /gameplay/combat/cyberpsychosis/{player_id}/treatment-costs:
-    get:
-      summary: Получить стоимость лечения
-      description: |
-        Возвращает стоимость лечения с учетом типа лечения, модификаторов и скидок.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Экономика управления
-      operationId: getTreatmentCosts
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Economy
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
-        - name: treatment_type
-          in: query
-          schema:
-            type: string
-            enum: [therapy, medication, implant_removal, detoxification]
-          description: Тип лечения
-      responses:
-        '200':
-          description: Стоимость лечения
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TreatmentCosts'
-        '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  /gameplay/combat/cyberpsychosis/{player_id}/social-support/apply:
-    post:
-      summary: Применить социальную поддержку
-      description: |
-        Применяет социальную поддержку для снижения стресса и замедления прогрессии.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Социальные механики
-      operationId: applySocialSupport
-      tags:
-        - Combat
-        - Cyberpsychosis
-        - Social
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: player_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Идентификатор игрока
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ApplySocialSupportRequest'
-      responses:
-        '200':
-          description: Социальная поддержка применена
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SocialSupportResult'
-        '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-        '422':
-          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
-        '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+                $ref: '#/components/schemas/ManagementOptions'
 
 components:
   schemas:
-    # Человечность
-    HumanityInfo:
+    CyberpsychosisStatus:
       type: object
-      required:
-        - current
-        - max
-        - loss_percentage
-        - stage
-      description: |
-        Информация о человечности игрока.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Система человечности
       properties:
-        current:
+        character_id:
+          type: string
+        humanity_current:
           type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Текущий уровень человечности (0-100)
-        max:
+          description: Текущая человечность (0-100%)
+        humanity_max:
           type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Максимальный уровень человечности (может снижаться при накоплении стресса)
-        loss_percentage:
+          description: Максимальная человечность (может снижаться от "шрамов")
+        humanity_lost:
           type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Процент потери человечности (0-100%)
+          description: Потеряно человечности (%)
         stage:
           type: string
-          enum: [early, middle, late, cyberpsychosis]
-          description: Текущая стадия киберпсихоза
-
-    HumanityLossCalculation:
-      type: object
-      required:
-        - base_loss
-        - total_loss
-        - new_humanity_level
-      description: |
-        Расчет потери человечности при установке импланта.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Система человечности
-      properties:
-        base_loss:
+          enum: [none, early, moderate, late, cyberpsychosis]
+          description: |
+            - none: 0-10% потери
+            - early: 10-25% потери
+            - moderate: 25-50% потери
+            - late: 50-75% потери
+            - cyberpsychosis: 75-100% потери
+        progression_rate:
           type: number
-          format: float
-          minimum: 0
-          description: Базовая потеря человечности (зависит от типа и качества импланта)
-        modifiers:
-          type: object
-          description: Модификаторы потери (тип, качество, установщик, совместимость, интенсивность)
-          properties:
-            type_modifier:
-              type: number
-              format: float
-            quality_modifier:
-              type: number
-              format: float
-            installer_modifier:
-              type: number
-              format: float
-            compatibility_modifier:
-              type: number
-              format: float
-            intensity_modifier:
-              type: number
-              format: float
-        total_loss:
-          type: number
-          format: float
-          minimum: 0
-          description: Итоговая потеря человечности
-        new_humanity_level:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Новый уровень человечности после потери
-
-    HumanityUpdateResult:
-      type: object
-      required:
-        - new_level
-        - stage_transition
-      description: |
-        Результат обновления человечности.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Система человечности
-      properties:
-        new_level:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Новый уровень человечности
-        stage_transition:
-          type: object
-          nullable: true
-          description: Переход между стадиями (если произошел)
-          properties:
-            from_stage:
-              type: string
-              enum: [early, middle, late, cyberpsychosis]
-            to_stage:
-              type: string
-              enum: [early, middle, late, cyberpsychosis]
-            triggered_at:
-              type: string
-              format: date-time
-        symptoms_triggered:
+          description: Скорость прогрессии (человечность в день)
+        active_symptoms:
           type: array
           items:
-            type: string
-            format: uuid
-          description: Идентификаторы сработавших симптомов
-
-    # Стадии и симптомы
-    CyberpsychosisStage:
-      type: object
-      required:
-        - stage
-        - humanity_range
-        - symptoms
-        - effects
-      description: |
-        Стадия киберпсихоза игрока.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Симптомы и прогрессия
-      properties:
-        stage:
-          type: string
-          enum: [early, middle, late, cyberpsychosis]
-          description: Название стадии
-        humanity_range:
+            $ref: '#/components/schemas/CyberpsychosisSymptom'
+        risk_factors:
           type: object
-          description: Диапазон потери человечности для стадии
+          description: Факторы риска прогрессии
           properties:
-            min:
+            implants_count:
+              type: integer
+            combat_stress:
               type: number
-              format: float
-            max:
+            damaged_implants:
+              type: integer
+            limit_exceeded:
+              type: boolean
+        social_impact:
+          type: object
+          properties:
+            reputation_penalty:
               type: number
-              format: float
-        symptoms:
-          type: array
-          items:
-            $ref: '#/components/schemas/Symptom'
-          description: Активные симптомы стадии
-        effects:
-          type: array
-          items:
-            type: object
-          description: Эффекты стадии (штрафы, визуальные индикаторы)
+            npc_access_restricted:
+              type: boolean
 
-    Symptom:
+    CyberpsychosisSymptom:
       type: object
-      required:
-        - symptom_id
-        - name
-        - description
-        - severity
-        - effects
-      description: |
-        Симптом киберпсихоза.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Симптомы по стадиям
       properties:
-        symptom_id:
+        symptom_name:
           type: string
-          format: uuid
-          description: Идентификатор симптома
-        name:
-          type: string
-          description: Название симптома
-        description:
-          type: string
-          description: Описание симптома
         severity:
           type: string
-          enum: [low, medium, high, critical]
-          description: Серьезность симптома
-        effects:
-          type: object
-          description: Эффекты симптома (штрафы к характеристикам, визуальные эффекты)
-          additionalProperties: true
-        duration:
-          type: number
-          format: float
-          nullable: true
-          minimum: 0
-          description: Длительность симптома в секундах (если временный)
-
-    StageInfo:
-      type: object
-      required:
-        - name
-        - humanity_range
-        - symptoms
-        - effects
-        - consequences
-      description: |
-        Информация о стадии киберпсихоза.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Симптомы по стадиям
-      properties:
-        name:
-          type: string
-          enum: [early, middle, late, cyberpsychosis]
-          description: Название стадии
-        humanity_range:
-          type: object
-          description: Диапазон потери человечности для стадии
-          properties:
-            min:
-              type: number
-              format: float
-            max:
-              type: number
-              format: float
-        symptoms:
-          type: array
-          items:
-            type: object
-          description: Список возможных симптомов для стадии
+          enum: [mild, moderate, severe, critical]
         effects:
           type: array
+          description: Эффекты симптома
           items:
             type: object
-          description: Эффекты стадии
-        consequences:
-          type: array
-          items:
-            type: object
-          description: Последствия стадии
+            properties:
+              effect_type:
+                type: string
+                enum: [accuracy_penalty, social_penalty, health_penalty, energy_penalty, control_loss]
+              value:
+                type: number
 
-    # Прогрессия
-    ProgressionInfo:
+    TreatmentRequest:
       type: object
       required:
-        - current_progression_rate
-        - factors
-        - triggers
-      description: |
-        Информация о прогрессии киберпсихоза.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Прогрессия
+        - character_id
+        - treatment_type
       properties:
-        current_progression_rate:
-          type: number
-          format: float
-          description: Текущая скорость прогрессии (человечность в день)
-        factors:
-          type: array
-          items:
-            type: object
-          description: Активные факторы прогрессии (базовые и динамические)
-        triggers:
-          type: array
-          items:
-            type: object
-          description: Активные триггеры прогрессии
-        next_check_time:
+        character_id:
           type: string
-          format: date-time
-          nullable: true
-          description: Время следующей проверки прогрессии
-
-    ProgressionCalculation:
-      type: object
-      required:
-        - base_rate
-        - total_rate
-        - predicted_loss
-      description: |
-        Расчет прогрессии киберпсихоза.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Прогрессия
-      properties:
-        base_rate:
-          type: number
-          format: float
-          description: Базовая скорость прогрессии
-        factors:
-          type: array
-          items:
-            type: object
-          description: Факторы прогрессии с их влиянием
-        total_rate:
-          type: number
-          format: float
-          description: Итоговая скорость прогрессии
-        predicted_loss:
-          type: number
-          format: float
-          description: Предсказанная потеря человечности за период
-
-    ProgressionTriggerResult:
-      type: object
-      required:
-        - loss_applied
-        - stage_transition
-      description: |
-        Результат триггера прогрессии.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Триггеры прогрессии
-      properties:
-        loss_applied:
-          type: number
-          format: float
-          minimum: 0
-          description: Примененная потеря человечности
-        stage_transition:
-          type: object
-          nullable: true
-          description: Переход между стадиями (если произошел)
-          properties:
-            from_stage:
-              type: string
-              enum: [early, middle, late, cyberpsychosis]
-            to_stage:
-              type: string
-              enum: [early, middle, late, cyberpsychosis]
-        symptoms_triggered:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: Идентификаторы сработавших симптомов
-
-    # Последствия
-    ConsequencesInfo:
-      type: object
-      required:
-        - stat_penalties
-        - social_effects
-        - control_effects
-      description: |
-        Последствия киберпсихоза.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Последствия
-      properties:
-        stat_penalties:
-          $ref: '#/components/schemas/StatPenalties'
-          description: Штрафы к характеристикам
-        social_effects:
-          $ref: '#/components/schemas/SocialEffects'
-          description: Социальные эффекты
-        control_effects:
-          type: object
-          description: Эффекты на контроль персонажа
-          additionalProperties: true
-        visual_indicators:
-          type: array
-          items:
-            type: string
-          description: Визуальные индикаторы стадии
-
-    StatPenalties:
-      type: object
-      description: |
-        Штрафы к характеристикам от киберпсихоза.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Последствия
-      properties:
-        accuracy:
-          type: number
-          format: float
-          maximum: 0
-          description: Штраф к точности (отрицательное значение)
-        social_skills:
-          type: number
-          format: float
-          maximum: 0
-          description: Штраф к социальным навыкам (отрицательное значение)
-        health_regen:
-          type: number
-          format: float
-          maximum: 0
-          description: Штраф к восстановлению здоровья (отрицательное значение)
-        energy_max:
-          type: number
-          format: float
-          maximum: 0
-          description: Штраф к максимальной энергии (отрицательное значение)
-        other:
-          type: object
-          nullable: true
-          description: Другие штрафы
-          additionalProperties:
-            type: number
-            format: float
-
-    SocialEffects:
-      type: object
-      description: |
-        Социальные эффекты киберпсихоза.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Социальные механики
-      properties:
-        reputation_penalty:
-          type: number
-          format: float
-          maximum: 0
-          description: Штраф к репутации с фракциями (отрицательное значение)
-        npc_access_restrictions:
-          type: array
-          items:
-            type: object
-          description: Ограничения доступа к NPC/услугам
-        visual_indicators:
-          type: array
-          items:
-            type: string
-          description: Визуальные индикаторы для других игроков
-
-    # Управление
-    PreventionResult:
-      type: object
-      required:
-        - effectiveness
-        - duration
-        - cost
-        - progression_modifier
-      description: |
-        Результат профилактики.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Профилактика
-      properties:
-        effectiveness:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Эффективность профилактики (0-100%)
-        duration:
-          type: number
-          format: float
-          minimum: 0
-          description: Длительность эффекта в секундах
-        cost:
-          type: number
-          format: float
-          minimum: 0
-          description: Стоимость профилактики
-        progression_modifier:
-          type: number
-          format: float
-          maximum: 0
-          description: Модификатор прогрессии (отрицательное значение = замедление)
+        treatment_type:
+          type: string
+          enum: [therapy, medication, implant_removal, detox, symptom_management]
+        npc_provider_id:
+          type: string
+          description: ID NPC (medtech, терапевт, риппердок)
+        implant_to_remove:
+          type: string
+          description: ID импланта для удаления (если treatment_type = implant_removal)
 
     TreatmentResult:
       type: object
-      required:
-        - humanity_restored
-        - cost
-        - duration
-      description: |
-        Результат лечения.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Лечение
       properties:
-        humanity_restored:
-          type: number
-          format: float
-          minimum: 0
-          description: Восстановленная человечность
-        cost:
-          type: number
-          format: float
-          minimum: 0
-          description: Стоимость лечения
-        duration:
-          type: number
-          format: float
-          minimum: 0
-          description: Длительность лечения в секундах
-        cooldown:
-          type: number
-          format: float
-          nullable: true
-          minimum: 0
-          description: Кулдаун до следующего лечения в секундах
-        limitations:
-          type: array
-          items:
-            type: string
-          description: Ограничения восстановления (например, нельзя полностью восстановить после 25% потери)
-
-    TreatmentOption:
-      type: object
-      required:
-        - type
-        - name
-        - description
-        - cost
-        - effectiveness
-      description: |
-        Опция лечения.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Лечение
-      properties:
-        type:
-          type: string
-          enum: [therapy, medication, implant_removal, detoxification]
-          description: Тип лечения
-        name:
-          type: string
-          description: Название метода лечения
-        description:
-          type: string
-          description: Описание метода лечения
-        cost:
-          type: number
-          format: float
-          minimum: 0
-          description: Стоимость лечения
-        effectiveness:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Эффективность лечения (0-100%)
-        cooldown:
-          type: number
-          format: float
-          nullable: true
-          minimum: 0
-          description: Кулдаун до следующего использования в секундах
-        requirements:
-          type: object
-          nullable: true
-          description: Требования для использования (NPC, репутация и т.д.)
-          additionalProperties: true
-
-    SymptomManagementResult:
-      type: object
-      required:
-        - symptoms_affected
-        - effectiveness
-        - duration
-        - cost
-      description: |
-        Результат управления симптомами.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Управление симптомами
-      properties:
-        symptoms_affected:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: Идентификаторы затронутых симптомов
-        effectiveness:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Эффективность управления симптомами (0-100%)
-        duration:
-          type: number
-          format: float
-          minimum: 0
-          description: Длительность эффекта в секундах
-        cost:
-          type: number
-          format: float
-          minimum: 0
-          description: Стоимость управления симптомами
-
-    AdaptationInfo:
-      type: object
-      required:
-        - adapted_symptoms
-        - adaptation_level
-        - effects_reduction
-      description: |
-        Информация об адаптации к симптомам.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Адаптация
-      properties:
-        adapted_symptoms:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: Идентификаторы адаптированных симптомов
-        adaptation_level:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Уровень адаптации (0-100%)
-        effects_reduction:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Снижение влияния симптомов (0-100%)
-
-    ImplantRemovalResult:
-      type: object
-      required:
-        - humanity_restored
-        - cost
-      description: |
-        Результат удаления импланта.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Удаление имплантов
-      properties:
-        humanity_restored:
-          type: number
-          format: float
-          minimum: 0
-          description: Восстановленная человечность
-        cost:
-          type: number
-          format: float
-          minimum: 0
-          description: Стоимость удаления импланта
-        effects:
-          type: object
-          nullable: true
-          description: Эффекты удаления (потеря характеристик импланта)
-          additionalProperties: true
-
-    DetoxificationResult:
-      type: object
-      required:
-        - humanity_restored
-        - cost
-        - duration
-        - cooldown
-      description: |
-        Результат детоксикации.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Детоксикация
-      properties:
-        humanity_restored:
-          type: number
-          format: float
-          minimum: 0
-          description: Восстановленная человечность
-        cost:
-          type: number
-          format: float
-          minimum: 0
-          description: Стоимость детоксикации
-        duration:
-          type: number
-          format: float
-          minimum: 0
-          description: Длительность процедуры в секундах
-        cooldown:
-          type: number
-          format: float
-          minimum: 0
-          description: Кулдаун до следующей детоксикации в секундах
-
-    TreatmentCosts:
-      type: object
-      required:
-        - base_cost
-        - total_cost
-        - currency
-      description: |
-        Стоимость лечения.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Экономика управления
-      properties:
-        base_cost:
-          type: number
-          format: float
-          minimum: 0
-          description: Базовая стоимость лечения
-        modifiers:
-          type: object
-          nullable: true
-          description: Модификаторы стоимости
-          additionalProperties:
-            type: number
-        total_cost:
-          type: number
-          format: float
-          minimum: 0
-          description: Итоговая стоимость лечения
-        currency:
-          type: string
-          description: Валюта
-        discounts:
-          type: array
-          items:
-            type: object
-          description: Примененные скидки
-
-    SocialSupportResult:
-      type: object
-      required:
-        - stress_reduction
-        - progression_modifier
-        - duration
-      description: |
-        Результат социальной поддержки.
-        Источник: .BRAIN/02-gameplay/combat/combat-cyberpsychosis.md -> Социальные механики
-      properties:
-        stress_reduction:
-          type: number
-          format: float
-          minimum: 0
-          description: Снижение стресса
-        progression_modifier:
-          type: number
-          format: float
-          maximum: 0
-          description: Модификатор прогрессии (отрицательное значение = замедление)
-        duration:
-          type: number
-          format: float
-          minimum: 0
-          description: Длительность эффекта в секундах
-
-    # Request модели
-    CalculateLossRequest:
-      type: object
-      required:
-        - implant_id
-        - implant_type
-      description: Запрос на расчет потери человечности
-      properties:
-        implant_id:
-          type: string
-          format: uuid
-          description: Идентификатор импланта
-        implant_type:
-          type: string
-          enum: [combat, tactical, defensive, mobility, os]
-          description: Тип импланта
-        quality:
-          type: string
-          enum: [common, uncommon, rare, epic, legendary]
-          nullable: true
-          description: Качество импланта
-        installer:
-          type: string
-          nullable: true
-          description: Установщик импланта (NPC или игрок)
-        compatibility:
+        success:
           type: boolean
-          nullable: true
-          description: Совместим ли имплант с установленными
-        intensity:
+        humanity_restored:
           type: number
-          format: float
-          nullable: true
-          minimum: 0
-          description: Интенсивность использования импланта
-
-    ApplyLossRequest:
-      type: object
-      required:
-        - loss_amount
-        - reason
-      description: Запрос на применение потери человечности
-      properties:
-        loss_amount:
+        new_humanity:
           type: number
-          format: float
-          minimum: 0
-          description: Количество потерянной человечности
-        reason:
-          type: string
-          description: Причина потери (implant_install, progression, trigger)
-        implant_id:
-          type: string
-          format: uuid
-          nullable: true
-          description: Идентификатор импланта (если причина = implant_install)
-
-    CalculateProgressionRequest:
-      type: object
-      required:
-        - time_period
-      description: Запрос на расчет прогрессии
-      properties:
-        time_period:
+        cost:
           type: number
-          format: float
-          minimum: 0
-          description: Период времени для расчета в секундах
-        events:
-          type: array
-          items:
-            type: object
-          description: События за период (бои, повреждения имплантов, стрессовые события)
-
-    TriggerProgressionRequest:
-      type: object
-      required:
-        - trigger_type
-        - intensity
-      description: Запрос на триггер прогрессии
-      properties:
-        trigger_type:
-          type: string
-          enum: [critical_moment, stress_accumulation, temporary_surge]
-          description: Тип триггера
-        intensity:
+          description: Стоимость лечения
+        cooldown:
           type: number
-          format: float
-          minimum: 0
-          maximum: 100
-          description: Интенсивность триггера (0-100%)
-
-    ApplyPreventionRequest:
-      type: object
-      required:
-        - method
-        - duration
-      description: Запрос на применение профилактики
-      properties:
-        method:
-          type: string
-          enum: [maintenance, medication, therapy, careful_selection]
-          description: Метод профилактики
-        duration:
-          type: number
-          format: float
-          minimum: 0
-          description: Длительность профилактики в секундах
-
-    ApplyTreatmentRequest:
-      type: object
-      required:
-        - treatment_type
-      description: Запрос на применение лечения
-      properties:
-        treatment_type:
-          type: string
-          enum: [therapy, medication, implant_removal, detoxification]
-          description: Тип лечения
-        npc_id:
-          type: string
-          format: uuid
-          nullable: true
-          description: Идентификатор NPC для лечения
-
-    ApplySymptomManagementRequest:
-      type: object
-      required:
-        - method
-      description: Запрос на применение управления симптомами
-      properties:
-        method:
-          type: string
-          enum: [medication, therapy, implant]
-          description: Метод управления симптомами
-        symptom_ids:
+          description: Время до следующего применения (часы)
+        symptoms_reduced:
           type: array
           items:
             type: string
-            format: uuid
-          description: Идентификаторы симптомов для управления
 
-    RemoveImplantRequest:
+    ManagementOptions:
       type: object
-      required:
-        - implant_id
-        - npc_id
-      description: Запрос на удаление импланта
       properties:
-        implant_id:
-          type: string
-          format: uuid
-          description: Идентификатор импланта для удаления
-        npc_id:
-          type: string
-          format: uuid
-          description: Идентификатор NPC (фиксёра) для удаления
-
-    DetoxificationRequest:
-      type: object
-      required:
-        - npc_id
-        - level
-      description: Запрос на детоксикацию
-      properties:
-        npc_id:
-          type: string
-          format: uuid
-          description: Идентификатор NPC для детоксикации
-        level:
-          type: string
-          enum: [basic, advanced, critical]
-          description: Уровень детоксикации
-
-    ApplySocialSupportRequest:
-      type: object
-      required:
-        - support_type
-        - source_id
-      description: Запрос на применение социальной поддержки
-      properties:
-        support_type:
-          type: string
-          enum: [friend, faction, npc]
-          description: Тип социальной поддержки
-        source_id:
-          type: string
-          format: uuid
-          description: Идентификатор источника поддержки (друг, фракция, NPC)
-
-  # Импорт стандартных ответов
-  responses:
-    BadRequest:
-      $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-    Unauthorized:
-      $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
-    Forbidden:
-      $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
-    NotFound:
-      $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-    Conflict:
-      $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
-    UnprocessableEntity:
-      $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
-    InternalServerError:
-      $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
-
-  # Импорт схем безопасности
-  securitySchemes:
-    BearerAuth:
-      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        prevention:
+          type: array
+          description: Опции профилактики
+          items:
+            type: object
+            properties:
+              option_type:
+                type: string
+              effectiveness:
+                type: number
+              cost:
+                type: number
+        treatment:
+          type: array
+          description: Опции лечения
+          items:
+            type: object
+            properties:
+              treatment_type:
+                type: string
+              humanity_restoration:
+                type: number
+              cost:
+                type: number
+              availability:
+                type: boolean

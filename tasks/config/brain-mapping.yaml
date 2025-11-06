@@ -465,6 +465,118 @@ mappings:
       - "api/v1/gameplay/progression/skills.yaml"
       - "api/v1/gameplay/progression/perks.yaml"
 
+  # === СОЦИАЛЬНЫЕ МЕХАНИКИ (Social Mechanics) ===
+  
+  - source: ".BRAIN/02-gameplay/social/personal-npc-tool.md"
+    target: "api/v1/gameplay/social/personal-npc-tool.yaml"
+    task_id: "API-TASK-056"
+    task_file: "tasks/active/queue/task-056-personal-npc-tool-api.md"
+    status: "queued"
+    created: "2025-11-07 00:35"
+    version: "v1.0.0"
+    updated: "2025-11-07 00:35"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/npc-hiring-system.md"
+    related_targets:
+      - "api/v1/gameplay/social/npc-hiring.yaml"
+  
+  - source: ".BRAIN/02-gameplay/social/npc-hiring-system.md"
+    target: "api/v1/gameplay/social/npc-hiring.yaml"
+    task_id: "API-TASK-057"
+    task_file: "tasks/active/queue/task-057-npc-hiring-system-api.md"
+    status: "queued"
+    created: "2025-11-07 00:40"
+    version: "v1.1.0"
+    updated: "2025-11-07 00:40"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/npc-hiring-types.md"
+      - ".BRAIN/02-gameplay/social/npc-hiring-catalog.md"
+    related_targets:
+      - "api/v1/gameplay/social/personal-npc-tool.yaml"
+      - "api/v1/gameplay/social/npc-hiring-catalog.yaml"
+  
+  - source: ".BRAIN/02-gameplay/social/mentorship-system.md"
+    target: "api/v1/gameplay/social/mentorship.yaml"
+    task_id: "API-TASK-058"
+    task_file: "tasks/active/queue/task-058-mentorship-system-api.md"
+    status: "queued"
+    created: "2025-11-07 00:45"
+    version: "v1.1.0"
+    updated: "2025-11-07 00:45"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/mentorship-types.md"
+      - ".BRAIN/02-gameplay/progression/classes-authored.md"
+    related_targets:
+      - "api/v1/gameplay/progression/classes.yaml"
+  
+  - source: ".BRAIN/02-gameplay/social/player-orders-system.md"
+    target: "api/v1/gameplay/social/player-orders.yaml"
+    task_id: "API-TASK-059"
+    task_file: "tasks/active/queue/task-059-player-orders-system-api.md"
+    status: "queued"
+    created: "2025-11-07 00:50"
+    version: "v2.0.0"
+    updated: "2025-11-07 00:50"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/player-orders-types.md"
+      - ".BRAIN/02-gameplay/social/personal-npc-tool.md"
+    related_targets:
+      - "api/v1/gameplay/social/personal-npc-tool.yaml"
+  
+  - source: ".BRAIN/02-gameplay/social/relationships-system.md"
+    target: "api/v1/gameplay/social/relationships.yaml"
+    task_id: "API-TASK-060"
+    task_file: "tasks/active/queue/task-060-relationships-api.md"
+    status: "queued"
+    created: "2025-11-07 00:55"
+    version: "v1.0.0"
+    updated: "2025-11-07 00:55"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/reputation-tiers-detailed.md"
+    related_targets:
+      - "api/v1/gameplay/social/reputation-tiers.yaml"
+  
+  - source: ".BRAIN/02-gameplay/social/reputation-tiers-detailed.md"
+    target: "api/v1/gameplay/social/reputation-tiers.yaml"
+    task_id: "API-TASK-061"
+    task_file: "tasks/active/queue/task-061-reputation-tiers-api.md"
+    status: "queued"
+    created: "2025-11-07 01:00"
+    version: "v2.0.0"
+    updated: "2025-11-07 01:00"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/relationships-system.md"
+    related_targets:
+      - "api/v1/gameplay/social/relationships.yaml"
+  
+  - source: ".BRAIN/02-gameplay/social/reputation-formulas.md"
+    target: "api/v1/gameplay/social/reputation-formulas.yaml"
+    task_id: "API-TASK-062"
+    task_file: "tasks/active/queue/task-062-reputation-formulas-api.md"
+    status: "queued"
+    created: "2025-11-07 01:05"
+    version: "v1.0.0"
+    updated: "2025-11-07 01:05"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/relationships-system.md"
+      - ".BRAIN/02-gameplay/social/reputation-tiers-detailed.md"
+    related_targets:
+      - "api/v1/gameplay/social/relationships.yaml"
+      - "api/v1/gameplay/social/reputation-tiers.yaml"
+  
+  - source: ".BRAIN/02-gameplay/social/npc-hiring-catalog.md"
+    target: "api/v1/gameplay/social/npc-hiring-catalog.yaml"
+    task_id: "API-TASK-063"
+    task_file: "tasks/active/queue/task-063-npc-hiring-catalog-api.md"
+    status: "queued"
+    created: "2025-11-07 01:10"
+    version: "v2.0.0"
+    updated: "2025-11-07 01:10"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/npc-hiring-system.md"
+    related_targets:
+      - "api/v1/gameplay/social/npc-hiring.yaml"
+
 # Примеры записей:
 #
 # mappings:
