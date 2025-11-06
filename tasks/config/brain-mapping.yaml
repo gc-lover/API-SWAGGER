@@ -1249,6 +1249,17 @@ mappings:
 
   # === UI СИСТЕМЫ (UI Systems) ===
   
+  - source: ".BRAIN/05-technical/ui-registration.md"
+    target: "api/v1/ui/registration.yaml"
+    task_id: "API-TASK-112"
+    task_file: "tasks/active/queue/task-112-registration-ui-api.md"
+    status: "queued"
+    created: "2025-11-07 06:00"
+    version: "v1.0.0"
+    updated: "2025-11-07 06:00"
+    related_sources: []
+    related_targets: []
+  
   - source: ".BRAIN/05-technical/ui-character-creation.md"
     target: "api/v1/ui/character-creation.yaml"
     task_id: "API-TASK-110"
@@ -1261,6 +1272,19 @@ mappings:
       - ".BRAIN/02-gameplay/progression/classes-overview.md"
     related_targets:
       - "api/v1/gameplay/progression/classes.yaml"
+  
+  - source: ".BRAIN/05-technical/ui-game-start.md"
+    target: "api/v1/ui/game-start.yaml"
+    task_id: "API-TASK-113"
+    task_file: "tasks/active/queue/task-113-game-start-ui-api.md"
+    status: "queued"
+    created: "2025-11-07 06:05"
+    version: "v1.1.0"
+    updated: "2025-11-07 06:05"
+    related_sources:
+      - ".BRAIN/05-technical/ui-character-creation.md"
+    related_targets:
+      - "api/v1/ui/character-creation.yaml"
 
   # === GAME START СИСТЕМЫ (Game Start Systems) ===
   
@@ -1278,6 +1302,19 @@ mappings:
     related_targets:
       - "api/v1/gameplay/progression/classes.yaml"
       - "api/v1/narrative/origin-stories.yaml"
+  
+  - source: ".BRAIN/05-technical/game-tutorial-flow.md"
+    target: "api/v1/game/tutorial-flow.yaml"
+    task_id: "API-TASK-114"
+    task_file: "tasks/active/queue/task-114-tutorial-flow-api.md"
+    status: "queued"
+    created: "2025-11-07 06:10"
+    version: "v1.0.0"
+    updated: "2025-11-07 06:10"
+    related_sources:
+      - ".BRAIN/05-technical/ui-game-start.md"
+    related_targets:
+      - "api/v1/ui/game-start.yaml"
 
 # Примеры записей:
 #
