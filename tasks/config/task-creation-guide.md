@@ -27,19 +27,64 @@
 
 ---
 
-### Шаг 2: Определение целевой структуры API
+### Шаг 2: Определение целевой структуры API и архитектуры
 
 **Что нужно определить:**
 1. Какой модуль/раздел API нужен? (gameplay, lore, narrative, social и т.д.)
 2. Какая версия API? (v1, v2 и т.д.)
 3. Какой путь к файлу? (api/v1/gameplay/combat/shooting.yaml и т.д.)
 4. Какое имя файла? (основано на содержимом документа)
+5. **⚠️ Целевой микросервис** (для бекенда)
+6. **⚠️ Целевой фронтенд-модуль** (для фронтенда)
+7. **⚠️ Требуемые UI компоненты** (@shared/ui, @shared/forms)
 
 **Правила именования:**
 - Файлы: kebab-case (shooting.yaml, combat-mechanics.yaml)
 - Директории: kebab-case (gameplay, combat)
 - Модели в API: PascalCase (Weapon, Shot)
 - Endpoints: kebab-case (/gameplay/combat/shoot)
+
+**Определение микросервиса (для бекенда):**
+
+На основе API path определи целевой микросервис:
+
+| API Path | Микросервис | Порт |
+|----------|-------------|------|
+| /api/v1/auth/* | auth-service | 8081 |
+| /api/v1/characters/* | character-service | 8082 |
+| /api/v1/gameplay/combat/* | gameplay-service | 8083 |
+| /api/v1/gameplay/progression/* | gameplay-service | 8083 |
+| /api/v1/gameplay/social/* | social-service | 8084 |
+| /api/v1/social/* | social-service | 8084 |
+| /api/v1/gameplay/economy/* | economy-service | 8085 |
+| /api/v1/gameplay/world/* | world-service | 8086 |
+| /api/v1/lore/* | world-service | 8086 |
+| /api/v1/narrative/* | narrative-service | 8087 |
+| /api/v1/admin/* | admin-service | 8088 |
+
+**Определение фронтенд-модуля:**
+
+На основе категории API определи модуль:
+
+| Категория | Фронтенд-модуль | State Store |
+|-----------|-----------------|-------------|
+| social | modules/social/ | useSocialStore |
+| economy | modules/economy/ | useEconomyStore |
+| combat | modules/combat/ | useCombatStore |
+| world | modules/world/ | useWorldStore |
+| progression | modules/progression/ | useProgressionStore |
+| narrative | modules/narrative/ | useNarrativeStore |
+
+**Определение UI компонентов:**
+
+На основе типа API определи типичные компоненты:
+
+- **Социальные:** PersonalNpcCard, FriendCard, GuildCard, NpcInteractionForm
+- **Экономика:** AuctionCard, ItemCard, TradeForm, AuctionBidForm
+- **Боевая:** WeaponCard, HealthBar, AbilityButton, WeaponConfigForm
+- **Мир:** LocationCard, EventCard, MapView
+- **Прогрессия:** SkillTree, LevelProgress, StatBlock
+- **Нарратив:** QuestCard, DialogueBox, StoryPanel
 
 **Структура директорий:**
 ```
