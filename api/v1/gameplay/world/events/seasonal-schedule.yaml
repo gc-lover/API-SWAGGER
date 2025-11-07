@@ -39,6 +39,7 @@ paths:
         - $ref: './seasonal-schedule-components.yaml#/components/parameters/Year'
         - $ref: './seasonal-schedule-components.yaml#/components/parameters/Timezone'
         - $ref: './seasonal-schedule-components.yaml#/components/parameters/Locale'
+        - $ref: './seasonal-schedule-components.yaml#/components/parameters/Region'
         - $ref: './seasonal-schedule-components.yaml#/components/parameters/LocalizationHeader'
       responses:
         '200':
@@ -56,6 +57,7 @@ paths:
       parameters:
         - $ref: './seasonal-schedule-components.yaml#/components/parameters/Timezone'
         - $ref: './seasonal-schedule-components.yaml#/components/parameters/Locale'
+        - $ref: './seasonal-schedule-components.yaml#/components/parameters/Region'
         - $ref: './seasonal-schedule-components.yaml#/components/parameters/LocalizationHeader'
       responses:
         '200':

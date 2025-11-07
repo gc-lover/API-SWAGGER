@@ -36,6 +36,14 @@ components:
       required: false
       schema: { type: string, example: "ru-RU", default: "en-US" }
       description: Код локали ISO для локализованных описаний.
+    Region:
+      name: region
+      in: query
+      required: false
+      description: Региональный сегмент (например, Night City, Helios Orbital).
+      schema:
+        type: string
+        example: "night-city"
     LocalizationHeader:
       name: Accept-Language
       in: header
