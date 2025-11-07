@@ -1774,6 +1774,32 @@ mappings:
       - "api/v1/technical/session-management/lifecycle.yaml"
       - "api/v1/technical/session-management/session-management.yaml"
 
+  - source: ".BRAIN/05-technical/backend/session/session-lifecycle-heartbeat.md"
+    target: "api/v1/technical/session-management/lifecycle.yaml"
+    task_id: "API-TASK-198"
+    task_file: "tasks/active/queue/task-198-session-lifecycle-api.md"
+    status: "queued"
+    created: "2025-11-07 21:05"
+    version: "v1.0.0"
+    updated: "2025-11-07 21:05"
+    related_sources:
+      - ".BRAIN/05-technical/backend/session/session-reconnection-monitoring.md"
+    related_targets:
+      - "api/v1/technical/session-management/session-management.yaml"
+
+  - source: ".BRAIN/05-technical/backend/session/session-reconnection-monitoring.md"
+    target: "api/v1/technical/session-management/reconnection-monitoring.yaml"
+    task_id: "API-TASK-199"
+    task_file: "tasks/active/queue/task-199-session-reconnect-monitoring-api.md"
+    status: "queued"
+    created: "2025-11-07 21:35"
+    version: "v1.0.0"
+    updated: "2025-11-07 21:35"
+    related_sources:
+      - ".BRAIN/05-technical/backend/session/session-lifecycle-heartbeat.md"
+    related_targets:
+      - "api/v1/technical/session-management/session-management.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
