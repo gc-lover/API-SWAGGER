@@ -1940,6 +1940,25 @@ mappings:
       - "api/v1/admin/panel/admin-panel-analytics-ui.yaml"
       - "api/v1/admin/support/support-tickets.yaml"
 
+  - source: ".BRAIN/05-technical/backend/clan-war/clan-war-system.md"
+    target: "api/v1/gameplay/clans/clan-war-system.yaml"
+    task_id: "API-TASK-223"
+    task_file: "tasks/active/queue/task-223-clan-war-system-api.md"
+    status: "queued"
+    created: "2025-11-08 03:38"
+    version: "v1.0.0"
+    updated: "2025-11-08 03:38"
+    related_sources:
+      - ".BRAIN/05-technical/backend/guild-system-backend.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+      - ".BRAIN/05-technical/backend/economy-system.md"
+      - ".BRAIN/05-technical/backend/realtime-server/part1-architecture-zones.md"
+      - ".BRAIN/05-technical/backend/progression-backend.md"
+    related_targets:
+      - "api/v1/gameplay/guilds/guild-system.yaml"
+      - "api/v1/gameplay/clans/clan-war-components.yaml"
+      - "api/v1/gameplay/clans/clan-war-system.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
