@@ -37,7 +37,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/HumanityInfo'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/HumanityInfo'
         '401':
           $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
@@ -69,14 +69,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '../cyberpsychosis-requests.yaml#/components/schemas/CalculateLossRequest'
+              $ref: './cyberpsychosis-requests.yaml#/components/schemas/CalculateLossRequest'
       responses:
         '200':
           description: Расчет потери человечности
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/HumanityLossCalculation'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/HumanityLossCalculation'
         '400':
           $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
@@ -110,14 +110,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '../cyberpsychosis-requests.yaml#/components/schemas/ApplyLossRequest'
+              $ref: './cyberpsychosis-requests.yaml#/components/schemas/ApplyLossRequest'
       responses:
         '200':
           description: Потеря человечности применена
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/HumanityUpdateResult'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/HumanityUpdateResult'
         '400':
           $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
@@ -155,7 +155,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/CyberpsychosisStage'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/CyberpsychosisStage'
         '401':
           $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
@@ -190,7 +190,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '../cyberpsychosis-models.yaml#/components/schemas/Symptom'
+                  $ref: './cyberpsychosis-models.yaml#/components/schemas/Symptom'
         '401':
           $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
@@ -223,7 +223,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/StageInfo'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/StageInfo'
         '400':
           $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
@@ -257,7 +257,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/ProgressionInfo'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/ProgressionInfo'
         '401':
           $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
@@ -289,14 +289,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '../cyberpsychosis-requests.yaml#/components/schemas/CalculateProgressionRequest'
+              $ref: './cyberpsychosis-requests.yaml#/components/schemas/CalculateProgressionRequest'
       responses:
         '200':
           description: Расчет прогрессии
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/ProgressionCalculation'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/ProgressionCalculation'
         '400':
           $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
@@ -330,14 +330,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '../cyberpsychosis-requests.yaml#/components/schemas/TriggerProgressionRequest'
+              $ref: './cyberpsychosis-requests.yaml#/components/schemas/TriggerProgressionRequest'
       responses:
         '200':
           description: Триггер прогрессии сработан
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/ProgressionTriggerResult'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/ProgressionTriggerResult'
         '400':
           $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
@@ -373,7 +373,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/ConsequencesInfo'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/ConsequencesInfo'
         '401':
           $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
@@ -406,7 +406,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/StatPenalties'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/StatPenalties'
         '401':
           $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
@@ -439,7 +439,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/SocialEffects'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/SocialEffects'
         '401':
           $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
@@ -472,14 +472,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '../cyberpsychosis-requests.yaml#/components/schemas/ApplyPreventionRequest'
+              $ref: './cyberpsychosis-requests.yaml#/components/schemas/ApplyPreventionRequest'
       responses:
         '200':
           description: Профилактическая мера применена
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/PreventionResult'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/PreventionResult'
         '400':
           $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
@@ -515,14 +515,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '../cyberpsychosis-requests.yaml#/components/schemas/ApplyTreatmentRequest'
+              $ref: './cyberpsychosis-requests.yaml#/components/schemas/ApplyTreatmentRequest'
       responses:
         '200':
           description: Лечение применено
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/TreatmentResult'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/TreatmentResult'
         '400':
           $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
@@ -565,7 +565,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '../cyberpsychosis-models.yaml#/components/schemas/TreatmentOption'
+                      $ref: './cyberpsychosis-models.yaml#/components/schemas/TreatmentOption'
                   meta:
                     $ref: '../../../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
         '400':
@@ -597,14 +597,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '../cyberpsychosis-requests.yaml#/components/schemas/ApplySymptomManagementRequest'
+              $ref: './cyberpsychosis-requests.yaml#/components/schemas/ApplySymptomManagementRequest'
       responses:
         '200':
           description: Управление симптомами применено
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/SymptomManagementResult'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/SymptomManagementResult'
         '400':
           $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
@@ -641,7 +641,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/AdaptationInfo'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/AdaptationInfo'
         '401':
           $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
@@ -673,14 +673,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '../cyberpsychosis-requests.yaml#/components/schemas/RemoveImplantRequest'
+              $ref: './cyberpsychosis-requests.yaml#/components/schemas/RemoveImplantRequest'
       responses:
         '200':
           description: Имплант удален
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/ImplantRemovalResult'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/ImplantRemovalResult'
         '400':
           $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
@@ -716,14 +716,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '../cyberpsychosis-requests.yaml#/components/schemas/DetoxificationRequest'
+              $ref: './cyberpsychosis-requests.yaml#/components/schemas/DetoxificationRequest'
       responses:
         '200':
           description: Детоксикация выполнена
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/DetoxificationResult'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/DetoxificationResult'
         '400':
           $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
@@ -767,7 +767,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/TreatmentCosts'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/TreatmentCosts'
         '400':
           $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
@@ -801,14 +801,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '../cyberpsychosis-requests.yaml#/components/schemas/ApplySocialSupportRequest'
+              $ref: './cyberpsychosis-requests.yaml#/components/schemas/ApplySocialSupportRequest'
       responses:
         '200':
           description: Социальная поддержка применена
           content:
             application/json:
               schema:
-                $ref: '../cyberpsychosis-models.yaml#/components/schemas/SocialSupportResult'
+                $ref: './cyberpsychosis-models.yaml#/components/schemas/SocialSupportResult'
         '400':
           $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':

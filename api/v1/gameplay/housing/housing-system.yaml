@@ -11,7 +11,7 @@
 openapi: 3.0.3
 info:
   title: Housing System API
-  description: Жилищная система NECPGAME: покупка апартаментов, кастомизация интерьера, социальные функции, хранилище и аналитика.
+  description: "Жилищная система NECPGAME: покупка апартаментов, кастомизация интерьера, социальные функции, хранилище и аналитика."
   version: 1.0.0
 servers:
   - url: https://api.necpgame.com/v1
@@ -98,7 +98,8 @@ paths:
           application/json:
             schema: { $ref: './housing-components.yaml#/components/schemas/ApartmentUpgradeRequest' }
       responses:
-        '202': { description: Апгрейд запущен, ожидает завершения строительства }
+        '202':
+          description: "Апгрейд запущен, ожидает завершения строительства"
         '400':
           description: Недостаточно ресурсов или апгрейд недоступен
           content:
@@ -220,7 +221,8 @@ paths:
           application/json:
             schema: { $ref: './housing-components.yaml#/components/schemas/StorageTransferRequest' }
       responses:
-        '202': { description: Трансфер запущен }
+        '202':
+          description: "Трансфер запущен"
         '400':
           description: Недостаточно места или предмет отсутствует
           content:
