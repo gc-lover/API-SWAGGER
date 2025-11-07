@@ -1851,6 +1851,24 @@ mappings:
       - "api/v1/players/players.yaml"
       - "api/v1/players/character-switching.yaml"
 
+  - source: ".BRAIN/05-technical/backend/achievement/achievement-core.md"
+    target: "api/v1/achievements/achievement-core.yaml"
+    task_id: "API-TASK-218"
+    task_file: "tasks/active/queue/task-218-achievement-core-api.md"
+    status: "queued"
+    created: "2025-11-08 02:38"
+    version: "v1.0.0"
+    updated: "2025-11-08 02:38"
+    related_sources:
+      - ".BRAIN/05-technical/backend/achievement/achievement-tracking.md"
+      - ".BRAIN/05-technical/backend/achievement/achievement-examples-api.md"
+      - ".BRAIN/05-technical/backend/progression-backend.md"
+      - ".BRAIN/05-technical/backend/economy-system.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+    related_targets:
+      - "api/v1/achievements/achievements.yaml"
+      - "api/v1/achievements/achievement-tracking.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
@@ -4669,6 +4687,23 @@ mappings:
     related_targets:
       - "api/v1/social/voice/voice-lobbies.yaml"
       - "api/v1/technical/performance-monitoring.yaml"
+
+  - source: ".BRAIN/05-technical/backend/realtime-server/part1-architecture-zones.md"
+    target: "api/v1/technical/realtime/server-zones.yaml"
+    task_id: "API-TASK-196"
+    task_file: "tasks/completed/2025-11-07-batch3/task-196-realtime-server-zones-api.md"
+    status: "completed"
+    created: "2025-11-07 17:05"
+    version: "v1.0.1"
+    updated: "2025-11-07 21:32"
+    completed: "2025-11-07 21:32"
+    related_sources:
+      - ".BRAIN/05-technical/backend/realtime-server/part2-protocol-optimization.md"
+      - ".BRAIN/05-technical/backend/session-management/part1-lifecycle-heartbeat.md"
+      - ".BRAIN/05-technical/backend/global-state/global-state-sync.md"
+    related_targets:
+      - "api/v1/technical/realtime-server.yaml"
+      - "api/v1/technical/incident-response.yaml"
 
 
 # Примеры записей:
