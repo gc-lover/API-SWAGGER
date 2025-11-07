@@ -6073,6 +6073,24 @@ mappings:
       - "api/v1/gameplay/social/romance-system.yaml"
       - "api/v1/social/reputation/reputation-formulas.yaml"
 
+  - source: ".BRAIN/04-narrative/dialogues/romance-judy-alvarez.md"
+    target: "api/v1/narrative/romance/romance-judy-alvarez.yaml"
+    task_id: "API-TASK-282"
+    task_file: "tasks/active/queue/task-282-romance-judy-alvarez-api.md"
+    status: "queued"
+    created: "2025-11-08 03:40"
+    version: "v1.3.0"
+    updated: "2025-11-08 03:40"
+    related_sources:
+      - ".BRAIN/04-narrative/dialogues/faction-social-lines.md"
+      - ".BRAIN/04-narrative/npc-lore/important/judy-alvarez.md"
+      - ".BRAIN/02-gameplay/social/romance-system.md"
+      - ".BRAIN/02-gameplay/social/reputation-formulas.md"
+    related_targets:
+      - "api/v1/social/factions/faction-social-dialogues.yaml"
+      - "api/v1/gameplay/social/romance-system.yaml"
+      - "api/v1/social/reputation/reputation-formulas.yaml"
+
   - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-catalog.md"
     target: "api/v1/gameplay/world/dungeon-bosses.yaml"
     task_id: "API-TASK-248"
