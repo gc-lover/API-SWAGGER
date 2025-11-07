@@ -1643,6 +1643,23 @@ mappings:
       - "api/v1/admin/notifications.yaml"
       - "api/v1/admin/maintenance/maintenance-mode.yaml"
 
+  - source: ".BRAIN/05-technical/backend/housing/housing-system.md"
+    target: "api/v1/gameplay/housing/housing-system.yaml"
+    task_id: "API-TASK-206"
+    task_file: "tasks/active/queue/task-206-housing-system-api.md"
+    status: "queued"
+    created: "2025-11-07 23:45"
+    version: "v1.0.0"
+    updated: "2025-11-07 23:45"
+    related_sources:
+      - ".BRAIN/05-technical/backend/economy-system.md"
+      - ".BRAIN/05-technical/backend/inventory-system/part1-core-system.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+      - ".BRAIN/05-technical/backend/party-system.md"
+    related_targets:
+      - "api/v1/economy/shop/shop-system.yaml"
+      - "api/v1/gameplay/inventory/inventory-management.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
