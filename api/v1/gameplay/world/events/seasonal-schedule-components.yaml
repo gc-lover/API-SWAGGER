@@ -15,8 +15,10 @@ components:
       name: season
       in: query
       required: false
-      schema: { type: string, enum: [SPRING, SUMMER, AUTUMN, WINTER, CYBERFEST, SPECTER]
-        description: "Сезон согласно глобальному календарю." }
+      description: Сезон согласно глобальному календарю.
+      schema:
+        type: string
+        enum: [SPRING, SUMMER, AUTUMN, WINTER, CYBERFEST, SPECTER]
     Year:
       name: year
       in: query

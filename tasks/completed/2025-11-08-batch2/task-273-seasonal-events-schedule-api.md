@@ -1,10 +1,17 @@
 # Task ID: API-TASK-273
 **Тип:** API Generation
 **Приоритет:** высокий
-**Статус:** queued
+**Статус:** completed
 **Создано:** 2025-11-08 01:32
-**Создатель:** AI Agent (GPT-5 Codex)
+**Завершено:** 2025-11-08 23:55
+**Исполнитель:** GPT-5 Codex (API Executor)
 **Зависимости:** API-TASK-264 (city unrest API), API-TASK-270 (specter surge loot API)
+
+## 📦 Результат
+
+- Добавлены `seasonal-schedule.yaml`, `seasonal-schedule-components.yaml`, `seasonal-schedule-examples.yaml` (расписание, триггеры, модификаторы, WS поток, <400 строк каждый).
+- Задокументированы интеграции world/economy/social/gameplay, KPI (`EventSchedulerLag`, participation/retention) и коды ошибок `BIZ_WORLD_EVENT_*`, `VAL_*`, `INT_*`.
+- Обновлены `brain-mapping.yaml`, `.BRAIN/02-gameplay/world/seasonal-events-2020-2093.md`, `.BRAIN/06-tasks/config/implementation-tracker.yaml`.
 
 ---
 
