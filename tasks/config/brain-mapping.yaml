@@ -1711,6 +1711,23 @@ mappings:
       - "api/v1/achievements/achievements.yaml"
       - "api/v1/gameplay/progression/progression-engine.yaml"
 
+  - source: ".BRAIN/05-technical/ui/daily-quests/ui-daily-quests.md"
+    target: "api/v1/gameplay/daily-quests/daily-quests-ui.yaml"
+    task_id: "API-TASK-210"
+    task_file: "tasks/active/queue/task-210-daily-quests-ui-api.md"
+    status: "queued"
+    created: "2025-11-08 00:45"
+    version: "v1.0.0"
+    updated: "2025-11-08 00:45"
+    related_sources:
+      - ".BRAIN/05-technical/backend/daily-weekly-reset-system.md"
+      - ".BRAIN/05-technical/backend/quest-engine-backend.md"
+      - ".BRAIN/05-technical/backend/progression-backend.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+    related_targets:
+      - "api/v1/system/reset-system.yaml"
+      - "api/v1/quests/quest-engine.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
