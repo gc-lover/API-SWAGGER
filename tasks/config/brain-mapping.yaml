@@ -5676,6 +5676,24 @@ mappings:
       - "api/v1/gameplay/combat/arena-system.yaml"
       - "api/v1/gameplay/economy/economy-events.yaml"
 
+  - source: ".BRAIN/05-technical/backend/anti-cheat/anti-cheat-compact.md"
+    target: "api/v1/admin/anti-cheat/anti-cheat-core.yaml"
+    task_id: "API-TASK-297"
+    task_file: "tasks/active/queue/task-297-anti-cheat-system-api.md"
+    status: "queued"
+    created: "2025-11-07 22:40"
+    version: "1.0.0"
+    updated: "2025-11-07 22:40"
+    related_sources:
+      - ".BRAIN/05-technical/backend/realtime-server/part2-protocol-optimization.md"
+      - ".BRAIN/02-gameplay/combat/arena-system.md"
+      - ".BRAIN/02-gameplay/combat/loot-hunt-system.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+    related_targets:
+      - "api/v1/technical/realtime/realtime-protocol.yaml"
+      - "api/v1/gameplay/combat/arena-system.yaml"
+      - "api/v1/gameplay/combat/loot-hunt.yaml"
+
   - source: ".BRAIN/02-gameplay/economy/stock-exchange/stock-dividends.md"
     target: "api/v1/gameplay/economy/stock-exchange-dividends.yaml"
     task_id: "API-TASK-256"
