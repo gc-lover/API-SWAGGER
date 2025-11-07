@@ -1,16 +1,10 @@
-# Стандартные ответы API
-# Источник: Общие компоненты для всех API
-# Версия: 1.0.0
-
 openapi: 3.0.3
 info:
   title: Common API Responses
   version: 1.0.0
   description: |
-    Общие стандартные ответы для всех API спецификаций.
-    Используйте эти компоненты через $ref в других API файлах.
-
-paths: {}
+    Common response templates for NECPGAME APIs.
+    Reference these responses via $ref in endpoint specifications.
 
 components:
   responses:
@@ -32,7 +26,7 @@ components:
                     - field: "name"
                       message: "Имя должно быть не пустым"
                       code: "REQUIRED"
-    
+
     Unauthorized:
       description: |
         Пользователь не аутентифицирован. Требуется валидный токен доступа.
@@ -48,7 +42,7 @@ components:
                   code: "UNAUTHORIZED"
                   message: "Требуется аутентификация"
                   details: []
-    
+
     Forbidden:
       description: |
         У пользователя нет прав для выполнения данной операции.
@@ -65,7 +59,7 @@ components:
                   code: "FORBIDDEN"
                   message: "Недостаточно прав для выполнения операции"
                   details: []
-    
+
     NotFound:
       description: |
         Запрошенный ресурс не найден.
@@ -84,7 +78,7 @@ components:
                     - field: "id"
                       message: "NPC с указанным ID не существует"
                       code: "RESOURCE_NOT_FOUND"
-    
+
     Conflict:
       description: |
         Конфликт с текущим состоянием ресурса или ограничениями системы.
@@ -104,7 +98,7 @@ components:
                     - field: "maxNPCs"
                       message: "Достигнут максимальный лимит NPC (10)"
                       code: "LIMIT_EXCEEDED"
-    
+
     UnprocessableEntity:
       description: |
         Запрос синтаксически корректен, но семантически неверен.
@@ -124,7 +118,7 @@ components:
                     - field: "status"
                       message: "Нельзя отменить выполненный сценарий"
                       code: "INVALID_STATE"
-    
+
     InternalServerError:
       description: |
         Внутренняя ошибка сервера. Непредвиденная ошибка при обработке запроса.
@@ -139,6 +133,29 @@ components:
                 error:
                   code: "INTERNAL_SERVER_ERROR"
                   message: "Произошла внутренняя ошибка сервера"
+                  details: []
+
+    TooManyRequests:
+      description: |
+        Превышен лимит запросов. Клиенту следует повторить запрос позже.
+      headers:
+        Retry-After:
+          description: Количество секунд до повторной попытки.
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            rate_limit:
+              summary: Превышен лимит запросов
+              value:
+                error:
+                  code: "TOO_MANY_REQUESTS"
+                  message: "Лимит запросов превышен. Повторите попытку позже."
                   details: []
 
   schemas:
