@@ -6231,6 +6231,25 @@ mappings:
       - "api/v1/world/events/seasonal-schedule.yaml"
       - "api/v1/social/reputation/reputation-formulas.yaml"
 
+  - source: ".BRAIN/04-narrative/dialogues/npc-marco-fix-sanchez.md"
+    target: "api/v1/narrative/dialogues/npc-marco-fix-sanchez.yaml"
+    task_id: "API-TASK-289"
+    task_file: "tasks/active/queue/task-289-npc-marco-fix-sanchez-dialogue-api.md"
+    status: "queued"
+    created: "2025-11-08 05:35"
+    version: "v1.1.0"
+    updated: "2025-11-08 05:35"
+    related_sources:
+      - ".BRAIN/04-narrative/npc-lore/important/marco-fix-sanchez.md"
+      - ".BRAIN/04-narrative/quests/main/001-first-steps-dnd-nodes.md"
+      - ".BRAIN/04-narrative/quests/main/002-choose-path-dnd-nodes.md"
+      - ".BRAIN/04-narrative/dialogues/npc-jake-archer.md"
+      - ".BRAIN/02-gameplay/world/events/world-events-framework.md"
+    related_targets:
+      - "api/v1/gameplay/quests/branching-database.yaml"
+      - "api/v1/world/events/seasonal-schedule.yaml"
+      - "api/v1/social/reputation/reputation-formulas.yaml"
+
   - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-catalog.md"
     target: "api/v1/gameplay/world/dungeon-bosses.yaml"
     task_id: "API-TASK-248"
