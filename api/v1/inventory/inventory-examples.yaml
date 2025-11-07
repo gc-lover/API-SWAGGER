@@ -1,0 +1,32 @@
+components:
+  examples:
+    PickupLoot:
+      summary: Подбор оружия после рейда
+      value:
+        source: "LOOT"
+        idempotencyKey: "raid-20251107-player-neo01"
+        items:
+          - itemId: "weapon-neo-rifle"
+            quantity: 1
+            metadata:
+              powerLevel: 850
+              bindOnPickup: true
+            targetContainer: "BACKPACK"
+    EquipArmor:
+      summary: Экипировка кибер-бронежилета
+      value:
+        itemInstanceId: "item-inst-armor-778"
+        slotType: "CHEST"
+        overrides:
+          bypassRequirements: false
+    ReserveTrade:
+      summary: Резервирование предметов для трейда
+      value:
+        context: "TRADE"
+        referenceId: "trade-session-1205"
+        items:
+          - itemInstanceId: "item-inst-mod-112"
+            quantity: 1
+          - itemInstanceId: "item-inst-cred-chip"
+            quantity: 5
+        expiresAt: "2025-11-08T07:15:00Z"

@@ -1,269 +1,337 @@
+# Target Architecture:
+# - Microservice: mail-service (port 8094)
+# - API Base: /api/v1/mail
+# - Dependencies: auth-service, inventory-service, economy-service, notification-service, analytics-service, moderation-service, template-service, support-service
+# - Frontend Module: modules/social/mail (useMailStore)
+# - UI: MailInbox, MailViewer, MailComposer, MailAttachmentList, CODSummary, MailFilters
+# - Forms: MailComposeForm, CODForm, AttachmentPickerForm, MailSearchForm
+# - Hooks: useMail, useMailComposer, useMailFilters, useMailNotifications
+
 openapi: 3.0.3
 info:
   title: Mail System API
+  description: Внутриигровая почта NECPGAME: отправка, вложения, COD, системные рассылки и история операций.
   version: 1.0.0
-  description: |
-    API для почтовой системы.
-    
-    Источник: .BRAIN/05-technical/backend/mail-system.md v1.0.0
-    
-    Tier 2 система. Критична для коммуникации и экономики!
-    
-    Возможности:
-    - Send mail (text + attachments до 10 предметов)
-    - Receive mail (inbox pagination)
-    - Item/gold attachments
-    - COD (Cash On Delivery - оплата при получении)
-    - System mail (награды, события от системы)
-    - Expiration (30 дней, затем удаление)
-    - Return to sender (если не прочитано 30 дней)
-    
-    БД структура:
-    - mail_messages (id, sender_id, receiver_id, subject, body, attachments_json, gold, cod_amount, expires_at)
-
 servers:
-  - url: https://api.necp.game/v1
-    description: Production server
-
+  - url: https://api.necpgame.com/v1
+security:
+  - BearerAuth: []
 tags:
+  - name: Inbox
+    description: Работа с входящими письмами
+  - name: Outbox
+    description: Управление отправленными письмами
   - name: Mail
-    description: Почтовая система
-
+    description: Операции с письмами и вложениями
+  - name: Settings
+    description: Настройки почтовой системы
+  - name: System Mail
+    description: Системные и GM рассылки
+  - name: Analytics
+    description: Статистика и история
 paths:
   /mail/inbox:
     get:
-      summary: Получить входящие письма
-      description: |
-        Возвращает список писем в inbox.
-        Поддерживает пагинацию и фильтрацию.
-      operationId: getInbox
-      tags:
-        - Mail
-      security:
-        - bearerAuth: []
+      tags: [Inbox]
+      summary: Список входящих писем
       parameters:
-        - name: character_id
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 1
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            default: 50
-        - name: unread_only
-          in: query
-          schema:
-            type: boolean
-            default: false
+        - in: query
+          name: unread
+          schema: { type: boolean }
+        - in: query
+          name: attachments
+          schema: { type: boolean }
+        - in: query
+          name: from
+          schema: { type: string }
+        - in: query
+          name: system
+          schema: { type: boolean }
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
-          description: Список писем
+          description: Входящие письма
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  mail:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/MailMessage'
-                  pagination:
-                    $ref: '../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
-
-  /mail/send:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailListResponse' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /mail/outbox:
+    get:
+      tags: [Outbox]
+      summary: Список отправленных писем
+      parameters:
+        - in: query
+          name: status
+          schema: { type: string }
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Отправленные письма
+          content:
+            application/json:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailListResponse' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /mail/{mailId}:
+    parameters:
+      - $ref: './mail-components.yaml#/components/parameters/MailId'
+    get:
+      tags: [Mail]
+      summary: Получить детали письма
+      responses:
+        '200':
+          description: Полная информация о письме
+          content:
+            application/json:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailDetail' }
+              examples:
+                mailDetail:
+                  $ref: './mail-examples.yaml#/components/examples/MailDetail'
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+    delete:
+      tags: [Mail]
+      summary: Удалить письмо из почтового ящика
+      responses:
+        '204': { description: Письмо помечено к удалению }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /mail:
     post:
+      tags: [Mail]
       summary: Отправить письмо
-      description: |
-        Отправляет письмо другому игроку.
-        Можно приложить items (до 10) и gold.
-        Можно установить COD (оплата при получении).
-      operationId: sendMail
-      tags:
-        - Mail
-      security:
-        - bearerAuth: []
       requestBody:
         required: true
         content:
           application/json:
-            schema:
-              type: object
-              required:
-                - sender_character_id
-                - receiver_character_name
-                - subject
-              properties:
-                sender_character_id:
-                  type: string
-                receiver_character_name:
-                  type: string
-                subject:
-                  type: string
-                  maxLength: 100
-                body:
-                  type: string
-                  maxLength: 1000
-                attachments:
-                  type: array
-                  maxItems: 10
-                  items:
-                    type: object
-                    properties:
-                      item_id:
-                        type: string
-                      quantity:
-                        type: integer
-                gold:
-                  type: number
-                  minimum: 0
-                cod_amount:
-                  type: number
-                  minimum: 0
-                  description: Cash On Delivery amount
+            schema: { $ref: './mail-components.yaml#/components/schemas/MailSendRequest' }
             examples:
-              item_mail:
-                summary: Письмо с предметом
-                value:
-                  sender_character_id: "char_123"
-                  receiver_character_name: "V-Nomad"
-                  subject: "Legendary weapon for you!"
-                  body: "Found this in a raid. Enjoy!"
-                  attachments:
-                    - item_id: "item_legendary_katana"
-                      quantity: 1
-                  gold: 5000
+              sendMail:
+                $ref: './mail-examples.yaml#/components/examples/SendMail'
       responses:
-        '200':
+        '201':
           description: Письмо отправлено
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  mail_id:
-                    type: string
-
-  /mail/{mail_id}/read:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailDetail' }
+        '400': { description: Ошибка вложений или адресата, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '429': { $ref: '../shared/common/responses.yaml#/components/responses/TooManyRequests' }
+  /mail/{mailId}/attachments/claim:
+    parameters:
+      - $ref: './mail-components.yaml#/components/parameters/MailId'
     post:
-      summary: Прочитать письмо
-      description: Отмечает письмо как прочитанное
-      operationId: readMail
-      tags:
-        - Mail
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: mail_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Письмо прочитано
-          content:
-            application/json:
-              schema:
-                type: object
-
-  /mail/{mail_id}/claim-attachments:
-    post:
-      summary: Забрать вложения
-      description: |
-        Забирает items/gold из письма.
-        Требует оплату COD (если установлен).
-      operationId: claimAttachments
-      tags:
-        - Mail
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: mail_id
-          in: path
-          required: true
-          schema:
-            type: string
+      tags: [Mail]
+      summary: Забрать вложения письма
       requestBody:
-        required: false
+        required: true
         content:
           application/json:
-            schema:
-              type: object
-              properties:
-                character_id:
-                  type: string
+            schema: { $ref: './mail-components.yaml#/components/schemas/AttachmentClaimRequest' }
       responses:
         '200':
           description: Вложения получены
           content:
             application/json:
-              schema:
-                type: object
-
-  /mail/{mail_id}/delete:
-    delete:
-      summary: Удалить письмо
-      description: Удаляет письмо из inbox
-      operationId: deleteMail
-      tags:
-        - Mail
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: mail_id
-          in: path
-          required: true
-          schema:
-            type: string
+              schema: { $ref: './mail-components.yaml#/components/schemas/AttachmentClaimResponse' }
+        '400': { description: Вложения недоступны, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /mail/{mailId}/cod/pay:
+    parameters:
+      - $ref: './mail-components.yaml#/components/parameters/MailId'
+    post:
+      tags: [Mail]
+      summary: Оплатить COD и получить вложения
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './mail-components.yaml#/components/schemas/CODPaymentRequest' }
+            examples:
+              payCOD:
+                $ref: './mail-examples.yaml#/components/examples/CODPaymentRequest'
       responses:
         '200':
-          description: Письмо удалено
+          description: COD оплачен, вложения доступны
           content:
             application/json:
-              schema:
-                type: object
+              schema: { $ref: './mail-components.yaml#/components/schemas/CODPaymentResponse' }
+        '400': { description: Оплата невозможна, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /mail/{mailId}/return:
+    parameters:
+      - $ref: './mail-components.yaml#/components/parameters/MailId'
+    post:
+      tags: [Mail]
+      summary: Вернуть письмо отправителю
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './mail-components.yaml#/components/schemas/MailReturnRequest' }
+      responses:
+        '200': { description: Письмо возвращено }
+        '400': { description: Возврат невозможен, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /mail/{mailId}/flag:
+    parameters:
+      - $ref: './mail-components.yaml#/components/parameters/MailId'
+    post:
+      tags: [Mail]
+      summary: Пожаловаться на письмо
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './mail-components.yaml#/components/schemas/MailFlagRequest' }
+      responses:
+        '202': { description: Жалоба зарегистрирована }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /mail/settings:
+    get:
+      tags: [Settings]
+      summary: Получить почтовые настройки
+      responses:
+        '200':
+          description: Текущие настройки почты
+          content:
+            application/json:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailSettings' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+    put:
+      tags: [Settings]
+      summary: Обновить почтовые настройки
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './mail-components.yaml#/components/schemas/MailSettingsUpdateRequest' }
+      responses:
+        '200': { description: Настройки обновлены }
+        '400': { description: Некорректные параметры, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /mail/system:
+    post:
+      tags: [System Mail]
+      summary: Отправить системное письмо или рассылку
+      security:
+        - ServiceToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './mail-components.yaml#/components/schemas/SystemMailRequest' }
+            examples:
+              systemMail:
+                $ref: './mail-examples.yaml#/components/examples/SystemMailRequest'
+      responses:
+        '202': { description: Системная рассылка запланирована }
+        '400': { description: Ошибка шаблона или сегмента, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /mail/system/batch:
+    post:
+      tags: [System Mail]
+      summary: Массовая отправка писем
+      security:
+        - ServiceToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './mail-components.yaml#/components/schemas/SystemMailBatchRequest' }
+      responses:
+        '202': { description: Batch отправка принята }
+        '400': { description: Нарушение лимитов, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /mail/history:
+    get:
+      tags: [Analytics]
+      summary: Журнал операций почты
+      parameters:
+        - in: query
+          name: type
+          schema: { type: string }
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: История операций
+          content:
+            application/json:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailHistoryResponse' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /mail/{mailId}/read:
+    parameters:
+      - $ref: './mail-components.yaml#/components/parameters/MailId'
+    post:
+      tags: [Mail]
+      summary: Пометить письмо как прочитанное
+      responses:
+        '200': { description: Письмо отмечено }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /mail/stats:
+    get:
+      tags: [Analytics]
+      summary: Статистика почтовой активности
+      parameters:
+        - in: query
+          name: range
+          schema: { type: string, enum: [24h, 7d, 30d, season] }
+      responses:
+        '200':
+          description: Почтовые метрики
+          content:
+            application/json:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailStats' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /mail/{mailId}/resend:
+    parameters:
+      - $ref: './mail-components.yaml#/components/parameters/MailId'
+    post:
+      tags: [Mail]
+      summary: Повторно отправить письмо
+      responses:
+        '202': { description: Повторная отправка запланирована }
+        '400': { description: Повторная отправка невозможна, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
+x-websocket:
+  url: wss://api.necpgame.com/v1/mail/stream
+  description: Realtime события почтовой системы
+  messages:
+    mailReceived:
+      summary: Получено новое письмо
+      payload: { $ref: './mail-components.yaml#/components/schemas/MailEvent' }
+    mailRead:
+      summary: Письмо прочитано
+      payload: { $ref: './mail-components.yaml#/components/schemas/MailEvent' }
+    mailReturned:
+      summary: Письмо возвращено
+      payload: { $ref: './mail-components.yaml#/components/schemas/MailEvent' }
+    attachmentClaimed:
+      summary: Вложения получены
+      payload: { $ref: './mail-components.yaml#/components/schemas/AttachmentEvent' }
+    codPaid:
+      summary: COD оплачен
+      payload: { $ref: './mail-components.yaml#/components/schemas/Codevent' }
+    mailFlagged:
+      summary: Письмо помечено/жалоба
+      payload: { $ref: './mail-components.yaml#/components/schemas/MailFlagEvent' }
 components:
-  schemas:
-    MailMessage:
-      type: object
-      properties:
-        mail_id:
-          type: string
-        sender_name:
-          type: string
-        subject:
-          type: string
-        body:
-          type: string
-        has_attachments:
-          type: boolean
-        gold_attached:
-          type: number
-        cod_amount:
-          type: number
-        is_read:
-          type: boolean
-        is_system:
-          type: boolean
-        created_at:
-          type: string
-          format: date-time
-        expires_at:
-          type: string
-          format: date-time
-
   securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+    BearerAuth: { $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+    ServiceToken: { $ref: '../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+    GMToken: { $ref: '../shared/common/security.yaml#/components/securitySchemes/GMToken' }
+  parameters:
+    MailId: { $ref: './mail-components.yaml#/components/parameters/MailId' }
+  schemas:
+    MailDetail: { $ref: './mail-components.yaml#/components/schemas/MailDetail' }
+    MailError: { $ref: './mail-components.yaml#/components/schemas/MailError' }
+    MailSettings: { $ref: './mail-components.yaml#/components/schemas/MailSettings' }
+  examples:
+    MailDetail: { $ref: './mail-examples.yaml#/components/examples/MailDetail' }
+    SendMail: { $ref: './mail-examples.yaml#/components/examples/SendMail' }
+    CODPaymentRequest: { $ref: './mail-examples.yaml#/components/examples/CODPaymentRequest' }
+    SystemMailRequest: { $ref: './mail-examples.yaml#/components/examples/SystemMailRequest' }
 
 

@@ -1,0 +1,17 @@
+components:
+  examples:
+    FriendRequestCreate:
+      summary: Запрос в друзья по никнейму
+      value:
+        target:
+          nickname: "Glitch"
+          platform: "PC"
+        message: "Давай сыграем завтра!"
+        idempotencyKey: "friend-request-neo-glitch-20251108"
+    PresenceUpdateRequest:
+      summary: Обновление статуса присутствия
+      value:
+        state: "IN_MATCH"
+        activity: "Night City Raid"
+        sessionId: "session-87231"
+        availability: "BUSY"
