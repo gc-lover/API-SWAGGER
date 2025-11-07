@@ -1797,6 +1797,24 @@ mappings:
       - "api/v1/inventory/inventory.yaml"
       - "api/v1/economy/shop/shop-system.yaml"
 
+  - source: ".BRAIN/05-technical/backend/loot-system/part2-advanced-loot.md"
+    target: "api/v1/loot/loot-advanced.yaml"
+    task_id: "API-TASK-215"
+    task_file: "tasks/active/queue/task-215-loot-advanced-api.md"
+    status: "queued"
+    created: "2025-11-08 01:52"
+    version: "v1.0.1"
+    updated: "2025-11-08 01:52"
+    related_sources:
+      - ".BRAIN/05-technical/backend/loot-system/part1-loot-generation.md"
+      - ".BRAIN/05-technical/backend/inventory-system/part2-advanced-features.md"
+      - ".BRAIN/05-technical/backend/party-system.md"
+      - ".BRAIN/05-technical/backend/achievement-system.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+    related_targets:
+      - "api/v1/loot/loot-generation.yaml"
+      - "api/v1/inventory/inventory-advanced.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
