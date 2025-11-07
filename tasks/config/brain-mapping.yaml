@@ -2259,6 +2259,27 @@ mappings:
       - "api/v1/session/session-lifecycle.yaml"
       - "api/v1/notifications/notifications.yaml"
 
+  - source: ".BRAIN/05-technical/backend/matchmaking/matchmaking-rating.md"
+    target: "api/v1/matchmaking/matchmaking-rating.yaml"
+    task_id: "API-TASK-252"
+    task_file: "tasks/completed/2025-11-08-batch2/task-252-matchmaking-rating-api.md"
+    status: "completed"
+    created: "2025-11-08 09:50"
+    version: "v1.0.1"
+    updated: "2025-11-08 22:25"
+    completed: "2025-11-08 22:25"
+    related_sources:
+      - ".BRAIN/05-technical/backend/matchmaking/matchmaking-algorithm.md"
+      - ".BRAIN/05-technical/backend/matchmaking/matchmaking-queue.md"
+      - ".BRAIN/05-technical/backend/leaderboard/leaderboard-core.md"
+      - ".BRAIN/05-technical/backend/progression-backend.md"
+      - ".BRAIN/05-technical/backend/anti-cheat/anti-cheat-compact.md"
+    related_targets:
+      - "api/v1/matchmaking/matchmaking-queue.yaml"
+      - "api/v1/leaderboards/leaderboard-core.yaml"
+      - "api/v1/analytics/analytics.yaml"
+      - "api/v1/anti-cheat/anti-cheat.yaml"
+
   - source: ".BRAIN/05-technical/backend/inventory-system/part1-core-system.md"
     target: "api/v1/inventory/inventory-core.yaml"
     task_id: "API-TASK-234"
@@ -5753,6 +5774,68 @@ mappings:
       - "api/v1/gameplay/economy/specter-hq-store.yaml"
       - "api/v1/gameplay/social/specter-events.yaml"
       - "api/v1/gameplay/narrative/specter-hq-dialogues.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-abilities.md"
+    target: "api/v1/gameplay/world/dungeons/abilities.yaml"
+    task_id: "API-TASK-268"
+    task_file: "tasks/active/queue/task-268-dungeon-bosses-abilities-api.md"
+    status: "queued"
+    created: "2025-11-08 01:00"
+    version: "v1.0.0"
+    updated: "2025-11-08 01:00"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-catalog.md"
+      - ".BRAIN/02-gameplay/combat/combat-abilities.md"
+    related_targets:
+      - "api/v1/gameplay/world/dungeons/catalog.yaml"
+      - "api/v1/gameplay/combat/abilities.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/faction-cult-defenders.md"
+    target: "api/v1/gameplay/world/factions/defenders.yaml"
+    task_id: "API-TASK-269"
+    task_file: "tasks/active/queue/task-269-faction-cult-defenders-api.md"
+    status: "queued"
+    created: "2025-11-08 01:05"
+    version: "v1.0.0"
+    updated: "2025-11-08 01:05"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/world-bosses-catalog.md"
+      - ".BRAIN/02-gameplay/world/city-unrest-escalations.md"
+    related_targets:
+      - "api/v1/gameplay/world/world-bosses.yaml"
+      - "api/v1/gameplay/world/city-unrest.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/raids/specter-surge-loot.md"
+    target: "api/v1/gameplay/world/raids/specter-surge-loot.yaml"
+    task_id: "API-TASK-270"
+    task_file: "tasks/active/queue/task-270-specter-surge-loot-api.md"
+    status: "queued"
+    created: "2025-11-08 01:10"
+    version: "v1.0.0"
+    updated: "2025-11-08 01:10"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/specter-hq.md"
+      - ".BRAIN/02-gameplay/world/economy-specter-helios-balance.md"
+    related_targets:
+      - "api/v1/gameplay/world/specter-hq.yaml"
+      - "api/v1/gameplay/economy/specter-helios-balance.yaml"
+
+  - source: ".BRAIN/05-technical/ui/guild-contract-board.md"
+    target: "api/v1/gameplay/guilds/guild-contract-board.yaml"
+    task_id: "API-TASK-271"
+    task_file: "tasks/active/queue/task-271-guild-contract-board-api.md"
+    status: "queued"
+    created: "2025-11-08 01:15"
+    version: "v1.0.0"
+    updated: "2025-11-08 01:15"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/specter-hq.md"
+      - ".BRAIN/02-gameplay/world/helios-countermesh-ops.md"
+      - ".BRAIN/02-gameplay/world/city-unrest-escalations.md"
+    related_targets:
+      - "api/v1/gameplay/world/specter-hq.yaml"
+      - "api/v1/gameplay/world/helios-ops.yaml"
+      - "api/v1/gameplay/world/city-unrest.yaml"
 
   - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-catalog.md"
     target: "api/v1/gameplay/world/dungeon-bosses.yaml"

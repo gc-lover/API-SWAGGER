@@ -1,10 +1,17 @@
 # Task ID: API-TASK-252
 **Тип:** API Generation
 **Приоритет:** высокий
-**Статус:** queued
+**Статус:** completed
 **Создано:** 2025-11-08 09:50
-**Создатель:** AI Agent (GPT-5 Codex)
+**Завершено:** 2025-11-08 22:25
+**Исполнитель:** GPT-5 Codex (API Executor)
 **Зависимости:** API-TASK-250, API-TASK-251, API-TASK-237, API-TASK-140
+
+## 📦 Результат
+
+- Созданы `matchmaking-rating.yaml`, `matchmaking-rating-components.yaml`, `matchmaking-rating-examples.yaml` (REST + Kafka, <400 строк).
+- Описаны операции рейтинга, лидербордов, сезонов, smurf detection; определены схемы `RatingProfile`, `RatingDeltaResult`, `SeasonSummary`, `SmurfFlag`.
+- Обновлены `brain-mapping.yaml`, `.BRAIN/05-technical/backend/matchmaking/matchmaking-rating.md`, `.BRAIN/06-tasks/config/implementation-tracker.yaml`.
 
 ---
 
