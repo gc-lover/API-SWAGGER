@@ -12,6 +12,8 @@ info:
 
 components:
   parameters:
+    PageNumber:
+      $ref: '#/components/parameters/Page'
     Page:
       name: page
       in: query
