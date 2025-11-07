@@ -5886,6 +5886,27 @@ mappings:
       - "api/v1/gameplay/combat/loadout-profiles.yaml"
       - "api/v1/gameplay/economy/marketplace.yaml"
 
+  - source: ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+    target: "api/v1/notification/combat/loadout-notifications.yaml"
+    task_id: "API-TASK-308"
+    task_file: "tasks/active/queue/task-308-combat-loadout-notifications-api.md"
+    status: "queued"
+    created: "2025-11-08 03:00"
+    version: "0.3.0"
+    updated: "2025-11-08 03:00"
+    related_sources:
+      - ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+      - ".BRAIN/02-gameplay/economy/blueprint-market.md"
+      - ".BRAIN/_02-gameplay/world/events/world-events-framework.md"
+      - ".BRAIN/_02-gameplay/combat/arena-system.md"
+      - ".BRAIN/_02-gameplay/combat/loot-hunt-system.md"
+    related_targets:
+      - "api/v1/gameplay/combat/loadout-availability.yaml"
+      - "api/v1/admin/combat/loadout-maintenance.yaml"
+      - "api/v1/gameplay/economy/loadout-blueprints.yaml"
+      - "api/v1/analytics/gameplay/loadout-telemetry.yaml"
+
   - source: ".BRAIN/_02-gameplay/world/world-state/living-world-kenshi-hybrid.md"
     target: "api/v1/world/world-state/living-world.yaml"
     task_id: "API-TASK-300"

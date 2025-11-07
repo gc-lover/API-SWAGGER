@@ -10,6 +10,8 @@ info:
     Общие компоненты для пагинации в API.
     Используйте эти схемы через $ref в других API файлах.
 
+paths: {}
+
 components:
   parameters:
     PageNumber:

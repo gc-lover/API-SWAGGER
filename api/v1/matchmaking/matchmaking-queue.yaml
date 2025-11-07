@@ -14,9 +14,6 @@ servers:
   - url: https://api.necpgame.com/v1
 security:
   - BearerAuth: []
-tag:
-  name: Queue
-  description: Операции очереди, приоритетов и аналитики.
 tags:
   - name: Queue
     description: Управление тикетами и статусами очереди.
@@ -67,7 +64,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './matchmaking-queue-components.yaml#/components/schemas/QueueError' }
-        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
     get:
       tags: [Queue]
       summary: Получить сводку статусов очередей игрока
@@ -84,7 +81,7 @@ paths:
             application/json:
               schema: { $ref: './matchmaking-queue-components.yaml#/components/schemas/QueueStatusList' }
               examples: { statusList: { $ref: './matchmaking-queue-examples.yaml#/components/examples/QueueStatusList' } }
-        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /matchmaking/queue/{ticketId}:
     parameters:
       - $ref: './matchmaking-queue-components.yaml#/components/parameters/TicketId'
@@ -269,7 +266,7 @@ paths:
               schema: { $ref: './matchmaking-queue-components.yaml#/components/schemas/QueueEvent' }
               examples:
                 matchReady: { $ref: './matchmaking-queue-examples.yaml#/components/examples/QueueEventMatchReady' }
-        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-kafka:
   publishes:
@@ -299,6 +296,6 @@ x-kafka:
 
 components:
   securitySchemes:
-    BearerAuth: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
-    ServiceToken: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+    BearerAuth: { $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+    ServiceToken: { $ref: '../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
 

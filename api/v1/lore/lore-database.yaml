@@ -112,16 +112,7 @@ paths:
                   timeline:
                     type: array
                     items:
-                      type: object
-                      properties:
-                        year:
-                          type: integer
-                        events:
-                          type: array
-                        population:
-                          type: integer
-                        controlling_faction:
-                          type: string
+                      $ref: '#/components/schemas/CityTimelineEntry'
 
   /lore/database/factions/detailed:
     get:
@@ -180,10 +171,16 @@ paths:
                     type: integer
                   key_events:
                     type: array
+                    items:
+                      type: string
                   leaders_history:
                     type: array
+                    items:
+                      type: string
                   wars_participated:
                     type: array
+                    items:
+                      type: string
 
   /lore/database/technology/net:
     get:
@@ -200,10 +197,16 @@ paths:
                 properties:
                   architecture_layers:
                     type: array
+                    items:
+                      type: string
                   protocols:
                     type: array
+                    items:
+                      type: string
                   security_levels:
                     type: array
+                    items:
+                      type: string
                   blackwall:
                     $ref: '#/components/schemas/BlackwallInfo'
 
@@ -263,12 +266,20 @@ paths:
                     type: string
                   participants:
                     type: array
+                    items:
+                      type: string
                   battles:
                     type: array
+                    items:
+                      type: string
                   heroes:
                     type: array
+                    items:
+                      type: string
                   victims:
                     type: array
+                    items:
+                      type: string
                   outcome:
                     type: string
 
@@ -338,12 +349,20 @@ components:
           type: string
         population_history:
           type: array
+          items:
+            $ref: '#/components/schemas/PopulationRecord'
         key_districts:
           type: array
+          items:
+            type: string
         controlling_factions_history:
           type: array
+          items:
+            type: string
         major_events:
           type: array
+          items:
+            type: string
 
     DistrictDetailed:
       type: object
@@ -362,8 +381,12 @@ components:
           type: integer
         key_locations:
           type: array
+          items:
+            type: string
         timeline_changes:
           type: array
+          items:
+            type: string
 
     FactionDetailed:
       type: object
@@ -380,16 +403,28 @@ components:
           type: string
         resources:
           type: array
+          items:
+            type: string
         territories:
           type: array
+          items:
+            type: string
         leadership:
           type: array
+          items:
+            $ref: '#/components/schemas/LeadershipRecord'
         allies:
           type: array
+          items:
+            type: string
         enemies:
           type: array
+          items:
+            type: string
         notable_operations:
           type: array
+          items:
+            type: string
 
     BlackwallInfo:
       type: object
@@ -404,10 +439,16 @@ components:
           type: string
         structure:
           type: array
+          items:
+            type: string
         known_breaches:
           type: array
+          items:
+            type: string
         guardians:
           type: array
+          items:
+            type: string
 
     TimelineEventDetailed:
       type: object
@@ -425,12 +466,58 @@ components:
           type: string
         participants:
           type: array
+          items:
+            type: string
         locations:
           type: array
+          items:
+            type: string
         consequences:
           type: array
+          items:
+            type: string
         related_quests:
           type: array
+          items:
+            type: string
+
+    PopulationRecord:
+      type: object
+      properties:
+        year:
+          type: integer
+        population:
+          type: integer
+
+    LeadershipRecord:
+      type: object
+      properties:
+        name:
+          type: string
+        role:
+          type: string
+        start_year:
+          type: integer
+          nullable: true
+        end_year:
+          type: integer
+          nullable: true
+
+    CityTimelineEntry:
+      type: object
+      properties:
+        year:
+          type: integer
+        events:
+          type: array
+          items:
+            type: string
+        population:
+          type: integer
+          nullable: true
+        controlling_faction:
+          type: string
+          nullable: true
 
   securitySchemes:
     BearerAuth:

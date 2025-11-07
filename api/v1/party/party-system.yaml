@@ -78,8 +78,13 @@ paths:
           application/json:
             schema: { $ref: './party-components.yaml#/components/schemas/PartyUpdateRequest' }
       responses:
-        '200': { description: Настройки обновлены }
-        '400': { description: Недопустимое изменение, content: { application/json: { schema: { $ref: './party-components.yaml#/components/schemas/PartyError' } } } }
+        '200':
+          description: "Настройки обновлены"
+        '400':
+          description: "Недопустимое изменение"
+          content:
+            application/json:
+              schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
     delete:
       tags: [Party]
@@ -90,7 +95,8 @@ paths:
           application/json:
             schema: { $ref: './party-components.yaml#/components/schemas/PartyDisbandRequest' }
       responses:
-        '202': { description: Распуск инициирован }
+        '202':
+          description: "Распуск инициирован"
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
         '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
   /party/{partyId}/members:
@@ -115,8 +121,13 @@ paths:
           application/json:
             schema: { $ref: './party-components.yaml#/components/schemas/PartyMemberAddRequest' }
       responses:
-        '202': { description: Добавление инициировано }
-        '400': { description: Группа заполнена, content: { application/json: { schema: { $ref: './party-components.yaml#/components/schemas/PartyError' } } } }
+        '202':
+          description: "Добавление инициировано"
+        '400':
+          description: "Группа заполнена"
+          content:
+            application/json:
+              schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /party/{partyId}/members/{memberId}:
     parameters:
@@ -131,14 +142,20 @@ paths:
           application/json:
             schema: { $ref: './party-components.yaml#/components/schemas/PartyMemberUpdateRequest' }
       responses:
-        '200': { description: Параметры участника обновлены }
-        '400': { description: Недопустимое изменение роли, content: { application/json: { schema: { $ref: './party-components.yaml#/components/schemas/PartyError' } } } }
+        '200':
+          description: "Параметры участника обновлены"
+        '400':
+          description: "Недопустимое изменение роли"
+          content:
+            application/json:
+              schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
     delete:
       tags: [Members]
       summary: Исключить участника или выйти
       responses:
-        '204': { description: Участник удалён }
+        '204':
+          description: "Участник удалён"
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /party/{partyId}/invites:
     parameters:
@@ -165,8 +182,13 @@ paths:
               inviteFriend:
                 $ref: './party-examples.yaml#/components/examples/PartyInviteRequest'
       responses:
-        '201': { description: Приглашение создано }
-        '400': { description: Лимит приглашений, content: { application/json: { schema: { $ref: './party-components.yaml#/components/schemas/PartyError' } } } }
+        '201':
+          description: "Приглашение создано"
+        '400':
+          description: "Лимит приглашений"
+          content:
+            application/json:
+              schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /party/invites/{inviteId}/accept:
     parameters:
@@ -175,8 +197,13 @@ paths:
       tags: [Members]
       summary: Принять приглашение
       responses:
-        '200': { description: Игрок присоединился }
-        '400': { description: Приглашение недействительно, content: { application/json: { schema: { $ref: './party-components.yaml#/components/schemas/PartyError' } } } }
+        '200':
+          description: "Игрок присоединился"
+        '400':
+          description: "Приглашение недействительно"
+          content:
+            application/json:
+              schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /party/invites/{inviteId}/decline:
     parameters:
@@ -185,8 +212,13 @@ paths:
       tags: [Members]
       summary: Отклонить приглашение
       responses:
-        '200': { description: Приглашение отклонено }
-        '400': { description: Приглашение недействительно, content: { application/json: { schema: { $ref: './party-components.yaml#/components/schemas/PartyError' } } } }
+        '200':
+          description: "Приглашение отклонено"
+        '400':
+          description: "Приглашение недействительно"
+          content:
+            application/json:
+              schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /party/{partyId}/loot:
     parameters:
@@ -210,8 +242,13 @@ paths:
           application/json:
             schema: { $ref: './party-components.yaml#/components/schemas/LootSettingsUpdateRequest' }
       responses:
-        '200': { description: Настройки обновлены }
-        '400': { description: Недопустимые параметры, content: { application/json: { schema: { $ref: './party-components.yaml#/components/schemas/PartyError' } } } }
+        '200':
+          description: "Настройки обновлены"
+        '400':
+          description: "Недопустимые параметры"
+          content:
+            application/json:
+              schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /party/{partyId}/loot/distribute:
     parameters:
@@ -228,8 +265,13 @@ paths:
               epicLoot:
                 $ref: './party-examples.yaml#/components/examples/LootDistributeRequest'
       responses:
-        '200': { description: Предмет распределён }
-        '400': { description: Голосование не завершено, content: { application/json: { schema: { $ref: './party-components.yaml#/components/schemas/PartyError' } } } }
+        '200':
+          description: "Предмет распределён"
+        '400':
+          description: "Голосование не завершено"
+          content:
+            application/json:
+              schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /party/{partyId}/ready-check:
     parameters:
@@ -248,7 +290,11 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/ReadyCheck' }
-        '400': { description: Ready-check уже активен, content: { application/json: { schema: { $ref: './party-components.yaml#/components/schemas/PartyError' } } } }
+        '400':
+          description: "Ready-check уже активен"
+          content:
+            application/json:
+              schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /party/{partyId}/ready-check/respond:
     parameters:
@@ -262,8 +308,13 @@ paths:
           application/json:
             schema: { $ref: './party-components.yaml#/components/schemas/ReadyCheckResponseRequest' }
       responses:
-        '200': { description: Ответ зафиксирован }
-        '400': { description: Ready-check не активен, content: { application/json: { schema: { $ref: './party-components.yaml#/components/schemas/PartyError' } } } }
+        '200':
+          description: "Ответ зафиксирован"
+        '400':
+          description: "Ready-check не активен"
+          content:
+            application/json:
+              schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /party/{partyId}/vote-kick:
     parameters:
@@ -277,8 +328,13 @@ paths:
           application/json:
             schema: { $ref: './party-components.yaml#/components/schemas/VoteKickRequest' }
       responses:
-        '200': { description: Голосование запущено }
-        '400': { description: Нельзя кикнуть цель, content: { application/json: { schema: { $ref: './party-components.yaml#/components/schemas/PartyError' } } } }
+        '200':
+          description: "Голосование запущено"
+        '400':
+          description: "Нельзя кикнуть цель"
+          content:
+            application/json:
+              schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /party/{partyId}/queue:
     parameters:
@@ -292,14 +348,20 @@ paths:
           application/json:
             schema: { $ref: './party-components.yaml#/components/schemas/PartyQueueRequest' }
       responses:
-        '202': { description: Очередь начата }
-        '400': { description: Конфликт состояния группы, content: { application/json: { schema: { $ref: './party-components.yaml#/components/schemas/PartyError' } } } }
+        '202':
+          description: "Очередь начата"
+        '400':
+          description: "Конфликт состояния группы"
+          content:
+            application/json:
+              schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
     delete:
       tags: [Coordination]
       summary: Отменить очередь
       responses:
-        '204': { description: Очередь отменена }
+        '204':
+          description: "Очередь отменена"
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /party/{partyId}/quests:
     parameters:
@@ -327,8 +389,13 @@ paths:
           application/json:
             schema: { $ref: './party-components.yaml#/components/schemas/QuestSyncRequest' }
       responses:
-        '200': { description: Прогресс синхронизирован }
-        '400': { description: Квест отсутствует в party, content: { application/json: { schema: { $ref: './party-components.yaml#/components/schemas/PartyError' } } } }
+        '200':
+          description: "Прогресс синхронизирован"
+        '400':
+          description: "Квест отсутствует в party"
+          content:
+            application/json:
+              schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /party/{partyId}/status:
     parameters:

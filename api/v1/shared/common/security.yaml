@@ -6,6 +6,8 @@ info:
     Standard security schemes for NECPGAME APIs.
     Reference this file via $ref when declaring security requirements.
 
+paths: {}
+
 components:
   securitySchemes:
     BearerAuth:

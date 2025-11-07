@@ -10,7 +10,7 @@
 openapi: 3.0.3
 info:
   title: Mail System API
-  description: Внутриигровая почта NECPGAME: отправка, вложения, COD, системные рассылки и история операций.
+  description: "Внутриигровая почта NECPGAME: отправка, вложения, COD, системные рассылки и история операций."
   version: 1.0.0
 servers:
   - url: https://api.necpgame.com/v1
@@ -94,7 +94,8 @@ paths:
       tags: [Mail]
       summary: Удалить письмо из почтового ящика
       responses:
-        '204': { description: Письмо помечено к удалению }
+        '204':
+          description: "Письмо помечено к удалению"
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /mail:
     post:
@@ -114,7 +115,11 @@ paths:
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/MailDetail' }
-        '400': { description: Ошибка вложений или адресата, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '400':
+          description: "Ошибка вложений или адресата"
+          content:
+            application/json:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
         '429': { $ref: '../shared/common/responses.yaml#/components/responses/TooManyRequests' }
   /mail/{mailId}/attachments/claim:
@@ -134,7 +139,11 @@ paths:
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/AttachmentClaimResponse' }
-        '400': { description: Вложения недоступны, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '400':
+          description: "Вложения недоступны"
+          content:
+            application/json:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /mail/{mailId}/cod/pay:
     parameters:
@@ -156,7 +165,11 @@ paths:
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/CODPaymentResponse' }
-        '400': { description: Оплата невозможна, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '400':
+          description: "Оплата невозможна"
+          content:
+            application/json:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /mail/{mailId}/return:
     parameters:
@@ -170,8 +183,13 @@ paths:
           application/json:
             schema: { $ref: './mail-components.yaml#/components/schemas/MailReturnRequest' }
       responses:
-        '200': { description: Письмо возвращено }
-        '400': { description: Возврат невозможен, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '200':
+          description: "Письмо возвращено"
+        '400':
+          description: "Возврат невозможен"
+          content:
+            application/json:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /mail/{mailId}/flag:
     parameters:
@@ -185,7 +203,8 @@ paths:
           application/json:
             schema: { $ref: './mail-components.yaml#/components/schemas/MailFlagRequest' }
       responses:
-        '202': { description: Жалоба зарегистрирована }
+        '202':
+          description: "Жалоба зарегистрирована"
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /mail/settings:
     get:
@@ -207,8 +226,13 @@ paths:
           application/json:
             schema: { $ref: './mail-components.yaml#/components/schemas/MailSettingsUpdateRequest' }
       responses:
-        '200': { description: Настройки обновлены }
-        '400': { description: Некорректные параметры, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '200':
+          description: "Настройки обновлены"
+        '400':
+          description: "Некорректные параметры"
+          content:
+            application/json:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /mail/system:
     post:
@@ -225,8 +249,13 @@ paths:
               systemMail:
                 $ref: './mail-examples.yaml#/components/examples/SystemMailRequest'
       responses:
-        '202': { description: Системная рассылка запланирована }
-        '400': { description: Ошибка шаблона или сегмента, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '202':
+          description: "Системная рассылка запланирована"
+        '400':
+          description: "Ошибка шаблона или сегмента"
+          content:
+            application/json:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /mail/system/batch:
     post:
@@ -240,8 +269,13 @@ paths:
           application/json:
             schema: { $ref: './mail-components.yaml#/components/schemas/SystemMailBatchRequest' }
       responses:
-        '202': { description: Batch отправка принята }
-        '400': { description: Нарушение лимитов, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '202':
+          description: "Batch отправка принята"
+        '400':
+          description: "Нарушение лимитов"
+          content:
+            application/json:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /mail/history:
     get:
@@ -267,7 +301,8 @@ paths:
       tags: [Mail]
       summary: Пометить письмо как прочитанное
       responses:
-        '200': { description: Письмо отмечено }
+        '200':
+          description: "Письмо отмечено"
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /mail/stats:
     get:
@@ -291,8 +326,13 @@ paths:
       tags: [Mail]
       summary: Повторно отправить письмо
       responses:
-        '202': { description: Повторная отправка запланирована }
-        '400': { description: Повторная отправка невозможна, content: { application/json: { schema: { $ref: './mail-components.yaml#/components/schemas/MailError' } } } }
+        '202':
+          description: "Повторная отправка запланирована"
+        '400':
+          description: "Повторная отправка невозможна"
+          content:
+            application/json:
+              schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-websocket:

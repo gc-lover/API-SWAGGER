@@ -256,7 +256,7 @@ components:
 
     QueueError:
       allOf:
-        - $ref: '../../shared/common/responses.yaml#/components/schemas/Error'
+        - $ref: '../shared/common/responses.yaml#/components/schemas/Error'
         - type: object
           properties:
             error:
