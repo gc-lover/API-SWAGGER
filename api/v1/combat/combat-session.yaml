@@ -10,7 +10,7 @@
 openapi: 3.0.3
 info:
   title: Combat Session API
-  description: Управление боевыми сессиями NECPGAME: создание, действия, лаг-компенсация, вознаграждения и realtime события.
+  description: "Управление боевыми сессиями NECPGAME: создание, действия, лаг-компенсация, вознаграждения и realtime события."
   version: 1.0.0
 servers:
   - url: https://api.necpgame.com/v1

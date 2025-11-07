@@ -5733,6 +5733,27 @@ mappings:
       - "api/v1/gameplay/combat/arena-system.yaml"
       - "api/v1/gameplay/combat/loot-hunt.yaml"
 
+  - source: ".BRAIN/_02-gameplay/world/world-state/living-world-kenshi-hybrid.md"
+    target: "api/v1/world/world-state/living-world.yaml"
+    task_id: "API-TASK-300"
+    task_file: "tasks/active/queue/task-300-living-world-hybrid-api.md"
+    status: "queued"
+    created: "2025-11-07 23:40"
+    version: "0.2.0"
+    updated: "2025-11-07 23:40"
+    related_sources:
+      - ".BRAIN/_02-gameplay/world/world-state/player-impact-systems.md"
+      - ".BRAIN/_02-gameplay/world/world-state/player-impact-persistence.md"
+      - ".BRAIN/_02-gameplay/economy/economy-world-impact.md"
+      - ".BRAIN/_02-gameplay/progression/progression-skills.md"
+      - ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+      - ".BRAIN/_02-gameplay/world/events/world-events-framework.md"
+    related_targets:
+      - "api/v1/world/world-interaction-suite.yaml"
+      - "api/v1/world/world-state/player-impact.yaml"
+      - "api/v1/gameplay/progression/progression-engine.yaml"
+      - "api/v1/gameplay/economy/economy-world-impact.yaml"
+
   - source: ".BRAIN/02-gameplay/economy/stock-exchange/stock-dividends.md"
     target: "api/v1/gameplay/economy/stock-exchange-dividends.yaml"
     task_id: "API-TASK-256"
