@@ -4872,6 +4872,23 @@ mappings:
       - "api/v1/gameplay/economy/currency-exchange.yaml"
       - "api/v1/inventory/inventory-management.yaml"
 
+  - source: ".BRAIN/05-technical/backend/clan-war/clan-war-system.md"
+    target: "api/v1/gameplay/clans/clan-war-system.yaml"
+    task_id: "API-TASK-204"
+    task_file: "tasks/completed/2025-11-07-batch3/task-204-clan-war-system-api.md"
+    status: "completed"
+    created: "2025-11-07 23:05"
+    version: "v1.0.0"
+    updated: "2025-11-07 23:55"
+    completed: "2025-11-07 23:55"
+    related_sources:
+      - ".BRAIN/05-technical/backend/guild-system-backend.md"
+      - ".BRAIN/05-technical/backend/economy-system.md"
+      - ".BRAIN/05-technical/backend/realtime-server/part1-architecture-zones.md"
+    related_targets:
+      - "api/v1/social/guild-system.yaml"
+      - "api/v1/gameplay/economy/currency-exchange.yaml"
+
 
 # Примеры записей:
 #
