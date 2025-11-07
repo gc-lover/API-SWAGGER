@@ -4925,6 +4925,23 @@ mappings:
       - "api/v1/social/guild-system.yaml"
       - "api/v1/gameplay/economy/currency-exchange.yaml"
 
+  - source: ".BRAIN/05-technical/backend/announcement/announcement-system.md"
+    target: "api/v1/admin/announcements/announcement-system.yaml"
+    task_id: "API-TASK-205"
+    task_file: "tasks/completed/2025-11-07-batch3/task-205-announcement-system-api.md"
+    status: "completed"
+    created: "2025-11-07 23:25"
+    version: "v1.0.0"
+    updated: "2025-11-08 00:20"
+    completed: "2025-11-08 00:20"
+    related_sources:
+      - ".BRAIN/05-technical/backend/notification-system.md"
+      - ".BRAIN/05-technical/backend/mail-system.md"
+      - ".BRAIN/05-technical/backend/maintenance/maintenance-mode-system.md"
+    related_targets:
+      - "api/v1/technical/notification-system.yaml"
+      - "api/v1/admin/support/support-tickets.yaml"
+
 
 # Примеры записей:
 #
