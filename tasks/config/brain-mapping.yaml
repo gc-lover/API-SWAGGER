@@ -1677,6 +1677,23 @@ mappings:
       - "api/v1/progression/progression-engine.yaml"
       - "api/v1/system/reset-system.yaml"
 
+  - source: ".BRAIN/05-technical/backend/battle-pass/part2-rewards-challenges.md"
+    target: "api/v1/gameplay/battle-pass/battle-pass-rewards.yaml"
+    task_id: "API-TASK-208"
+    task_file: "tasks/active/queue/task-208-battle-pass-rewards-api.md"
+    status: "queued"
+    created: "2025-11-08 00:12"
+    version: "v1.0.1"
+    updated: "2025-11-08 00:12"
+    related_sources:
+      - ".BRAIN/05-technical/backend/battle-pass/part1-core-progression.md"
+      - ".BRAIN/05-technical/backend/progression-backend.md"
+      - ".BRAIN/05-technical/backend/economy-system.md"
+      - ".BRAIN/05-technical/backend/cosmetic/cosmetic-system.md"
+    related_targets:
+      - "api/v1/gameplay/battle-pass/battle-pass-core.yaml"
+      - "api/v1/economy/cosmetics/cosmetic-system.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
