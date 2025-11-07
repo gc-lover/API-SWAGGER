@@ -1723,6 +1723,23 @@ mappings:
       - "api/v1/technical/realtime/realtime-server.yaml"
       - "api/v1/technical/realtime/realtime-protocol.yaml"
 
+  - source: ".BRAIN/05-technical/backend/realtime-server/part2-protocol-optimization.md"
+    target: "api/v1/technical/realtime/realtime-protocol.yaml"
+    task_id: "API-TASK-197"
+    task_file: "tasks/active/queue/task-197-realtime-protocol-api.md"
+    status: "queued"
+    created: "2025-11-07 20:35"
+    version: "v1.0.1"
+    updated: "2025-11-07 20:35"
+    related_sources:
+      - ".BRAIN/05-technical/backend/realtime-server/part1-architecture-zones.md"
+      - ".BRAIN/05-technical/backend/session-management/part2-reconnection-monitoring.md"
+      - ".BRAIN/05-technical/backend/anti-cheat/anti-cheat-compact.md"
+      - ".BRAIN/05-technical/backend/global-state/global-state-operations.md"
+    related_targets:
+      - "api/v1/technical/realtime/server-zones.yaml"
+      - "api/v1/technical/realtime/realtime-server.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
