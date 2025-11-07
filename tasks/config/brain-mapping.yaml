@@ -6055,6 +6055,24 @@ mappings:
       - "api/v1/world/factions/history-timeline.yaml"
       - "api/v1/gameplay/economy/factions/assets.yaml"
 
+  - source: ".BRAIN/04-narrative/dialogues/romance-hanako-tanaka.md"
+    target: "api/v1/narrative/romance/romance-hanako-tanaka.yaml"
+    task_id: "API-TASK-281"
+    task_file: "tasks/active/queue/task-281-romance-hanako-tanaka-api.md"
+    status: "queued"
+    created: "2025-11-08 03:20"
+    version: "v1.2.0"
+    updated: "2025-11-08 03:20"
+    related_sources:
+      - ".BRAIN/04-narrative/dialogues/faction-social-lines.md"
+      - ".BRAIN/04-narrative/npc-lore/important/hanako-arasaka.md"
+      - ".BRAIN/02-gameplay/social/romance-system.md"
+      - ".BRAIN/02-gameplay/social/reputation-formulas.md"
+    related_targets:
+      - "api/v1/social/factions/faction-social-dialogues.yaml"
+      - "api/v1/gameplay/social/romance-system.yaml"
+      - "api/v1/social/reputation/reputation-formulas.yaml"
+
   - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-catalog.md"
     target: "api/v1/gameplay/world/dungeon-bosses.yaml"
     task_id: "API-TASK-248"
