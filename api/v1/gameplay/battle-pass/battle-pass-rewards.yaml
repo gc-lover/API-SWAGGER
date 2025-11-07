@@ -11,7 +11,7 @@
 openapi: 3.0.3
 info:
   title: Battle Pass Rewards & Challenges API
-  description: Battle Pass награды, челленджи и бусты: выдача, реролл, realtime прогресс и аналитика.
+  description: "Battle Pass награды, челленджи и бусты: выдача, реролл, realtime прогресс и аналитика."
   version: 1.0.0
 servers:
   - url: https://api.necpgame.com/v1
@@ -150,7 +150,8 @@ paths:
           application/json:
             schema: { $ref: './battle-pass-rewards-components.yaml#/components/schemas/ChallengeProgressUpdateRequest' }
       responses:
-        '200': { description: Прогресс обновлён }
+        '200':
+          description: "Прогресс обновлён"
         '400':
           description: Челлендж не активен или лимит
           content:

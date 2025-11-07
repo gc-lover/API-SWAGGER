@@ -10,7 +10,7 @@
 openapi: 3.0.3
 info:
   title: Guild System API
-  description: Управление гильдиями NECPGAME: членство, ранги, банк, события, войны и аналитика.
+  description: "Управление гильдиями NECPGAME: членство, ранги, банк, события, войны и аналитика."
   version: 1.0.0
 servers:
   - url: https://api.necpgame.com/v1
@@ -109,8 +109,13 @@ paths:
           application/json:
             schema: { $ref: './guild-components.yaml#/components/schemas/GuildUpdateRequest' }
       responses:
-        '200': { description: Настройки обновлены }
-        '400': { description: Некорректные параметры, content: { application/json: { schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' } } } }
+        '200':
+          description: "Настройки обновлены"
+        '400':
+          description: "Некорректные параметры"
+          content:
+            application/json:
+              schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
     delete:
       tags: [Guilds]
@@ -121,7 +126,8 @@ paths:
           application/json:
             schema: { $ref: './guild-components.yaml#/components/schemas/GuildDisbandRequest' }
       responses:
-        '202': { description: Распуск инициирован }
+        '202':
+          description: "Распуск инициирован"
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
         '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
   /guilds/{guildId}/members:
@@ -146,8 +152,13 @@ paths:
           application/json:
             schema: { $ref: './guild-components.yaml#/components/schemas/GuildMemberAddRequest' }
       responses:
-        '202': { description: Приглашение отправлено / участник добавлен }
-        '400': { description: Лимит достигнут, content: { application/json: { schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' } } } }
+        '202':
+          description: "Приглашение отправлено / участник добавлен"
+        '400':
+          description: "Лимит достигнут"
+          content:
+            application/json:
+              schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /guilds/{guildId}/members/{memberId}:
     parameters:
@@ -162,14 +173,20 @@ paths:
           application/json:
             schema: { $ref: './guild-components.yaml#/components/schemas/GuildMemberUpdateRequest' }
       responses:
-        '200': { description: Роль обновлена }
-        '400': { description: Недопустимая операция, content: { application/json: { schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' } } } }
+        '200':
+          description: "Роль обновлена"
+        '400':
+          description: "Недопустимая операция"
+          content:
+            application/json:
+              schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
     delete:
       tags: [Members]
       summary: Исключить участника / добровольный выход
       responses:
-        '204': { description: Участник удалён }
+        '204':
+          description: "Участник удалён"
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /guilds/{guildId}/applications:
     parameters:
