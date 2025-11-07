@@ -1,10 +1,17 @@
 # Task ID: API-TASK-255
 **Тип:** API Generation
 **Приоритет:** критический
-**Статус:** queued
+**Статус:** completed
 **Создано:** 2025-11-08 09:58
-**Создатель:** AI Agent (GPT-5 Codex)
+**Завершено:** 2025-11-08 23:10
+**Исполнитель:** GPT-5 Codex (API Executor)
 **Зависимости:** API-TASK-253, API-TASK-254, API-TASK-205, API-TASK-188
+
+## 📦 Результат
+
+- Добавлены `chat-moderation.yaml`, `chat-moderation-components.yaml`, `chat-moderation-examples.yaml` (жалобы, баны, фильтры, авто-ban, <400 строк).
+- Задокументированы проверки сообщений, правила фильтрации, интеграции с анти-читом/поддержкой, события Kafka и коды ошибок `BIZ_CHAT_MOD_*`, `VAL_CHAT_MOD_*`, `INT_CHAT_MOD_*`.
+- Обновлены `brain-mapping.yaml`, `.BRAIN/05-technical/backend/chat/chat-moderation.md`, `.BRAIN/06-tasks/config/implementation-tracker.yaml`.
 
 ---
 

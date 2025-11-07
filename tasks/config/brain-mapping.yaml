@@ -6019,6 +6019,24 @@ mappings:
       - "api/v1/gameplay/world/factions/raid-scenarios.yaml"
       - "api/v1/gameplay/economy/factions/assets.yaml"
 
+  - source: ".BRAIN/03-lore/factions/factions-timeline-2020-2093.md"
+    target: "api/v1/world/factions/history-timeline.yaml"
+    task_id: "API-TASK-279"
+    task_file: "tasks/active/queue/task-279-factions-timeline-api.md"
+    status: "queued"
+    created: "2025-11-08 02:45"
+    version: "v1.1.0"
+    updated: "2025-11-08 02:45"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/seasonal-events-2020-2093.md"
+      - ".BRAIN/02-gameplay/world/global-research-2020-2093.md"
+      - ".BRAIN/02-gameplay/world/raids/faction-raid-scenarios.md"
+      - ".BRAIN/03-lore/factions/factions-original-catalog.md"
+    related_targets:
+      - "api/v1/gameplay/world/events/seasonal-schedule.yaml"
+      - "api/v1/gameplay/world/research/global-research.yaml"
+      - "api/v1/gameplay/world/factions/raid-scenarios.yaml"
+
   - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-catalog.md"
     target: "api/v1/gameplay/world/dungeon-bosses.yaml"
     task_id: "API-TASK-248"
