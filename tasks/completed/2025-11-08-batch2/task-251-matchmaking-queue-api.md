@@ -1,10 +1,17 @@
 # Task ID: API-TASK-251
 **Тип:** API Generation
 **Приоритет:** критический
-**Статус:** queued
+**Статус:** completed
 **Создано:** 2025-11-08 09:47
-**Создатель:** AI Agent (GPT-5 Codex)
+**Завершено:** 2025-11-08 22:05
+**Исполнитель:** GPT-5 Codex (API Executor)
 **Зависимости:** API-TASK-133, API-TASK-134, API-TASK-250
+
+## 📦 Результат
+
+- Созданы `matchmaking-queue.yaml`, `matchmaking-queue-components.yaml`, `matchmaking-queue-examples.yaml` (лимиты <400 строк, REST + SSE).
+- Задокументированы операции очереди, расширения, приоритеты, heartbeat, аналитика; определены коды `BIZ_QUEUE_*`, `VAL_QUEUE_*`, `INT_QUEUE_*`.
+- Обновлены `brain-mapping.yaml`, `.BRAIN/05-technical/backend/matchmaking/matchmaking-queue.md`, `.BRAIN/06-tasks/config/implementation-tracker.yaml`.
 
 ---
 
