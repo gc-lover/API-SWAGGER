@@ -141,11 +141,7 @@ paths:
       summary: Проверить статус подбора
       parameters:
         - { in: path, name: requestId, required: true, schema: { type: string } }
-      responses:
-        '200': { description: Текущий статус, content: { application/json: { schema: { $ref: '#/components/schemas/MatchmakingStatus' } } } }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
-        '410': { $ref: '../../../shared/common/responses.yaml#/components/responses/Gone' }
+      responses: { '200': { description: Текущий статус, content: { application/json: { schema: { $ref: '#/components/schemas/MatchmakingStatus' } } } }, '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }, '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }, '410': { $ref: '../../../shared/common/responses.yaml#/components/responses/Gone' } }
 
   /social/voice-lobbies/{lobbyId}/moderation/actions:
     post:
@@ -158,12 +154,7 @@ paths:
         content:
           application/json:
             schema: { $ref: '#/components/schemas/ModerationActionRequest' }
-      responses:
-        '200': { description: Действие применено, content: { application/json: { schema: { $ref: '#/components/schemas/ModerationResult' } } } }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
-        '409': { $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict' }
+      responses: { '200': { description: Действие применено, content: { application/json: { schema: { $ref: '#/components/schemas/ModerationResult' } } } }, '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }, '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }, '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }, '409': { $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict' } }
 
   /social/voice-lobbies/analytics/overview:
     get:
@@ -173,10 +164,7 @@ paths:
         - { in: query, name: activityCode, schema: { type: string } }
         - { in: query, name: region, schema: { type: string } }
         - { in: query, name: range, schema: { type: string, enum: [1h, 6h, 24h, 7d], default: 1h } }
-      responses:
-        '200': { description: Аггрегированная статистика, content: { application/json: { schema: { $ref: '#/components/schemas/VoiceLobbyAnalytics' } } } }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
+      responses: { '200': { description: Аггрегированная статистика, content: { application/json: { schema: { $ref: '#/components/schemas/VoiceLobbyAnalytics' } } } }, '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }, '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' } }
 
 components:
   securitySchemes:
