@@ -1745,6 +1745,23 @@ mappings:
       - "api/v1/world/leaderboards/leaderboards.yaml"
       - "api/v1/gameplay/progression/progression-engine.yaml"
 
+  - source: ".BRAIN/05-technical/ui/admin-panel/part1-dashboard-moderation.md"
+    target: "api/v1/admin/panel/admin-panel-ui.yaml"
+    task_id: "API-TASK-212"
+    task_file: "tasks/active/queue/task-212-admin-panel-ui-api.md"
+    status: "queued"
+    created: "2025-11-08 01:12"
+    version: "v1.0.1"
+    updated: "2025-11-08 01:12"
+    related_sources:
+      - ".BRAIN/05-technical/backend/admin/admin-tools-core.md"
+      - ".BRAIN/05-technical/backend/support/support-ticket-system.md"
+      - ".BRAIN/05-technical/backend/incident-response/incident-response.md"
+      - ".BRAIN/05-technical/backend/maintenance/maintenance-mode-system.md"
+    related_targets:
+      - "api/v1/admin/tools/admin-tools.yaml"
+      - "api/v1/admin/support/support-ticket-system.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
