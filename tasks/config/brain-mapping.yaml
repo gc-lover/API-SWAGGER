@@ -2128,6 +2128,26 @@ mappings:
       - "api/v1/social/friends/friend-system.yaml"
       - "api/v1/notifications/notifications.yaml"
       - "api/v1/gameplay/loot/advanced-loot.yaml"
+
+  - source: ".BRAIN/05-technical/backend/trade-system.md"
+    target: "api/v1/trade/trade-system.yaml"
+    task_id: "API-TASK-233"
+    task_file: "tasks/active/queue/task-233-trade-system-api.md"
+    status: "queued"
+    created: "2025-11-08 05:55"
+    version: "v1.0.0"
+    updated: "2025-11-08 05:55"
+    related_sources:
+      - ".BRAIN/05-technical/backend/inventory-system/part1-core-system.md"
+      - ".BRAIN/05-technical/backend/loot-system/part2-advanced-loot.md"
+      - ".BRAIN/05-technical/backend/economy-system.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+      - ".BRAIN/05-technical/backend/support/support-ticket-system.md"
+      - ".BRAIN/05-technical/backend/admin/admin-tools-core.md"
+    related_targets:
+      - "api/v1/inventory/inventory-management.yaml"
+      - "api/v1/gameplay/loot/advanced-loot.yaml"
+      - "api/v1/notifications/notifications.yaml"
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
@@ -5126,6 +5146,23 @@ mappings:
       - ".BRAIN/05-technical/backend/economy-system.md"
     related_targets:
       - "api/v1/progression/progression-backend.yaml"
+      - "api/v1/gameplay/economy/currency-exchange.yaml"
+
+  - source: ".BRAIN/05-technical/backend/battle-pass/part2-rewards-challenges.md"
+    target: "api/v1/gameplay/battle-pass/battle-pass-rewards.yaml"
+    task_id: "API-TASK-208"
+    task_file: "tasks/completed/2025-11-08-batch1/task-208-battle-pass-rewards-api.md"
+    status: "completed"
+    created: "2025-11-08 00:12"
+    version: "v1.0.1"
+    updated: "2025-11-08 01:50"
+    completed: "2025-11-08 01:50"
+    related_sources:
+      - ".BRAIN/05-technical/backend/quest-system.md"
+      - ".BRAIN/05-technical/backend/economy-system.md"
+      - ".BRAIN/05-technical/backend/inventory-system/part1-core-system.md"
+    related_targets:
+      - "api/v1/quest/quest-engine.yaml"
       - "api/v1/gameplay/economy/currency-exchange.yaml"
 
 
