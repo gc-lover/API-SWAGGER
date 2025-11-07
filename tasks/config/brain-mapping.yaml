@@ -2239,7 +2239,7 @@ mappings:
   - source: ".BRAIN/05-technical/backend/loot-system/part1-loot-generation.md"
     target: "api/v1/loot/loot-generation.yaml"
     task_id: "API-TASK-235"
-    task_file: "tasks/active/queue/task-235-loot-generation-api.md"
+    task_file: "tasks/completed/2025-11-08-batch2/task-235-loot-generation-api.md"
     status: "queued"
     created: "2025-11-08 06:22"
     version: "v1.0.0"
@@ -5523,4 +5523,38 @@ mappings:
       - ".BRAIN/05-technical/backend/anti-cheat/anti-cheat-core.md"
     related_targets:
       - "api/v1/gameplay/combat/arena-system.yaml"
+      - "api/v1/gameplay/economy/economy-events.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-catalog.md"
+    target: "api/v1/gameplay/world/dungeon-bosses.yaml"
+    task_id: "API-TASK-248"
+    task_file: "tasks/active/queue/task-248-dungeon-bosses-api.md"
+    status: "queued"
+    created: "2025-11-07 22:20"
+    version: "v1.1.0"
+    updated: "2025-11-07 22:20"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/dungeons/dungeon-scenarios-catalog.md"
+      - ".BRAIN/02-gameplay/world/events/live-events-system.md"
+      - ".BRAIN/05-technical/backend/progression-backend.md"
+    related_targets:
+      - "api/v1/gameplay/world/dungeons.yaml"
+      - "api/v1/gameplay/world/live-events.yaml"
+      - "api/v1/gameplay/economy/economy-events.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/world-bosses-catalog.md"
+    target: "api/v1/gameplay/world/world-bosses.yaml"
+    task_id: "API-TASK-249"
+    task_file: "tasks/active/queue/task-249-world-bosses-api.md"
+    status: "queued"
+    created: "2025-11-07 22:35"
+    version: "v1.1.0"
+    updated: "2025-11-07 22:35"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/events/live-events-system.md"
+      - ".BRAIN/05-technical/backend/leaderboard/leaderboard-core.md"
+      - ".BRAIN/05-technical/backend/economy-system.md"
+    related_targets:
+      - "api/v1/gameplay/world/dungeon-bosses.yaml"
+      - "api/v1/gameplay/world/live-events.yaml"
       - "api/v1/gameplay/economy/economy-events.yaml"

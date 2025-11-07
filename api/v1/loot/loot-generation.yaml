@@ -1,0 +1,314 @@
+# Target Architecture:
+# - Microservice: loot-service (port 8097)
+# - API Base: /api/v1/loot
+# - Dependencies: combat-service, quest-service, inventory-service, progression-service, analytics-service, notification-service, economy-service, party-service
+# - Frontend Module: modules/gameplay/loot (useLootStore)
+# - UI: LootDropModal, RollResultPanel, RaidLootSummary, LootHistoryList, LootProbabilityView, GuaranteedDropTracker
+# - Forms: LootTableEditorForm, RollChoiceForm, LootDistributionForm
+# - Hooks: useLootDrops, useLootHistory, useRollSystem, useLootTables
+
+openapi: 3.0.3
+info:
+  title: Loot Generation API
+  version: 1.0.0
+  description: Базовая система генерации и распределения лута NECPGAME.
+servers:
+  - url: https://api.necpgame.com/v1
+security:
+  - ServiceToken: []
+tags:
+  - name: Generation
+  - name: Simulation
+  - name: Tables
+  - name: Distribution
+  - name: Rolls
+  - name: History
+  - name: Analytics
+  - name: Reservations
+  - name: Admin
+paths:
+  /loot/sources/{sourceId}/generate:
+    parameters:
+      - $ref: './loot-generation-components.yaml#/components/parameters/SourceId'
+    post:
+      tags: [Generation]
+      summary: Сгенерировать лут для источника
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationRequest' }
+            examples: { raidBoss: { $ref: './loot-generation-examples.yaml#/components/examples/RaidBossGeneration' } }
+      responses:
+        '200': { description: "Результат генерации", content: { application/json: { schema: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationResult' } } } }
+        '400': { description: "Ошибка генерации", content: { application/json: { schema: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /loot/sources/{sourceId}/simulate:
+    parameters:
+      - $ref: './loot-generation-components.yaml#/components/parameters/SourceId'
+    post:
+      tags: [Simulation]
+      summary: Провести симуляцию таблицы дропа
+      security: [ { GMToken: [] } ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './loot-generation-components.yaml#/components/schemas/SimulationRequest' }
+      responses:
+        '200': { description: "Результаты симуляции", content: { application/json: { schema: { $ref: './loot-generation-components.yaml#/components/schemas/SimulationResponse' } } } }
+        '400': { description: "Ошибка симуляции", content: { application/json: { schema: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /loot/tables:
+    get:
+      tags: [Tables]
+      summary: Получить список таблиц лута
+      security: [ { GMToken: [] } ]
+      parameters:
+        - in: query
+          name: sourceType
+          schema: { type: string }
+        - in: query
+          name: active
+          schema: { type: boolean }
+        - in: query
+          name: rarityCurve
+          schema: { type: string }
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+      responses:
+        '200': { description: "Таблицы лута", content: { application/json: { schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/LootTableListResponse' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+    post:
+      tags: [Tables]
+      summary: Создать или обновить таблицу лута
+      security: [ { GMToken: [] } ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/LootTableUpsertRequest' }
+            examples: { seasonal: { $ref: './loot-generation-examples.yaml#/components/examples/SeasonalTableUpsert' } }
+      responses:
+        '201': { description: "Таблица сохранена", content: { application/json: { schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/LootTableSummary' } } } }
+        '400': { description: "Ошибка валидации", content: { application/json: { schema: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /loot/tables/{tableId}:
+    parameters:
+      - $ref: './loot-generation-components.yaml#/components/parameters/TableId'
+    get:
+      tags: [Tables]
+      summary: Получить конфигурацию таблицы
+      security: [ { GMToken: [] } ]
+      responses:
+        '200': { description: "Полная конфигурация таблицы", content: { application/json: { schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/LootTableUpsertRequest' } } } }
+        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /loot/tables/{tableId}/entries:
+    parameters:
+      - $ref: './loot-generation-components.yaml#/components/parameters/TableId'
+    post:
+      tags: [Tables]
+      summary: Массовые операции над записями таблицы
+      security: [ { GMToken: [] } ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/LootEntryBatchRequest' }
+      responses:
+        '200': { description: "Записи обновлены" }
+        '400': { description: "Ошибка изменения", content: { application/json: { schema: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /loot/distribution/personal:
+    post:
+      tags: [Distribution]
+      summary: Выдать персональный лут
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/PersonalDistributionRequest' }
+      responses:
+        '202': { description: "Выдача запланирована", content: { application/json: { schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/DistributionResult' } } } }
+        '400': { description: "Ошибка выдачи", content: { application/json: { schema: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /loot/distribution/shared:
+    post:
+      tags: [Distribution]
+      summary: Распределить общий лут
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/SharedDistributionRequest' }
+            examples: { shared: { $ref: './loot-generation-examples.yaml#/components/examples/SharedDistribution' } }
+      responses:
+        '202': { description: "Процесс распределения запущен", content: { application/json: { schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/DistributionResult' } } } }
+        '400': { description: "Ошибка распределения", content: { application/json: { schema: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /loot/distribution/raid:
+    post:
+      tags: [Distribution]
+      summary: Распределить рейдовый лут с гарантиями
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/RaidDistributionRequest' }
+      responses:
+        '202': { description: "Рейдовый лут поставлен в очередь", content: { application/json: { schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/DistributionResult' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /loot/distribution/guaranteed:
+    post:
+      tags: [Distribution]
+      summary: Выдать гарантированную награду
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/GuaranteedDistributionRequest' }
+      responses:
+        '200': { description: "Награда выдана" }
+        '400': { description: "Ошибка выдачи", content: { application/json: { schema: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /loot/rolls:
+    post:
+      tags: [Rolls]
+      summary: Создать сессию Need/Greed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/RollStartRequest' }
+      responses:
+        '201': { description: "Сессия создана" }
+        '400': { description: "Ошибка создания", content: { application/json: { schema: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationError' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /loot/rolls/{sessionId}:
+    parameters:
+      - $ref: './loot-generation-components.yaml#/components/parameters/SessionId'
+    get:
+      tags: [Rolls]
+      summary: Получить состояние ролла
+      responses:
+        '200': { description: "Текущее состояние ролла", content: { application/json: { schema: { $ref: './loot-advanced-components.yaml#/components/schemas/LootRoll' } } } }
+        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /loot/history:
+    get:
+      tags: [History]
+      summary: История полученного лута
+      security: [ { BearerAuth: [] } ]
+      parameters:
+        - in: query
+          name: playerId
+          schema: { type: string }
+        - in: query
+          name: sourceId
+          schema: { type: string }
+        - in: query
+          name: distributionMode
+          schema: { type: string, enum: [PERSONAL, SHARED, RAID, GUARANTEED] }
+        - in: query
+          name: rarity
+          schema: { type: string }
+        - in: query
+          name: from
+          schema: { type: string, format: date-time }
+        - in: query
+          name: to
+          schema: { type: string, format: date-time }
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+      responses:
+        '200': { description: "История лута", content: { application/json: { schema: { $ref: './loot-advanced-components.yaml#/components/schemas/LootHistoryResponse' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /loot/stats:
+    get:
+      tags: [Analytics]
+      summary: Агрегированные метрики дропа
+      security: [ { GMToken: [] } ]
+      parameters:
+        - in: query
+          name: tableId
+          schema: { type: string }
+        - in: query
+          name: timeRange
+          schema: { type: string }
+      responses:
+        '200': { description: "Метрики по луту", content: { application/json: { schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/LootStatsResponse' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /loot/reserve:
+    post:
+      tags: [Reservations]
+      summary: Зарезервировать предмет до выдачи
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/LootReserveRequest' }
+      responses:
+        '201': { description: "Резерв создан", content: { application/json: { schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/LootReservationResponse' } } } }
+        '400': { description: "Ошибка резерва", content: { application/json: { schema: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationError' } } } }
+  /loot/release:
+    post:
+      tags: [Reservations]
+      summary: Снять резерв с предмета
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/LootReleaseRequest' }
+      responses:
+        '200': { description: "Резерв снят" }
+        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+  /loot/events/notify:
+    post:
+      tags: [Admin]
+      summary: Отправить уведомление о событии лута
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/LootEventNotificationRequest' }
+      responses:
+        '202': { description: "Уведомление поставлено в очередь" }
+        '400': { description: "Ошибка отправки", content: { application/json: { schema: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationError' } } } }
+  /loot/pity:
+    post:
+      tags: [Admin]
+      summary: Управление счетчиками гарантированного дропа
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/PityTimerUpdateRequest' }
+      responses:
+        '200': { description: "Текущее состояние счетчика", content: { application/json: { schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/PityTimerState' } } } }
+        '400': { description: "Ошибка операции", content: { application/json: { schema: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationError' } } } }
+  /loot/config:
+    get:
+      tags: [Admin]
+      summary: Получить конфигурацию модификаторов лута
+      security: [ { GMToken: [] } ]
+      responses:
+        '200': { description: "Текущая конфигурация", content: { application/json: { schema: { $ref: './loot-generation-management-components.yaml#/components/schemas/LootConfigResponse' } } } }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+
+x-websocket:
+  url: wss://api.necpgame.com/v1/loot/stream
+  description: Поток событий генерации и распределения лута
+  messages:
+    lootGenerated: { summary: Сгенерирован лут, payload: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationResult' } }
+    lootDistributed: { summary: Лут распределен, payload: { $ref: './loot-generation-management-components.yaml#/components/schemas/DistributionResult' } }
+    rollUpdated: { summary: Обновление состояния ролла, payload: { $ref: './loot-advanced-components.yaml#/components/schemas/LootRoll' } }
+    rareDrop: { summary: Редкий предмет найден, payload: { $ref: './loot-generation-components.yaml#/components/schemas/LootRealtimeEvent' } }
+    pityTriggered: { summary: Сработал guarantee счетчик, payload: { $ref: './loot-generation-management-components.yaml#/components/schemas/PityTimerState' } }
+    lootTableUpdated: { summary: Таблица лута обновлена, payload: { $ref: './loot-generation-management-components.yaml#/components/schemas/LootTableSummary' } }
+
+components:
+  securitySchemes:
+    BearerAuth: { $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+    ServiceToken: { $ref: '../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+    GMToken: { $ref: '../shared/common/security.yaml#/components/securitySchemes/GMToken' }
