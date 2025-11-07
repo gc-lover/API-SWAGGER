@@ -4773,6 +4773,69 @@ mappings:
       - "api/v1/technical/session-management/session-management.yaml"
       - "api/v1/technical/realtime/server-zones.yaml"
 
+  - source: ".BRAIN/05-technical/backend/session-management/part2-reconnection-monitoring.md"
+    target: "api/v1/technical/session-management/reconnection-monitoring.yaml"
+    task_id: "API-TASK-199"
+    task_file: "tasks/completed/2025-11-07-batch3/task-199-session-reconnect-monitoring-api.md"
+    status: "completed"
+    created: "2025-11-07 21:35"
+    version: "v1.0.1"
+    updated: "2025-11-07 22:05"
+    completed: "2025-11-07 22:05"
+    related_sources:
+      - ".BRAIN/05-technical/backend/realtime-server/part1-architecture-zones.md"
+      - ".BRAIN/05-technical/backend/incident-response/incident-response.md"
+    related_targets:
+      - "api/v1/technical/session-management/lifecycle.yaml"
+      - "api/v1/technical/realtime/server-zones.yaml"
+
+  - source: ".BRAIN/05-technical/backend/support/support-ticket-system.md"
+    target: "api/v1/admin/support/support-tickets.yaml"
+    task_id: "API-TASK-200"
+    task_file: "tasks/completed/2025-11-07-batch3/task-200-support-ticket-system-api.md"
+    status: "completed"
+    created: "2025-11-07 21:50"
+    version: "v1.0.0"
+    updated: "2025-11-07 22:25"
+    completed: "2025-11-07 22:25"
+    related_sources:
+      - ".BRAIN/05-technical/backend/incident-response/incident-response.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+    related_targets:
+      - "api/v1/admin/support/"
+
+  - source: ".BRAIN/05-technical/backend/referral/referral-system.md"
+    target: "api/v1/social/referrals/referral-system.yaml"
+    task_id: "API-TASK-201"
+    task_file: "tasks/completed/2025-11-07-batch3/task-201-referral-system-api.md"
+    status: "completed"
+    created: "2025-11-07 22:05"
+    version: "v1.0.0"
+    updated: "2025-11-07 22:40"
+    completed: "2025-11-07 22:40"
+    related_sources:
+      - ".BRAIN/05-technical/backend/progression-backend.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+    related_targets:
+      - "api/v1/technical/progression/progression-backend.yaml"
+
+  - source: ".BRAIN/05-technical/backend/companion/companion-system.md"
+    target: "api/v1/gameplay/companions/companion-system.yaml"
+    task_id: "API-TASK-202"
+    task_file: "tasks/completed/2025-11-07-batch3/task-202-companion-system-api.md"
+    status: "completed"
+    created: "2025-11-07 22:25"
+    version: "v1.0.0"
+    updated: "2025-11-07 23:05"
+    completed: "2025-11-07 23:05"
+    related_sources:
+      - ".BRAIN/05-technical/backend/combat-session-backend.md"
+      - ".BRAIN/05-technical/backend/progression-backend.md"
+      - ".BRAIN/05-technical/backend/economy-system.md"
+    related_targets:
+      - "api/v1/gameplay/combat/combat-session.yaml"
+      - "api/v1/progression/progression-backend.yaml"
+
 
 # Примеры записей:
 #
