@@ -1833,6 +1833,24 @@ mappings:
       - "api/v1/players/players.yaml"
       - "api/v1/session/session-lifecycle.yaml"
 
+  - source: ".BRAIN/05-technical/backend/player-character-mgmt/part1-creation-deletion.md"
+    target: "api/v1/players/character-management.yaml"
+    task_id: "API-TASK-217"
+    task_file: "tasks/active/queue/task-217-character-creation-api.md"
+    status: "queued"
+    created: "2025-11-08 02:24"
+    version: "v1.0.1"
+    updated: "2025-11-08 02:24"
+    related_sources:
+      - ".BRAIN/05-technical/backend/player-character-mgmt/part2-switching-management.md"
+      - ".BRAIN/05-technical/backend/progression-backend.md"
+      - ".BRAIN/05-technical/backend/inventory-system/part1-core-system.md"
+      - ".BRAIN/05-technical/backend/authentication-authorization-system.md"
+      - ".BRAIN/05-technical/backend/world/starting-areas.md"
+    related_targets:
+      - "api/v1/players/players.yaml"
+      - "api/v1/players/character-switching.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
