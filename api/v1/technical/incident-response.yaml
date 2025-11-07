@@ -17,6 +17,7 @@ paths:
       tags:
         - Incidents
       summary: Зарегистрировать инцидент
+      description: Фиксация инцидента из alerting систем (Prometheus, SLO breach, player reports).
       operationId: createIncident
       requestBody:
         required: true
@@ -24,6 +25,19 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/IncidentCreate'
+            examples:
+              criticalAlert:
+                summary: Критический инцидент latency
+                value:
+                  title: "Latency spike on matchmaking"
+                  severity: critical
+                  detected_at: "2025-11-07T19:58:00Z"
+                  detected_by: "grafana-alert"
+                  affected_services:
+                    - matchmaking-service
+                    - voice-provider-adapter
+                  description: "p99 latency > 5s for 5 minutes"
+                  sla_breach_at: "2025-11-07T20:00:00Z"
       responses:
         '201':
           description: Инцидент создан
@@ -31,15 +45,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Incident'
+              examples:
+                createdIncident:
+                  value:
+                    id: "inc_7f3c2b90"
+                    title: "Latency spike on matchmaking"
+                    severity: critical
+                    status: acknowledged
+                    detected_at: "2025-11-07T19:58:00Z"
+                    resolved_at: null
+                    affected_services:
+                      - matchmaking-service
+                      - voice-provider-adapter
+                    commander: "oncall-engineer"
+                    sla_breach_at: "2025-11-07T20:00:00Z"
         '400':
           $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
           $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '409':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
   /technical/incidents/{incidentId}/status:
     patch:
       tags:
         - Incidents
       summary: Обновить статус инцидента
+      description: Обновление статуса, MTTA/MTTR и резолюции; синхронизируется с on-call расписанием.
       operationId: updateIncidentStatus
       parameters:
         - $ref: '#/components/parameters/IncidentId'
@@ -49,6 +80,12 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/IncidentStatusUpdate'
+            examples:
+              mitigation:
+                value:
+                  status: mitigated
+                  resolution_summary: "Traffic shifted to shard-eu-west"
+                  resolved_at: "2025-11-07T20:15:00Z"
       responses:
         '200':
           description: Статус обновлен
@@ -58,6 +95,8 @@ paths:
                 $ref: '#/components/schemas/Incident'
         '400':
           $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
           $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
   /technical/incidents/{incidentId}/escalate:
@@ -65,6 +104,7 @@ paths:
       tags:
         - Escalation
       summary: Создать эскалацию
+      description: Автоматическая или ручная эскалация к следующему уровню поддержки (SRE, Lead Engineer, Corp Security).
       operationId: escalateIncident
       parameters:
         - $ref: '#/components/parameters/IncidentId'
@@ -74,16 +114,28 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/EscalationCreate'
+            examples:
+              toSRE:
+                value:
+                  target_group: sre-primary
+                  reason: "Latency exceeds 5m critical threshold"
+                  urgency: immediate
+                  notify_channel: pagerduty
       responses:
         '202':
           description: Эскалация запущена
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
           $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+        '409':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
   /technical/incidents/{incidentId}/timeline:
     get:
       tags:
         - Incidents
       summary: Получить таймлайн инцидента
+      description: Хронология действий с привязкой к системам уведомлений и voice war-room каналам.
       operationId: getIncidentTimeline
       parameters:
         - $ref: '#/components/parameters/IncidentId'
@@ -94,6 +146,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IncidentTimelineResponse'
+              examples:
+                timeline:
+                  value:
+                    incident_id: "inc_7f3c2b90"
+                    events:
+                      - timestamp: "2025-11-07T19:58:00Z"
+                        actor: grafana-alert
+                        event_type: alert_triggered
+                        details: "Latency p99 5.4s"
+                      - timestamp: "2025-11-07T20:04:00Z"
+                        actor: oncall-engineer
+                        event_type: mitigation
+                        details: "Scaled matchmaking pods"
+                      - timestamp: "2025-11-07T20:10:00Z"
+                        actor: sre-secondary
+                        event_type: failover
+                        details: "Shifted traffic to shard-eu-west"
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
           $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
   /technical/incidents/{incidentId}/rca:
@@ -101,6 +172,7 @@ paths:
       tags:
         - RCA
       summary: Зафиксировать RCA
+      description: Пост-инцидент анализ с action items и SLA обновлениями.
       operationId: submitIncidentRca
       parameters:
         - $ref: '#/components/parameters/IncidentId'
@@ -110,6 +182,19 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/RcaRecordCreate'
+            examples:
+              rcaRecord:
+                value:
+                  root_cause: "Cache cluster misconfiguration"
+                  contributing_factors:
+                    - "Config deployed without warmup"
+                  corrective_actions:
+                    - description: "Add config validation step"
+                      owner: sre-team
+                      due_date: "2025-11-20T12:00:00Z"
+                      status: pending
+                  lessons_learned:
+                    - "Require canary validation for cache changes"
       responses:
         '201':
           description: RCA сохранен
@@ -117,14 +202,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RcaRecord'
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
           $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
 components:
   securitySchemes:
     BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
   parameters:
     IncidentId:
       name: incidentId
@@ -132,9 +217,11 @@ components:
       required: true
       schema:
         type: string
+      description: Уникальный идентификатор инцидента (формат inc_xxx или UUID).
   schemas:
     IncidentCreate:
       type: object
+      description: Исходные данные по инциденту от alerting системы или on-call инженера.
       required:
         - title
         - severity
@@ -144,11 +231,7 @@ components:
           type: string
         severity:
           type: string
-          enum:
-            - critical
-            - high
-            - medium
-            - low
+          enum: [critical, high, medium, low]
         detected_at:
           type: string
           format: date-time
@@ -163,19 +246,17 @@ components:
         sla_breach_at:
           type: string
           format: date-time
+        commander:
+          type: string
     IncidentStatusUpdate:
       type: object
+      description: Переход статуса инцидента с указанием результатов и времени.
       required:
         - status
       properties:
         status:
           type: string
-          enum:
-            - acknowledged
-            - investigating
-            - mitigated
-            - resolved
-            - closed
+          enum: [acknowledged, investigating, mitigated, resolved, closed]
         resolution_summary:
           type: string
         resolved_at:
@@ -183,6 +264,7 @@ components:
           format: date-time
     EscalationCreate:
       type: object
+      description: Параметры эскалации к следующему уровню поддержки.
       required:
         - target_group
         - reason
@@ -193,14 +275,12 @@ components:
           type: string
         urgency:
           type: string
-          enum:
-            - immediate
-            - high
-            - normal
+          enum: [immediate, high, normal]
         notify_channel:
           type: string
     RcaRecordCreate:
       type: object
+      description: Структура RCA с action items.
       required:
         - root_cause
         - corrective_actions
@@ -221,6 +301,13 @@ components:
             type: string
     Incident:
       type: object
+      description: Полная информация об инциденте.
+      required:
+        - id
+        - title
+        - severity
+        - status
+        - detected_at
       properties:
         id:
           type: string
@@ -228,20 +315,37 @@ components:
           type: string
         severity:
           type: string
+          enum: [critical, high, medium, low]
         status:
           type: string
+          enum: [new, acknowledged, investigating, mitigated, resolved, closed]
         detected_at:
           type: string
           format: date-time
         resolved_at:
           type: string
           format: date-time
+          nullable: true
+        commander:
+          type: string
         affected_services:
           type: array
           items:
             type: string
+        sla_breach_at:
+          type: string
+          format: date-time
+          nullable: true
+        mttr_minutes:
+          type: integer
+        mtta_minutes:
+          type: integer
     IncidentTimelineResponse:
       type: object
+      description: Таймлайн инцидента.
+      required:
+        - incident_id
+        - events
       properties:
         incident_id:
           type: string
@@ -251,6 +355,10 @@ components:
             $ref: '#/components/schemas/TimelineEvent'
     TimelineEvent:
       type: object
+      description: Событие таймлайна инцидента.
+      required:
+        - timestamp
+        - event_type
       properties:
         timestamp:
           type: string
@@ -263,6 +371,12 @@ components:
           type: string
     RcaRecord:
       type: object
+      description: Сохраненная RCA запись.
+      required:
+        - id
+        - incident_id
+        - root_cause
+        - corrective_actions
       properties:
         id:
           type: string
@@ -281,8 +395,15 @@ components:
         created_at:
           type: string
           format: date-time
+        owner:
+          type: string
     ActionItem:
       type: object
+      description: Пост-инцидент действие.
+      required:
+        - description
+        - owner
+        - status
       properties:
         description:
           type: string
@@ -291,5 +412,7 @@ components:
         due_date:
           type: string
           format: date-time
+          nullable: true
         status:
           type: string
+          enum: [pending, in_progress, completed, postponed]

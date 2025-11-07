@@ -1688,6 +1688,24 @@ mappings:
       - "api/v1/social/voice/voice-chat.yaml"
       - "api/v1/party/party-system.yaml"
 
+  - source: ".BRAIN/05-technical/backend/voice-chat/voice-chat-system.md"
+    target: "api/v1/social/voice/voice-chat.yaml"
+    task_id: "API-TASK-195"
+    task_file: "tasks/active/queue/task-195-voice-chat-system-api.md"
+    status: "queued"
+    created: "2025-11-07 16:20"
+    version: "v1.0.0"
+    updated: "2025-11-07 16:20"
+    related_sources:
+      - ".BRAIN/05-technical/backend/voice-lobby/voice-lobby-system.md"
+      - ".BRAIN/05-technical/backend/party-system.md"
+      - ".BRAIN/05-technical/backend/guild-system-backend.md"
+      - ".BRAIN/05-technical/backend/realtime-server/part1-architecture-zones.md"
+    related_targets:
+      - "api/v1/social/voice/voice-lobbies.yaml"
+      - "api/v1/party/party-system.yaml"
+      - "api/v1/social/voice/realtime-events.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
