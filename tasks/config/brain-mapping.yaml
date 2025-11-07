@@ -6108,6 +6108,34 @@ mappings:
       - "api/v1/narrative/romance/romance-judy-alvarez.yaml"
       - "api/v1/gameplay/world/factions/quest-chains.yaml"
 
+  - source: ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-database/part1-analysis-core.md"
+    target: "api/v1/gameplay/quests/branching-database.yaml"
+    task_id: "API-TASK-283"
+    task_file: "tasks/active/queue/task-283-quest-branching-database-api.md"
+    status: "queued"
+    created: "2025-11-08 04:00"
+    version: "v1.1.0"
+    updated: "2025-11-08 04:00"
+    related_sources:
+      - ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-database/README.md"
+      - ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-database/part2-advanced-examples.md"
+    related_targets:
+      - "api/v1/gameplay/quests/branching-database.yaml"
+
+  - source: ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-database/part2-advanced-examples.md"
+    target: "api/v1/gameplay/quests/branching-database.yaml"
+    task_id: "API-TASK-283"
+    task_file: "tasks/active/queue/task-283-quest-branching-database-api.md"
+    status: "queued"
+    created: "2025-11-08 04:00"
+    version: "v1.1.0"
+    updated: "2025-11-08 04:00"
+    related_sources:
+      - ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-database/README.md"
+      - ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-database/part1-analysis-core.md"
+    related_targets:
+      - "api/v1/gameplay/quests/branching-database.yaml"
+
   - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-catalog.md"
     target: "api/v1/gameplay/world/dungeon-bosses.yaml"
     task_id: "API-TASK-248"
