@@ -52,8 +52,8 @@ paths:
           schema:
             type: string
             enum: [ACTIVE, BANNED, SUSPENDED]
-        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Список игроков
@@ -61,7 +61,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '../../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
+                  - $ref: '../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
                   - type: object
                     properties:
                       data:
@@ -69,7 +69,7 @@ paths:
                         items:
                           $ref: '#/components/schemas/AdminPlayerView'
         '403':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
 
   /admin/players/{player_id}:
     get:
@@ -91,7 +91,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AdminPlayerDetailed'
         '403':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
 
     patch:
       summary: Обновить данные игрока
@@ -123,7 +123,7 @@ paths:
         '200':
           description: Игрок обновлен
         '403':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
 
   /admin/moderation/chat:
     get:
@@ -141,8 +141,8 @@ paths:
           schema:
             type: boolean
             default: false
-        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Логи чата
@@ -187,7 +187,7 @@ paths:
         '200':
           description: Действие выполнено
         '403':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
 
   /admin/economy/grant:
     post:
@@ -204,7 +204,7 @@ paths:
         '200':
           description: Ресурсы выданы
         '403':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
 
   /admin/economy/revoke:
     post:
@@ -233,7 +233,7 @@ paths:
         '200':
           description: Ресурсы забраны
         '403':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
 
   /admin/analytics/dashboard:
     get:
@@ -248,7 +248,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AdminDashboard'
         '403':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
 
   /admin/analytics/metrics:
     get:

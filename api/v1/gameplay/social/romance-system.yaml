@@ -62,8 +62,8 @@ paths:
           schema:
             type: integer
             default: 50
-        - $ref: '../../../../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../../../../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Доступные NPC
@@ -71,7 +71,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '../../../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
+                  - $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
                   - type: object
                     properties:
                       data:
@@ -128,7 +128,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RomanceRelationshipDetailed'
         '404':
-          $ref: '../../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
 
   /gameplay/social/romance/events:
     get:

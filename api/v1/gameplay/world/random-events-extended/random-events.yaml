@@ -1,0 +1,110 @@
+openapi: 3.0.3
+info:
+  title: Random Events Extended API
+  version: 1.0.0
+  description: |
+    API для расширенной системы случайных событий.
+
+    Функционал:
+    - 73 события перемещений (2020-2093)
+    - Event triggers (условия появления)
+    - Dynamic event generation
+    - Event consequences
+    - Event chains
+    - Player choices impact
+    - Reputation & faction effects
+
+    События охватывают все периоды:
+    - 2020-2030: Destruction and Restoration
+    - 2030-2045: Early Corpo Wars
+    - 2045-2060: Time of the Red
+    - 2060-2077: Corporate Control
+    - 2078-2090: New Equilibrium
+    - 2090-2093: Pre-Revolution
+
+    Источник: .BRAIN/04-narrative/quests/side/EVENTS-ALL-PERIODS.md v1.0.0
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+tags:
+  - name: Random Events
+    description: Случайные события
+  - name: Event Triggers
+    description: Триггеры событий
+  - name: Event History
+    description: История событий
+
+paths:
+  /gameplay/world/random-events:
+    $ref: './paths/list-random-events.yaml'
+  /gameplay/world/random-events/{event_id}:
+    $ref: './paths/get-random-event.yaml'
+  /gameplay/world/random-events/trigger:
+    $ref: './paths/trigger-random-event.yaml'
+  /gameplay/world/random-events/character/{character_id}/active:
+    $ref: './paths/get-active-events.yaml'
+  /gameplay/world/random-events/character/{character_id}/resolve:
+    $ref: './paths/resolve-event.yaml'
+  /gameplay/world/random-events/character/{character_id}/history:
+    $ref: './paths/get-event-history.yaml'
+  /gameplay/world/random-events/generate:
+    $ref: './paths/generate-event-for-location.yaml'
+
+components:
+  schemas:
+    RandomEvent:
+      $ref: './schemas/index.yaml#/RandomEvent'
+    RandomEventDetailed:
+      $ref: './schemas/index.yaml#/RandomEventDetailed'
+    TriggerConditions:
+      $ref: './schemas/index.yaml#/TriggerConditions'
+    EventChoice:
+      $ref: './schemas/index.yaml#/EventChoice'
+    EventOutcome:
+      $ref: './schemas/index.yaml#/EventOutcome'
+    TriggerEventRequest:
+      $ref: './schemas/index.yaml#/TriggerEventRequest'
+    TriggeredEventInstance:
+      $ref: './schemas/index.yaml#/TriggeredEventInstance'
+    ActiveEventInstance:
+      $ref: './schemas/index.yaml#/ActiveEventInstance'
+    ResolveEventRequest:
+      $ref: './schemas/index.yaml#/ResolveEventRequest'
+    EventResolutionResult:
+      $ref: './schemas/index.yaml#/EventResolutionResult'
+    EventHistoryEntry:
+      $ref: './schemas/index.yaml#/EventHistoryEntry'
+    PaginatedResponse:
+      $ref: '../../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
+
+  parameters:
+    Page:
+      $ref: '../../../shared/common/pagination.yaml#/components/parameters/Page'
+    PageSize:
+      $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageSize'
+
+  responses:
+    BadRequest:
+      $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+    Unauthorized:
+      $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
+    Forbidden:
+      $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden'
+    NotFound:
+      $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+    Conflict:
+      $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict'
+    UnprocessableEntity:
+      $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+    InternalServerError:
+      $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
+
+  securitySchemes:
+    BearerAuth:
+      $ref: '../../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+
+security:
+  - BearerAuth: []
+
