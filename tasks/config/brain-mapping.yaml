@@ -1959,6 +1959,23 @@ mappings:
       - "api/v1/gameplay/clans/clan-war-components.yaml"
       - "api/v1/gameplay/clans/clan-war-system.yaml"
 
+  - source: ".BRAIN/05-technical/backend/progression-backend.md"
+    target: "api/v1/progression/progression-engine.yaml"
+    task_id: "API-TASK-224"
+    task_file: "tasks/active/queue/task-224-progression-backend-api.md"
+    status: "queued"
+    created: "2025-11-08 03:48"
+    version: "v1.0.0"
+    updated: "2025-11-08 03:48"
+    related_sources:
+      - ".BRAIN/05-technical/backend/quest-engine-backend.md"
+      - ".BRAIN/05-technical/backend/combat-session-backend.md"
+      - ".BRAIN/05-technical/backend/achievement-system.md"
+      - ".BRAIN/05-technical/backend/economy-system.md"
+      - ".BRAIN/05-technical/backend/party-system.md"
+    related_targets:
+      - "api/v1/quests/quest-engine.yaml"
+      - "api/v1/combat/combat-session.yaml"
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
