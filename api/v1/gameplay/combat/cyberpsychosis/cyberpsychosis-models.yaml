@@ -7,6 +7,8 @@ info:
   title: Combat Cyberpsychosis - Models
   version: 1.0.0
 
+paths: {}
+
 components:
   schemas:
     # Человечность

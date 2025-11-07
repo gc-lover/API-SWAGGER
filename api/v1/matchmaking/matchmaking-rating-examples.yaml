@@ -101,7 +101,7 @@ components:
         page: 1
         pageSize: 50
         total: 2400
-        etag: "W/\"arena-eu-central-v5\""
+        etag: "arena-eu-central-v5"
     SmurfFlagList:
       summary: Подозрительные аккаунты
       value:

@@ -11,7 +11,7 @@ openapi: 3.0.3
 info:
   title: Maintenance Mode API
   version: 1.0.0
-  description: Управление окнами обслуживания NECPGAME: планирование, уведомления, graceful shutdown и интеграции.
+  description: "Управление окнами обслуживания NECPGAME: планирование, уведомления, graceful shutdown и интеграции."
 servers:
   - url: https://api.necpgame.com/v1
 security:

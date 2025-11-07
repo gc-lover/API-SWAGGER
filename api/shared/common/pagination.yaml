@@ -61,44 +61,6 @@ components:
         example: 0
 
   schemas:
-    Page:
-      type: object
-      description: Базовые метаданные пагинации.
-      required:
-        - page
-        - page_size
-        - total
-        - total_pages
-      properties:
-        page:
-          type: integer
-          minimum: 1
-          description: Текущий номер страницы
-          example: 1
-        page_size:
-          type: integer
-          minimum: 1
-          description: Количество элементов на странице
-          example: 20
-        total:
-          type: integer
-          minimum: 0
-          description: Общее количество элементов
-          example: 156
-        total_pages:
-          type: integer
-          minimum: 0
-          description: Общее количество страниц
-          example: 8
-        has_next:
-          type: boolean
-          description: Есть ли следующая страница
-          example: true
-        has_prev:
-          type: boolean
-          description: Есть ли предыдущая страница
-          example: false
-
     PaginationMeta:
       type: object
       description: Метаданные пагинации

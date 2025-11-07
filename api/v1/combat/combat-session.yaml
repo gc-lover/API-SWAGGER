@@ -114,7 +114,8 @@ paths:
       tags: [Actions]
       summary: Завершить текущий ход
       responses:
-        '200': { description: Ход завершён, следующий определён }
+        '200':
+          description: "Ход завершён, следующий определён"
         '400': { description: Нельзя завершить ход, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /combat/sessions/{sessionId}/damage/preview:
@@ -167,7 +168,8 @@ paths:
           application/json:
             schema: { $ref: './combat-session-components.yaml#/components/schemas/ReviveRequest' }
       responses:
-        '200': { description: Участник оживлён }
+        '200':
+          description: "Участник оживлён"
         '400': { description: Воскрешение недоступно, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /combat/sessions/{sessionId}/surrender:
@@ -182,7 +184,8 @@ paths:
           application/json:
             schema: { $ref: './combat-session-components.yaml#/components/schemas/SurrenderRequest' }
       responses:
-        '202': { description: Голосование начато }
+        '202':
+          description: "Голосование начато"
         '400': { description: Капитуляция невозможна, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /combat/sessions/{sessionId}/complete:
@@ -216,7 +219,8 @@ paths:
           application/json:
             schema: { $ref: './combat-session-components.yaml#/components/schemas/SessionAbortRequest' }
       responses:
-        '200': { description: Сессия завершена аварийно }
+        '200':
+          description: "Сессия завершена аварийно"
         '400': { description: Операция отклонена, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /combat/sessions/{sessionId}/log:
@@ -266,7 +270,8 @@ paths:
           application/json:
             schema: { $ref: './combat-session-components.yaml#/components/schemas/SimulationRequest' }
       responses:
-        '202': { description: Симуляция запущена }
+        '202':
+          description: "Симуляция запущена"
         '400': { description: Ошибка симуляции, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
 

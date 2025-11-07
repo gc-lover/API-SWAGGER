@@ -39,11 +39,11 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/HumanityInfo'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/{player_id}/humanity/calculate-loss:
     post:
@@ -78,13 +78,13 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/HumanityLossCalculation'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/{player_id}/humanity/apply-loss:
     post:
@@ -119,15 +119,15 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/HumanityUpdateResult'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '422':
-          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   # Стадии и симптомы
   /gameplay/combat/cyberpsychosis/{player_id}/stage:
@@ -157,11 +157,11 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/CyberpsychosisStage'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/{player_id}/symptoms:
     get:
@@ -192,11 +192,11 @@ paths:
                 items:
                   $ref: '../cyberpsychosis-models.yaml#/components/schemas/Symptom'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/stages/{stage_name}:
     get:
@@ -225,11 +225,11 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/StageInfo'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   # Прогрессия
   /gameplay/combat/cyberpsychosis/{player_id}/progression:
@@ -259,11 +259,11 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/ProgressionInfo'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/{player_id}/progression/calculate:
     post:
@@ -298,13 +298,13 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/ProgressionCalculation'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/{player_id}/progression/trigger:
     post:
@@ -339,13 +339,13 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/ProgressionTriggerResult'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   # Последствия
   /gameplay/combat/cyberpsychosis/{player_id}/consequences:
@@ -375,11 +375,11 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/ConsequencesInfo'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/{player_id}/stat-penalties:
     get:
@@ -408,11 +408,11 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/StatPenalties'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/{player_id}/social-effects:
     get:
@@ -441,11 +441,11 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/SocialEffects'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   # Управление
   /gameplay/combat/cyberpsychosis/{player_id}/prevention/apply:
@@ -481,15 +481,15 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/PreventionResult'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '422':
-          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/{player_id}/treatment/apply:
     post:
@@ -524,15 +524,15 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/TreatmentResult'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '422':
-          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/treatments:
     get:
@@ -552,8 +552,8 @@ paths:
             type: string
             format: uuid
           description: ID игрока (для проверки доступности)
-        - $ref: '../../shared/common/pagination.yaml#/components/parameters/Page'
-        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/Page'
+        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Список методов лечения
@@ -567,11 +567,11 @@ paths:
                     items:
                       $ref: '../cyberpsychosis-models.yaml#/components/schemas/TreatmentOption'
                   meta:
-                    $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
+                    $ref: '../../../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/{player_id}/symptom-management/apply:
     post:
@@ -606,15 +606,15 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/SymptomManagementResult'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '422':
-          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/{player_id}/adaptation:
     get:
@@ -643,11 +643,11 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/AdaptationInfo'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/{player_id}/implant-removal:
     post:
@@ -682,15 +682,15 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/ImplantRemovalResult'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '422':
-          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/{player_id}/detoxification:
     post:
@@ -725,15 +725,15 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/DetoxificationResult'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '422':
-          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   # Экономика и социальные механики
   /gameplay/combat/cyberpsychosis/{player_id}/treatment-costs:
@@ -769,13 +769,13 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/TreatmentCosts'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /gameplay/combat/cyberpsychosis/{player_id}/social-support/apply:
     post:
@@ -810,12 +810,12 @@ paths:
               schema:
                 $ref: '../cyberpsychosis-models.yaml#/components/schemas/SocialSupportResult'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
-          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '422':
-          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
         '500':
-          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'

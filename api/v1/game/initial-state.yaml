@@ -207,7 +207,7 @@ components:
         - availableActions
       properties:
         location:
-          $ref: '../start.yaml#/components/schemas/GameLocation'
+          $ref: './start.yaml#/components/schemas/GameLocation'
         availableNPCs:
           type: array
           items:

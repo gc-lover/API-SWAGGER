@@ -93,7 +93,7 @@ paths:
               schema:
                 $ref: './weapons/weapons-models.yaml#/components/schemas/WeaponDetails'
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
 
   /gameplay/combat/weapons/brands/{brand}:
     get:
@@ -176,7 +176,7 @@ paths:
               schema:
                 $ref: './weapons/weapons-models.yaml#/components/schemas/WeaponMasteryProgress'
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
 
   /gameplay/combat/weapons/mastery:
     put:

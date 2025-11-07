@@ -10,7 +10,7 @@
 openapi: 3.0.3
 info:
   title: Inventory Core API
-  description: Управление базовым инвентарём игроков: контейнеры, предметы, вес, экипировка, банк и резервы.
+  description: "Управление базовым инвентарём игроков: контейнеры, предметы, вес, экипировка, банк и резервы."
   version: 1.0.0
 servers:
   - url: https://api.necpgame.com/v1
@@ -95,7 +95,8 @@ paths:
           application/json:
             schema: { $ref: './inventory-components.yaml#/components/schemas/ItemDropRequest' }
       responses:
-        '200': { description: Предмет удалён }
+        '200':
+          description: "Предмет удалён"
         '400':
           description: Предмет не найден или зарезервирован
           content:
@@ -114,7 +115,8 @@ paths:
           application/json:
             schema: { $ref: './inventory-components.yaml#/components/schemas/ItemMoveRequest' }
       responses:
-        '200': { description: Предмет перемещён }
+        '200':
+          description: "Предмет перемещён"
         '400': { description: Конфликт контейнеров, content: { application/json: { schema: { $ref: './inventory-components.yaml#/components/schemas/InventoryError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /inventory/players/{playerId}/items/split:
@@ -129,7 +131,8 @@ paths:
           application/json:
             schema: { $ref: './inventory-components.yaml#/components/schemas/ItemSplitRequest' }
       responses:
-        '200': { description: Стек разделён }
+        '200':
+          description: "Стек разделён"
         '400': { description: Недостаточное количество или место, content: { application/json: { schema: { $ref: './inventory-components.yaml#/components/schemas/InventoryError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /inventory/players/{playerId}/items/merge:
@@ -144,7 +147,8 @@ paths:
           application/json:
             schema: { $ref: './inventory-components.yaml#/components/schemas/ItemMergeRequest' }
       responses:
-        '200': { description: Стеки объединены }
+        '200':
+          description: "Стеки объединены"
         '400': { description: Объединение невозможно, content: { application/json: { schema: { $ref: './inventory-components.yaml#/components/schemas/InventoryError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /inventory/players/{playerId}/items/equip:
@@ -162,7 +166,8 @@ paths:
               equipArmor:
                 $ref: './inventory-examples.yaml#/components/examples/EquipArmor'
       responses:
-        '200': { description: Предмет экипирован }
+        '200':
+          description: "Предмет экипирован"
         '400': { description: Требования не выполнены, content: { application/json: { schema: { $ref: './inventory-components.yaml#/components/schemas/InventoryError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /inventory/players/{playerId}/items/unequip:
@@ -177,7 +182,8 @@ paths:
           application/json:
             schema: { $ref: './inventory-components.yaml#/components/schemas/ItemUnequipRequest' }
       responses:
-        '200': { description: Предмет снят }
+        '200':
+          description: "Предмет снят"
         '400': { description: Нет места в контейнере, content: { application/json: { schema: { $ref: './inventory-components.yaml#/components/schemas/InventoryError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /inventory/players/{playerId}/items/consume:
@@ -192,7 +198,8 @@ paths:
           application/json:
             schema: { $ref: './inventory-components.yaml#/components/schemas/ItemConsumeRequest' }
       responses:
-        '200': { description: Предмет использован }
+        '200':
+          description: "Предмет использован"
         '400': { description: Нельзя использовать, content: { application/json: { schema: { $ref: './inventory-components.yaml#/components/schemas/InventoryError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /inventory/players/{playerId}/weight:
@@ -220,7 +227,8 @@ paths:
           application/json:
             schema: { $ref: './inventory-components.yaml#/components/schemas/StashTransferRequest' }
       responses:
-        '200': { description: Перемещение выполнено }
+        '200':
+          description: "Перемещение выполнено"
         '400': { description: Лимит банка или нет места, content: { application/json: { schema: { $ref: './inventory-components.yaml#/components/schemas/InventoryError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /inventory/players/{playerId}/history:
@@ -276,7 +284,8 @@ paths:
           application/json:
             schema: { $ref: './inventory-components.yaml#/components/schemas/ReservationReleaseRequest' }
       responses:
-        '200': { description: Резерв снят }
+        '200':
+          description: "Резерв снят"
         '400': { description: Резерв не найден, content: { application/json: { schema: { $ref: './inventory-components.yaml#/components/schemas/InventoryError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /inventory/players/{playerId}/filters:
@@ -304,7 +313,8 @@ paths:
           application/json:
             schema: { $ref: './inventory-components.yaml#/components/schemas/AutoSortRequest' }
       responses:
-        '202': { description: Сортировка запущена }
+        '202':
+          description: "Сортировка запущена"
         '400': { description: Функция отключена, content: { application/json: { schema: { $ref: './inventory-components.yaml#/components/schemas/InventoryError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /inventory/players/{playerId}/cleanup:
@@ -319,7 +329,8 @@ paths:
           application/json:
             schema: { $ref: './inventory-components.yaml#/components/schemas/CleanupRequest' }
       responses:
-        '200': { description: Очистка выполнена }
+        '200':
+          description: "Очистка выполнена"
         '400': { description: Нет прав или предметов, content: { application/json: { schema: { $ref: './inventory-components.yaml#/components/schemas/InventoryError' } } } }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /inventory/templates/items/{itemId}:

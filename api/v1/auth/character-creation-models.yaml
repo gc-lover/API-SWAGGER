@@ -11,6 +11,8 @@ info:
     Модели данных для API начального интерфейса: аутентификация и создание персонажей.
     Используется через $ref в главном файле character-creation.yaml.
 
+paths: {}
+
 components:
   schemas:
     # Request модели

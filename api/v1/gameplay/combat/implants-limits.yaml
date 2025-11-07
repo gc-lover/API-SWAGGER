@@ -52,7 +52,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ImplantsLimits'
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
 
   /gameplay/combat/implants-limits/check-compatibility:
     post:
@@ -88,7 +88,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CompatibilityCheckResult'
         '400':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
 
   /gameplay/combat/implants-limits/energy-budget:
     get:
@@ -115,7 +115,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/EnergyBudget'
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
 
 components:
   schemas:

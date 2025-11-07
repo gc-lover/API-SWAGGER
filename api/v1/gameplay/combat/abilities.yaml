@@ -70,7 +70,7 @@ paths:
                     items:
                       $ref: './abilities/abilities-models.yaml#/components/schemas/Ability'
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
 
   /gameplay/combat/abilities/{ability_id}:
     get:
@@ -94,7 +94,7 @@ paths:
               schema:
                 $ref: './abilities/abilities-models.yaml#/components/schemas/Ability'
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
 
   /gameplay/combat/abilities/use:
     post:
@@ -119,9 +119,9 @@ paths:
               schema:
                 $ref: './abilities/abilities-models.yaml#/components/schemas/AbilityUseResult'
         '400':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
         '409':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
 
   /gameplay/combat/abilities/loadout:
     get:
@@ -146,7 +146,7 @@ paths:
               schema:
                 $ref: './abilities/abilities-models.yaml#/components/schemas/AbilityLoadout'
         '404':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
 
     put:
       summary: Обновить loadout способностей
@@ -170,9 +170,9 @@ paths:
               schema:
                 $ref: './abilities/abilities-models.yaml#/components/schemas/AbilityLoadout'
         '400':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
         '409':
-          $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
 
   /gameplay/combat/abilities/synergies:
     get:
