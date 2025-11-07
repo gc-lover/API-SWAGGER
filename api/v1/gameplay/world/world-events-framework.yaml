@@ -56,7 +56,7 @@ paths:
           schema:
             type: string
             enum: [GLOBAL, REGIONAL, LOCAL, FACTION, ECONOMIC, TECHNOLOGICAL]
-        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/Page'
         - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':

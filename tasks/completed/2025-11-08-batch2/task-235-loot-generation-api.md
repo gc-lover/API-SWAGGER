@@ -217,6 +217,14 @@ API-SWAGGER/api/v1/loot/
 
 ---
 
+## 📦 Результат
+
+- Создана спецификация `api/v1/loot/loot-generation.yaml` с 20 REST/WS операциями.
+- Добавлены файлы `loot-generation-components.yaml`, `loot-generation-management-components.yaml`, `loot-generation-examples.yaml`.
+- Задание перенесено в completed, статусы в `brain-mapping.yaml` и `implementation-tracker.yaml` обновлены.
+
+---
+
 ## ❓FAQ
 
 **Q:** Как учитывать глобальные бонусы drop rate?**
