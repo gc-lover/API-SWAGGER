@@ -1,10 +1,17 @@
 # Task ID: API-TASK-236
 **Тип:** API Generation
 **Приоритет:** критический
-**Статус:** queued
+**Статус:** completed
 **Создано:** 2025-11-08 06:35
-**Создатель:** GPT-5 Codex (API Task Creator)
+**Завершено:** 2025-11-08 21:25
+**Исполнитель:** GPT-5 Codex (API Executor)
 **Зависимости:** API-TASK-230, API-TASK-223, API-TASK-224
+
+## 📦 Результат
+
+- Добавлены спецификации `maintenance-mode.yaml`, `maintenance-components.yaml`, `maintenance-examples.yaml` (REST + WS, <400 строк каждая).
+- Описаны процессы планового/экстренного обслуживания, уведомления, graceful shutdown, интеграции с DevOps/incident/status-page.
+- Перенесено задание в completed, обновлены `brain-mapping.yaml` и `.BRAIN/implementation-tracker.yaml`.
 
 ---
 
