@@ -2215,6 +2215,28 @@ mappings:
       - "api/v1/gameplay/loot/advanced-loot.yaml"
       - "api/v1/notifications/notifications.yaml"
 
+  - source: ".BRAIN/05-technical/backend/matchmaking/matchmaking-algorithm.md"
+    target: "api/v1/matchmaking/matchmaking-algorithm.yaml"
+    task_id: "API-TASK-250"
+    task_file: "tasks/completed/2025-11-08-batch2/task-250-matchmaking-algorithm-api.md"
+    status: "completed"
+    created: "2025-11-08 09:45"
+    version: "v1.0.1"
+    updated: "2025-11-08 21:45"
+    completed: "2025-11-08 21:45"
+    related_sources:
+      - ".BRAIN/05-technical/backend/matchmaking/matchmaking-queue.md"
+      - ".BRAIN/05-technical/backend/matchmaking/matchmaking-rating.md"
+      - ".BRAIN/05-technical/backend/party-system.md"
+      - ".BRAIN/05-technical/backend/realtime-server/part1-architecture-zones.md"
+      - ".BRAIN/05-technical/backend/voice-lobby/voice-lobby-system.md"
+    related_targets:
+      - "api/v1/matchmaking/matchmaking-queue.yaml"
+      - "api/v1/matchmaking/matchmaking-rating.yaml"
+      - "api/v1/party/party-system.yaml"
+      - "api/v1/realtime/realtime-zones.yaml"
+      - "api/v1/voice/voice-lobby.yaml"
+
   - source: ".BRAIN/05-technical/backend/inventory-system/part1-core-system.md"
     target: "api/v1/inventory/inventory-core.yaml"
     task_id: "API-TASK-234"
@@ -5526,6 +5548,68 @@ mappings:
     related_targets:
       - "api/v1/gameplay/combat/arena-system.yaml"
       - "api/v1/gameplay/economy/economy-events.yaml"
+
+  - source: ".BRAIN/02-gameplay/economy/stock-exchange/stock-dividends.md"
+    target: "api/v1/gameplay/economy/stock-exchange-dividends.yaml"
+    task_id: "API-TASK-256"
+    task_file: "tasks/active/queue/task-256-stock-exchange-dividends-api.md"
+    status: "queued"
+    created: "2025-11-07 22:55"
+    version: "v1.1.0"
+    updated: "2025-11-07 22:55"
+    related_sources:
+      - ".BRAIN/02-gameplay/economy/stock-exchange/stock-exchange-overview.md"
+      - ".BRAIN/02-gameplay/economy/economy-events.md"
+      - ".BRAIN/05-technical/backend/tax/tax-service.md"
+    related_targets:
+      - "api/v1/gameplay/economy/stock-exchange-core.yaml"
+      - "api/v1/gameplay/economy/stock-exchange-trading.yaml"
+
+  - source: ".BRAIN/02-gameplay/economy/stock-exchange/stock-events.md"
+    target: "api/v1/gameplay/economy/stock-exchange-events.yaml"
+    task_id: "API-TASK-257"
+    task_file: "tasks/active/queue/task-257-stock-exchange-events-api.md"
+    status: "queued"
+    created: "2025-11-07 23:05"
+    version: "v1.1.0"
+    updated: "2025-11-07 23:05"
+    related_sources:
+      - ".BRAIN/02-gameplay/economy/stock-exchange/stock-analytics.md"
+      - ".BRAIN/02-gameplay/world/events/live-events-system.md"
+      - ".BRAIN/04-narrative/quests/raid/2025-11-07-raid-specter-surge.md"
+    related_targets:
+      - "api/v1/gameplay/economy/stock-exchange-core.yaml"
+      - "api/v1/gameplay/economy/economy-events.yaml"
+
+  - source: ".BRAIN/02-gameplay/economy/stock-exchange/stock-analytics.md"
+    target: "api/v1/gameplay/economy/stock-exchange-analytics.yaml"
+    task_id: "API-TASK-258"
+    task_file: "tasks/active/queue/task-258-stock-exchange-analytics-api.md"
+    status: "queued"
+    created: "2025-11-07 23:15"
+    version: "v1.1.0"
+    updated: "2025-11-07 23:15"
+    related_sources:
+      - ".BRAIN/02-gameplay/economy/economy-analytics.md"
+      - ".BRAIN/02-gameplay/economy/player-market/player-market-analytics.md"
+    related_targets:
+      - "api/v1/gameplay/economy/analytics.yaml"
+      - "api/v1/gameplay/economy/stock-exchange-core.yaml"
+
+  - source: ".BRAIN/02-gameplay/economy/stock-exchange/stock-protection.md"
+    target: "api/v1/gameplay/economy/stock-exchange-protection.yaml"
+    task_id: "API-TASK-259"
+    task_file: "tasks/active/queue/task-259-stock-exchange-protection-api.md"
+    status: "queued"
+    created: "2025-11-07 23:25"
+    version: "v1.1.0"
+    updated: "2025-11-07 23:25"
+    related_sources:
+      - ".BRAIN/05-technical/backend/anti-cheat/anti-cheat-core.md"
+      - ".BRAIN/02-gameplay/economy/stock-exchange/stock-trading.md"
+    related_targets:
+      - "api/v1/gameplay/economy/stock-exchange-core.yaml"
+      - "api/v1/gameplay/economy/anti-cheat.yaml"
 
   - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-catalog.md"
     target: "api/v1/gameplay/world/dungeon-bosses.yaml"
