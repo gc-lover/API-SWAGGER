@@ -1660,6 +1660,23 @@ mappings:
       - "api/v1/economy/shop/shop-system.yaml"
       - "api/v1/gameplay/inventory/inventory-management.yaml"
 
+  - source: ".BRAIN/05-technical/backend/battle-pass/part1-core-progression.md"
+    target: "api/v1/gameplay/battle-pass/battle-pass-core.yaml"
+    task_id: "API-TASK-207"
+    task_file: "tasks/active/queue/task-207-battle-pass-core-api.md"
+    status: "queued"
+    created: "2025-11-07 23:58"
+    version: "v1.0.1"
+    updated: "2025-11-07 23:58"
+    related_sources:
+      - ".BRAIN/05-technical/backend/battle-pass/part2-rewards-challenges.md"
+      - ".BRAIN/05-technical/backend/progression-backend.md"
+      - ".BRAIN/05-technical/backend/daily-weekly-reset-system.md"
+      - ".BRAIN/05-technical/backend/economy-system.md"
+    related_targets:
+      - "api/v1/progression/progression-engine.yaml"
+      - "api/v1/system/reset-system.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
