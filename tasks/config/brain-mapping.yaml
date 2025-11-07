@@ -5906,17 +5906,20 @@ mappings:
   - source: ".BRAIN/02-gameplay/world/factions/faction-quest-chains.md"
     target: "api/v1/gameplay/world/factions/quest-chains.yaml"
     task_id: "API-TASK-272"
-    task_file: "tasks/active/queue/task-272-faction-quest-chains-api.md"
-    status: "queued"
+    task_file: "tasks/completed/2025-11-08-batch2/task-272-faction-quest-chains-api.md"
+    status: "completed"
     created: "2025-11-08 01:25"
     version: "v1.0.0"
-    updated: "2025-11-08 01:25"
+    updated: "2025-11-08 23:40"
+    completed: "2025-11-08 23:40"
     related_sources:
       - ".BRAIN/02-gameplay/world/faction-cult-defenders.md"
       - ".BRAIN/02-gameplay/world/economy-specter-helios-balance.md"
+      - ".BRAIN/02-gameplay/world/specter-hq.md"
     related_targets:
       - "api/v1/gameplay/world/factions/defenders.yaml"
       - "api/v1/gameplay/guilds/guild-contract-board.yaml"
+      - "api/v1/gameplay/world/factions/raid-scenarios.yaml"
 
   - source: ".BRAIN/02-gameplay/world/seasonal-events-2020-2093.md"
     target: "api/v1/gameplay/world/events/seasonal-schedule.yaml"
@@ -6135,6 +6138,24 @@ mappings:
       - ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-database/part1-analysis-core.md"
     related_targets:
       - "api/v1/gameplay/quests/branching-database.yaml"
+
+  - source: ".BRAIN/04-narrative/dialogues/npc-aisha-frost.md"
+    target: "api/v1/narrative/dialogues/npc-aisha-frost.yaml"
+    task_id: "API-TASK-284"
+    task_file: "tasks/active/queue/task-284-npc-aisha-frost-dialogue-api.md"
+    status: "queued"
+    created: "2025-11-08 04:20"
+    version: "v1.2.0"
+    updated: "2025-11-08 04:20"
+    related_sources:
+      - ".BRAIN/04-narrative/quests/side/2025-11-07-quest-neon-ghosts.md"
+      - ".BRAIN/02-gameplay/world/city-unrest-escalations.md"
+      - ".BRAIN/02-gameplay/world/helios-countermesh-ops.md"
+      - ".BRAIN/02-gameplay/world/seasonal-events-2020-2093.md"
+    related_targets:
+      - "api/v1/narrative/romance/romance-judy-alvarez.yaml"
+      - "api/v1/world/events/seasonal-schedule.yaml"
+      - "api/v1/gameplay/world/city-unrest.yaml"
 
   - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-catalog.md"
     target: "api/v1/gameplay/world/dungeon-bosses.yaml"

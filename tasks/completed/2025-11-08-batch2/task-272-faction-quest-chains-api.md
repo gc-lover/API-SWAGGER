@@ -1,10 +1,17 @@
 # Task ID: API-TASK-272
 **Тип:** API Generation
 **Приоритет:** высокий
-**Статус:** queued
+**Статус:** completed
 **Создано:** 2025-11-08 01:25
-**Создатель:** AI Agent (GPT-5 Codex)
+**Завершено:** 2025-11-08 23:40
+**Исполнитель:** GPT-5 Codex (API Executor)
 **Зависимости:** API-TASK-269 (faction cult defenders API), API-TASK-267 (specter HQ suite API)
+
+## 📦 Результат
+
+- Добавлены `quest-chains.yaml`, `quest-chains-components.yaml`, `quest-chains-examples.yaml` (каталог контрактов, ветвления, прогресс, завершение, WebSocket).
+- Задокументированы интеграции с social-service, economy-service, analytics-service и KPI `contractSuccessRate`, `branchPreferenceIndex`.
+- Обновлены `brain-mapping.yaml`, `.BRAIN/02-gameplay/world/factions/faction-quest-chains.md`, `.BRAIN/06-tasks/config/implementation-tracker.yaml`.
 
 ---
 

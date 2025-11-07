@@ -32,11 +32,11 @@ paths:
       summary: Список фракционных цепочек
       operationId: listFactionChains
       parameters:
-        - $ref: './factions/quest-chains-components.yaml#/components/parameters/FactionId'
-        - $ref: './factions/quest-chains-components.yaml#/components/parameters/PlayerId'
-        - $ref: './factions/quest-chains-components.yaml#/components/parameters/ReputationMin'
-        - $ref: './factions/quest-chains-components.yaml#/components/parameters/ReputationMax'
-        - $ref: './factions/quest-chains-components.yaml#/components/parameters/IncludeLocked'
+        - $ref: './quest-chains-components.yaml#/components/parameters/FactionId'
+        - $ref: './quest-chains-components.yaml#/components/parameters/PlayerId'
+        - $ref: './quest-chains-components.yaml#/components/parameters/ReputationMin'
+        - $ref: './quest-chains-components.yaml#/components/parameters/ReputationMax'
+        - $ref: './quest-chains-components.yaml#/components/parameters/IncludeLocked'
         - name: page
           in: query
           schema: { type: integer, minimum: 1, default: 1 }
@@ -48,8 +48,8 @@ paths:
           description: Каталог доступных и заблокированных цепочек.
           content:
             application/json:
-              schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/FactionChainList' }
-              examples: { default: { $ref: './factions/quest-chains-examples.yaml#/components/examples/ContractListResponse' } }
+              schema: { $ref: './quest-chains-components.yaml#/components/schemas/FactionChainList' }
+              examples: { default: { $ref: './quest-chains-examples.yaml#/components/examples/ContractListResponse' } }
         '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /world/factions/contracts/{chainId}:
     get:
@@ -57,20 +57,20 @@ paths:
       summary: Получить детали цепочки
       operationId: getFactionChain
       parameters:
-        - $ref: './factions/quest-chains-components.yaml#/components/parameters/ChainId'
-        - $ref: './factions/quest-chains-components.yaml#/components/parameters/PlayerId'
+        - $ref: './quest-chains-components.yaml#/components/parameters/ChainId'
+        - $ref: './quest-chains-components.yaml#/components/parameters/PlayerId'
       responses:
         '200':
           description: Детали цепочки, этапы и ветвления.
           content:
             application/json:
-              schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/FactionChain' }
-              examples: { default: { $ref: './factions/quest-chains-examples.yaml#/components/examples/ContractDetailResponse' } }
+              schema: { $ref: './quest-chains-components.yaml#/components/schemas/FactionChain' }
+              examples: { default: { $ref: './quest-chains-examples.yaml#/components/examples/ContractDetailResponse' } }
         '404':
           description: Цепочка не найдена или скрыта.
           content:
             application/json:
-              schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/ContractError' }
+              schema: { $ref: './quest-chains-components.yaml#/components/schemas/ContractError' }
   /world/factions/contracts/{chainId}/accept:
     post:
       tags: [Lifecycle]
@@ -78,15 +78,15 @@ paths:
       operationId: acceptFactionChain
       security: [ { BearerAuth: [world.contracts.start] } ]
       parameters:
-        - $ref: './factions/quest-chains-components.yaml#/components/parameters/ChainId'
-        - $ref: './factions/quest-chains-components.yaml#/components/parameters/AuditReason'
-        - $ref: './factions/quest-chains-components.yaml#/components/parameters/ContractTraceId'
+        - $ref: './quest-chains-components.yaml#/components/parameters/ChainId'
+        - $ref: './quest-chains-components.yaml#/components/parameters/AuditReason'
+        - $ref: './quest-chains-components.yaml#/components/parameters/ContractTraceId'
       requestBody:
         required: true
         content:
           application/json:
-            schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/AcceptRequest' }
-            examples: { default: { $ref: './factions/quest-chains-examples.yaml#/components/examples/AcceptRequest' } }
+            schema: { $ref: './quest-chains-components.yaml#/components/schemas/AcceptRequest' }
+            examples: { default: { $ref: './quest-chains-examples.yaml#/components/examples/AcceptRequest' } }
       responses:
         '202':
           description: Цепочка назначена игроку, инициированы интеграции.
@@ -96,17 +96,17 @@ paths:
               description: Идентификатор задачи обновления репутации.
           content:
             application/json:
-              schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/FactionChain' }
+              schema: { $ref: './quest-chains-components.yaml#/components/schemas/FactionChain' }
         '400':
           description: Некорректный запрос.
           content:
             application/json:
-              schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/ContractError' }
+              schema: { $ref: './quest-chains-components.yaml#/components/schemas/ContractError' }
         '409':
           description: Цепочка недоступна или кулдаун.
           content:
             application/json:
-              schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/ContractError' }
+              schema: { $ref: './quest-chains-components.yaml#/components/schemas/ContractError' }
   /world/factions/contracts/{chainId}/choose:
     post:
       tags: [Lifecycle]
@@ -114,24 +114,24 @@ paths:
       operationId: chooseFactionChainBranch
       security: [ { BearerAuth: [world.contracts.branch] } ]
       parameters:
-        - $ref: './factions/quest-chains-components.yaml#/components/parameters/ChainId'
+        - $ref: './quest-chains-components.yaml#/components/parameters/ChainId'
       requestBody:
         required: true
         content:
           application/json:
-            schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/BranchSelectionRequest' }
-            examples: { default: { $ref: './factions/quest-chains-examples.yaml#/components/examples/BranchSelectionRequest' } }
+            schema: { $ref: './quest-chains-components.yaml#/components/schemas/BranchSelectionRequest' }
+            examples: { default: { $ref: './quest-chains-examples.yaml#/components/examples/BranchSelectionRequest' } }
       responses:
         '200':
           description: Ветвь закреплена за игроком, заблокированы альтернативы.
           content:
             application/json:
-              schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/FactionChain' }
+              schema: { $ref: './quest-chains-components.yaml#/components/schemas/FactionChain' }
         '409':
           description: Ветвь недоступна или уже выбрана.
           content:
             application/json:
-              schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/ContractError' }
+              schema: { $ref: './quest-chains-components.yaml#/components/schemas/ContractError' }
   /world/factions/contracts/{chainId}/progress:
     post:
       tags: [Progress]
@@ -139,13 +139,13 @@ paths:
       operationId: updateFactionChainProgress
       security: [ { BearerAuth: [world.contracts.progress] } ]
       parameters:
-        - $ref: './factions/quest-chains-components.yaml#/components/parameters/ChainId'
+        - $ref: './quest-chains-components.yaml#/components/parameters/ChainId'
       requestBody:
         required: true
         content:
           application/json:
-            schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/ProgressUpdate' }
-            examples: { default: { $ref: './factions/quest-chains-examples.yaml#/components/examples/ProgressUpdate' } }
+            schema: { $ref: './quest-chains-components.yaml#/components/schemas/ProgressUpdate' }
+            examples: { default: { $ref: './quest-chains-examples.yaml#/components/examples/ProgressUpdate' } }
       responses:
         '200':
           description: Прогресс обновлён, world флаги синхронизированы.
@@ -158,13 +158,13 @@ paths:
               schema:
                 type: object
                 properties:
-                  stage: { $ref: './factions/quest-chains-components.yaml#/components/schemas/ChainStage' }
+                  stage: { $ref: './quest-chains-components.yaml#/components/schemas/ChainStage' }
                   status: { type: string, enum: [IN_PROGRESS, COMPLETED, FAILED] }
         '410':
           description: Цепочка более не активна (aborted/expired).
           content:
             application/json:
-              schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/ContractError' }
+              schema: { $ref: './quest-chains-components.yaml#/components/schemas/ContractError' }
   /world/factions/contracts/{chainId}/outcome:
     post:
       tags: [Lifecycle]
@@ -172,28 +172,28 @@ paths:
       operationId: applyFactionChainOutcome
       security: [ { BearerAuth: [world.contracts.complete] }, { ServiceToken: [] } ]
       parameters:
-        - $ref: './factions/quest-chains-components.yaml#/components/parameters/ChainId'
-        - $ref: './factions/quest-chains-components.yaml#/components/parameters/AuditReason'
+        - $ref: './quest-chains-components.yaml#/components/parameters/ChainId'
+        - $ref: './quest-chains-components.yaml#/components/parameters/AuditReason'
       requestBody:
         required: true
         content:
           application/json:
-            schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/OutcomeRequest' }
-            examples: { default: { $ref: './factions/quest-chains-examples.yaml#/components/examples/OutcomeRequest' } }
+            schema: { $ref: './quest-chains-components.yaml#/components/schemas/OutcomeRequest' }
+            examples: { default: { $ref: './quest-chains-examples.yaml#/components/examples/OutcomeRequest' } }
       responses:
         '200':
           description: Награды начислены, репутации обновлены, последующие события запланированы.
           content:
             application/json:
-              schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/OutcomeResponse' }
-              examples: { default: { $ref: './factions/quest-chains-examples.yaml#/components/examples/OutcomeResponse' } }
+              schema: { $ref: './quest-chains-components.yaml#/components/schemas/OutcomeResponse' }
+              examples: { default: { $ref: './quest-chains-examples.yaml#/components/examples/OutcomeResponse' } }
         '202':
           description: Завершение поставлено в очередь (отложенная выдача наград).
         '409':
           description: Исход уже применён или цепочка не завершена.
           content:
             application/json:
-              schema: { $ref: './factions/quest-chains-components.yaml#/components/schemas/ContractError' }
+              schema: { $ref: './quest-chains-components.yaml#/components/schemas/ContractError' }
 
 x-integrations:
   social-service:
@@ -237,8 +237,8 @@ x-websocket:
           outcome: { type: string }
           reputation:
             type: array
-            items: { $ref: './factions/quest-chains-components.yaml#/components/schemas/ReputationChange' }
-          rewards: { $ref: './factions/quest-chains-components.yaml#/components/schemas/RewardPayload' }
+            items: { $ref: './quest-chains-components.yaml#/components/schemas/ReputationChange' }
+          rewards: { $ref: './quest-chains-components.yaml#/components/schemas/RewardPayload' }
 
 components:
   securitySchemes:
