@@ -210,8 +210,13 @@ paths:
           application/json:
             schema: { $ref: './guild-components.yaml#/components/schemas/GuildApplicationRequest' }
       responses:
-        '202': { description: Заявка создана }
-        '400': { description: Заявка уже существует, content: { application/json: { schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' } } } }
+        '202':
+          description: "Заявка создана"
+        '400':
+          description: "Заявка уже существует"
+          content:
+            application/json:
+              schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' }
   /guilds/{guildId}/applications/{applicationId}/approve:
     parameters:
       - $ref: './guild-components.yaml#/components/parameters/GuildId'
@@ -225,8 +230,13 @@ paths:
           application/json:
             schema: { $ref: './guild-components.yaml#/components/schemas/GuildApplicationDecisionRequest' }
       responses:
-        '200': { description: Решение применено }
-        '400': { description: Заявка недействительна, content: { application/json: { schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' } } } }
+        '200':
+          description: "Решение применено"
+        '400':
+          description: "Заявка недействительна"
+          content:
+            application/json:
+              schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /guilds/{guildId}/ranks:
     parameters:
@@ -250,8 +260,13 @@ paths:
           application/json:
             schema: { $ref: './guild-components.yaml#/components/schemas/GuildRankUpdateRequest' }
       responses:
-        '200': { description: Ранги обновлены }
-        '400': { description: Недопустимые разрешения, content: { application/json: { schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' } } } }
+        '200':
+          description: "Ранги обновлены"
+        '400':
+          description: "Недопустимые разрешения"
+          content:
+            application/json:
+              schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /guilds/{guildId}/bank:
     parameters:
@@ -281,8 +296,13 @@ paths:
           application/json:
             schema: { $ref: './guild-components.yaml#/components/schemas/GuildBankTransactionRequest' }
       responses:
-        '202': { description: Транзакция создана и ждёт подтверждения }
-        '400': { description: Лимит превышен, content: { application/json: { schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' } } } }
+        '202':
+          description: "Транзакция создана и ждёт подтверждения"
+        '400':
+          description: "Лимит превышен"
+          content:
+            application/json:
+              schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /guilds/{guildId}/progression:
     parameters:
@@ -309,8 +329,13 @@ paths:
           application/json:
             schema: { $ref: './guild-components.yaml#/components/schemas/GuildPerkUnlockRequest' }
       responses:
-        '200': { description: Перк разблокирован, исследование начато }
-        '400': { description: Недостаточно ресурсов или зависимость, content: { application/json: { schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' } } } }
+        '200':
+          description: "Перк разблокирован, исследование начато"
+        '400':
+          description: "Недостаточно ресурсов или зависимость"
+          content:
+            application/json:
+              schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /guilds/{guildId}/events:
     parameters:
@@ -337,8 +362,13 @@ paths:
               eventCreate:
                 $ref: './guild-examples.yaml#/components/examples/GuildEventCreate'
       responses:
-        '201': { description: Событие создано }
-        '400': { description: Конфликт расписаний, content: { application/json: { schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' } } } }
+        '201':
+          description: "Событие создано"
+        '400':
+          description: "Конфликт расписаний"
+          content:
+            application/json:
+              schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /guilds/{guildId}/events/{eventId}/attendance:
     parameters:
@@ -353,8 +383,13 @@ paths:
           application/json:
             schema: { $ref: './guild-components.yaml#/components/schemas/GuildAttendanceRequest' }
       responses:
-        '200': { description: Attendance обновлён }
-        '400': { description: Лимит участников достигнут, content: { application/json: { schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' } } } }
+        '200':
+          description: "Attendance обновлён"
+        '400':
+          description: "Лимит участников достигнут"
+          content:
+            application/json:
+              schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /guilds/{guildId}/wars:
     parameters:
@@ -381,8 +416,13 @@ paths:
           application/json:
             schema: { $ref: './guild-components.yaml#/components/schemas/AllianceRequest' }
       responses:
-        '202': { description: Заявка отправлена }
-        '400': { description: Конфликт интересов, content: { application/json: { schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' } } } }
+        '202':
+          description: "Заявка отправлена"
+        '400':
+          description: "Конфликт интересов"
+          content:
+            application/json:
+              schema: { $ref: './guild-components.yaml#/components/schemas/GuildError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /guilds/{guildId}/audit:
     parameters:

@@ -10,7 +10,7 @@
 openapi: 3.0.3
 info:
   title: Notification System API
-  description: Универсальная платформа уведомлений NECPGAME: inbox, push, email, предпочтения, история, аналitika.
+  description: "Универсальная платформа уведомлений NECPGAME: inbox, push, email, предпочтения, история, аналитика."
   version: 1.0.0
 servers:
   - url: https://api.necpgame.com/v1
@@ -136,8 +136,13 @@ paths:
           application/json:
             schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationTestRequest' }
       responses:
-        '200': { description: Тест отправлен }
-        '400': { description: Ошибка шаблона, content: { application/json: { schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' } } } }
+        '200':
+          description: "Тест отправлен"
+        '400':
+          description: "Ошибка шаблона"
+          content:
+            application/json:
+              schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /notifications/preferences:
     get:
@@ -162,8 +167,13 @@ paths:
               preferencesUpdate:
                 $ref: './notifications-examples.yaml#/components/examples/PreferencesUpdate'
       responses:
-        '200': { description: Предпочтения обновлены }
-        '400': { description: Недопустимые значения, content: { application/json: { schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' } } } }
+        '200':
+          description: "Предпочтения обновлены"
+        '400':
+          description: "Недопустимые значения"
+          content:
+            application/json:
+              schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /notifications/quiet-hours:
     get:
@@ -185,8 +195,13 @@ paths:
           application/json:
             schema: { $ref: './notifications-components.yaml#/components/schemas/QuietHoursUpdateRequest' }
       responses:
-        '200': { description: Тихие часы обновлены }
-        '400': { description: Недопустимый интервал, content: { application/json: { schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' } } } }
+        '200':
+          description: "Тихие часы обновлены"
+        '400':
+          description: "Недопустимый интервал"
+          content:
+            application/json:
+              schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /notifications/devices:
     get:
@@ -208,8 +223,13 @@ paths:
           application/json:
             schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationDeviceRegisterRequest' }
       responses:
-        '201': { description: Устройство зарегистрировано }
-        '400': { description: Неверный токен устройства, content: { application/json: { schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' } } } }
+        '201':
+          description: "Устройство зарегистрировано"
+        '400':
+          description: "Неверный токен устройства"
+          content:
+            application/json:
+              schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /notifications/devices/{deviceId}:
     delete:
@@ -218,7 +238,8 @@ paths:
       parameters:
         - $ref: './notifications-components.yaml#/components/parameters/DeviceId'
       responses:
-        '204': { description: Устройство удалено }
+        '204':
+          description: "Устройство удалено"
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /notifications/templates:
     get:
@@ -250,7 +271,11 @@ paths:
           content:
             application/json:
               schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationTemplateRenderResponse' }
-        '400': { description: Ошибка рендера, content: { application/json: { schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' } } } }
+        '400':
+          description: "Ошибка рендера"
+          content:
+            application/json:
+              schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /notifications/delivery:
     get:
@@ -284,8 +309,13 @@ paths:
           application/json:
             schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationAckRequest' }
       responses:
-        '200': { description: Статус обновлён }
-        '400': { description: Уведомление не найдено, content: { application/json: { schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' } } } }
+        '200':
+          description: "Статус обновлён"
+        '400':
+          description: "Уведомление не найдено"
+          content:
+            application/json:
+              schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /notifications/{notificationId}:
     delete:
@@ -294,7 +324,8 @@ paths:
       parameters:
         - $ref: './notifications-components.yaml#/components/parameters/NotificationId'
       responses:
-        '204': { description: Уведомление скрыто }
+        '204':
+          description: "Уведомление скрыто"
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /notifications/webhooks:
     post:
@@ -308,8 +339,13 @@ paths:
           application/json:
             schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationWebhookRequest' }
       responses:
-        '201': { description: Webhook настроен }
-        '400': { description: Ошибка валидации, content: { application/json: { schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' } } } }
+        '201':
+          description: "Webhook настроен"
+        '400':
+          description: "Ошибка валидации"
+          content:
+            application/json:
+              schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /notifications/retry/{notificationId}:
     post:
@@ -325,8 +361,13 @@ paths:
           application/json:
             schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationRetryRequest' }
       responses:
-        '202': { description: Повторная отправка запланирована }
-        '400': { description: Лимит ретраев исчерпан, content: { application/json: { schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' } } } }
+        '202':
+          description: "Повторная отправка запланирована"
+        '400':
+          description: "Лимит ретраев исчерпан"
+          content:
+            application/json:
+              schema: { $ref: './notifications-components.yaml#/components/schemas/NotificationError' }
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-websocket:
