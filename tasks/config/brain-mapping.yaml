@@ -1815,6 +1815,24 @@ mappings:
       - "api/v1/loot/loot-generation.yaml"
       - "api/v1/inventory/inventory-advanced.yaml"
 
+  - source: ".BRAIN/05-technical/backend/player-character-mgmt/part2-switching-management.md"
+    target: "api/v1/players/character-switching.yaml"
+    task_id: "API-TASK-216"
+    task_file: "tasks/active/queue/task-216-character-switching-api.md"
+    status: "queued"
+    created: "2025-11-08 02:08"
+    version: "v1.0.1"
+    updated: "2025-11-08 02:08"
+    related_sources:
+      - ".BRAIN/05-technical/backend/player-character-mgmt/part1-creation-deletion.md"
+      - ".BRAIN/05-technical/backend/session-management/part1-lifecycle-heartbeat.md"
+      - ".BRAIN/05-technical/backend/session-management/part2-reconnection-monitoring.md"
+      - ".BRAIN/05-technical/backend/inventory-system/part2-advanced-features.md"
+      - ".BRAIN/05-technical/backend/progression-backend.md"
+    related_targets:
+      - "api/v1/players/players.yaml"
+      - "api/v1/session/session-lifecycle.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"

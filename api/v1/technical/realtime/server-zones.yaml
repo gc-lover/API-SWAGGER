@@ -29,14 +29,7 @@ paths:
       tags: [Instances]
       summary: Зарегистрировать realtime-инстанс
       description: Регистрация нового realtime-сервера (tickRate 20/30/60, maxPlayers ≤ 2000).
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema: { $ref: '#/components/schemas/RealtimeInstanceRegistrationRequest' }
-            examples:
-              watson:
-                value: { instanceId: "rt-nyc-01", region: "night-city/eu-west", tickRate: 30, maxZones: 6, maxPlayers: 1200, supportedZoneTypes: [urban, corporate, raid], metadata: { build: "0.9.7", gitSha: "a1b2c3d" } }
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/RealtimeInstanceRegistrationRequest' }, examples: { watson: { value: { instanceId: "rt-nyc-01", region: "night-city/eu-west", tickRate: 30, maxZones: 6, maxPlayers: 1200, supportedZoneTypes: [urban, corporate, raid], metadata: { build: "0.9.7", gitSha: "a1b2c3d" } } } } } }
       responses:
         '201': { description: Инстанс зарегистрирован, content: { application/json: { schema: { $ref: '#/components/schemas/RealtimeInstance' } } } }
         '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
@@ -51,7 +44,7 @@ paths:
         - { in: query, name: region, schema: { type: string } }
         - { in: query, name: tickRate, schema: { type: integer, enum: [20, 30, 60] } }
       responses:
-        '200': { description: Инстансы, content: { application/json: { schema: { $ref: '#/components/schemas/RealtimeInstanceList' } } } }
+        '200': { description: Инстансы, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/RealtimeInstance' } } } } }
         '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
         '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
   /technical/realtime/instances/{instanceId}:
@@ -126,7 +119,7 @@ paths:
         - { in: query, name: assignedServerId, schema: { type: string } }
         - { in: query, name: isPvpEnabled, schema: { type: boolean } }
       responses:
-        '200': { description: Зоны, content: { application/json: { schema: { $ref: '#/components/schemas/ZoneList' } } } }
+        '200': { description: Зоны, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Zone' } } } } }
         '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
         '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
   /technical/realtime/zones/{zoneId}:
@@ -172,7 +165,7 @@ paths:
               citycenter:
                 value: { targetInstanceId: "rt-nyc-03", drainStrategy: gradual, priority: high, reason: "CPU load 92%", scheduledFor: "2025-11-07T18:20:00Z" }
       responses:
-        '202': { description: Перенос запланирован, content: { application/json: { schema: { $ref: '#/components/schemas/ZoneTransferPlan' } } } }
+        '202': { description: Перенос запланирован }
         '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
         '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
         '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
@@ -191,12 +184,7 @@ paths:
             schema: { $ref: '#/components/schemas/ZoneEvacuationPlan' }
             examples:
               watsonDrain:
-                value:
-                  targetZoneId: "night-city.watson.safe"
-                  batchSize: 25
-                  intervalMs: 500
-                  notifyPlayers: true
-                  timeoutSeconds: 90
+                value: { targetZoneId: "night-city.watson.safe", batchSize: 25, intervalMs: 500, notifyPlayers: true, timeoutSeconds: 90 }
       responses:
         '202': { description: Эвакуация начата }
         '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
@@ -212,7 +200,7 @@ paths:
         - { in: query, name: limit, schema: { type: integer, default: 100 } }
         - { in: query, name: sort, schema: { type: string, enum: [playerCount, npcCount, latency] } }
       responses:
-        '200': { description: Cell summary, content: { application/json: { schema: { $ref: '#/components/schemas/ZoneCellSummaryList' } } } }
+        '200': { description: Cell summary, content: { application/json: { schema: { type: object, properties: { zoneId: { type: string }, cells: { type: array, items: { $ref: '#/components/schemas/ZoneCellSummary' } } } } } } }
         '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
         '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
   /technical/realtime/zones/{zoneId}/cells/{cellKey}/snapshot:
@@ -240,7 +228,7 @@ paths:
           application/json:
             schema: { $ref: '#/components/schemas/PlayerRelocationRequest' }
       responses:
-        '202': { description: Перенос инициирован, content: { application/json: { schema: { $ref: '#/components/schemas/PlayerRelocationResult' } } } }
+        '202': { description: Перенос инициирован }
         '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
         '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
         '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
@@ -258,13 +246,7 @@ paths:
             schema: { $ref: '#/components/schemas/RealtimeAlertRequest' }
             examples:
               overCapacity:
-                value:
-                  alertType: ZONE_OVER_CAPACITY
-                  severity: critical
-                  sourceInstanceId: "rt-nyc-02"
-                  zoneId: "night-city.city-center"
-                  metrics: { currentPlayers: 230, maxPlayers: 200 }
-                  actions: ["notifyOps", "scheduleTransfer"]
+                value: { alertType: ZONE_OVER_CAPACITY, severity: critical, sourceInstanceId: "rt-nyc-02", zoneId: "night-city.city-center", metrics: { currentPlayers: 230, maxPlayers: 200 }, actions: [notifyOps, scheduleTransfer] }
       responses:
         '202': { description: Alert зафиксирован }
         '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
@@ -278,10 +260,6 @@ components:
     CellKey: { name: cellKey, in: path, required: true, schema: { type: string, pattern: '^[0-9]+:[0-9]+$' }, description: Координаты cell (x:y, шаг 100м) }
     PlayerId: { name: playerId, in: path, required: true, schema: { type: string }, description: UUID игрока }
   schemas:
-    RealtimeInstanceList:
-      type: object
-      properties:
-        items: { type: array, items: { $ref: '#/components/schemas/RealtimeInstance' } }
     RealtimeInstance:
       type: object
       required: [instanceId, region, status, tickRate, maxZones, maxPlayers, currentPlayers]
@@ -344,10 +322,6 @@ components:
         redisLatencyMs: { type: number }
         interestQueueDepth: { type: integer }
         netBandwidthMbps: { type: number }
-    ZoneList:
-      type: object
-      properties:
-        items: { type: array, items: { $ref: '#/components/schemas/Zone' } }
     Zone:
       type: object
       required: [zoneId, zoneName, zoneType, status, maxPlayers, currentPlayers]
@@ -391,15 +365,6 @@ components:
         priority: { type: string, enum: [low, normal, high, critical] }
         reason: { type: string }
         scheduledFor: { type: string, format: date-time }
-    ZoneTransferPlan:
-      type: object
-      properties:
-        transferId: { type: string }
-        zoneId: { type: string }
-        sourceInstanceId: { type: string }
-        targetInstanceId: { type: string }
-        eta: { type: string, format: date-time }
-        status: { type: string, enum: [scheduled, draining, completed, cancelled] }
     ZoneEvacuationPlan:
       type: object
       required: [targetZoneId, batchSize, intervalMs]
@@ -409,11 +374,6 @@ components:
         intervalMs: { type: integer, minimum: 100 }
         notifyPlayers: { type: boolean }
         timeoutSeconds: { type: integer, minimum: 30 }
-    ZoneCellSummaryList:
-      type: object
-      properties:
-        zoneId: { type: string }
-        cells: { type: array, items: { $ref: '#/components/schemas/ZoneCellSummary' } }
     ZoneCellSummary:
       type: object
       required: [cellKey, playerCount, npcCount]
@@ -446,12 +406,6 @@ components:
         targetInstanceId: { type: string }
         reason: { type: string }
         preserveSession: { type: boolean }
-    PlayerRelocationResult:
-      type: object
-      properties:
-        relocationId: { type: string }
-        status: { type: string, enum: [scheduled, relocating, completed] }
-        message: { type: string }
     RealtimeAlertRequest:
       type: object
       required: [alertType, severity]
@@ -462,9 +416,3 @@ components:
         zoneId: { type: string }
         metrics: { type: object, additionalProperties: true }
         actions: { type: array, items: { type: string } }
-    RealtimeEventEnvelope:
-      type: object
-      properties:
-        eventType: { type: string, enum: [realtime.instance.overloaded, realtime.zone.reassigned, realtime.player.evacuated] }
-        publishedAt: { type: string, format: date-time }
-        payload: { type: object, additionalProperties: true }
