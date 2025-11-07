@@ -1694,6 +1694,23 @@ mappings:
       - "api/v1/gameplay/battle-pass/battle-pass-core.yaml"
       - "api/v1/economy/cosmetics/cosmetic-system.yaml"
 
+  - source: ".BRAIN/05-technical/ui/achievements/ui-achievements-main.md"
+    target: "api/v1/gameplay/achievements/achievements-ui.yaml"
+    task_id: "API-TASK-209"
+    task_file: "tasks/active/queue/task-209-achievement-ui-api.md"
+    status: "queued"
+    created: "2025-11-08 00:28"
+    version: "v1.0.0"
+    updated: "2025-11-08 00:28"
+    related_sources:
+      - ".BRAIN/05-technical/backend/achievement/achievement-core.md"
+      - ".BRAIN/05-technical/backend/achievement/achievement-tracking.md"
+      - ".BRAIN/05-technical/backend/achievement/achievement-examples-api.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+    related_targets:
+      - "api/v1/achievements/achievements.yaml"
+      - "api/v1/gameplay/progression/progression-engine.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
