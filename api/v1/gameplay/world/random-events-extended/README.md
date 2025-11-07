@@ -9,3 +9,4 @@ Random Events Extended API
 
 Все общие компоненты (ответы, пагинация, безопасность) подключаются из `api/v1/shared/common/`.
 
+

@@ -1,0 +1,36 @@
+get:
+  summary: Получить список рецептов
+  operationId: listRecipes
+  tags: [Recipes]
+  parameters:
+    - name: category
+      in: query
+      schema:
+        type: string
+        enum: [WEAPONS, ARMOR, IMPLANTS, MODS, CONSUMABLES]
+    - name: tier
+      in: query
+      description: Tier рецепта
+      schema:
+        type: string
+        enum: [T1, T2, T3, T4, T5]
+    - name: min_skill_level
+      in: query
+      schema:
+        type: integer
+    - $ref: '../../../../shared/common/pagination.yaml#/components/parameters/Page'
+    - $ref: '../../../../shared/common/pagination.yaml#/components/parameters/PageSize'
+  responses:
+    '200':
+      description: Список рецептов
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../../../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
+              - type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '../schemas/index.yaml#/components/schemas/CraftingRecipe'

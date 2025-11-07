@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: Crafting System API
+  version: 1.0.0
+  description: |
+    API для системы крафта.
+
+servers:
+  - url: https://api.necp.game/v1
+    description: Production server
+
+tags:
+  - name: Recipes
+    description: Рецепты крафта
+  - name: Crafting
+    description: Процесс крафта
+  - name: Blueprints
+    description: Чертежи
+
+paths:
+  /gameplay/economy/crafting/recipes:
+    $ref: './paths/list-recipes.yaml'
+  /gameplay/economy/crafting/recipes/{recipe_id}:
+    $ref: './paths/get-recipe.yaml'
+  /gameplay/economy/crafting/character/{character_id}/known-recipes:
+    $ref: './paths/get-known-recipes.yaml'
+  /gameplay/economy/crafting/character/{character_id}/learn-recipe:
+    $ref: './paths/learn-recipe.yaml'
+  /gameplay/economy/crafting/craft:
+    $ref: './paths/craft-item.yaml'
+  /gameplay/economy/crafting/sessions/{session_id}:
+    $ref: './paths/get-crafting-session.yaml'
+  /gameplay/economy/crafting/sessions/{session_id}/complete:
+    $ref: './paths/complete-crafting.yaml'
+  /gameplay/economy/crafting/stations:
+    $ref: './paths/get-crafting-stations.yaml'
+  /gameplay/economy/crafting/calculate:
+    $ref: './paths/calculate-crafting-chance.yaml'
+
+components:
+  schemas:
+    CraftingRecipe:
+      $ref: './schemas/index.yaml#/components/schemas/CraftingRecipe'
+    CraftingRecipeDetailed:
+      $ref: './schemas/index.yaml#/components/schemas/CraftingRecipeDetailed'
+    ComponentRequirement:
+      $ref: './schemas/index.yaml#/components/schemas/ComponentRequirement'
+    CraftRequest:
+      $ref: './schemas/index.yaml#/components/schemas/CraftRequest'
+    CraftingSession:
+      $ref: './schemas/index.yaml#/components/schemas/CraftingSession'
+    CraftingResult:
+      $ref: './schemas/index.yaml#/components/schemas/CraftingResult'
+    CraftingStation:
+      $ref: './schemas/index.yaml#/components/schemas/CraftingStation'
+    CraftingCalculation:
+      $ref: './schemas/index.yaml#/components/schemas/CraftingCalculation'
+  securitySchemes:
+    BearerAuth:
+      $ref: '../../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+
+security:
+  - BearerAuth: []

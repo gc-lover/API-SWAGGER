@@ -1,0 +1,30 @@
+post:
+  summary: Изучить новый рецепт
+  operationId: learnRecipe
+  tags: [Blueprints]
+  parameters:
+    - name: character_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            recipe_id:
+              type: string
+            blueprint_item_id:
+              type: string
+              format: uuid
+              description: ID чертежа в инвентаре
+  responses:
+    '200':
+      description: Рецепт изучен
+    '400':
+      $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
+

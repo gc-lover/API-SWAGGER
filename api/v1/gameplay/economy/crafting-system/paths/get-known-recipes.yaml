@@ -1,0 +1,34 @@
+get:
+  summary: Получить известные рецепты персонажа
+  operationId: getKnownRecipes
+  tags: [Recipes]
+  parameters:
+    - name: character_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - name: category
+      in: query
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Известные рецепты
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              known_recipes:
+                type: array
+                items:
+                  $ref: '../schemas/index.yaml#/components/schemas/CraftingRecipe'
+              total_recipes:
+                type: integer
+              recipes_by_category:
+                type: object
+                additionalProperties:
+                  type: integer
+

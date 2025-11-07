@@ -153,6 +153,48 @@ mappings:
     related_targets:
       - "api/v1/locations/locations.yaml"
 
+  - source: ".BRAIN/06-tasks/active/CURRENT-WORK/active/2025-11-07-world-interaction-ui.md"
+    target: "api/v1/world/world-interaction-suite.yaml"
+    task_id: "API-TASK-241"
+    task_file: "tasks/active/queue/task-241-world-interaction-suite-api.md"
+    status: "queued"
+    created: "2025-11-07 16:53"
+    version: "1.0.0"
+    updated: "2025-11-07 16:53"
+    related_sources:
+      - ".BRAIN/05-technical/global-state/global-state-operations.md"
+      - ".BRAIN/02-gameplay/world/world-state/player-impact-mechanics.md"
+      - ".BRAIN/02-gameplay/world/world-state/player-impact-systems.md"
+    related_targets: []
+
+  - source: ".BRAIN/06-tasks/active/CURRENT-WORK/active/2025-11-07-world-interaction-ui.md"
+    target: "api/v1/economy/market/stabilizer.yaml"
+    task_id: "API-TASK-242"
+    task_file: "tasks/active/queue/task-242-market-stabilizer-api.md"
+    status: "queued"
+    created: "2025-11-07 16:53"
+    version: "1.0.0"
+    updated: "2025-11-07 16:53"
+    related_sources:
+      - ".BRAIN/02-gameplay/economy/economy-analytics.md"
+      - ".BRAIN/02-gameplay/economy/economy-events.md"
+      - ".BRAIN/02-gameplay/economy/economy-logistics.md"
+    related_targets: []
+
+  - source: ".BRAIN/06-tasks/active/CURRENT-WORK/active/2025-11-07-world-interaction-ui.md"
+    target: "api/v1/social/resonance.yaml"
+    task_id: "API-TASK-243"
+    task_file: "tasks/active/queue/task-243-social-resonance-api.md"
+    status: "queued"
+    created: "2025-11-07 16:53"
+    version: "1.0.0"
+    updated: "2025-11-07 16:53"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/social-overview.md"
+      - ".BRAIN/02-gameplay/social/social-campaigns.md"
+      - ".BRAIN/04-narrative/romance-system/romance-framework.md"
+    related_targets: []
+
   - source: ".BRAIN/05-technical/ui-main-game.md"
     target: "api/v1/characters/status.yaml"
     task_id: "API-TASK-035"

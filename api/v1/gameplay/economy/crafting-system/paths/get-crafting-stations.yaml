@@ -1,0 +1,17 @@
+get:
+  summary: Получить доступные крафтинг станции
+  operationId: getCraftingStations
+  tags: [Crafting]
+  responses:
+    '200':
+      description: Станции крафта
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              stations:
+                type: array
+                items:
+                  $ref: '../schemas/index.yaml#/components/schemas/CraftingStation'
+

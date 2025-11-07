@@ -60,7 +60,7 @@ paths:
           in: query
           schema:
             type: string
-        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/Page'
         - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':

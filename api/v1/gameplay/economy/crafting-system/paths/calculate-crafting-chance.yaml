@@ -1,0 +1,28 @@
+post:
+  summary: Рассчитать шанс успеха и время крафта
+  operationId: calculateCraftingChance
+  tags: [Crafting]
+  description: Для UI - показать перед крафтом
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            character_id:
+              type: string
+              format: uuid
+            recipe_id:
+              type: string
+            station_id:
+              type: string
+              nullable: true
+  responses:
+    '200':
+      description: Расчет крафта
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/index.yaml#/components/schemas/CraftingCalculation'
+
