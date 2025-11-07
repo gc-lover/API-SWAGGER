@@ -1762,6 +1762,23 @@ mappings:
       - "api/v1/admin/tools/admin-tools.yaml"
       - "api/v1/admin/support/support-ticket-system.yaml"
 
+  - source: ".BRAIN/05-technical/ui/admin-panel/part2-analytics-controls.md"
+    target: "api/v1/admin/panel/admin-panel-analytics-ui.yaml"
+    task_id: "API-TASK-213"
+    task_file: "tasks/active/queue/task-213-admin-panel-analytics-ui-api.md"
+    status: "queued"
+    created: "2025-11-08 01:26"
+    version: "v1.0.1"
+    updated: "2025-11-08 01:26"
+    related_sources:
+      - ".BRAIN/05-technical/backend/admin/admin-tools-core.md"
+      - ".BRAIN/05-technical/backend/analytics/analytics-reporting.md"
+      - ".BRAIN/05-technical/backend/maintenance/maintenance-mode-system.md"
+      - ".BRAIN/05-technical/backend/incident-response/incident-response.md"
+    related_targets:
+      - "api/v1/admin/panel/admin-panel-ui.yaml"
+      - "api/v1/admin/analytics/analytics-reporting.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
