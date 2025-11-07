@@ -369,3 +369,20 @@ components:
     MatchmakingError:
       allOf:
         - $ref: '../../shared/common/responses.yaml#/components/schemas/Error'
+        - type: object
+          properties:
+            error:
+              type: object
+              properties:
+                code:
+                  type: string
+                  enum:
+                    - BIZ_MATCH_NOT_FOUND
+                    - BIZ_MATCH_ALREADY_CONFIRMED
+                    - BIZ_MATCH_READY_CHECK_ACTIVE
+                    - VAL_MATCH_ROLE_MISMATCH
+                    - VAL_MATCH_LATENCY_CAP_EXCEEDED
+                    - VAL_MATCH_INVALID_TOKEN
+                    - INT_MATCH_SERVER_UNAVAILABLE
+                    - INT_MATCH_ANALYTICS_FAILURE
+              required: [code, message]
