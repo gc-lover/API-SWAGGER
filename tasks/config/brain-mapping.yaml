@@ -6037,6 +6037,24 @@ mappings:
       - "api/v1/gameplay/world/research/global-research.yaml"
       - "api/v1/gameplay/world/factions/raid-scenarios.yaml"
 
+  - source: ".BRAIN/04-narrative/dialogues/faction-social-lines.md"
+    target: "api/v1/social/factions/faction-social-dialogues.yaml"
+    task_id: "API-TASK-280"
+    task_file: "tasks/active/queue/task-280-faction-social-lines-api.md"
+    status: "queued"
+    created: "2025-11-08 03:00"
+    version: "v1.0.0"
+    updated: "2025-11-08 03:00"
+    related_sources:
+      - ".BRAIN/03-lore/factions/factions-original-catalog.md"
+      - ".BRAIN/03-lore/factions/factions-timeline-2020-2093.md"
+      - ".BRAIN/02-gameplay/world/factions/faction-economy-integration.md"
+      - ".BRAIN/04-narrative/dialogues/romance-hanako-tanaka.md"
+    related_targets:
+      - "api/v1/world/factions/original-catalog.yaml"
+      - "api/v1/world/factions/history-timeline.yaml"
+      - "api/v1/gameplay/economy/factions/assets.yaml"
+
   - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-catalog.md"
     target: "api/v1/gameplay/world/dungeon-bosses.yaml"
     task_id: "API-TASK-248"
