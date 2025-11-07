@@ -2302,6 +2302,28 @@ mappings:
       - "api/v1/guilds/guild-system.yaml"
       - "api/v1/notifications/notifications.yaml"
 
+  - source: ".BRAIN/05-technical/backend/chat/chat-features.md"
+    target: "api/v1/social/chat/chat-features.yaml"
+    task_id: "API-TASK-254"
+    task_file: "tasks/completed/2025-11-08-batch2/task-254-chat-features-api.md"
+    status: "completed"
+    created: "2025-11-08 09:56"
+    version: "v1.0.1"
+    updated: "2025-11-08 22:55"
+    completed: "2025-11-08 22:55"
+    related_sources:
+      - ".BRAIN/05-technical/backend/chat/chat-channels.md"
+      - ".BRAIN/05-technical/backend/chat/chat-moderation.md"
+      - ".BRAIN/05-technical/backend/voice-lobby/voice-lobby-system.md"
+      - ".BRAIN/05-technical/backend/translation-service.md"
+      - ".BRAIN/05-technical/backend/session-management/part2-reconnection-monitoring.md"
+    related_targets:
+      - "api/v1/social/chat/chat-channels.yaml"
+      - "api/v1/social/chat/chat-moderation.yaml"
+      - "api/v1/voice/voice-lobby.yaml"
+      - "api/v1/translation/translation-service.yaml"
+      - "api/v1/session/session-management.yaml"
+
   - source: ".BRAIN/05-technical/backend/inventory-system/part1-core-system.md"
     target: "api/v1/inventory/inventory-core.yaml"
     task_id: "API-TASK-234"

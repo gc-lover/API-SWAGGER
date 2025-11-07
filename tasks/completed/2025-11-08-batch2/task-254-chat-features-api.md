@@ -1,10 +1,17 @@
 # Task ID: API-TASK-254
 **Тип:** API Generation
 **Приоритет:** высокий
-**Статус:** queued
+**Статус:** completed
 **Создано:** 2025-11-08 09:56
-**Создатель:** AI Agent (GPT-5 Codex)
+**Завершено:** 2025-11-08 22:55
+**Исполнитель:** GPT-5 Codex (API Executor)
 **Зависимости:** API-TASK-253, API-TASK-193, API-TASK-205, API-TASK-255
+
+## 📦 Результат
+
+- Добавлены `chat-features.yaml`, `chat-features-components.yaml`, `chat-features-examples.yaml` (команды, голос, перевод, история, <400 строк).
+- Описаны slash-команды, форматирование, WebRTC join/leave/mute, перевод и история; определены коды `BIZ_CHAT_FEATURE_*`, `VAL_CHAT_FEATURE_*`, `INT_CHAT_FEATURE_*`.
+- Обновлены `brain-mapping.yaml`, `.BRAIN/05-technical/backend/chat/chat-features.md`, `.BRAIN/06-tasks/config/implementation-tracker.yaml`.
 
 ---
 
