@@ -2280,6 +2280,28 @@ mappings:
       - "api/v1/analytics/analytics.yaml"
       - "api/v1/anti-cheat/anti-cheat.yaml"
 
+  - source: ".BRAIN/05-technical/backend/chat/chat-channels.md"
+    target: "api/v1/social/chat/chat-channels.yaml"
+    task_id: "API-TASK-253"
+    task_file: "tasks/completed/2025-11-08-batch2/task-253-chat-channels-api.md"
+    status: "completed"
+    created: "2025-11-08 09:53"
+    version: "v1.0.1"
+    updated: "2025-11-08 22:40"
+    completed: "2025-11-08 22:40"
+    related_sources:
+      - ".BRAIN/05-technical/backend/chat/chat-moderation.md"
+      - ".BRAIN/05-technical/backend/chat/chat-features.md"
+      - ".BRAIN/05-technical/backend/session-management/part1-lifecycle-heartbeat.md"
+      - ".BRAIN/05-technical/backend/guild-system-backend.md"
+      - ".BRAIN/05-technical/backend/voice-lobby/voice-lobby-system.md"
+    related_targets:
+      - "api/v1/social/chat/chat-moderation.yaml"
+      - "api/v1/social/chat/chat-features.yaml"
+      - "api/v1/party/party-system.yaml"
+      - "api/v1/guilds/guild-system.yaml"
+      - "api/v1/notifications/notifications.yaml"
+
   - source: ".BRAIN/05-technical/backend/inventory-system/part1-core-system.md"
     target: "api/v1/inventory/inventory-core.yaml"
     task_id: "API-TASK-234"
@@ -5836,6 +5858,51 @@ mappings:
       - "api/v1/gameplay/world/specter-hq.yaml"
       - "api/v1/gameplay/world/helios-ops.yaml"
       - "api/v1/gameplay/world/city-unrest.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/factions/faction-quest-chains.md"
+    target: "api/v1/gameplay/world/factions/quest-chains.yaml"
+    task_id: "API-TASK-272"
+    task_file: "tasks/active/queue/task-272-faction-quest-chains-api.md"
+    status: "queued"
+    created: "2025-11-08 01:25"
+    version: "v1.0.0"
+    updated: "2025-11-08 01:25"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/faction-cult-defenders.md"
+      - ".BRAIN/02-gameplay/world/economy-specter-helios-balance.md"
+    related_targets:
+      - "api/v1/gameplay/world/factions/defenders.yaml"
+      - "api/v1/gameplay/guilds/guild-contract-board.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/seasonal-events-2020-2093.md"
+    target: "api/v1/gameplay/world/events/seasonal-schedule.yaml"
+    task_id: "API-TASK-273"
+    task_file: "tasks/active/queue/task-273-seasonal-events-schedule-api.md"
+    status: "queued"
+    created: "2025-11-08 01:32"
+    version: "v1.0.0"
+    updated: "2025-11-08 01:32"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/global-research-2020-2093.md"
+      - ".BRAIN/02-gameplay/world/city-unrest-escalations.md"
+    related_targets:
+      - "api/v1/gameplay/world/city-unrest.yaml"
+      - "api/v1/gameplay/world/raids/specter-surge-loot.yaml"
+
+  - source: ".BRAIN/05-technical/analytics/faction-analytics-balance.md"
+    target: "api/v1/technical/analytics/faction-balance.yaml"
+    task_id: "API-TASK-274"
+    task_file: "tasks/active/queue/task-274-faction-analytics-balance-api.md"
+    status: "queued"
+    created: "2025-11-08 01:40"
+    version: "v1.0.0"
+    updated: "2025-11-08 01:40"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/factions/faction-quest-chains.md"
+      - ".BRAIN/02-gameplay/world/raids/specter-surge-loot.md"
+    related_targets:
+      - "api/v1/gameplay/world/factions/quest-chains.yaml"
+      - "api/v1/gameplay/world/raids/specter-surge-loot.yaml"
 
   - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-catalog.md"
     target: "api/v1/gameplay/world/dungeon-bosses.yaml"
