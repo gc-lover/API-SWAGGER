@@ -1740,6 +1740,23 @@ mappings:
       - "api/v1/technical/realtime/server-zones.yaml"
       - "api/v1/technical/realtime/realtime-server.yaml"
 
+  - source: ".BRAIN/05-technical/backend/session-management/part1-lifecycle-heartbeat.md"
+    target: "api/v1/technical/session-management/lifecycle.yaml"
+    task_id: "API-TASK-198"
+    task_file: "tasks/active/queue/task-198-session-lifecycle-api.md"
+    status: "queued"
+    created: "2025-11-07 21:05"
+    version: "v1.0.1"
+    updated: "2025-11-07 21:05"
+    related_sources:
+      - ".BRAIN/05-technical/backend/session-management/part2-reconnection-monitoring.md"
+      - ".BRAIN/05-technical/backend/auth/auth-login-jwt.md"
+      - ".BRAIN/05-technical/backend/global-state/global-state-sync.md"
+      - ".BRAIN/05-technical/backend/anti-cheat/anti-cheat-compact.md"
+    related_targets:
+      - "api/v1/technical/session-management/session-management.yaml"
+      - "api/v1/technical/session-management/reconnection-monitoring.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
