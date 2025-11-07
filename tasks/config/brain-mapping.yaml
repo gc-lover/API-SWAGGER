@@ -6143,6 +6143,27 @@ mappings:
     related_targets:
       - "api/v1/gameplay/quests/branching-database.yaml"
 
+  - source: ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-system-tech-questions-compact.md"
+    target: "api/v1/world/state/quest-sync.yaml"
+    task_id: "API-TASK-295"
+    task_file: "tasks/active/queue/task-295-quest-system-quest-sync-api.md"
+    status: "queued"
+    created: "2025-11-08 07:20"
+    version: "v2.1.0"
+    updated: "2025-11-08 07:20"
+    related_sources:
+      - ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-database/README.md"
+      - ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-database/part1-analysis-core.md"
+      - ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-database/part2-advanced-examples.md"
+      - ".BRAIN/02-gameplay/world/world-state/world-governance-model.md"
+      - ".BRAIN/02-gameplay/social/reputation-formulas.md"
+    related_targets:
+      - "api/v1/gameplay/quests/branching-database.yaml"
+      - "api/v1/gameplay/quests/main/quest-main-002-choose-path.yaml"
+      - "api/v1/social/reputation/reputation-formulas.yaml"
+      - "api/v1/economy/rewards/grants.yaml"
+      - "api/v1/world/events/seasonal-schedule.yaml"
+
   - source: ".BRAIN/04-narrative/dialogues/npc-aisha-frost.md"
     target: "api/v1/narrative/dialogues/npc-aisha-frost.yaml"
     task_id: "API-TASK-284"
