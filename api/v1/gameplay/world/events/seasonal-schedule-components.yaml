@@ -36,6 +36,14 @@ components:
       required: false
       schema: { type: string, example: "ru-RU", default: "en-US" }
       description: Код локали ISO для локализованных описаний.
+    LocalizationHeader:
+      name: Accept-Language
+      in: header
+      required: false
+      description: Укажите локаль для локализованного ответа.
+      schema:
+        type: string
+        example: "ru-RU"
     EventId:
       name: eventId
       in: path
