@@ -5509,3 +5509,18 @@ mappings:
     related_targets:
       - "api/v1/technical/announcement-system.yaml"
       - "api/v1/gameplay/economy/economy-events.yaml"
+
+  - source: ".BRAIN/02-gameplay/combat/loot-hunt-system.md"
+    target: "api/v1/gameplay/combat/loot-hunt.yaml"
+    task_id: "API-TASK-247"
+    task_file: "tasks/active/queue/task-247-loot-hunt-system-api.md"
+    status: "queued"
+    created: "2025-11-07 22:05"
+    version: "v1.0.0"
+    updated: "2025-11-07 22:05"
+    related_sources:
+      - ".BRAIN/03-lore/activities/activities-lore-compendium.md"
+      - ".BRAIN/05-technical/backend/anti-cheat/anti-cheat-core.md"
+    related_targets:
+      - "api/v1/gameplay/combat/arena-system.yaml"
+      - "api/v1/gameplay/economy/economy-events.yaml"
