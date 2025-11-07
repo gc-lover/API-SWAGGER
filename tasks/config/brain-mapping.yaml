@@ -5694,6 +5694,23 @@ mappings:
       - "api/v1/gameplay/combat/arena-system.yaml"
       - "api/v1/gameplay/combat/loot-hunt.yaml"
 
+  - source: ".BRAIN/05-technical/backend/daily-reset/daily-reset-compact.md"
+    target: "api/v1/admin/reset/reset-operations.yaml"
+    task_id: "API-TASK-298"
+    task_file: "tasks/active/queue/task-298-daily-reset-operations-api.md"
+    status: "queued"
+    created: "2025-11-07 22:55"
+    version: "1.0.0"
+    updated: "2025-11-07 22:55"
+    related_sources:
+      - ".BRAIN/05-technical/backend/daily-weekly-reset-system.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+      - ".BRAIN/05-technical/backend/maintenance/maintenance-mode-system.md"
+    related_targets:
+      - "api/v1/system/reset-system.yaml"
+      - "api/v1/admin/maintenance/maintenance-mode.yaml"
+      - "api/v1/technical/analytics/analytics-reporting.yaml"
+
   - source: ".BRAIN/02-gameplay/economy/stock-exchange/stock-dividends.md"
     target: "api/v1/gameplay/economy/stock-exchange-dividends.yaml"
     task_id: "API-TASK-256"
