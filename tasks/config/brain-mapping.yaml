@@ -1904,6 +1904,23 @@ mappings:
       - "api/v1/achievements/achievement-core.yaml"
       - "api/v1/achievements/achievement-tracking.yaml"
 
+  - source: ".BRAIN/05-technical/backend/session-management/README.md"
+    target: "docs/session-management/session-api-readme.md"
+    task_id: "API-TASK-221"
+    task_file: "tasks/active/queue/task-221-session-readme-examples-api.md"
+    status: "queued"
+    created: "2025-11-08 03:16"
+    version: "v1.0.2"
+    updated: "2025-11-08 03:16"
+    related_sources:
+      - ".BRAIN/05-technical/backend/session-management/part1-lifecycle-heartbeat.md"
+      - ".BRAIN/05-technical/backend/session-management/part2-reconnection-monitoring.md"
+      - ".BRAIN/05-technical/backend/realtime-server/README.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+    related_targets:
+      - "api/v1/technical/session-management/lifecycle.yaml"
+      - "api/v1/technical/session-management/reconnection-monitoring.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
