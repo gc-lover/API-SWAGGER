@@ -5463,3 +5463,49 @@ mappings:
     updated: "2025-11-07 16:30"
     related_sources:
       - ".BRAIN/06-tasks/ideas/2025-11-07-IDEA-hybrid-media-references.md"
+
+  - source: ".BRAIN/02-gameplay/combat/arena-system.md"
+    target: "api/v1/gameplay/combat/arena-system.yaml"
+    task_id: "API-TASK-244"
+    task_file: "tasks/active/queue/task-244-arena-system-api.md"
+    status: "queued"
+    created: "2025-11-07 21:30"
+    version: "v1.0.0"
+    updated: "2025-11-07 21:30"
+    related_sources:
+      - ".BRAIN/03-lore/activities/activities-lore-compendium.md"
+      - ".BRAIN/03-lore/characters/activity-npc-roster.md"
+    related_targets:
+      - "api/v1/social/voice/voice-lobbies.yaml"
+      - "api/v1/gameplay/social/neon-popularity-reset.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-scenarios-catalog.md"
+    target: "api/v1/gameplay/world/dungeons.yaml"
+    task_id: "API-TASK-245"
+    task_file: "tasks/active/queue/task-245-dungeon-scenarios-api.md"
+    status: "queued"
+    created: "2025-11-07 21:40"
+    version: "v1.0.0"
+    updated: "2025-11-07 21:40"
+    related_sources:
+      - ".BRAIN/03-lore/activities/activities-lore-compendium.md"
+      - ".BRAIN/03-lore/characters/activity-npc-roster.md"
+    related_targets:
+      - "api/v1/gameplay/world/live-events.yaml"
+      - "api/v1/gameplay/combat/arena-system.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/events/live-events-system.md"
+    target: "api/v1/gameplay/world/live-events.yaml"
+    task_id: "API-TASK-246"
+    task_file: "tasks/active/queue/task-246-live-events-api.md"
+    status: "queued"
+    created: "2025-11-07 21:50"
+    version: "v1.0.0"
+    updated: "2025-11-07 21:50"
+    related_sources:
+      - ".BRAIN/03-lore/activities/activities-lore-compendium.md"
+      - ".BRAIN/02-gameplay/combat/arena-system.md"
+      - ".BRAIN/02-gameplay/world/dungeons/dungeon-scenarios-catalog.md"
+    related_targets:
+      - "api/v1/technical/announcement-system.yaml"
+      - "api/v1/gameplay/economy/economy-events.yaml"
