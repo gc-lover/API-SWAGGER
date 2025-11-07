@@ -265,7 +265,7 @@ components:
           description: character_id для игроков, npc_id для NPC
         team:
           type: string
-          example: "A" или "B"
+          example: "A"
         initial_position:
           type: object
           properties:
