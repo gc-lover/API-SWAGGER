@@ -1,0 +1,55 @@
+components:
+  examples:
+    CreateSeason:
+      summary: Создание сезона Battle Pass
+      value:
+        seasonNumber: 7
+        name: "Neon Uprising"
+        theme: "Cyberpunk Resistance"
+        description: "Сезон сопротивления корпорациям, новые миссии и награды."
+        startDate: "2025-12-01T00:00:00Z"
+        endDate: "2026-02-28T23:59:59Z"
+        maxLevel: 120
+        xpPerLevel: 8000
+        premiumPrice: 3500
+        premiumCurrency: "shards"
+        xpCapPerDay: 24000
+    XpGrantRequest:
+      summary: Начисление XP за победу в матче
+      value:
+        playerId: "player-90321"
+        seasonId: "bps-2025-07"
+        source: "MATCH_WIN"
+        amount: 1200
+        multiplier: 2.0
+        metadata:
+          matchId: "match-552211"
+          map: "NightCity-Docks"
+          mvp: true
+    PremiumPurchaseRequest:
+      summary: Покупка премиума за shards
+      value:
+        playerId: "player-90321"
+        seasonId: "bps-2025-07"
+        paymentMethod: "CURRENCY"
+        currency: "shards"
+        amount: 3500
+        platform: "pc"
+    BattlePassAnalyticsResponse:
+      summary: Аналитика за 30 дней
+      value:
+        generatedAt: "2025-11-07T23:59:00Z"
+        seasonId: "bps-2025-07"
+        range: "30d"
+        activePlayers: 182340
+        premiumConversionRate: 0.41
+        averageLevel: 58.6
+        xpDistribution:
+          - { levelRange: "1-20", playerCount: 45210 }
+          - { levelRange: "21-60", playerCount: 96230 }
+          - { levelRange: "61-100", playerCount: 35800 }
+          - { levelRange: "101-120", playerCount: 5220 }
+        retentionMetrics:
+          day7: 0.62
+          day30: 0.44
+          premiumRetention: 0.71
