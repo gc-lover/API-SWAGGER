@@ -39,6 +39,7 @@ paths:
         - $ref: './seasonal-schedule-components.yaml#/components/parameters/Year'
         - $ref: './seasonal-schedule-components.yaml#/components/parameters/Timezone'
         - $ref: './seasonal-schedule-components.yaml#/components/parameters/Locale'
+        - $ref: './seasonal-schedule-components.yaml#/components/parameters/LocalizationHeader'
       responses:
         '200':
           description: Список событий с разбивкой по типам.
@@ -55,6 +56,7 @@ paths:
       parameters:
         - $ref: './seasonal-schedule-components.yaml#/components/parameters/Timezone'
         - $ref: './seasonal-schedule-components.yaml#/components/parameters/Locale'
+        - $ref: './seasonal-schedule-components.yaml#/components/parameters/LocalizationHeader'
       responses:
         '200':
           description: Активные и предстоящие события.
@@ -83,6 +85,9 @@ paths:
             X-Event-Activation-Id:
               schema: { type: string }
               description: Идентификатор операции запуска.
+            Content-Language:
+              schema: { type: string }
+              description: Локаль локализованного ответа.
           content:
             application/json:
               schema: { $ref: './seasonal-schedule-components.yaml#/components/schemas/EventDefinition' }
@@ -109,6 +114,10 @@ paths:
       responses:
         '200':
           description: Событие завершено, награды разосланы.
+          headers:
+            Content-Language:
+              schema: { type: string }
+              description: Локаль локализованного ответа.
           content:
             application/json:
               schema: { $ref: './seasonal-schedule-components.yaml#/components/schemas/OutcomeEffect' }
@@ -134,6 +143,10 @@ paths:
       responses:
         '200':
           description: Модификатор принят и поставлен в очередь.
+          headers:
+            Content-Language:
+              schema: { type: string }
+              description: Локаль локализованного ответа.
           content:
             application/json:
               schema: { $ref: './seasonal-schedule-components.yaml#/components/schemas/EconomicModifier' }
@@ -157,6 +170,10 @@ paths:
       responses:
         '202':
           description: Сообщение принято и отправляется аудиториям.
+          headers:
+            Content-Language:
+              schema: { type: string }
+              description: Локаль локализованного ответа.
         '400':
           description: Ошибка в payload.
           content:
@@ -177,6 +194,10 @@ paths:
       responses:
         '200':
           description: Активность зарегистрирована.
+          headers:
+            Content-Language:
+              schema: { type: string }
+              description: Локаль локализованного ответа.
           content:
             application/json:
               schema: { $ref: './seasonal-schedule-components.yaml#/components/schemas/TelemetryEvent' }
