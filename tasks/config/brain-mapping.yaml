@@ -2324,6 +2324,28 @@ mappings:
       - "api/v1/translation/translation-service.yaml"
       - "api/v1/session/session-management.yaml"
 
+  - source: ".BRAIN/05-technical/backend/chat/chat-moderation.md"
+    target: "api/v1/social/chat/chat-moderation.yaml"
+    task_id: "API-TASK-255"
+    task_file: "tasks/completed/2025-11-08-batch2/task-255-chat-moderation-api.md"
+    status: "completed"
+    created: "2025-11-08 09:58"
+    version: "v1.0.1"
+    updated: "2025-11-08 23:10"
+    completed: "2025-11-08 23:10"
+    related_sources:
+      - ".BRAIN/05-technical/backend/chat/chat-channels.md"
+      - ".BRAIN/05-technical/backend/chat/chat-features.md"
+      - ".BRAIN/05-technical/backend/anti-cheat/anti-cheat-compact.md"
+      - ".BRAIN/05-technical/backend/security-audit.md"
+      - ".BRAIN/05-technical/backend/support/support-ticket-system.md"
+    related_targets:
+      - "api/v1/social/chat/chat-channels.yaml"
+      - "api/v1/social/chat/chat-features.yaml"
+      - "api/v1/anti-cheat/anti-cheat.yaml"
+      - "api/v1/audit/security-audit.yaml"
+      - "api/v1/support/support-tickets.yaml"
+
   - source: ".BRAIN/05-technical/backend/inventory-system/part1-core-system.md"
     target: "api/v1/inventory/inventory-core.yaml"
     task_id: "API-TASK-234"
@@ -5978,6 +6000,24 @@ mappings:
       - "api/v1/gameplay/world/factions/defenders.yaml"
       - "api/v1/gameplay/world/raids/specter-surge-loot.yaml"
       - "api/v1/gameplay/world/dungeons/abilities.yaml"
+
+  - source: ".BRAIN/03-lore/factions/factions-original-catalog.md"
+    target: "api/v1/world/factions/original-catalog.yaml"
+    task_id: "API-TASK-278"
+    task_file: "tasks/active/queue/task-278-factions-original-catalog-api.md"
+    status: "queued"
+    created: "2025-11-08 02:30"
+    version: "v1.0.0"
+    updated: "2025-11-08 02:30"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/faction-cult-defenders.md"
+      - ".BRAIN/02-gameplay/world/world-bosses-catalog.md"
+      - ".BRAIN/02-gameplay/world/factions/faction-economy-integration.md"
+      - ".BRAIN/04-narrative/dialogues/faction-social-lines.md"
+    related_targets:
+      - "api/v1/gameplay/world/factions/defenders.yaml"
+      - "api/v1/gameplay/world/factions/raid-scenarios.yaml"
+      - "api/v1/gameplay/economy/factions/assets.yaml"
 
   - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-catalog.md"
     target: "api/v1/gameplay/world/dungeon-bosses.yaml"
