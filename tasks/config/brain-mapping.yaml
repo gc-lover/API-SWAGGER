@@ -1779,6 +1779,24 @@ mappings:
       - "api/v1/admin/panel/admin-panel-ui.yaml"
       - "api/v1/admin/analytics/analytics-reporting.yaml"
 
+  - source: ".BRAIN/05-technical/backend/inventory-system/part2-advanced-features.md"
+    target: "api/v1/inventory/inventory-advanced.yaml"
+    task_id: "API-TASK-214"
+    task_file: "tasks/active/queue/task-214-inventory-advanced-api.md"
+    status: "queued"
+    created: "2025-11-08 01:40"
+    version: "v1.0.1"
+    updated: "2025-11-08 01:40"
+    related_sources:
+      - ".BRAIN/05-technical/backend/inventory-system/part1-core-system.md"
+      - ".BRAIN/05-technical/backend/loot-system/part1-loot-generation.md"
+      - ".BRAIN/05-technical/backend/economy-system.md"
+      - ".BRAIN/05-technical/backend/progression-backend.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+    related_targets:
+      - "api/v1/inventory/inventory.yaml"
+      - "api/v1/economy/shop/shop-system.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
