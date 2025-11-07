@@ -1976,6 +1976,24 @@ mappings:
     related_targets:
       - "api/v1/quests/quest-engine.yaml"
       - "api/v1/combat/combat-session.yaml"
+
+  - source: ".BRAIN/05-technical/backend/leaderboard-system.md"
+    target: "api/v1/world/leaderboards/leaderboards.yaml"
+    task_id: "API-TASK-225"
+    task_file: "tasks/active/queue/task-225-leaderboard-system-api.md"
+    status: "queued"
+    created: "2025-11-08 04:00"
+    version: "v1.0.0"
+    updated: "2025-11-08 04:00"
+    related_sources:
+      - ".BRAIN/05-technical/backend/progression-backend.md"
+      - ".BRAIN/05-technical/backend/clan-war/clan-war-system.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+      - ".BRAIN/05-technical/backend/analytics/analytics-reporting.md"
+    related_targets:
+      - "api/v1/progression/progression-engine.yaml"
+      - "api/v1/gameplay/clans/clan-war-system.yaml"
+      - "api/v1/social/friends/friends-system.yaml"
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
