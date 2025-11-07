@@ -105,8 +105,14 @@ paths:
               properties:
                 quest_sequence:
                   type: array
+                  items:
+                    type: object
+                    additionalProperties: true
                 player_choices:
                   type: array
+                  items:
+                    type: object
+                    additionalProperties: true
       responses:
         '200':
           description: Результат валидации
@@ -119,8 +125,12 @@ paths:
                     type: boolean
                   errors:
                     type: array
+                    items:
+                      type: string
                   warnings:
                     type: array
+                    items:
+                      type: string
 
 components:
   schemas: {}
