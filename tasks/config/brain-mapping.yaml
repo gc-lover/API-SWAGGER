@@ -4581,6 +4581,23 @@ mappings:
       - "api/v1/technical/performance-monitoring.yaml"
       - "api/v1/technical/disaster-recovery.yaml"
 
+  - source: ".BRAIN/05-technical/backend/voice-chat/voice-chat-system.md"
+    target: "api/v1/social/voice/voice-chat.yaml"
+    task_id: "API-TASK-195"
+    task_file: "tasks/completed/2025-11-07-batch3/task-195-voice-chat-system-api.md"
+    status: "completed"
+    created: "2025-11-07 16:20"
+    version: "v1.0.0"
+    updated: "2025-11-07 21:05"
+    completed: "2025-11-07 21:05"
+    related_sources:
+      - ".BRAIN/05-technical/backend/voice-lobby/voice-lobby-system.md"
+      - ".BRAIN/05-technical/backend/party-system.md"
+      - ".BRAIN/05-technical/backend/guild-system-backend.md"
+    related_targets:
+      - "api/v1/social/voice/voice-lobbies.yaml"
+      - "api/v1/technical/performance-monitoring.yaml"
+
 
 # Примеры записей:
 #
