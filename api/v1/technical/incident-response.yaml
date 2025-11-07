@@ -114,13 +114,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/EscalationCreate'
-            examples:
-              toSRE:
-                value:
-                  target_group: sre-primary
-                  reason: "Latency exceeds 5m critical threshold"
-                  urgency: immediate
-                  notify_channel: pagerduty
       responses:
         '202':
           description: Эскалация запущена
@@ -146,23 +139,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IncidentTimelineResponse'
-              examples:
-                timeline:
-                  value:
-                    incident_id: "inc_7f3c2b90"
-                    events:
-                      - timestamp: "2025-11-07T19:58:00Z"
-                        actor: grafana-alert
-                        event_type: alert_triggered
-                        details: "Latency p99 5.4s"
-                      - timestamp: "2025-11-07T20:04:00Z"
-                        actor: oncall-engineer
-                        event_type: mitigation
-                        details: "Scaled matchmaking pods"
-                      - timestamp: "2025-11-07T20:10:00Z"
-                        actor: sre-secondary
-                        event_type: failover
-                        details: "Shifted traffic to shard-eu-west"
         '401':
           $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '404':
@@ -217,7 +193,6 @@ components:
       required: true
       schema:
         type: string
-      description: Уникальный идентификатор инцидента (формат inc_xxx или UUID).
   schemas:
     IncidentCreate:
       type: object
@@ -342,7 +317,6 @@ components:
           type: integer
     IncidentTimelineResponse:
       type: object
-      description: Таймлайн инцидента.
       required:
         - incident_id
         - events
@@ -355,7 +329,6 @@ components:
             $ref: '#/components/schemas/TimelineEvent'
     TimelineEvent:
       type: object
-      description: Событие таймлайна инцидента.
       required:
         - timestamp
         - event_type

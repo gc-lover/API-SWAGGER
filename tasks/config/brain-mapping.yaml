@@ -1706,6 +1706,23 @@ mappings:
       - "api/v1/party/party-system.yaml"
       - "api/v1/social/voice/realtime-events.yaml"
 
+  - source: ".BRAIN/05-technical/backend/realtime-server/part1-architecture-zones.md"
+    target: "api/v1/technical/realtime/server-zones.yaml"
+    task_id: "API-TASK-196"
+    task_file: "tasks/active/queue/task-196-realtime-server-zones-api.md"
+    status: "queued"
+    created: "2025-11-07 17:05"
+    version: "v1.0.1"
+    updated: "2025-11-07 17:05"
+    related_sources:
+      - ".BRAIN/05-technical/backend/realtime-server/part2-protocol-optimization.md"
+      - ".BRAIN/05-technical/backend/session-management/part1-lifecycle-heartbeat.md"
+      - ".BRAIN/05-technical/backend/global-state/global-state-sync.md"
+      - ".BRAIN/05-technical/backend/incident-response/incident-response.md"
+    related_targets:
+      - "api/v1/technical/realtime/realtime-server.yaml"
+      - "api/v1/technical/realtime/realtime-protocol.yaml"
+
   - source: ".BRAIN/05-technical/backend/achievement-system.md"
     target: "api/v1/achievements/achievements.yaml"
     task_id: "API-TASK-136"
