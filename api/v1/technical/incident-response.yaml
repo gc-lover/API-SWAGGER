@@ -1,0 +1,295 @@
+openapi: 3.0.3
+info:
+  title: Incident Response API
+  description: Управление жизненным циклом инцидентов: обнаружение, эскалация, RCA, коммуникация.
+  version: 1.0.0
+servers:
+  - url: https://api.necpgame.com/v1
+security:
+  - BearerAuth: []
+tags:
+  - name: Incidents
+  - name: Escalation
+  - name: RCA
+paths:
+  /technical/incidents:
+    post:
+      tags:
+        - Incidents
+      summary: Зарегистрировать инцидент
+      operationId: createIncident
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncidentCreate'
+      responses:
+        '201':
+          description: Инцидент создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incident'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+  /technical/incidents/{incidentId}/status:
+    patch:
+      tags:
+        - Incidents
+      summary: Обновить статус инцидента
+      operationId: updateIncidentStatus
+      parameters:
+        - $ref: '#/components/parameters/IncidentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncidentStatusUpdate'
+      responses:
+        '200':
+          description: Статус обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incident'
+        '400':
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+  /technical/incidents/{incidentId}/escalate:
+    post:
+      tags:
+        - Escalation
+      summary: Создать эскалацию
+      operationId: escalateIncident
+      parameters:
+        - $ref: '#/components/parameters/IncidentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EscalationCreate'
+      responses:
+        '202':
+          description: Эскалация запущена
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+  /technical/incidents/{incidentId}/timeline:
+    get:
+      tags:
+        - Incidents
+      summary: Получить таймлайн инцидента
+      operationId: getIncidentTimeline
+      parameters:
+        - $ref: '#/components/parameters/IncidentId'
+      responses:
+        '200':
+          description: Таймлайн событий
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncidentTimelineResponse'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+  /technical/incidents/{incidentId}/rca:
+    post:
+      tags:
+        - RCA
+      summary: Зафиксировать RCA
+      operationId: submitIncidentRca
+      parameters:
+        - $ref: '#/components/parameters/IncidentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RcaRecordCreate'
+      responses:
+        '201':
+          description: RCA сохранен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RcaRecord'
+        '404':
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    IncidentId:
+      name: incidentId
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    IncidentCreate:
+      type: object
+      required:
+        - title
+        - severity
+        - detected_at
+      properties:
+        title:
+          type: string
+        severity:
+          type: string
+          enum:
+            - critical
+            - high
+            - medium
+            - low
+        detected_at:
+          type: string
+          format: date-time
+        detected_by:
+          type: string
+        affected_services:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        sla_breach_at:
+          type: string
+          format: date-time
+    IncidentStatusUpdate:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - acknowledged
+            - investigating
+            - mitigated
+            - resolved
+            - closed
+        resolution_summary:
+          type: string
+        resolved_at:
+          type: string
+          format: date-time
+    EscalationCreate:
+      type: object
+      required:
+        - target_group
+        - reason
+      properties:
+        target_group:
+          type: string
+        reason:
+          type: string
+        urgency:
+          type: string
+          enum:
+            - immediate
+            - high
+            - normal
+        notify_channel:
+          type: string
+    RcaRecordCreate:
+      type: object
+      required:
+        - root_cause
+        - corrective_actions
+      properties:
+        root_cause:
+          type: string
+        contributing_factors:
+          type: array
+          items:
+            type: string
+        corrective_actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionItem'
+        lessons_learned:
+          type: array
+          items:
+            type: string
+    Incident:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        severity:
+          type: string
+        status:
+          type: string
+        detected_at:
+          type: string
+          format: date-time
+        resolved_at:
+          type: string
+          format: date-time
+        affected_services:
+          type: array
+          items:
+            type: string
+    IncidentTimelineResponse:
+      type: object
+      properties:
+        incident_id:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimelineEvent'
+    TimelineEvent:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        actor:
+          type: string
+        event_type:
+          type: string
+        details:
+          type: string
+    RcaRecord:
+      type: object
+      properties:
+        id:
+          type: string
+        incident_id:
+          type: string
+        root_cause:
+          type: string
+        corrective_actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionItem'
+        lessons_learned:
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+    ActionItem:
+      type: object
+      properties:
+        description:
+          type: string
+        owner:
+          type: string
+        due_date:
+          type: string
+          format: date-time
+        status:
+          type: string
