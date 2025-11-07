@@ -5693,6 +5693,67 @@ mappings:
       - "api/v1/gameplay/economy/stock-exchange-events.yaml"
       - "api/v1/gameplay/economy/stock-exchange-management.yaml"
 
+  - source: ".BRAIN/02-gameplay/world/city-unrest-escalations.md"
+    target: "api/v1/gameplay/world/city-unrest.yaml"
+    task_id: "API-TASK-264"
+    task_file: "tasks/active/queue/task-264-city-unrest-escalations-api.md"
+    status: "queued"
+    created: "2025-11-08 00:25"
+    version: "v1.0.0"
+    updated: "2025-11-08 00:25"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/economy-specter-helios-balance.md"
+      - ".BRAIN/02-gameplay/world/helios-countermesh-ops.md"
+    related_targets:
+      - "api/v1/gameplay/world/world-interaction-suite.yaml"
+      - "api/v1/gameplay/economy/specter-helios-balance.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/helios-countermesh-ops.md"
+    target: "api/v1/gameplay/world/helios-ops.yaml"
+    task_id: "API-TASK-265"
+    task_file: "tasks/active/queue/task-265-helios-countermesh-ops-api.md"
+    status: "queued"
+    created: "2025-11-08 00:32"
+    version: "v1.0.0"
+    updated: "2025-11-08 00:32"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/city-unrest-escalations.md"
+      - ".BRAIN/04-narrative/quests/raid/2025-11-07-raid-specter-surge.md"
+    related_targets:
+      - "api/v1/gameplay/world/city-unrest.yaml"
+      - "api/v1/gameplay/economy/specter-helios-balance.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/economy-specter-helios-balance.md"
+    target: "api/v1/gameplay/economy/specter-helios-balance.yaml"
+    task_id: "API-TASK-266"
+    task_file: "tasks/active/queue/task-266-specter-helios-balance-api.md"
+    status: "queued"
+    created: "2025-11-08 00:40"
+    version: "v1.0.0"
+    updated: "2025-11-08 00:40"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/city-unrest-escalations.md"
+      - ".BRAIN/02-gameplay/world/specter-hq.md"
+    related_targets:
+      - "api/v1/gameplay/world/city-unrest.yaml"
+      - "api/v1/gameplay/world/helios-ops.yaml"
+
+  - source: ".BRAIN/02-gameplay/world/specter-hq.md"
+    target: "api/v1/gameplay/world/specter-hq.yaml"
+    task_id: "API-TASK-267"
+    task_file: "tasks/active/queue/task-267-specter-hq-suite-api.md"
+    status: "queued"
+    created: "2025-11-08 00:48"
+    version: "v1.0.0"
+    updated: "2025-11-08 00:48"
+    related_sources:
+      - ".BRAIN/02-gameplay/world/economy-specter-helios-balance.md"
+      - ".BRAIN/02-gameplay/world/helios-countermesh-ops.md"
+    related_targets:
+      - "api/v1/gameplay/economy/specter-hq-store.yaml"
+      - "api/v1/gameplay/social/specter-events.yaml"
+      - "api/v1/gameplay/narrative/specter-hq-dialogues.yaml"
+
   - source: ".BRAIN/02-gameplay/world/dungeons/dungeon-bosses-catalog.md"
     target: "api/v1/gameplay/world/dungeon-bosses.yaml"
     task_id: "API-TASK-248"
