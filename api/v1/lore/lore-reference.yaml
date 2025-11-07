@@ -92,7 +92,7 @@ paths:
           in: query
           schema:
             type: string
-        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/Page'
         - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
@@ -146,7 +146,7 @@ paths:
           schema:
             type: string
             enum: [CITY, BADLANDS, COMBAT_ZONE, CORPO_ZONE]
-        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/Page'
         - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
