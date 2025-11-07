@@ -184,3 +184,4 @@ components:
           message: "Chain locked for 02:12:00"
           details:
             - "cooldownMinutes=180"
+

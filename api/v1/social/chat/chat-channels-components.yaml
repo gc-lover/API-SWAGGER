@@ -267,3 +267,4 @@ components:
                     - INT_CHAT_CHANNEL_STORAGE_FAILURE
                     - INT_CHAT_CHANNEL_EVENT_FAILURE
               required: [code, message]
+

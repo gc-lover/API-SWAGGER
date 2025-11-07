@@ -316,3 +316,4 @@ components:
                     - INT_CHAT_FEATURE_STORAGE_FAILURE
                     - INT_CHAT_FEATURE_SERVICE_UNAVAILABLE
               required: [code, message]
+

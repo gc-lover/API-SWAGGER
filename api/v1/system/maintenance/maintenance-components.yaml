@@ -263,3 +263,4 @@ components:
           enum: [WINDOW_NOT_FOUND, INVALID_SCHEDULE, CONFLICTING_WINDOW, NOT_AUTHORIZED, NOT_ACTIVE, HOOK_FAILED, ROLLBACK_FAILED, AUDIT_REQUIRED]
         message: { type: string }
         details: { type: object, additionalProperties: true }
+

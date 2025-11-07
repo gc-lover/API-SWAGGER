@@ -185,3 +185,4 @@ components:
           message: "Event overlaps with existing unique event window"
           details:
             - "conflictEventId=2a741030-66f1-4f57-96cf-3fe6a9bf0119"
+

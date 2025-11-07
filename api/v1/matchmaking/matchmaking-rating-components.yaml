@@ -335,3 +335,4 @@ components:
                     - INT_RATING_STORAGE_FAILURE
                     - INT_RATING_ANALYTICS_FAILURE
               required: [code, message]
+

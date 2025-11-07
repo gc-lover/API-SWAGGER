@@ -288,3 +288,4 @@ components:
                     - INT_FACTION_ECONOMY_SERVICE_FAILURE
                     - INT_FACTION_ANALYTICS_FAILURE
               required: [code, message]
+

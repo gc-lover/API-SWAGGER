@@ -90,3 +90,5 @@ components:
           timeoutSeconds: 75
           autoPassAfk: true
           allowNeedRoles: ["TANK", "HEALER", "DPS"]
+
+

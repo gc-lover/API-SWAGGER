@@ -5596,6 +5596,24 @@ mappings:
     updated: "2025-11-07 16:30"
     related_sources:
       - ".BRAIN/06-tasks/ideas/2025-11-07-IDEA-hybrid-media-references.md"
+  
+  - source: ".BRAIN/06-tasks/active/CURRENT-WORK/active/2025-11-07-hybrid-media-legal-package.md"
+    target: "api/v1/admin/legal/hybrid-media-references.yaml"
+    task_id: "API-TASK-296"
+    task_file: "tasks/active/queue/task-296-hybrid-media-legal-package-api.md"
+    status: "queued"
+    created: "2025-11-07 22:05"
+    version: "1.0.1"
+    updated: "2025-11-07 22:05"
+    related_sources:
+      - ".BRAIN/06-tasks/active/CURRENT-WORK/archive/2025-11-07-hybrid-media-references-expansion.md"
+      - ".BRAIN/06-tasks/ideas/2025-11-07-IDEA-hybrid-media-references.md"
+      - ".BRAIN/06-tasks/config/legal-approvals-template.md"
+      - ".BRAIN/05-technical/backend/notification-system.md"
+    related_targets:
+      - "api/v1/narrative/throne-of-sand-campaign.yaml"
+      - "api/v1/gameplay/social/neon-popularity-reset.yaml"
+      - "api/v1/narrative/raids/quantum-reef-siege.yaml"
 
   - source: ".BRAIN/02-gameplay/combat/arena-system.md"
     target: "api/v1/gameplay/combat/arena-system.yaml"
@@ -5943,17 +5961,20 @@ mappings:
   - source: ".BRAIN/05-technical/analytics/faction-analytics-balance.md"
     target: "api/v1/technical/analytics/faction-balance.yaml"
     task_id: "API-TASK-274"
-    task_file: "tasks/active/queue/task-274-faction-analytics-balance-api.md"
-    status: "queued"
+    task_file: "tasks/completed/2025-11-08-batch2/task-274-faction-analytics-balance-api.md"
+    status: "completed"
     created: "2025-11-08 01:40"
     version: "v1.0.0"
-    updated: "2025-11-08 01:40"
+    updated: "2025-11-09 00:12"
+    completed: "2025-11-09 00:12"
     related_sources:
       - ".BRAIN/02-gameplay/world/factions/faction-quest-chains.md"
       - ".BRAIN/02-gameplay/world/raids/specter-surge-loot.md"
+      - ".BRAIN/02-gameplay/world/economy-specter-helios-balance.md"
     related_targets:
       - "api/v1/gameplay/world/factions/quest-chains.yaml"
       - "api/v1/gameplay/world/raids/specter-surge-loot.yaml"
+      - "api/v1/gameplay/world/events/seasonal-schedule.yaml"
 
   - source: ".BRAIN/02-gameplay/world/global-research-2020-2093.md"
     target: "api/v1/gameplay/world/research/global-research.yaml"

@@ -275,3 +275,4 @@ components:
                     - INT_QUEUE_STORAGE_FAILURE
                     - INT_QUEUE_EVENT_BUS_FAILURE
               required: [code, message]
+

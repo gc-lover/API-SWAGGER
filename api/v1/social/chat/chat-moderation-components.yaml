@@ -242,3 +242,4 @@ components:
                     - INT_CHAT_MOD_PERSISTENCE_FAILURE
                     - INT_CHAT_MOD_SERVICE_UNAVAILABLE
               required: [code, message]
+

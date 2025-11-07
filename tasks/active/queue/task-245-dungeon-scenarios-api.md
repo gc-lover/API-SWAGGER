@@ -323,3 +323,5 @@ API-SWAGGER/
 - Обновлённый статус в `.BRAIN/02-gameplay/world/dungeons/dungeon-scenarios-catalog.md` с ссылкой на API-TASK-245
 
 
+
+
