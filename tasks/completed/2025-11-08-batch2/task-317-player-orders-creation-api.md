@@ -276,3 +276,17 @@ API-SWAGGER/
 - 2025-11-08 – создано задание на основе `.BRAIN/02-gameplay/social/player-orders-creation-детально.md`, статус `queued`.
 
 
+
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` с актуальными данными:
+  - name: social-service
+  - port: 8084
+  - domain: social
+  - base-path: /api/v1/social
+  - package: com.necpgame.socialservice
+- В секции `servers` используй gateway:
+  - https://api.necp.game/v1/social
+  - http://localhost:8080/api/v1/social
+- WebSocket маршруты публикуй только через wss://api.necp.game/v1/social/...
+

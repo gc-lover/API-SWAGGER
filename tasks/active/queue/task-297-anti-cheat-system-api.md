@@ -88,6 +88,12 @@ API-SWAGGER/
 - **Подсистемы:** отчетность, расследования, санкции, интеграция с realtime/notification.
 - **Зависимости:** realtime-service (telemetry), gameplay-service (arena/raid hooks), social-service (репутация), economy-service (блокировка торговли), session-service (kick/logout), notification-service (алерты), analytics-service (метрики), storage-service (лог файлы/повторы).
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend (модуль)
 - **Модуль:** `modules/admin/anti-cheat`
 - **State Store:** `useAntiCheatStore`

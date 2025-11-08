@@ -82,6 +82,12 @@ API-SWAGGER/
 - **Kafka / ETL:** потребляет `character.visuals.*`, `gameplay.visuals.*`, `economy.visuals.*`, `marketing.visuals.package.generated`, `telemetry.visuals.metric.*`.  
 - **Хранилище:** аналитическое (OLAP) с агрегациями по временным окнам.
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend:
 - **Модуль:** modules/analytics/visuals-dashboard  
 - **State Store:** `useAnalyticsStore(visualMetrics)`  

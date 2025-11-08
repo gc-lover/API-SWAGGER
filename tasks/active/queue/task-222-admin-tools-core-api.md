@@ -220,3 +220,10 @@ API-SWAGGER/api/v1/admin/tools/
 **A:** Да, через batch endpoint (возможное расширение) с лимитом и audit trail; в текущем задании отметить ограничения.
 
 
+
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+

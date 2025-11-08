@@ -49,3 +49,17 @@
 
 **История:** 2025-11-07 01:40 - Создано
 
+
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` с актуальными данными:
+  - name: economy-service
+  - port: 8085
+  - domain: economy
+  - base-path: /api/v1/gameplay/economy
+  - package: com.necpgame.economyservice
+- В секции `servers` используй gateway:
+  - https://api.necp.game/v1/gameplay/economy
+  - http://localhost:8080/api/v1/gameplay/economy
+- WebSocket маршруты публикуй только через wss://api.necp.game/v1/gameplay/economy/...
+

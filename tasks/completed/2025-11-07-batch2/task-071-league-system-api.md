@@ -57,3 +57,17 @@
 
 **История:** 2025-11-07 01:50 - Создано
 
+
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` с актуальными данными:
+  - name: gameplay-service
+  - port: 8083
+  - domain: meta
+  - base-path: /api/v1/meta
+  - package: com.necpgame.gameplayservice
+- В секции `servers` используй gateway:
+  - https://api.necp.game/v1/meta
+  - http://localhost:8080/api/v1/meta
+- WebSocket маршруты публикуй только через wss://api.necp.game/v1/meta/...
+

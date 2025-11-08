@@ -80,6 +80,12 @@ API-SWAGGER/
 - **Интеграции:** social-service (tree/events), finance-service (учёт, отчёты), taxation-service, factions-service, notification-service, analytics-service, compliance-service.  
 - **Kafka:** `economy.family.heritage`, `economy.family.risk`, `economy.family.tax.update`, `social.family.event`, `world.family.crisis`.
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend:
 - **Модуль:** modules/economy/families  
 - **State Store:** `useEconomyStore(familyHeritage)`  

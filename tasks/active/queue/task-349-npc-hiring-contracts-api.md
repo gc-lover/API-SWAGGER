@@ -80,6 +80,12 @@ API-SWAGGER/
 - **Интеграции:** economy-service (зарплаты, налоги), npc-service (skills, loyalty), world-service (availability), notification-service (alerts), analytics-service (KPI).  
 - **Kafka:** `social.npc-hiring.contract.created`, `social.npc-hiring.contract.updated`, `social.npc-hiring.alert`, `economy.npc-hiring.payroll.processed`, `npc.hiring.performance.changed`.
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend:
 - **Модуль:** modules/social/npc-hiring  
 - **State Store:** `useSocialStore(npcHiring)`  

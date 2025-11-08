@@ -80,6 +80,12 @@ API-SWAGGER/
 - **Интеграции:** social-service (status / interactions), economy-service (market modifiers), gameplay-service (quests, raids), notification-service (broadcast), analytics-service (impact dashboards), telemetry-service, content-service (media coverage).  
 - **Kafka:** `world.npc-relationships.event`, `world.npc-relationships.alert`, `world.npc-relationships.metrics`, `social.npc-relationships.alert`, `economy.npc-impact.index`.
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend:
 - **Модуль:** modules/world/insights  
 - **State Store:** `useWorldStore(npcRelationshipEvents)`  

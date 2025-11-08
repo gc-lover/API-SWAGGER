@@ -80,6 +80,12 @@ API-SWAGGER/
 - **Интеграции:** social-service (рейтинги), world-service (регионы), marketing-service (страховые промо), analytics-service (метрики), notification-service.  
 - **Kafka:** `economy.player-orders.risk.calculated`, `economy.player-orders.insurance.updated`, `economy.player-orders.reward.adjusted`.
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend (модуль):
 - **Модуль:** modules/economy/player-orders/risk  
 - **State Store:** `useEconomyStore(playerOrders)`  

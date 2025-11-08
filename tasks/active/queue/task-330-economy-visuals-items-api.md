@@ -89,6 +89,12 @@ API-SWAGGER/
 - **Интеграции:** gameplay-service (экипировка), character-service (архетипы), marketing-service (кампании), analytics-service, social-service (витринные события).
 - **Kafka:** `economy.visuals.item.featured`, `marketing.visuals.package.generated`
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend (модуль):
 - **Модуль:** modules/economy/marketplace
 - **State Store:** `useEconomyStore(marketplaceVisuals)`

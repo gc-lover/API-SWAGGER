@@ -54,6 +54,12 @@ api/v1/social/
 **Порт:** 8084  
 **API пути:** /api/v1/social/mentorship/*, /api/v1/social/npc-hiring/*, /api/v1/social/player-orders/*
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend (модуль):
 
 **Модуль:** social  

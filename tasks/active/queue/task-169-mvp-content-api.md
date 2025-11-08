@@ -40,6 +40,12 @@ api/v1/mvp/
 **Порт:** N/A (маршрутизируется через API Gateway на разные сервисы)  
 **API пути:** /api/v1/mvp/*
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend (модуль):
 
 **Модуль:** N/A (MVP endpoints используются во всех модулях)  

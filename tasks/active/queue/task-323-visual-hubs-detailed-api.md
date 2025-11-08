@@ -91,6 +91,12 @@ API-SWAGGER/
 - **Домен:** социальные хабы, активность, атмосфера  
 - **Интеграции:** world-service (детали локаций), economy-service (рынки), marketing-service (кампании), realtime-gateway (WebSocket push)
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend (модуль)
 - **Модуль:** modules/social/hubs  
 - **State Store:** useSocialStore (visualHubs, hubActivity, hubFilters)  

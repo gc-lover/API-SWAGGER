@@ -61,3 +61,17 @@
 
 **История:** 2025-11-07 02:05 - Создано
 
+
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` с актуальными данными:
+  - name: admin-service
+  - port: 8088
+  - domain: technical
+  - base-path: /api/v1/technical
+  - package: com.necpgame.adminservice
+- В секции `servers` используй gateway:
+  - https://api.necp.game/v1/technical
+  - http://localhost:8080/api/v1/technical
+- WebSocket маршруты публикуй только через wss://api.necp.game/v1/technical/...
+

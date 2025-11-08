@@ -44,3 +44,17 @@
 
 **История:** 2025-11-07 01:10 - Создано
 
+
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` с актуальными данными:
+  - name: social-service
+  - port: 8084
+  - domain: social
+  - base-path: /api/v1/gameplay/social
+  - package: com.necpgame.socialservice
+- В секции `servers` используй gateway:
+  - https://api.necp.game/v1/gameplay/social
+  - http://localhost:8080/api/v1/gameplay/social
+- WebSocket маршруты публикуй только через wss://api.necp.game/v1/gameplay/social/...
+

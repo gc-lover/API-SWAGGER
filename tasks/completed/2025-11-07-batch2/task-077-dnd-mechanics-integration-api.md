@@ -52,3 +52,17 @@
 
 **История:** 2025-11-07 02:20 - Создано
 
+
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` с актуальными данными:
+  - name: gameplay-service
+  - port: 8083
+  - domain: gameplay
+  - base-path: /api/v1/gameplay/mechanics
+  - package: com.necpgame.gameplayservice
+- В секции `servers` используй gateway:
+  - https://api.necp.game/v1/gameplay/mechanics
+  - http://localhost:8080/api/v1/gameplay/mechanics
+- WebSocket маршруты публикуй только через wss://api.necp.game/v1/gameplay/mechanics/...
+

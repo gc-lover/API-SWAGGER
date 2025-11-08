@@ -233,3 +233,10 @@ API-SWAGGER/api/v1/gameplay/achievements/
 **A:** Через social-service: перед выдачей friend data проверять разрешения, в противном случае возвращать `FRIEND_DATA_UNAVAILABLE`.
 
 
+
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+

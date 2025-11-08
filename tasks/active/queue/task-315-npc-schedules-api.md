@@ -133,3 +133,10 @@
 - **Нужно ли хранить историю?** — Да, `ScheduleDiff` и job logs должны содержать хронологию изменений.
 - **А что с сюжетными NPC?** — Флаг `storyCritical` и связанные ссылки (narrative-service), но управление остаётся здесь.
 
+
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+

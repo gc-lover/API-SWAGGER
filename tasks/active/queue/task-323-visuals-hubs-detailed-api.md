@@ -92,6 +92,12 @@ API-SWAGGER/
 - **Интеграции:** world-service (локации), economy-service (рынки, контракты), marketing-service (кампании), notification-service (ивенты)
 - **Kafka:** `social.visuals.hub.activity`
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend (модуль):
 - **Модуль:** modules/social/hubs
 - **Путь:** modules/social/hubs/detailed

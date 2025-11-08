@@ -224,3 +224,10 @@ API-SWAGGER/api/v1/inventory/
 **A:** API возвращает `success=false` и событие `repairFailed`, ресурсы списываются частично/полностью согласно документу; необходимо логировать в audit.
 
 
+
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+

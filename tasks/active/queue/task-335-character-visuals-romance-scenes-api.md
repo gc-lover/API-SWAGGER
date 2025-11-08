@@ -83,6 +83,12 @@ API-SWAGGER/
 - **Интеграции:** world-service (локации), social-service (отношения), economy-service (подарки/кампании), analytics-service.  
 - **Kafka:** `narrative.romance.scene.triggered`, `character.visuals.scene.exported`, `marketing.visuals.package.generated`
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend:
 - **Модуль:** modules/narrative/romance-scenes  
 - **State Store:** `useNarrativeStore(romanceScenes)`  

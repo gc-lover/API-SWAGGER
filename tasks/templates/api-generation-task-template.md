@@ -141,6 +141,12 @@ API-SWAGGER/
 - `/api/v1/lore/*` → world-service (8086)
 - `/api/v1/narrative/*` → narrative-service (8087)
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend (модуль):
 
 **Модуль:** [social | economy | combat | world | progression | narrative]  

@@ -61,3 +61,17 @@
 
 **История:** 2025-11-07 01:45 - Создано
 
+
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` с актуальными данными:
+  - name: world-service
+  - port: 8086
+  - domain: world
+  - base-path: /api/v1/gameplay/world
+  - package: com.necpgame.worldservice
+- В секции `servers` используй gateway:
+  - https://api.necp.game/v1/gameplay/world
+  - http://localhost:8080/api/v1/gameplay/world
+- WebSocket маршруты публикуй только через wss://api.necp.game/v1/gameplay/world/...
+

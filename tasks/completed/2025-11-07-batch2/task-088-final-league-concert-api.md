@@ -48,3 +48,17 @@
 
 **История:** 2025-11-07 03:15 - Создано
 
+
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` с актуальными данными:
+  - name: narrative-service
+  - port: 8087
+  - domain: narrative
+  - base-path: /api/v1/narrative/events
+  - package: com.necpgame.narrativeservice
+- В секции `servers` используй gateway:
+  - https://api.necp.game/v1/narrative/events
+  - http://localhost:8080/api/v1/narrative/events
+- WebSocket маршруты публикуй только через wss://api.necp.game/v1/narrative/events/...
+

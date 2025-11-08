@@ -93,6 +93,12 @@ API-SWAGGER/
 - **Ответственность:** legal/compliance трекинг, approvals, коммуникации, интеграции с notification-service и analytics-service.
 - **Внешние зависимости:** auth-service (JWT, роли `legal.reviewer`, `legal.manager`), notification-service (рассылки), world-service / gameplay-service / social-service / economy-service (ссылки на элементы контента), analytics-service (SLA метрики), storage-service (файлы mood/audio), support-service (инциденты).
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend (модуль)
 - **Модуль:** `modules/admin/legal/hybrid-packages`
 - **State Store:** `useLegalComplianceStore`

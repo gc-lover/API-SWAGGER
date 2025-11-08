@@ -81,6 +81,12 @@ API-SWAGGER/
 - **Интеграции:** world-service (events/effects), economy-service (grants), notification-service (push/alerts), content-service (VR-материалы), analytics-service (engagement), moderation-service.  
 - **Kafka:** `social.mentorship.news`, `social.mentorship.highlight.published`, `world.mentorship.crisis`, `economy.mentorship.index`.
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend:
 - **Модуль:** modules/social/mentorship  
 - **State Store:** `useSocialStore(mentorshipNews)`  

@@ -251,3 +251,10 @@ API-SWAGGER/
 - 2025-11-08 – создано задание на основе `.BRAIN/02-gameplay/social/player-orders-world-impact-детально.md`, статус `queued`.
 
 
+
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+

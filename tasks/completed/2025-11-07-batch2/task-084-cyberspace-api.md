@@ -71,3 +71,17 @@
 
 **История:** 2025-11-07 02:55 - Создано
 
+
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` с актуальными данными:
+  - name: gameplay-service
+  - port: 8083
+  - domain: gameplay
+  - base-path: /api/v1/gameplay/cyberspace
+  - package: com.necpgame.gameplayservice
+- В секции `servers` используй gateway:
+  - https://api.necp.game/v1/gameplay/cyberspace
+  - http://localhost:8080/api/v1/gameplay/cyberspace
+- WebSocket маршруты публикуй только через wss://api.necp.game/v1/gameplay/cyberspace/...
+

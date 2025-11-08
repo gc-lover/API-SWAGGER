@@ -80,6 +80,12 @@ API-SWAGGER/
 - **Интеграции:** world-service (alliances, города), economy-service (цены/налоги), gameplay-service (боевые бонусы), notification-service (alerts), analytics-service (метрики).
 - **Kafka:** `social.relationships.changed`, `social.relationships.alert`, `social.trust.contract.created`.
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend:
 - **Модуль:** modules/social/relationships  
 - **State Store:** `useSocialStore(relationships)`  

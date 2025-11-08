@@ -80,6 +80,12 @@ API-SWAGGER/
 - **Интеграции:** world-service (кризисы, публичные события), economy-service (наследство, расходы), notification-service (alerts), gameplay-service (квесты, миссии), analytics-service (FamilyEventImpact), content-service (VR-архив), moderation-service.  
 - **Kafka:** `social.family.event`, `world.family.crisis`, `social.family.status.changed`, `economy.family.heritage`.
 
+### OpenAPI (обязательно)
+
+- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
+- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
+- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 ### Frontend:
 - **Модуль:** modules/social/families  
 - **State Store:** `useSocialStore(familyEvents)`  
