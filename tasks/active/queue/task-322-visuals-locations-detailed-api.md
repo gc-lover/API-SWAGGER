@@ -56,7 +56,7 @@
 
 ### Связанные документы
 
-- `.BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md` — пересечения с социальными эффектами.
+- `.BRAIN/02-gameplay/social/player-orders-world-impact-детально.md` — пересечения с социальными эффектами.
 - `.BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets-детально.md` — ассеты и камеры.
 
 ---

@@ -45,7 +45,7 @@
 
 ### Дополнительные источники
 
-- `.BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md` — влияние на социальные рейтинги.  
+- `.BRAIN/02-gameplay/social/player-orders-world-impact-детально.md` — влияние на социальные рейтинги.  
 - `.BRAIN/02-gameplay/economy/economy-auction-house.md` и `economy-marketplace.md` — бизнес-логика экономики.  
 - `.BRAIN/03-lore/visual-guides/visual-style-locations-детально.md` — соответствие локациям.  
 - `API-SWAGGER/api/v1/economy/visuals/items.yaml` — базовая спецификация (задача 330).

@@ -45,7 +45,7 @@
 ### Дополнительные источники
 
 - `.BRAIN/05-technical/content-generation/city-life-population-algorithm.md` — влияние экипировки на NPC трафик.  
-- `.BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md` — социальные эффекты, меняющие визуал предметов.  
+- `.BRAIN/02-gameplay/social/player-orders-world-impact-детально.md` — социальные эффекты, меняющие визуал предметов.  
 - `API-SWAGGER/api/v1/gameplay/combat/loadouts/*.yaml` — проверить совместимость с существующими API.
 
 ### Связанные документы

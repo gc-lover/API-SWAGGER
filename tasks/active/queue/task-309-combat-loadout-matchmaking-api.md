@@ -12,7 +12,7 @@
 
 Спроектировать OpenAPI/AsyncAPI спецификацию подсистемы валидации лодаутов для матчмейкинга (Combat Loadout Matchmaking Integration) в `matchmaking-service`: проверка соответствия ролям/режимам, расчёт рейтинга, синхронизация с событиями и рекомендациями.
 
-**Что нужно сделать:** На основе `.BRAIN/_02-gameplay/combat/combat-loadouts-system.md` описать REST/Async контракты, которые матчмейкинг использует для запроса статуса лодаута, проверки требований профилей и обмена данными о матчах и ролях.
+**Что нужно сделать:** На основе `.BRAIN/02-gameplay/combat/combat-loadouts-system.md` описать REST/Async контракты, которые матчмейкинг использует для запроса статуса лодаута, проверки требований профилей и обмена данными о матчах и ролях.
 
 ---
 
@@ -32,7 +32,7 @@
 ### Основной источник
 
 **Репозиторий:** `.BRAIN`  
-**Документ:** `.BRAIN/_02-gameplay/combat/combat-loadouts-system.md`  
+**Документ:** `.BRAIN/02-gameplay/combat/combat-loadouts-system.md`  
 **Версия:** 0.3.0  
 **Дата последнего обновления:** 2025-11-08 00:14  
 **Статус документа:** review, `api-readiness: ready`
@@ -45,13 +45,13 @@
 
 ### Дополнительные источники
 
-- `.BRAIN/_02-gameplay/combat/combat-roles-detailed.md`
-- `.BRAIN/_02-gameplay/combat/combat-extract.md`
-- `.BRAIN/_02-gameplay/world/events/world-events-framework.md`
-- `.BRAIN/_02-gameplay/progression/progression-skills-mapping.md`
-- `.BRAIN/_02-gameplay/progression/progression-attributes-matrix.md`
-- `.BRAIN/_02-gameplay/combat/arena-system.md`
-- `.BRAIN/_02-gameplay/combat/loot-hunt-system.md`
+- `.BRAIN/02-gameplay/combat/combat-roles-detailed.md`
+- `.BRAIN/02-gameplay/combat/combat-extract.md`
+- `.BRAIN/02-gameplay/world/events/world-events-framework.md`
+- `.BRAIN/02-gameplay/progression/progression-skills-mapping.md`
+- `.BRAIN/02-gameplay/progression/progression-attributes-matrix.md`
+- `.BRAIN/02-gameplay/combat/arena-system.md`
+- `.BRAIN/02-gameplay/combat/loot-hunt-system.md`
 
 ### Связанные документы/таски
 
@@ -206,7 +206,7 @@ API-SWAGGER/
 
 ## 🔗 Связность и последующие шаги
 
-- Добавить запись в `tasks/config/brain-mapping.yaml`, обновить `.BRAIN/_02-gameplay/combat/combat-loadouts-system.md` (API-TASK-309).
+- Добавить запись в `tasks/config/brain-mapping.yaml`, обновить `.BRAIN/02-gameplay/combat/combat-loadouts-system.md` (API-TASK-309).
 - Согласовать спецификацию с существующими matchmaking API.
 - После подготовки спецификации инициировать задачи по интеграции в backend и UI очередей.
 

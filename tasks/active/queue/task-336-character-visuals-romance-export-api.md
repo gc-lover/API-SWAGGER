@@ -48,7 +48,7 @@
 - `API-SWAGGER/api/v1/character/visuals/romance-scenes.yaml` (API-TASK-335).  
 - `.BRAIN/05-technical/content-generation/city-life-population-algorithm.md` (потоки ассетов).  
 - `.BRAIN/05-technical/backend/realtime-server/part1-architecture-zones.md` (интеграция с realtime).  
-- `.BRAIN/_02-gameplay/social/player-orders-reputation-детально.md` (социальный импакт).
+- `.BRAIN/02-gameplay/social/player-orders-reputation-детально.md` (социальный импакт).
 
 ---
 

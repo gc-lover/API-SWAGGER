@@ -52,7 +52,7 @@
 ### Связанные документы
 
 - `.BRAIN/03-lore/_03-lore/visual-guides/visual-style-locations-детально.md` — контекст локаций.  
-- `.BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md` — влияние на социальные рейтинги.  
+- `.BRAIN/02-gameplay/social/player-orders-world-impact-детально.md` — влияние на социальные рейтинги.  
 - `.BRAIN/05-technical/content-generation/city-life-population-algorithm.md` — генерация NPC и трафика.
 
 ---

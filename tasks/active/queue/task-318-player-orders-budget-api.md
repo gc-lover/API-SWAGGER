@@ -12,7 +12,7 @@
 
 Спроектировать OpenAPI спецификацию `api/v1/economy/player-orders/budget.yaml`, описывающую расчёт бюджета, escrow и страховых гарантий заказов игроков.
 
-**Что нужно сделать:** Создать файл спецификации economy-service с REST endpoints, моделями данных, Kafka событиями и примерами, основанный на требованиях `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`.
+**Что нужно сделать:** Создать файл спецификации economy-service с REST endpoints, моделями данных, Kafka событиями и примерами, основанный на требованиях `.BRAIN/02-gameplay/social/player-orders-creation-детально.md`.
 
 ---
 
@@ -31,7 +31,7 @@
 
 ### Основной источник
 **Репозиторий:** `.BRAIN`  
-**Документ:** `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`  
+**Документ:** `.BRAIN/02-gameplay/social/player-orders-creation-детально.md`  
 **Версия:** v1.0.0 (approved)  
 **Последнее обновление:** 2025-11-08 09:53  
 
@@ -42,10 +42,10 @@
 - Необходимость страховых пакетов (basic/extended/premium) и уведомлений о завышении/занижении бюджета.
 
 ### Дополнительные источники
-- `.BRAIN/_02-gameplay/social/player-orders-system-детально.md`
-- `.BRAIN/_02-gameplay/social/player-orders-economy.md`
-- `.BRAIN/_02-gameplay/social/player-orders-reputation-детально.md`
-- `.BRAIN/_02-gameplay/social/relationships-system-детально.md`
+- `.BRAIN/02-gameplay/social/player-orders-system-детально.md`
+- `.BRAIN/02-gameplay/social/player-orders-economy.md`
+- `.BRAIN/02-gameplay/social/player-orders-reputation-детально.md`
+- `.BRAIN/02-gameplay/social/relationships-system-детально.md`
 - JSON схемы бюджета в `schemas/social/`
 - Спецификация `api/v1/social/player-orders.yaml`
 

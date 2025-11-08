@@ -13,7 +13,7 @@ info:
   description: |
     Экономический сервис рассчитывает бюджет заказов игроков, управляет escrow и страховыми гарантиями.
 
-    Источники: `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`,
+    Источники: `.BRAIN/02-gameplay/social/player-orders-creation-детально.md`,
     `API-SWAGGER/tasks/active/queue/task-318-player-orders-budget-api.md`.
 servers:
   - url: https://api.necpgame.com/v1

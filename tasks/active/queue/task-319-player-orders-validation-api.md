@@ -31,7 +31,7 @@
 
 ### Основной источник
 **Репозиторий:** `.BRAIN`  
-**Документ:** `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`  
+**Документ:** `.BRAIN/02-gameplay/social/player-orders-creation-детально.md`  
 **Версия:** v1.0.0 (approved)  
 **Последнее обновление:** 2025-11-08 09:53  
 
@@ -42,10 +42,10 @@
 - Kafka событие `social.player-orders.validation.failed` и требования к полному отчёту.
 
 ### Дополнительные источники
-- `.BRAIN/_02-gameplay/social/player-orders-system-детально.md` — жизненный цикл и статусы заказов.
-- `.BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md` — влияние заказов на мир и фракции.
-- `.BRAIN/_02-gameplay/social/player-orders-reputation-детально.md` — последствия нарушений.
-- `.BRAIN/_02-gameplay/social/relationships-system-детально.md` — whitelists/blacklists адресных приглашений.
+- `.BRAIN/02-gameplay/social/player-orders-system-детально.md` — жизненный цикл и статусы заказов.
+- `.BRAIN/02-gameplay/social/player-orders-world-impact-детально.md` — влияние заказов на мир и фракции.
+- `.BRAIN/02-gameplay/social/player-orders-reputation-детально.md` — последствия нарушений.
+- `.BRAIN/02-gameplay/social/relationships-system-детально.md` — whitelists/blacklists адресных приглашений.
 - `.BRAIN/05-technical/content-generation/city-life-population-algorithm.md` — уровни зон и риски.
 - Спецификации: `api/v1/social/player-orders.yaml`, `api/v1/world/cities/population.yaml` (стиль world-service).
 
@@ -192,7 +192,7 @@ api/
 
 ---
 
-**Следующие шаги:** После подготовки спецификации обновить `brain-mapping.yaml`, добавить ссылку на задачу в `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`, выполнить `npx swagger-cli validate` и зафиксировать результат в Истории.
+**Следующие шаги:** После подготовки спецификации обновить `brain-mapping.yaml`, добавить ссылку на задачу в `.BRAIN/02-gameplay/social/player-orders-creation-детально.md`, выполнить `npx swagger-cli validate` и зафиксировать результат в Истории.
 # Task ID: API-TASK-319
 **Тип:** API Generation  
 **Приоритет:** высокий  
@@ -227,7 +227,7 @@ api/
 ### Основной источник концепции
 
 **Репозиторий:** `.BRAIN`  
-**Путь к документу:** `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`  
+**Путь к документу:** `.BRAIN/02-gameplay/social/player-orders-creation-детально.md`  
 **Версия документа:** v1.0.0  
 **Дата последнего обновления:** 2025-11-08 09:53  
 **Статус документа:** approved
@@ -240,9 +240,9 @@ api/
 
 ### Дополнительные источники
 
-- `.BRAIN/_02-gameplay/social/player-orders-system-детально.md` – глобальный процесс и влияние заказов на мир.  
-- `.BRAIN/_02-gameplay/social/player-orders-reputation-детально.md` – влияние санкций и нарушений.  
-- `.BRAIN/_02-gameplay/social/relationships-system-детально.md` – whitelists/blacklists.  
+- `.BRAIN/02-gameplay/social/player-orders-system-детально.md` – глобальный процесс и влияние заказов на мир.  
+- `.BRAIN/02-gameplay/social/player-orders-reputation-детально.md` – влияние санкций и нарушений.  
+- `.BRAIN/02-gameplay/social/relationships-system-детально.md` – whitelists/blacklists.  
 - `.BRAIN/_05-technical/content-generation/city-life-population-algorithm.md` – территориальные уровни и риски.  
 - `API-SWAGGER/api/v1/world/cities/population.yaml` – пример стиля world-service спецификаций.
 
@@ -305,7 +305,7 @@ API-SWAGGER/
 ## ✅ Что нужно сделать (детальный план)
 
 ### Шаг 1: Сбор правил и ограничений
-1. Собрать все проверки из `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`.  
+1. Собрать все проверки из `.BRAIN/02-gameplay/social/player-orders-creation-детально.md`.  
 2. Классифицировать их по категориям: `territory`, `sanctions`, `legal`, `toxicity`, `budgetBounds`, `duplicates`.  
 3. Определить внешние источники данных (фракции, зоны, контент фильтры) и требуемые идентификаторы.
 
@@ -454,7 +454,7 @@ API-SWAGGER/
 
 ## 📌 История выполнения
 
-- 2025-11-08 – задание создано на основе `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`, статус `queued`.
+- 2025-11-08 – задание создано на основе `.BRAIN/02-gameplay/social/player-orders-creation-детально.md`, статус `queued`.
 
 # Task ID: API-TASK-319
 **Тип:** API Generation  
@@ -490,7 +490,7 @@ API-SWAGGER/
 ### Основной документ
 
 **Репозиторий:** `.BRAIN`  
-**Путь:** `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`  
+**Путь:** `.BRAIN/02-gameplay/social/player-orders-creation-детально.md`  
 **Версия:** v1.0.0  
 **Дата обновления:** 2025-11-08 09:53  
 **Статус:** approved  
@@ -503,11 +503,11 @@ API-SWAGGER/
 
 ### Дополнительные документы
 
-- `.BRAIN/_02-gameplay/social/player-orders-system-детально.md` – общий жизненный цикл заказов.
-- `.BRAIN/_02-gameplay/social/player-orders-reputation-детально.md` – влияние нарушений и санкций.
-- `.BRAIN/_02-gameplay/social/relationships-system-детально.md` – доверенные списки и адресные приглашения.
-- `.BRAIN/_02-gameplay/social/player-orders-advanced.md` – расширенные кейсы и edge cases.
-- `.BRAIN/_02-gameplay/world/world-state/player-impact-systems.md` – ограничения зон и мировые события.
+- `.BRAIN/02-gameplay/social/player-orders-system-детально.md` – общий жизненный цикл заказов.
+- `.BRAIN/02-gameplay/social/player-orders-reputation-детально.md` – влияние нарушений и санкций.
+- `.BRAIN/02-gameplay/social/relationships-system-детально.md` – доверенные списки и адресные приглашения.
+- `.BRAIN/02-gameplay/social/player-orders-advanced.md` – расширенные кейсы и edge cases.
+- `.BRAIN/02-gameplay/world/world-state/player-impact-systems.md` – ограничения зон и мировые события.
 - `.BRAIN/_05-technical/content-generation/city-life-population-algorithm.md` – пример территориальных метрик.
 
 ### Связанные спецификации
@@ -687,7 +687,7 @@ API-SWAGGER/
 9. Файл проходит `npx swagger-cli validate api/v1/world/player-orders/validation.yaml`.  
 10. Общий объём ≤400 строк; при превышении вынесены компоненты/примеры.  
 11. Включён `auditTraceId` и `Validation-Context-Id` для трассировки.  
-12. После завершения задания обновлены `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` и `tasks/config/brain-mapping.yaml`.
+12. После завершения задания обновлены `.BRAIN/02-gameplay/social/player-orders-creation-детально.md` и `tasks/config/brain-mapping.yaml`.
 
 ---
 

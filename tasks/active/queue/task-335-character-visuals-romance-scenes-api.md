@@ -47,7 +47,7 @@
 
 - `.BRAIN/04-narrative/dialogues/` (романтические ветки, сценари сценариев).  
 - `.BRAIN/03-lore/visual-guides/visual-style-locations-детально.md` — контекст локаций.  
-- `.BRAIN/_02-gameplay/social/player-orders-reputation-детально.md` — влияние сцен на репутацию.  
+- `.BRAIN/02-gameplay/social/player-orders-reputation-детально.md` — влияние сцен на репутацию.  
 - `API-SWAGGER/api/v1/character/visuals/romance-states.yaml` — состояния (зависимость).
 
 ---

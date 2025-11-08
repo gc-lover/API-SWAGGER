@@ -43,7 +43,7 @@
 ### Дополнительные источники
 
 - `.BRAIN/05-technical/content-generation/city-life-population-algorithm.md` (источники данных).  
-- `.BRAIN/_02-gameplay/social/player-orders-reputation-детально.md` (соц. влияние).  
+- `.BRAIN/02-gameplay/social/player-orders-reputation-детально.md` (соц. влияние).  
 - `API-SWAGGER/api/v1/character/visuals/romance-export.yaml` — экспорт событий.  
 - `API-SWAGGER/api/v1/world/visuals/locations-detailed.yaml` — связь с локациями.  
 - Telemetry события из `visual-style-assets-детально.md` (раздел Kafka).

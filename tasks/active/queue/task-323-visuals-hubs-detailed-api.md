@@ -49,7 +49,7 @@
 ### Дополнительные источники
 
 - `.BRAIN/03-lore/visual-guides/visual-style-locations.md` — сводные атрибуты.
-- `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` — социальные экономики (пресеты для vendors).
+- `.BRAIN/02-gameplay/social/player-orders-creation-детально.md` — социальные экономики (пресеты для vendors).
 - `API-SWAGGER/api/v1/social/player-orders/news.yaml` — примеры social-service спецификаций.
 - `API-SWAGGER/api/v1/world/visuals/locations-detailed.yaml` (из задачи 001) — для синхронизации атрибутов.
 

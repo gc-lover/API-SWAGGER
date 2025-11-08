@@ -42,7 +42,7 @@ info:
   description: |
     Контракты `world-service` и `gameplay-service` для симуляции живого мира,
     управления фракционным контролем, логистическими маршрутами и гибридной
-    прокачкой Action XP с учётом усталости. Источник: `.BRAIN/_02-gameplay/world/world-state/living-world-kenshi-hybrid.md`
+    прокачкой Action XP с учётом усталости. Источник: `.BRAIN/02-gameplay/world/world-state/living-world-kenshi-hybrid.md`
     v0.2.0 (review, api-readiness: ready).
 servers:
   - url: https://api.necpgame.com/v1

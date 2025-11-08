@@ -45,7 +45,7 @@
 ### Дополнительные источники
 
 - `.BRAIN/05-technical/content-generation/city-life-population-algorithm.md` — влияние событий на плотность NPC.  
-- `.BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md` — мировые эффекты, требующие синхронизации.  
+- `.BRAIN/02-gameplay/social/player-orders-world-impact-детально.md` — мировые эффекты, требующие синхронизации.  
 - `.BRAIN/03-lore/visual-guides/visual-style-assets-детально.md` — ассеты и эффекты (гличи, освещение) для рейдов.
 
 ### Связанные документы

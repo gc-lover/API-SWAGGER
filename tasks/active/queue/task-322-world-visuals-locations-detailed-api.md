@@ -50,8 +50,8 @@
 
 ### Связанные документы
 
-- `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` — влияние социальных заказов на оформление районов.
-- `.BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md` — события, меняющие визуальные состояния.
+- `.BRAIN/02-gameplay/social/player-orders-creation-детально.md` — влияние социальных заказов на оформление районов.
+- `.BRAIN/02-gameplay/social/player-orders-world-impact-детально.md` — события, меняющие визуальные состояния.
 - `.BRAIN/03-lore/locations/locations-overview.md` — базовые идентификаторы городов и регионов.
 
 ---

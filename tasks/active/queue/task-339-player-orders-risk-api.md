@@ -30,7 +30,7 @@
 ### Основной документ
 
 **Репозиторий:** `.BRAIN`  
-**Путь:** `.BRAIN/_02-gameplay/social/player-orders-reputation-детально.md`  
+**Путь:** `.BRAIN/02-gameplay/social/player-orders-reputation-детально.md`  
 **Версия:** 1.0.0  
 **Дата обновления:** 2025-11-08 09:55  
 **Статус:** approved (api-readiness: ready)
@@ -44,10 +44,10 @@
 
 ### Дополнительные источники
 
-- `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` — формула `BaseReward = ComplexityScore * RiskModifier * MarketIndex * TimeModifier`.  
-- `.BRAIN/_02-gameplay/social/player-orders-system-детально.md` — workflow заказов и гарантий.  
+- `.BRAIN/02-gameplay/social/player-orders-creation-детально.md` — формула `BaseReward = ComplexityScore * RiskModifier * MarketIndex * TimeModifier`.  
+- `.BRAIN/02-gameplay/social/player-orders-system-детально.md` — workflow заказов и гарантий.  
 - `.BRAIN/05-technical/content-generation/city-life-population-algorithm.md` — региональные риски, события.  
-- `.BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md` — влияние на world/economy.  
+- `.BRAIN/02-gameplay/social/player-orders-world-impact-детально.md` — влияние на world/economy.  
 - `.BRAIN/05-technical/backend/matchmaking/matchmaking-rating.md` — рейтинги участников (вход в скоринг).
 
 ---

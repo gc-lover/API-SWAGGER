@@ -50,7 +50,7 @@
 
 ### Связанные документы
 
-- `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` — социальные заказы меняют визуал NPC.  
+- `.BRAIN/02-gameplay/social/player-orders-creation-детально.md` — социальные заказы меняют визуал NPC.  
 - `.BRAIN/03-lore/_03-lore/visual-guides/visual-style-locations-детально.md` — соответствие архетипов локациям.  
 - `API-SWAGGER/api/v1/world/visuals/locations-detailed.yaml` (API-TASK-322) — кросс-ссылки для ассетов.
 

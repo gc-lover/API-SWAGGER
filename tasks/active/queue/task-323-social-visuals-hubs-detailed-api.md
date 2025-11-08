@@ -45,8 +45,8 @@
 ### Дополнительные источники
 
 - `.BRAIN/03-lore/visual-guides/visual-style-locations-детально.md` — asset mapping для хабов (ASSET-HUB-*).  
-- `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` — влияние заказов игроков на декорации хабов.  
-- `.BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md` — мировые эффекты, требующие синхронизации визуальных режимов.
+- `.BRAIN/02-gameplay/social/player-orders-creation-детально.md` — влияние заказов игроков на декорации хабов.  
+- `.BRAIN/02-gameplay/social/player-orders-world-impact-детально.md` — мировые эффекты, требующие синхронизации визуальных режимов.
 
 ### Связанные документы
 

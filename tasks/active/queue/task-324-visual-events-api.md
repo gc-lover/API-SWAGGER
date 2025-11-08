@@ -46,7 +46,7 @@
 
 - `.BRAIN/02-gameplay/world/events/live-events-system.md` — логика живых событий.
 - `.BRAIN/05-technical/content-generation/city-life-population-algorithm.md` — реакция NPC и инфраструктуры.
-- `.BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md` — взаимодействие событий с социальными механиками.
+- `.BRAIN/02-gameplay/social/player-orders-world-impact-детально.md` — взаимодействие событий с социальными механиками.
 - `API-SWAGGER/api/v1/gameplay/actions/actions.yaml` — образец описания событий/активностей.
 
 ### Связанные документы

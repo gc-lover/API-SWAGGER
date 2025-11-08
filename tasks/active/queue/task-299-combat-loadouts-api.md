@@ -12,7 +12,7 @@
 
 Спроектировать OpenAPI/AsyncAPI спецификацию `gameplay-service` для управления боевыми лодаутами: создание, хранение, активация, пресеты, комплекты и синхронизация с аренами, рейдами и экстракт-системой.
 
-**Что нужно сделать:** На основе `.BRAIN/_02-gameplay/combat/combat-loadouts-system.md` описать полный REST API и события для работы с лодаутами, комплектами (kits), пресетами и валидацией ролей, учитывая ограничения имплантов, способностей и экономики.
+**Что нужно сделать:** На основе `.BRAIN/02-gameplay/combat/combat-loadouts-system.md` описать полный REST API и события для работы с лодаутами, комплектами (kits), пресетами и валидацией ролей, учитывая ограничения имплантов, способностей и экономики.
 
 ---
 
@@ -32,7 +32,7 @@
 ### Основной источник
 
 **Репозиторий:** `.BRAIN`  
-**Документ:** `.BRAIN/_02-gameplay/combat/combat-loadouts-system.md`  
+**Документ:** `.BRAIN/02-gameplay/combat/combat-loadouts-system.md`  
 **Версия:** 0.3.0  
 **Дата последнего обновления:** 2025-11-08 00:14  
 **Статус документа:** review (готов к API), `api-readiness: ready`
@@ -45,11 +45,11 @@
 
 ### Дополнительные источники
 
-- `.BRAIN/_02-gameplay/combat/combat-roles-detailed.md` — роли, перки и требования для loadout.
-- `.BRAIN/_02-gameplay/combat/combat-abilities.md` — способности и слоты.
-- `.BRAIN/_02-gameplay/combat/combat-implants-limits.md`, `.BRAIN/_02-gameplay/combat/combat-implants-types.md` — лимиты имплантов.
-- `.BRAIN/_02-gameplay/combat/loot-hunt-system.md` — режимы, требующие быстрой смены loadout.
-- `.BRAIN/_02-gameplay/combat/arena-system.md` — требования арен к лодаутам и пресетам.
+- `.BRAIN/02-gameplay/combat/combat-roles-detailed.md` — роли, перки и требования для loadout.
+- `.BRAIN/02-gameplay/combat/combat-abilities.md` — способности и слоты.
+- `.BRAIN/02-gameplay/combat/combat-implants-limits.md`, `.BRAIN/02-gameplay/combat/combat-implants-types.md` — лимиты имплантов.
+- `.BRAIN/02-gameplay/combat/loot-hunt-system.md` — режимы, требующие быстрой смены loadout.
+- `.BRAIN/02-gameplay/combat/arena-system.md` — требования арен к лодаутам и пресетам.
 - `.BRAIN/02-gameplay/economy/equipment-matrix.md` — бренды, сигнатуры и бонусы комплектов.
 
 ### Связанные документы/таски
@@ -197,7 +197,7 @@ API-SWAGGER/
 - [ ] Endpoints/события/схемы проходят lint и укладываются в лимит строк (при необходимости — вынос в подфайлы).
 - [ ] Безопасность, аудит и idempotency задокументированы.
 - [ ] Примеры отражают ключевые сценарии (создание, активация, валидация, публикация).
-- [ ] Обновлены `tasks/config/brain-mapping.yaml` и `.BRAIN/_02-gameplay/combat/combat-loadouts-system.md` (секция API Tasks Status).
+- [ ] Обновлены `tasks/config/brain-mapping.yaml` и `.BRAIN/02-gameplay/combat/combat-loadouts-system.md` (секция API Tasks Status).
 
 ---
 

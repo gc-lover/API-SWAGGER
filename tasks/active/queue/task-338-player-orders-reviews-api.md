@@ -30,7 +30,7 @@
 ### Основной документ
 
 **Репозиторий:** `.BRAIN`  
-**Путь:** `.BRAIN/_02-gameplay/social/player-orders-reputation-детально.md`  
+**Путь:** `.BRAIN/02-gameplay/social/player-orders-reputation-детально.md`  
 **Версия:** 1.0.0  
 **Дата обновления:** 2025-11-08 09:55  
 **Статус:** approved (api-readiness: ready)
@@ -44,9 +44,9 @@
 
 ### Дополнительные источники
 
-- `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` — цикл заказа, публикация.  
-- `.BRAIN/_02-gameplay/social/player-orders-system-детально.md` — бизнес-процесс, статусная модель.  
-- `.BRAIN/_02-gameplay/social/relationships-system-детально.md` — социальное доверие.  
+- `.BRAIN/02-gameplay/social/player-orders-creation-детально.md` — цикл заказа, публикация.  
+- `.BRAIN/02-gameplay/social/player-orders-system-детально.md` — бизнес-процесс, статусная модель.  
+- `.BRAIN/02-gameplay/social/relationships-system-детально.md` — социальное доверие.  
 - `.BRAIN/05-technical/backend/matchmaking/matchmaking-rating.md` — интеграция с матчмейкинг-рейтинго м.  
 - `API-SWAGGER/api/v1/social/player-orders/ratings.yaml` — базовая спецификация рейтингов.
 

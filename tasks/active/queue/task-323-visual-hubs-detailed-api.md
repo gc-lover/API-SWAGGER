@@ -47,7 +47,7 @@
 
 - `.BRAIN/02-gameplay/social/social-overview.md` — общая структура социальных механик.
 - `.BRAIN/02-gameplay/social/npc-simulation.md` — данные о плотности NPC и типах деятельности.
-- `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` — зависимость хабов от заказов и рейтингов (для активности).
+- `.BRAIN/02-gameplay/social/player-orders-creation-детально.md` — зависимость хабов от заказов и рейтингов (для активности).
 - `API-SWAGGER/api/v1/social/npc/schedules.yaml` — примеры моделей social-service, пригодных для переиспользования.
 
 ### Связанные документы

@@ -316,7 +316,7 @@ mappings:
       - ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-locations.md"
       - ".BRAIN/03-lore/visual-guides/visual-style-locations-детально.md"
       - ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-world-impact-детально.md"
       - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
     related_targets:
       - "api/v1/world/visuals/locations-detailed.yaml"
@@ -333,8 +333,8 @@ mappings:
     updated: "2025-11-08 16:32"
     related_sources:
       - ".BRAIN/02-gameplay/social/social-overview.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-world-impact-детально.md"
       - ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets.md"
       - ".BRAIN/03-lore/visual-guides/visual-style-locations-детально.md"
     related_targets:
@@ -352,7 +352,7 @@ mappings:
     updated: "2025-11-08 16:32"
     related_sources:
       - ".BRAIN/02-gameplay/world/events/live-events-system.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-world-impact-детально.md"
       - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
       - ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets.md"
       - ".BRAIN/03-lore/visual-guides/visual-style-locations-детально.md"
@@ -754,7 +754,7 @@ mappings:
     related_targets:
       - "api/v1/gameplay/social/personal-npc-tool.yaml"
   
-  - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+  - source: ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
     target: "api/v1/social/player-orders.yaml"
     task_id: "API-TASK-317"
     task_file: "tasks/active/queue/task-317-player-orders-creation-api.md"
@@ -763,10 +763,10 @@ mappings:
     version: "1.2.0"
     updated: "2025-11-08 17:05"
     related_sources:
-      - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-economy.md"
-      - ".BRAIN/_02-gameplay/social/relationships-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-economy.md"
+      - ".BRAIN/02-gameplay/social/relationships-system-детально.md"
     related_targets:
       - "api/v1/social/player-orders.yaml"
       - "api/v1/social/player-orders-components.yaml"
@@ -775,7 +775,7 @@ mappings:
       - "api/v1/social/player-orders-validation-components.yaml"
       - "api/v1/social/player-orders-publication-components.yaml"
 
-  - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+  - source: ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
     target: "api/v1/economy/player-orders/budget.yaml"
     task_id: "API-TASK-318"
     task_file: "tasks/active/queue/task-318-player-orders-budget-api.md"
@@ -785,9 +785,9 @@ mappings:
     updated: "2025-11-08 16:55"
     completed: "2025-11-08 16:55"
     related_sources:
-      - ".BRAIN/_02-gameplay/social/player-orders-economy.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-economy.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
     related_targets:
       - "api/v1/economy/player-orders/budget.yaml"
       - "api/v1/economy/player-orders/budget-parameters.yaml"
@@ -796,7 +796,7 @@ mappings:
       - "api/v1/economy/player-orders/budget-examples.yaml"
       - "api/v1/economy/player-orders/player-orders-budget-components.yaml"
 
-  - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+  - source: ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
     target: "api/v1/world/player-orders/validation.yaml"
     task_id: "API-TASK-319"
     task_file: "tasks/active/queue/task-319-player-orders-validation-api.md"
@@ -806,10 +806,10 @@ mappings:
     updated: "2025-11-08 16:39"
     completed: "2025-11-08 16:39"
     related_sources:
-      - ".BRAIN/_02-gameplay/social/player-orders-advanced.md"
-      - ".BRAIN/_02-gameplay/world/world-state/player-impact-systems.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
-      - ".BRAIN/_02-gameplay/social/npc-hiring-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-advanced.md"
+      - ".BRAIN/02-gameplay/world/world-state/player-impact-systems.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/02-gameplay/social/npc-hiring-system-детально.md"
     related_targets:
       - "api/v1/world/player-orders/validation.yaml"
       - "api/v1/world/player-orders/validation-components.yaml"
@@ -3319,7 +3319,7 @@ mappings:
     version: "v1.0.0"
     updated: "2025-11-07 11:20"
 
-  - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+  - source: ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
     target: "api/v1/social/player-orders.yaml"
     task_id: "API-TASK-317"
     task_file: "tasks/active/queue/task-317-player-orders-creation-api.md"
@@ -3328,17 +3328,17 @@ mappings:
     version: "v1.0.0"
     updated: "2025-11-08 12:10"
     related_sources:
-      - ".BRAIN/_02-gameplay/social/player-orders-system.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-economy.md"
-      - ".BRAIN/_02-gameplay/social/relationships-system-детально.md"
-      - ".BRAIN/_02-gameplay/social/npc-hiring-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-system.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-economy.md"
+      - ".BRAIN/02-gameplay/social/relationships-system-детально.md"
+      - ".BRAIN/02-gameplay/social/npc-hiring-system-детально.md"
     related_targets:
       - "api/v1/social/player-orders-components.yaml"
       - "api/v1/economy/player-orders/budget.yaml"
       - "api/v1/world/player-orders/validation.yaml"
 
-  - source: ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+  - source: ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
     target: "api/v1/social/player-orders/ratings.yaml"
     task_id: "API-TASK-318"
     task_file: "tasks/active/queue/task-318-player-orders-ratings-api.md"
@@ -3348,10 +3348,10 @@ mappings:
     updated: "2025-11-08 17:45"
     completed: "2025-11-08 17:45"
     related_sources:
-      - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
-      - ".BRAIN/_02-gameplay/social/relationships-system-детально.md"
-      - ".BRAIN/_02-gameplay/social/npc-hiring-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
+      - ".BRAIN/02-gameplay/social/relationships-system-детально.md"
+      - ".BRAIN/02-gameplay/social/npc-hiring-system-детально.md"
       - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
     related_targets:
       - "api/v1/social/player-orders.yaml"
@@ -3363,7 +3363,47 @@ mappings:
       - "api/v1/social/player-orders/ratings-schemas-config.yaml"
       - "api/v1/social/player-orders/ratings-examples.yaml"
 
-  - source: ".BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md"
+  - source: ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
+    target: "api/v1/social/player-orders/reviews.yaml"
+    task_id: "API-TASK-338"
+    task_file: "tasks/active/queue/task-338-player-orders-reviews-api.md"
+    status: "queued"
+    created: "2025-11-08 18:50"
+    version: "v1.0.0"
+    updated: "2025-11-08 18:50"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
+      - ".BRAIN/02-gameplay/social/relationships-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
+    related_targets:
+      - "api/v1/social/player-orders/ratings.yaml"
+      - "api/v1/social/player-orders/reviews.yaml"
+      - "api/v1/social/player-orders/reviews-components.yaml"
+      - "api/v1/social/player-orders/reviews-examples.yaml"
+
+  - source: ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
+    target: "api/v1/economy/player-orders/risk.yaml"
+    task_id: "API-TASK-339"
+    task_file: "tasks/active/queue/task-339-player-orders-risk-api.md"
+    status: "queued"
+    created: "2025-11-08 18:52"
+    version: "v1.0.0"
+    updated: "2025-11-08 18:52"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
+      - ".BRAIN/05-technical/backend/matchmaking/matchmaking-rating.md"
+    related_targets:
+      - "api/v1/economy/player-orders/risk.yaml"
+      - "api/v1/economy/player-orders/risk-components.yaml"
+      - "api/v1/economy/player-orders/risk-examples.yaml"
+      - "api/v1/economy/player-orders/risk-schemas.yaml"
+
+  - source: ".BRAIN/02-gameplay/social/player-orders-world-impact-детально.md"
     target: "api/v1/world/player-orders/effects.yaml"
     task_id: "API-TASK-319"
     task_file: "tasks/active/queue/task-319-player-orders-world-impact-api.md"
@@ -3373,10 +3413,10 @@ mappings:
     updated: "2025-11-08 18:10"
     completed: "2025-11-08 18:10"
     related_sources:
-      - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
-      - ".BRAIN/_02-gameplay/social/relationships-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/02-gameplay/social/relationships-system-детально.md"
       - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
       - ".BRAIN/03-lore/locations/locations-overview.md"
       - ".BRAIN/03-lore/visual-guides/visual-style-locations-детально.md"
@@ -3389,7 +3429,7 @@ mappings:
       - "api/v1/world/player-orders/effects-schemas-news.yaml"
       - "api/v1/world/player-orders/effects-examples.yaml"
 
-  - source: ".BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md"
+  - source: ".BRAIN/02-gameplay/social/player-orders-world-impact-детально.md"
     target: "api/v1/economy/player-orders/index.yaml"
     task_id: "API-TASK-320"
     task_file: "tasks/active/queue/task-320-player-orders-economy-index-api.md"
@@ -3398,10 +3438,10 @@ mappings:
     version: "v1.0.0"
     updated: "2025-11-08 12:55"
     related_sources:
-      - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
-      - ".BRAIN/_02-gameplay/social/relationships-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/02-gameplay/social/relationships-system-детально.md"
       - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
       - ".BRAIN/03-lore/locations/locations-overview.md"
       - ".BRAIN/03-lore/visual-guides/visual-style-locations-детально.md"
@@ -3411,7 +3451,7 @@ mappings:
       - "api/v1/world/player-orders/effects.yaml"
       - "api/v1/social/player-orders/news.yaml"
 
-  - source: ".BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md"
+  - source: ".BRAIN/02-gameplay/social/player-orders-world-impact-детально.md"
     target: "api/v1/social/player-orders/news.yaml"
     task_id: "API-TASK-321"
     task_file: "tasks/active/queue/task-321-player-orders-news-api.md"
@@ -3420,10 +3460,10 @@ mappings:
     version: "v1.0.0"
     updated: "2025-11-08 13:05"
     related_sources:
-      - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
-      - ".BRAIN/_02-gameplay/social/relationships-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/02-gameplay/social/relationships-system-детально.md"
       - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
       - ".BRAIN/03-lore/visual-guides/visual-style-locations-детально.md"
     related_targets:
@@ -3433,7 +3473,7 @@ mappings:
       - "api/v1/economy/player-orders/index.yaml"
 
   
-  - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+  - source: ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
     target: "api/v1/economy/player-orders/budget.yaml"
     task_id: "API-TASK-318"
     task_file: "tasks/active/queue/task-318-player-orders-budget-api.md"
@@ -3443,14 +3483,14 @@ mappings:
     updated: "2025-11-08 17:05"
     completed: "2025-11-08 17:05"
     related_sources:
-      - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-economy.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-economy.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
     related_targets:
       - "api/v1/social/player-orders.yaml"
       - "api/v1/economy/player-orders/budget-components.yaml"
 
-  - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+  - source: ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
     target: "api/v1/world/player-orders/validation.yaml"
     task_id: "API-TASK-319"
     task_file: "tasks/active/queue/task-319-player-orders-validation-api.md"
@@ -3459,8 +3499,8 @@ mappings:
     version: "v1.0.0"
     updated: "2025-11-08 15:35"
     related_sources:
-      - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
       - ".BRAIN/_05-technical/content-generation/city-life-population-algorithm.md"
     related_targets:
       - "api/v1/social/player-orders.yaml"
@@ -3751,7 +3791,7 @@ mappings:
     updated: "2025-11-08 17:34"
     related_sources:
       - ".BRAIN/03-lore/visual-guides/visual-style-locations.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
       - ".BRAIN/02-gameplay/economy/economy-auction-house.md"
       - ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets-детально.md"
     related_targets:
@@ -3769,7 +3809,7 @@ mappings:
     updated: "2025-11-08 18:01"
     related_sources:
       - ".BRAIN/04-narrative/dialogues/quest-main-001-first-steps.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
       - ".BRAIN/03-lore/visual-guides/visual-style-locations-детально.md"
       - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
     related_targets:
@@ -3787,7 +3827,7 @@ mappings:
     updated: "2025-11-08 18:12"
     related_sources:
       - ".BRAIN/04-narrative/dialogues/quest-main-001-first-steps.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
       - ".BRAIN/03-lore/visual-guides/visual-style-locations-детально.md"
       - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
     related_targets:
@@ -3805,7 +3845,7 @@ mappings:
     updated: "2025-11-08 18:25"
     related_sources:
       - ".BRAIN/04-narrative/dialogues/quest-main-001-first-steps.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
       - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
       - ".BRAIN/05-technical/backend/realtime-server/part1-architecture-zones.md"
     related_targets:
@@ -3824,7 +3864,7 @@ mappings:
     related_sources:
       - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
       - ".BRAIN/05-technical/backend/realtime-server/part1-architecture-zones.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
       - ".BRAIN/04-narrative/dialogues/quest-main-001-first-steps.md"
     related_targets:
       - "api/v1/character/visuals/romance-states.yaml"
@@ -3844,7 +3884,7 @@ mappings:
     related_sources:
       - ".BRAIN/03-lore/visual-guides/visual-style-locations.md"
       - ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-world-impact-детально.md"
       - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
     related_targets:
       - "api/v1/world/visuals/events.yaml"
@@ -3861,8 +3901,8 @@ mappings:
     updated: "2025-11-08 16:32"
     related_sources:
       - ".BRAIN/03-lore/visual-guides/visual-style-locations.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-world-impact-детально.md"
       - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
     related_targets:
       - "api/v1/world/visuals/locations-detailed.yaml"
@@ -3880,7 +3920,7 @@ mappings:
     related_sources:
       - ".BRAIN/03-lore/visual-guides/visual-style-locations.md"
       - ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets-детально.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-world-impact-детально.md"
       - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
     related_targets:
       - "api/v1/world/visuals/locations-detailed.yaml"
@@ -3933,7 +3973,7 @@ mappings:
     updated: "2025-11-08 17:50"
     related_sources:
       - ".BRAIN/03-lore/visual-guides/visual-style-assets.md"
-      - ".BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-world-impact-детально.md"
       - ".BRAIN/02-gameplay/economy/economy-auction-house.md"
       - ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-locations-детально.md"
     related_targets:
@@ -6231,7 +6271,7 @@ mappings:
       - "api/v1/admin/maintenance/maintenance-mode.yaml"
       - "api/v1/technical/analytics/analytics-reporting.yaml"
 
-  - source: ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+  - source: ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
     target: "api/v1/gameplay/combat/loadouts.yaml"
     task_id: "API-TASK-299"
     task_file: "tasks/active/queue/task-299-combat-loadouts-api.md"
@@ -6240,12 +6280,12 @@ mappings:
     version: "0.3.0"
     updated: "2025-11-07 23:05"
     related_sources:
-      - ".BRAIN/_02-gameplay/combat/combat-roles-detailed.md"
-      - ".BRAIN/_02-gameplay/combat/combat-abilities.md"
-      - ".BRAIN/_02-gameplay/combat/combat-implants-limits.md"
-      - ".BRAIN/_02-gameplay/combat/combat-implants-types.md"
-      - ".BRAIN/_02-gameplay/combat/arena-system.md"
-      - ".BRAIN/_02-gameplay/combat/loot-hunt-system.md"
+      - ".BRAIN/02-gameplay/combat/combat-roles-detailed.md"
+      - ".BRAIN/02-gameplay/combat/combat-abilities.md"
+      - ".BRAIN/02-gameplay/combat/combat-implants-limits.md"
+      - ".BRAIN/02-gameplay/combat/combat-implants-types.md"
+      - ".BRAIN/02-gameplay/combat/arena-system.md"
+      - ".BRAIN/02-gameplay/combat/loot-hunt-system.md"
     related_targets:
       - "api/v1/gameplay/combat/abilities.yaml"
       - "api/v1/gameplay/combat/implants.yaml"
@@ -6253,7 +6293,7 @@ mappings:
       - "api/v1/gameplay/combat/arena-system.yaml"
       - "api/v1/gameplay/combat/loot-hunt.yaml"
 
-  - source: ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+  - source: ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
     target: "api/v1/gameplay/combat/loadout-kits.yaml"
     task_id: "API-TASK-301"
     task_file: "tasks/active/queue/task-301-combat-loadout-kits-api.md"
@@ -6262,20 +6302,20 @@ mappings:
     version: "0.3.0"
     updated: "2025-11-08 00:45"
     related_sources:
-      - ".BRAIN/_02-gameplay/combat/combat-roles-detailed.md"
-      - ".BRAIN/_02-gameplay/combat/combat-implants-limits.md"
-      - ".BRAIN/_02-gameplay/combat/combat-implants-types.md"
+      - ".BRAIN/02-gameplay/combat/combat-roles-detailed.md"
+      - ".BRAIN/02-gameplay/combat/combat-implants-limits.md"
+      - ".BRAIN/02-gameplay/combat/combat-implants-types.md"
       - ".BRAIN/02-gameplay/economy/equipment-matrix.md"
       - ".BRAIN/02-gameplay/economy/blueprint-market.md"
-      - ".BRAIN/_02-gameplay/combat/arena-system.md"
-      - ".BRAIN/_02-gameplay/combat/loot-hunt-system.md"
+      - ".BRAIN/02-gameplay/combat/arena-system.md"
+      - ".BRAIN/02-gameplay/combat/loot-hunt-system.md"
     related_targets:
       - "api/v1/gameplay/combat/loadouts.yaml"
       - "api/v1/gameplay/combat/arena-system.yaml"
       - "api/v1/gameplay/combat/loot-hunt.yaml"
       - "api/v1/gameplay/economy/equipment.yaml"
 
-  - source: ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+  - source: ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
     target: "api/v1/gameplay/combat/loadout-profiles.yaml"
     task_id: "API-TASK-302"
     task_file: "tasks/active/queue/task-302-combat-loadout-profiles-api.md"
@@ -6284,19 +6324,19 @@ mappings:
     version: "0.3.0"
     updated: "2025-11-08 01:05"
     related_sources:
-      - ".BRAIN/_02-gameplay/combat/combat-roles-detailed.md"
-      - ".BRAIN/_02-gameplay/combat/combat-extract.md"
-      - ".BRAIN/_02-gameplay/world/events/world-events-framework.md"
-      - ".BRAIN/_02-gameplay/world/world-state/living-world-kenshi-hybrid.md"
-      - ".BRAIN/_02-gameplay/progression/progression-skills-mapping.md"
-      - ".BRAIN/_02-gameplay/progression/progression-attributes-matrix.md"
+      - ".BRAIN/02-gameplay/combat/combat-roles-detailed.md"
+      - ".BRAIN/02-gameplay/combat/combat-extract.md"
+      - ".BRAIN/02-gameplay/world/events/world-events-framework.md"
+      - ".BRAIN/02-gameplay/world/world-state/living-world-kenshi-hybrid.md"
+      - ".BRAIN/02-gameplay/progression/progression-skills-mapping.md"
+      - ".BRAIN/02-gameplay/progression/progression-attributes-matrix.md"
     related_targets:
       - "api/v1/gameplay/combat/loadouts.yaml"
       - "api/v1/gameplay/combat/arena-system.yaml"
       - "api/v1/world/world-state/living-world.yaml"
       - "api/v1/gameplay/progression/progression-backend.yaml"
 
-  - source: ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+  - source: ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
     target: "api/v1/gameplay/combat/loadout-macros.yaml"
     task_id: "API-TASK-303"
     task_file: "tasks/active/queue/task-303-combat-loadout-macros-api.md"
@@ -6305,19 +6345,19 @@ mappings:
     version: "0.3.0"
     updated: "2025-11-08 01:32"
     related_sources:
-      - ".BRAIN/_02-gameplay/combat/combat-roles-detailed.md"
-      - ".BRAIN/_02-gameplay/combat/combat-abilities.md"
-      - ".BRAIN/_02-gameplay/combat/arena-system.md"
-      - ".BRAIN/_02-gameplay/combat/loot-hunt-system.md"
-      - ".BRAIN/_02-gameplay/combat/cyberpsychosis-system.md"
-      - ".BRAIN/_02-gameplay/combat/combat-extract.md"
+      - ".BRAIN/02-gameplay/combat/combat-roles-detailed.md"
+      - ".BRAIN/02-gameplay/combat/combat-abilities.md"
+      - ".BRAIN/02-gameplay/combat/arena-system.md"
+      - ".BRAIN/02-gameplay/combat/loot-hunt-system.md"
+      - ".BRAIN/02-gameplay/combat/cyberpsychosis-system.md"
+      - ".BRAIN/02-gameplay/combat/combat-extract.md"
     related_targets:
       - "api/v1/gameplay/combat/loadouts.yaml"
       - "api/v1/gameplay/combat/loadout-kits.yaml"
       - "api/v1/gameplay/combat/loadout-profiles.yaml"
       - "api/v1/gameplay/combat/abilities.yaml"
 
-  - source: ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+  - source: ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
     target: "api/v1/gameplay/combat/loadout-availability.yaml"
     task_id: "API-TASK-304"
     task_file: "tasks/active/queue/task-304-combat-loadout-availability-api.md"
@@ -6326,11 +6366,11 @@ mappings:
     version: "0.3.0"
     updated: "2025-11-08 01:58"
     related_sources:
-      - ".BRAIN/_02-gameplay/combat/combat-roles-detailed.md"
-      - ".BRAIN/_02-gameplay/combat/combat-implants-limits.md"
-      - ".BRAIN/_02-gameplay/combat/combat-implants-types.md"
-      - ".BRAIN/_02-gameplay/combat/arena-system.md"
-      - ".BRAIN/_02-gameplay/combat/loot-hunt-system.md"
+      - ".BRAIN/02-gameplay/combat/combat-roles-detailed.md"
+      - ".BRAIN/02-gameplay/combat/combat-implants-limits.md"
+      - ".BRAIN/02-gameplay/combat/combat-implants-types.md"
+      - ".BRAIN/02-gameplay/combat/arena-system.md"
+      - ".BRAIN/02-gameplay/combat/loot-hunt-system.md"
       - ".BRAIN/02-gameplay/economy/equipment-matrix.md"
       - ".BRAIN/05-technical/backend/notification-system.md"
     related_targets:
@@ -6340,7 +6380,7 @@ mappings:
       - "api/v1/gameplay/combat/loadout-macros.yaml"
       - "api/v1/gameplay/economy/equipment.yaml"
 
-  - source: ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+  - source: ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
     target: "api/v1/analytics/gameplay/loadout-telemetry.yaml"
     task_id: "API-TASK-305"
     task_file: "tasks/active/queue/task-305-combat-loadout-telemetry-api.md"
@@ -6349,11 +6389,11 @@ mappings:
     version: "0.3.0"
     updated: "2025-11-08 02:12"
     related_sources:
-      - ".BRAIN/_02-gameplay/combat/combat-roles-detailed.md"
-      - ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
-      - ".BRAIN/_02-gameplay/world/events/world-events-framework.md"
-      - ".BRAIN/_02-gameplay/combat/arena-system.md"
-      - ".BRAIN/_02-gameplay/combat/loot-hunt-system.md"
+      - ".BRAIN/02-gameplay/combat/combat-roles-detailed.md"
+      - ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
+      - ".BRAIN/02-gameplay/world/events/world-events-framework.md"
+      - ".BRAIN/02-gameplay/combat/arena-system.md"
+      - ".BRAIN/02-gameplay/combat/loot-hunt-system.md"
       - ".BRAIN/05-technical/backend/analytics/analytics-platform.md"
     related_targets:
       - "api/v1/gameplay/combat/loadouts.yaml"
@@ -6362,7 +6402,7 @@ mappings:
       - "api/v1/gameplay/combat/loadout-profiles.yaml"
       - "api/v1/analytics/analytics-reporting.yaml"
 
-  - source: ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+  - source: ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
     target: "api/v1/admin/combat/loadout-maintenance.yaml"
     task_id: "API-TASK-306"
     task_file: "tasks/active/queue/task-306-combat-loadout-maintenance-api.md"
@@ -6371,19 +6411,19 @@ mappings:
     version: "0.3.0"
     updated: "2025-11-08 02:28"
     related_sources:
-      - ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+      - ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
       - ".BRAIN/05-technical/backend/maintenance/maintenance-mode-system.md"
       - ".BRAIN/05-technical/backend/daily-weekly-reset-system.md"
       - ".BRAIN/05-technical/backend/notification-system.md"
-      - ".BRAIN/_02-gameplay/combat/arena-system.md"
-      - ".BRAIN/_02-gameplay/combat/loot-hunt-system.md"
+      - ".BRAIN/02-gameplay/combat/arena-system.md"
+      - ".BRAIN/02-gameplay/combat/loot-hunt-system.md"
     related_targets:
       - "api/v1/gameplay/combat/loadouts.yaml"
       - "api/v1/gameplay/combat/loadout-availability.yaml"
       - "api/v1/analytics/analytics-reporting.yaml"
       - "api/v1/admin/reset/reset-operations.yaml"
 
-  - source: ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+  - source: ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
     target: "api/v1/gameplay/economy/loadout-blueprints.yaml"
     task_id: "API-TASK-307"
     task_file: "tasks/active/queue/task-307-combat-loadout-blueprints-api.md"
@@ -6392,12 +6432,12 @@ mappings:
     version: "0.3.0"
     updated: "2025-11-08 02:42"
     related_sources:
-      - ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+      - ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
       - ".BRAIN/02-gameplay/economy/equipment-matrix.md"
       - ".BRAIN/02-gameplay/economy/blueprint-market.md"
       - ".BRAIN/02-gameplay/economy/trade-regulations.md"
-      - ".BRAIN/_02-gameplay/combat/combat-roles-detailed.md"
-      - ".BRAIN/_02-gameplay/progression/progression-skills-mapping.md"
+      - ".BRAIN/02-gameplay/combat/combat-roles-detailed.md"
+      - ".BRAIN/02-gameplay/progression/progression-skills-mapping.md"
       - ".BRAIN/05-technical/backend/notification-system.md"
     related_targets:
       - "api/v1/gameplay/combat/loadouts.yaml"
@@ -6406,7 +6446,7 @@ mappings:
       - "api/v1/gameplay/combat/loadout-profiles.yaml"
       - "api/v1/gameplay/economy/marketplace.yaml"
 
-  - source: ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+  - source: ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
     target: "api/v1/notification/combat/loadout-notifications.yaml"
     task_id: "API-TASK-308"
     task_file: "tasks/active/queue/task-308-combat-loadout-notifications-api.md"
@@ -6415,19 +6455,19 @@ mappings:
     version: "0.3.0"
     updated: "2025-11-08 03:00"
     related_sources:
-      - ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+      - ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
       - ".BRAIN/05-technical/backend/notification-system.md"
       - ".BRAIN/02-gameplay/economy/blueprint-market.md"
-      - ".BRAIN/_02-gameplay/world/events/world-events-framework.md"
-      - ".BRAIN/_02-gameplay/combat/arena-system.md"
-      - ".BRAIN/_02-gameplay/combat/loot-hunt-system.md"
+      - ".BRAIN/02-gameplay/world/events/world-events-framework.md"
+      - ".BRAIN/02-gameplay/combat/arena-system.md"
+      - ".BRAIN/02-gameplay/combat/loot-hunt-system.md"
     related_targets:
       - "api/v1/gameplay/combat/loadout-availability.yaml"
       - "api/v1/admin/combat/loadout-maintenance.yaml"
       - "api/v1/gameplay/economy/loadout-blueprints.yaml"
       - "api/v1/analytics/gameplay/loadout-telemetry.yaml"
 
-  - source: ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+  - source: ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
     target: "api/v1/matchmaking/loadouts/loadout-matchmaking.yaml"
     task_id: "API-TASK-309"
     task_file: "tasks/active/queue/task-309-combat-loadout-matchmaking-api.md"
@@ -6436,19 +6476,19 @@ mappings:
     version: "0.3.0"
     updated: "2025-11-08 03:18"
     related_sources:
-      - ".BRAIN/_02-gameplay/combat/combat-roles-detailed.md"
-      - ".BRAIN/_02-gameplay/combat/combat-extract.md"
-      - ".BRAIN/_02-gameplay/world/events/world-events-framework.md"
-      - ".BRAIN/_02-gameplay/progression/progression-skills-mapping.md"
-      - ".BRAIN/_02-gameplay/combat/arena-system.md"
-      - ".BRAIN/_02-gameplay/combat/loot-hunt-system.md"
+      - ".BRAIN/02-gameplay/combat/combat-roles-detailed.md"
+      - ".BRAIN/02-gameplay/combat/combat-extract.md"
+      - ".BRAIN/02-gameplay/world/events/world-events-framework.md"
+      - ".BRAIN/02-gameplay/progression/progression-skills-mapping.md"
+      - ".BRAIN/02-gameplay/combat/arena-system.md"
+      - ".BRAIN/02-gameplay/combat/loot-hunt-system.md"
     related_targets:
       - "api/v1/gameplay/combat/loadout-profiles.yaml"
       - "api/v1/gameplay/combat/loadout-availability.yaml"
       - "api/v1/analytics/gameplay/loadout-telemetry.yaml"
       - "api/v1/world/world-state/living-world.yaml"
 
-  - source: ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+  - source: ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
     target: "api/v1/social/loadouts/loadout-governance.yaml"
     task_id: "API-TASK-310"
     task_file: "tasks/active/queue/task-310-combat-loadout-social-governance-api.md"
@@ -6457,11 +6497,11 @@ mappings:
     version: "0.3.0"
     updated: "2025-11-08 03:32"
     related_sources:
-      - ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
+      - ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
       - ".BRAIN/02-gameplay/economy/blueprint-market.md"
-      - ".BRAIN/_02-gameplay/combat/arena-system.md"
-      - ".BRAIN/_02-gameplay/combat/loot-hunt-system.md"
-      - ".BRAIN/_02-gameplay/social/social-features-overview.md"
+      - ".BRAIN/02-gameplay/combat/arena-system.md"
+      - ".BRAIN/02-gameplay/combat/loot-hunt-system.md"
+      - ".BRAIN/02-gameplay/social/social-features-overview.md"
       - ".BRAIN/_05-technical/backend/notification-system.md"
     related_targets:
       - "api/v1/gameplay/combat/loadout-kits.yaml"
@@ -6469,7 +6509,7 @@ mappings:
       - "api/v1/gameplay/economy/loadout-blueprints.yaml"
       - "api/v1/social/social-resonance.yaml"
 
-  - source: ".BRAIN/_02-gameplay/world/world-state/living-world-kenshi-hybrid.md"
+  - source: ".BRAIN/02-gameplay/world/world-state/living-world-kenshi-hybrid.md"
     target: "api/v1/gameplay/world/living-world/living-world.yaml"
     task_id: "API-TASK-300"
     task_file: "tasks/active/queue/task-300-living-world-hybrid-api.md"
@@ -6479,12 +6519,12 @@ mappings:
     updated: "2025-11-08 09:30"
     completed: "2025-11-08 09:30"
     related_sources:
-      - ".BRAIN/_02-gameplay/world/world-state/player-impact-systems.md"
-      - ".BRAIN/_02-gameplay/world/world-state/player-impact-persistence.md"
-      - ".BRAIN/_02-gameplay/economy/economy-world-impact.md"
-      - ".BRAIN/_02-gameplay/progression/progression-skills.md"
-      - ".BRAIN/_02-gameplay/combat/combat-loadouts-system.md"
-      - ".BRAIN/_02-gameplay/world/events/world-events-framework.md"
+      - ".BRAIN/02-gameplay/world/world-state/player-impact-systems.md"
+      - ".BRAIN/02-gameplay/world/world-state/player-impact-persistence.md"
+      - ".BRAIN/02-gameplay/economy/economy-world-impact.md"
+      - ".BRAIN/02-gameplay/progression/progression-skills.md"
+      - ".BRAIN/02-gameplay/combat/combat-loadouts-system.md"
+      - ".BRAIN/02-gameplay/world/events/world-events-framework.md"
     related_targets:
       - "api/v1/world/world-interaction-suite.yaml"
       - "api/v1/world/world-state/player-impact.yaml"

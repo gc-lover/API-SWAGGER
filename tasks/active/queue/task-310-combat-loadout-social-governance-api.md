@@ -12,7 +12,7 @@
 
 Спроектировать OpenAPI/AsyncAPI спецификацию подсистемы социальных правил для лодаутов (Combat Loadout Social Governance) в `social-service`: управление клановыми библиотеками, голосованиями, обязательными комплектами и мониторингом соблюдения.
 
-**Что нужно сделать:** На основе `.BRAIN/_02-gameplay/combat/combat-loadouts-system.md` описать REST/Async контракты для обмена лодаутами внутри кланов/отрядов, назначения обязательных пресетов, голосований и уведомлений о нарушениях.
+**Что нужно сделать:** На основе `.BRAIN/02-gameplay/combat/combat-loadouts-system.md` описать REST/Async контракты для обмена лодаутами внутри кланов/отрядов, назначения обязательных пресетов, голосований и уведомлений о нарушениях.
 
 ---
 
@@ -32,7 +32,7 @@
 ### Основной источник
 
 **Репозиторий:** `.BRAIN`  
-**Документ:** `.BRAIN/_02-gameplay/combat/combat-loadouts-system.md`  
+**Документ:** `.BRAIN/02-gameplay/combat/combat-loadouts-system.md`  
 **Версия:** 0.3.0  
 **Дата последнего обновления:** 2025-11-08 00:14  
 **Статус документа:** review, `api-readiness: ready`
@@ -45,10 +45,10 @@
 
 ### Дополнительные источники
 
-- `.BRAIN/_02-gameplay/social/clan-governance.md` (если есть)
-- `.BRAIN/_02-gameplay/combat/arena-system.md`
-- `.BRAIN/_02-gameplay/combat/loot-hunt-system.md`
-- `.BRAIN/_02-gameplay/social/social-features-overview.md`
+- `.BRAIN/02-gameplay/social/clan-governance.md` (если есть)
+- `.BRAIN/02-gameplay/combat/arena-system.md`
+- `.BRAIN/02-gameplay/combat/loot-hunt-system.md`
+- `.BRAIN/02-gameplay/social/social-features-overview.md`
 - `.BRAIN/02-gameplay/economy/blueprint-market.md`
 - `.BRAIN/_05-technical/backend/notification-system.md`
 
@@ -209,7 +209,7 @@ API-SWAGGER/
 
 ## 🔗 Связность и последующие шаги
 
-- Добавить запись в `tasks/config/brain-mapping.yaml`, обновить `.BRAIN/_02-gameplay/combat/combat-loadouts-system.md` (API-TASK-310).
+- Добавить запись в `tasks/config/brain-mapping.yaml`, обновить `.BRAIN/02-gameplay/combat/combat-loadouts-system.md` (API-TASK-310).
 - Согласовать спецификацию с social-service и blueprint/notification API.
 - После генерации спецификации инициировать задачи для UI клановой библиотеки и модерации.
 

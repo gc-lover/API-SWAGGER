@@ -14,7 +14,7 @@ info:
   description: |
     Социальный сервис для новостной ленты заказов игроков, кризисов, хайлайтов и подписок.
 
-    Источники: `.BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md` v1.0.0 (approved, api-readiness: ready)
+    Источники: `.BRAIN/02-gameplay/social/player-orders-world-impact-детально.md` v1.0.0 (approved, api-readiness: ready)
 servers:
   - url: https://api.necpgame.com/v1
     description: Production

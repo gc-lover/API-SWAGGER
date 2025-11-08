@@ -12,7 +12,7 @@
 
 Спроектировать спецификацию `world-service` + сопряжённые `gameplay-service` эндпоинты для гибридной системы «Living World + Action XP» (Kenshi-inspired). API должно описывать управление фракционным контролем, логистическими маршрутами, хроникой мира и начислением Action XP/усталости.
 
-**Что нужно сделать:** На основе `.BRAIN/_02-gameplay/world/world-state/living-world-kenshi-hybrid.md` создать OpenAPI/AsyncAPI файл `api/v1/world/world-state/living-world.yaml`, включая REST для world-state/chronicle/логистики и progression endpoints для action XP/fatigue, а также события (Kafka/WebSocket) для хронологии, маршрутов и XP.
+**Что нужно сделать:** На основе `.BRAIN/02-gameplay/world/world-state/living-world-kenshi-hybrid.md` создать OpenAPI/AsyncAPI файл `api/v1/world/world-state/living-world.yaml`, включая REST для world-state/chronicle/логистики и progression endpoints для action XP/fatigue, а также события (Kafka/WebSocket) для хронологии, маршрутов и XP.
 
 ---
 
@@ -31,19 +31,19 @@
 
 ### Основной документ
 
-- `.BRAIN/_02-gameplay/world/world-state/living-world-kenshi-hybrid.md` (v0.2.0, review, `api-readiness: ready`)
+- `.BRAIN/02-gameplay/world/world-state/living-world-kenshi-hybrid.md` (v0.2.0, review, `api-readiness: ready`)
 
 **Ключевые разделы:**  
 Слои симуляции (фракционный контроль, базы, логистика), модель Action XP + fatigue, структуры данных (`FactionControl`, `ActionXpRecord`), REST/Events/GQL контуры, UX-потоки и метрики.
 
 ### Дополнительные документы
 
-- `.BRAIN/_02-gameplay/world/world-state/player-impact-systems.md` – глобальные индексы мира.  
-- `.BRAIN/_02-gameplay/economy/economy-world-impact.md` – экономические коэффициенты регионов.  
-- `.BRAIN/_02-gameplay/progression/progression-skills.md` и `progression-skills-mapping.md` – таблицы навыков и рангов.  
-- `.BRAIN/_02-gameplay/world/world-state/player-impact-persistence.md` – хранение состояния мира.  
-- `.BRAIN/_02-gameplay/combat/combat-loadouts-system.md` – взаимодействие с Action XP и подготовкой к контенту.  
-- `.BRAIN/_02-gameplay/world/events/world-events-framework.md` – хуки событий в хронологию мира.
+- `.BRAIN/02-gameplay/world/world-state/player-impact-systems.md` – глобальные индексы мира.  
+- `.BRAIN/02-gameplay/economy/economy-world-impact.md` – экономические коэффициенты регионов.  
+- `.BRAIN/02-gameplay/progression/progression-skills.md` и `progression-skills-mapping.md` – таблицы навыков и рангов.  
+- `.BRAIN/02-gameplay/world/world-state/player-impact-persistence.md` – хранение состояния мира.  
+- `.BRAIN/02-gameplay/combat/combat-loadouts-system.md` – взаимодействие с Action XP и подготовкой к контенту.  
+- `.BRAIN/02-gameplay/world/events/world-events-framework.md` – хуки событий в хронологию мира.
 
 ### Связанные задания
 
@@ -230,7 +230,7 @@ api/v1/world/world-state/
 
 ## 🔗 Связность и дальнейшие шаги
 
-- После реализации обновить `brain-mapping.yaml`, `.BRAIN/_02-gameplay/world/world-state/living-world-kenshi-hybrid.md` (Status → completed), добавить запись в `implementation-tracker.yaml`.  
+- После реализации обновить `brain-mapping.yaml`, `.BRAIN/02-gameplay/world/world-state/living-world-kenshi-hybrid.md` (Status → completed), добавить запись в `implementation-tracker.yaml`.  
 - Координировать с командами world interaction (task 241), loot hunt (task 247), economy analytics (task 258) и combat loadouts (task 299).  
 - Подготовить последующие задачи для UI/analytics (фронт, dashboards) после утверждения API.
 

@@ -45,7 +45,7 @@
 ### Дополнительные источники
 
 - `.BRAIN/04-narrative/dialogues/quest-main-001-first-steps.md` — примеры романтических сцен.  
-- `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` — влияние социального контента на романтические настройки.  
+- `.BRAIN/02-gameplay/social/player-orders-creation-детально.md` — влияние социального контента на романтические настройки.  
 - `API-SWAGGER/api/v1/social/visuals/hubs-detailed.yaml` (API-TASK-323) — ambient контракты.
 
 ### Связанные документы

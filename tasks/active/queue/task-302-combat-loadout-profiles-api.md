@@ -12,7 +12,7 @@
 
 Спроектировать OpenAPI/AsyncAPI спецификацию управления боевыми профильными требованиями (Loadout Profiles), адаптацией к событиям и угрозам, а также валидацией ролей, мастерства и условий PvE/PvP.
 
-**Что нужно сделать:** На основе `.BRAIN/_02-gameplay/combat/combat-loadouts-system.md` описать REST/Async контракты для каталога профилей, требований к ролям, адаптации под мировые события, проверок соответствия и аналитики угроз.
+**Что нужно сделать:** На основе `.BRAIN/02-gameplay/combat/combat-loadouts-system.md` описать REST/Async контракты для каталога профилей, требований к ролям, адаптации под мировые события, проверок соответствия и аналитики угроз.
 
 ---
 
@@ -32,7 +32,7 @@
 ### Основной источник
 
 **Репозиторий:** `.BRAIN`  
-**Документ:** `.BRAIN/_02-gameplay/combat/combat-loadouts-system.md`  
+**Документ:** `.BRAIN/02-gameplay/combat/combat-loadouts-system.md`  
 **Версия:** 0.3.0  
 **Дата последнего обновления:** 2025-11-08 00:14  
 **Статус документа:** review, `api-readiness: ready`
@@ -46,12 +46,12 @@
 
 ### Дополнительные источники
 
-- `.BRAIN/_02-gameplay/combat/combat-roles-detailed.md` — описание ролей и synergy.
-- `.BRAIN/_02-gameplay/combat/combat-extract.md` — карты, экспедиции, эвак сценарии.
-- `.BRAIN/_02-gameplay/world/events/world-events-framework.md` — live events и modifiers.
-- `.BRAIN/_02-gameplay/world/world-state/living-world-kenshi-hybrid.md` — динамика мира и threat adaptation.
-- `.BRAIN/_02-gameplay/progression/progression-skills-mapping.md` — связи перков и mastery tiers.
-- `.BRAIN/_02-gameplay/progression/progression-attributes-matrix.md` — формулы скорингов.
+- `.BRAIN/02-gameplay/combat/combat-roles-detailed.md` — описание ролей и synergy.
+- `.BRAIN/02-gameplay/combat/combat-extract.md` — карты, экспедиции, эвак сценарии.
+- `.BRAIN/02-gameplay/world/events/world-events-framework.md` — live events и modifiers.
+- `.BRAIN/02-gameplay/world/world-state/living-world-kenshi-hybrid.md` — динамика мира и threat adaptation.
+- `.BRAIN/02-gameplay/progression/progression-skills-mapping.md` — связи перков и mastery tiers.
+- `.BRAIN/02-gameplay/progression/progression-attributes-matrix.md` — формулы скорингов.
 
 ### Связанные документы/таски
 
@@ -215,7 +215,7 @@ API-SWAGGER/
 
 ## 🔗 Связность и последующие шаги
 
-- Добавить запись о задаче в `tasks/config/brain-mapping.yaml` и обновить `.BRAIN/_02-gameplay/combat/combat-loadouts-system.md` (API-TASK-302).
+- Добавить запись о задаче в `tasks/config/brain-mapping.yaml` и обновить `.BRAIN/02-gameplay/combat/combat-loadouts-system.md` (API-TASK-302).
 - Согласовать спецификацию с заданиями progression (`API-TASK-140`), living world (`API-TASK-300`) и арен (`API-TASK-244`).
 - После подготовки спецификации инициировать задачи для UI (profile dashboard) и analytics (threat scoring) при необходимости.
 

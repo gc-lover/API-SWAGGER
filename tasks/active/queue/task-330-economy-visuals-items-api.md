@@ -43,7 +43,7 @@
 
 ### Дополнительные источники
 
-- `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` — влияние на социальные заказы.  
+- `.BRAIN/02-gameplay/social/player-orders-creation-детально.md` — влияние на социальные заказы.  
 - `.BRAIN/02-gameplay/economy/economy-auction-house.md` — правила marketplace.  
 - `.BRAIN/03-lore/visual-guides/visual-style-locations-детально.md` — соответствие локациям.  
 - `API-SWAGGER/api/v1/gameplay/visuals/equipment.yaml` (задача 329) — ссылки на визуалы экипировки.

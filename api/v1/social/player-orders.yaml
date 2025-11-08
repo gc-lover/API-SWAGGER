@@ -15,7 +15,7 @@ info:
   description: |
     Контракт social-service для мастера создания заказов игроков: бриф, оценка бюджета,
     валидация, гарантии, публикация и отмена. Основано на
-    `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` v1.0.0 (approved, api-readiness: ready).
+    `.BRAIN/02-gameplay/social/player-orders-creation-детально.md` v1.0.0 (approved, api-readiness: ready).
 servers:
   - url: https://api.necpgame.com/v1
     description: Production

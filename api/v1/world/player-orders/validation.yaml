@@ -14,7 +14,7 @@ info:
     World-service выполняет проверки заказов игроков: территории, санкции, юридические ограничения,
     токсичность и дубликаты. Предоставляет social-service подробный чеклист и рекомендации.
 
-    Источники: `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`,
+    Источники: `.BRAIN/02-gameplay/social/player-orders-creation-детально.md`,
     `API-SWAGGER/tasks/active/queue/task-319-player-orders-validation-api.md`.
 servers:
   - url: https://api.necpgame.com/v1

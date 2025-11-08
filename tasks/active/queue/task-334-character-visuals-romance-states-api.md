@@ -47,7 +47,7 @@
 
 - `.BRAIN/04-narrative/dialogues/quest-main-001-first-steps.md` и другие романтические сценарии.  
 - `.BRAIN/03-lore/visual-guides/visual-style-locations-детально.md` — локации для сцен.  
-- `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` — влияние на социальные показатели.  
+- `.BRAIN/02-gameplay/social/player-orders-creation-детально.md` — влияние на социальные показатели.  
 - `API-SWAGGER/api/v1/character/visuals/archetypes-detailed.yaml` — базовый контекст архетипов.
 
 ---

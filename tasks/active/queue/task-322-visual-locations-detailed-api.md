@@ -52,7 +52,7 @@
 
 ### Связанные документы
 
-- `.BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md` — определяет зависимости по мировым событиям и витринам.
+- `.BRAIN/02-gameplay/social/player-orders-world-impact-детально.md` — определяет зависимости по мировым событиям и витринам.
 - `.BRAIN/05-technical/content-generation/city-life-population-algorithm.md` — данные для синхронизации NPC и потоков.
 - Kafka топики из раздела 11 документа (`world.visuals.location.detailed.updated`, `world.visuals.event.triggered`).
 
