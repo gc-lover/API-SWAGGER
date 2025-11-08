@@ -6,7 +6,7 @@ info:
     Управление жизненным циклом инцидентов: обнаружение, эскалация, RCA и коммуникации
     внутри команды поддержки.
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -391,3 +391,4 @@ components:
         status:
           type: string
           enum: [pending, in_progress, completed, postponed]
+

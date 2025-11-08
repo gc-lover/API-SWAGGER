@@ -13,7 +13,7 @@ info:
   description: "Управление игровыми группами: создание, приглашения, роли, лут, очереди и синхронизация квестов."
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -435,7 +435,7 @@ paths:
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-websocket:
-  url: wss://api.necpgame.com/v1/party/{partyId}/stream
+  url: wss://api.necp.game/v1/party/{partyId}/stream
   description: Realtime события party
   parameters:
     - name: partyId
@@ -479,3 +479,4 @@ components:
     PartyDetail: { $ref: './party-examples.yaml#/components/examples/PartyDetail' }
     LootDistributeRequest: { $ref: './party-examples.yaml#/components/examples/LootDistributeRequest' }
     PartyInviteRequest: { $ref: './party-examples.yaml#/components/examples/PartyInviteRequest' }
+

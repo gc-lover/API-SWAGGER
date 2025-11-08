@@ -13,7 +13,7 @@ info:
     REST API для модерации чат-системы NECPGAME: обработка жалоб, управление банами,
     конфигурация фильтров и автоматизация действий.
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -271,4 +271,5 @@ x-kafka:
 components:
   securitySchemes:
     BearerAuth: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+
 

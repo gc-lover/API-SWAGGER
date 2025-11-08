@@ -13,7 +13,7 @@ info:
   version: 1.0.0
   description: Базовая система генерации и распределения лута NECPGAME.
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - ServiceToken: []
 tags:
@@ -297,7 +297,7 @@ paths:
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-websocket:
-  url: wss://api.necpgame.com/v1/loot/stream
+  url: wss://api.necp.game/v1/loot/stream
   description: Поток событий генерации и распределения лута
   messages:
     lootGenerated: { summary: Сгенерирован лут, payload: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationResult' } }
@@ -312,3 +312,4 @@ components:
     BearerAuth: { $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
     ServiceToken: { $ref: '../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
     GMToken: { $ref: '../shared/common/security.yaml#/components/securitySchemes/GMToken' }
+

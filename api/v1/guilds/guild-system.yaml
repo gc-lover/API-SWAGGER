@@ -20,7 +20,7 @@ info:
     package: com.necpgame.socialservice
 servers:
   - url: https://api.necp.game/v1
-    description: Production API Gateway
+    description: Production API
 security:
   - BearerAuth: []
 tags:

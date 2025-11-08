@@ -13,7 +13,7 @@ info:
   version: 1.0.0
 
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 
 tags:
   - name: Configuration
@@ -113,4 +113,5 @@ components:
 
 security:
   - BearerAuth: []
+
 

@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: Управление многоступенчатыми фракционными контрактами, ветвлениями, репутацией и наградами.
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 x-target-architecture:
   backend:
     - service: world-service
@@ -203,7 +203,7 @@ x-integrations:
   analytics-service:
     telemetry: POST /api/v1/analytics/factions/contracts
 x-websocket:
-  url: wss://api.necpgame.com/v1/world/factions/contracts/{chainId}
+  url: wss://api.necp.game/v1/world/factions/contracts/{chainId}
   description: Поток событий по цепочке фракционного контракта.
   messages:
     StageStart:
@@ -244,3 +244,4 @@ components:
   securitySchemes:
     BearerAuth: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
     ServiceToken: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+

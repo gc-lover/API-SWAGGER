@@ -16,7 +16,7 @@ info:
     Источники: `.BRAIN/02-gameplay/social/player-orders-creation-детально.md`,
     `API-SWAGGER/tasks/active/queue/task-318-player-orders-budget-api.md`.
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
     description: Production
   - url: https://api.staging.necpgame.com/v1
     description: Staging
@@ -250,3 +250,4 @@ x-kafka-topics:
     summary: Страховой план применён к заказу.
     payload:
       $ref: './player-orders-budget-components.yaml#/components/schemas/InsuranceTier'
+

@@ -6,7 +6,7 @@ info:
 servers:
   - url: kafka+ssl://kafka.internal.necpgame:9093
     description: Kafka cluster
-  - url: wss://api.necpgame.com/v1/world/chronicle/stream
+  - url: wss://api.necp.game/v1/world/chronicle/stream
     description: WebSocket realtime канал хроники мира
 paths: {}
 x-kafka-topics:
@@ -46,7 +46,7 @@ x-kafka-topics:
     payload:
       $ref: '../schemas/living-world-components.yaml#/components/schemas/ActionXpSoftCapEvent'
 x-websocket:
-  url: wss://api.necpgame.com/v1/world/chronicle/stream
+  url: wss://api.necp.game/v1/world/chronicle/stream
   heartbeatSeconds: 15
   reconnectPolicy: exponential
   messages:
@@ -78,4 +78,5 @@ components:
       $ref: '../schemas/living-world-components.yaml#/components/schemas/ActionXpSoftCapEvent'
     ChronicleEvent:
       $ref: '../schemas/living-world-components.yaml#/components/schemas/ChronicleEvent'
+
 

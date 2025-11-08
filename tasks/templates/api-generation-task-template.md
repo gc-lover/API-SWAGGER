@@ -60,6 +60,7 @@
 ### Репозиторий: `API-SWAGGER`
 
 **Целевой файл:** `api/v1/gameplay/combat/shooting.yaml`
+> ⚠️ Бекенд состоит только из микросервисов. Убедись, что в задании определён конкретный микросервис, заполнен блок `info.x-microservice` и в секции `servers` указан единственный Production URL `https://api.necp.game/v1`.
 **API версия:** v1
 **Тип файла:** OpenAPI 3.0 Specification (YAML)
 

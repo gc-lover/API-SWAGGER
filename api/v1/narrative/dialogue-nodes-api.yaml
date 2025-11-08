@@ -20,7 +20,7 @@ info:
     url: https://necpgame.com/support
 
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
     description: Production server
   - url: https://api-staging.necpgame.com/v1
     description: Staging server
@@ -468,4 +468,5 @@ components:
 
 security:
   - BearerAuth: []
+
 

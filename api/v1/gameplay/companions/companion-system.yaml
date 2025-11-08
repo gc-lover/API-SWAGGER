@@ -14,7 +14,7 @@ info:
   description: "Компаньоны игроков NECPGAME: создание, прогрессия, миссии, способности, аналитика, анти-абуз."
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -390,3 +390,4 @@ components:
     CompanionRoster: { $ref: './examples.yaml#/components/examples/CompanionRoster' }
     CompanionLeaderboard: { $ref: './examples.yaml#/components/examples/CompanionLeaderboard' }
     CompanionAnalytics: { $ref: './examples.yaml#/components/examples/CompanionAnalytics' }
+

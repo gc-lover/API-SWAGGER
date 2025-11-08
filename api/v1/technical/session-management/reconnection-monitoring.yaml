@@ -14,7 +14,7 @@ info:
   description: Восстановление игровых сессий после обрыва и аналитика стабильности соединений.
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -252,3 +252,4 @@ components:
         eventType: { type: string, enum: [session.disconnect, session.reconnect, session.instability] }
         publishedAt: { type: string, format: date-time }
         payload: { type: object, additionalProperties: true }
+

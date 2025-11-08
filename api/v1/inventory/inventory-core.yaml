@@ -13,7 +13,7 @@ info:
   description: "Управление базовым инвентарём игроков: контейнеры, предметы, вес, экипировка, банк и резервы."
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -349,7 +349,7 @@ paths:
         '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
 
 x-websocket:
-  url: wss://api.necpgame.com/v1/inventory/players/{playerId}/stream
+  url: wss://api.necp.game/v1/inventory/players/{playerId}/stream
   description: Realtime события инвентаря игрока
   parameters:
     - name: playerId
@@ -395,3 +395,4 @@ components:
     PickupLoot: { $ref: './inventory-examples.yaml#/components/examples/PickupLoot' }
     EquipArmor: { $ref: './inventory-examples.yaml#/components/examples/EquipArmor' }
     ReserveTrade: { $ref: './inventory-examples.yaml#/components/examples/ReserveTrade' }
+

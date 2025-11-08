@@ -14,7 +14,7 @@ info:
   description: |
     Контракт economy-service для скоринга рисков заказов игроков, страховых планов и управления escrow.
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
     description: Production
 security:
   - BearerAuth: []
@@ -306,4 +306,5 @@ x-kafka-topics:
           format: float
         reason:
           type: string
+
 

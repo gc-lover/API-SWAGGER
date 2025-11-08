@@ -17,7 +17,7 @@ info:
     валидация, гарантии, публикация и отмена. Основано на
     `.BRAIN/02-gameplay/social/player-orders-creation-детально.md` v1.0.0 (approved, api-readiness: ready).
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
     description: Production
 security:
   - BearerAuth: []
@@ -287,4 +287,5 @@ x-kafka-topics:
           format: date-time
         details:
           type: string
+
 

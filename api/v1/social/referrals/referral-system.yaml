@@ -16,7 +16,7 @@ info:
     выдача наград и аналитические отчёты.
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -360,3 +360,4 @@ components:
         eventType: { type: string, enum: [referral.created, referral.registered, referral.milestone_reached, referral.reward_granted, referral.flagged] }
         publishedAt: { type: string, format: date-time }
         payload: { type: object, additionalProperties: true }
+

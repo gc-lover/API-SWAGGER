@@ -14,7 +14,7 @@ info:
   description: "Клановые войны, осады и контроль территорий NECPGAME: объявление, расписания, награды, штрафы и аналитика."
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -374,3 +374,4 @@ components:
     WarAnalytics: { $ref: './examples.yaml#/components/examples/WarAnalytics' }
     TerritoryMap: { $ref: './examples.yaml#/components/examples/TerritoryMap' }
     BroadcastRequest: { $ref: './examples.yaml#/components/examples/BroadcastRequest' }
+

@@ -14,7 +14,7 @@ info:
   description: "Косметическая экосистема NECPGAME: каталог, магазин ротаций, инвентарь, экипировка, подарки и аналитика."
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -398,3 +398,4 @@ components:
     EquipRequest: { $ref: './examples.yaml#/components/examples/EquipRequest' }
     CollectionProgress: { $ref: './examples.yaml#/components/examples/CollectionProgress' }
     CosmeticAnalytics: { $ref: './examples.yaml#/components/examples/CosmeticAnalytics' }
+

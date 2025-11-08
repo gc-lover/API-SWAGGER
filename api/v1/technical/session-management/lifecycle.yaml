@@ -14,7 +14,7 @@ info:
   description: Управление игровыми сессиями (создание, heartbeat, AFK, force logout) по документу `part1-lifecycle-heartbeat.md`.
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -238,3 +238,4 @@ components:
         timestamp: { type: string, format: date-time }
         sessionId: { type: string }
         metadata: { type: object, additionalProperties: true }
+

@@ -16,7 +16,7 @@ info:
 
     Источники: `.BRAIN/02-gameplay/social/player-orders-world-impact-детально.md` v1.0.0 (approved, api-readiness: ready)
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
     description: Production
 security:
   - BearerAuth: []
@@ -199,4 +199,5 @@ x-kafka-topics:
     summary: Изменение статуса подписки на новости
     payload:
       $ref: '../player-orders-news-components.yaml#/components/schemas/PlayerOrderNewsSubscription'
+
 

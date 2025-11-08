@@ -15,7 +15,7 @@ info:
     Контракт social-service для управления рейтинговой системой заказов игроков:
     расчёт баллов, отзывы, санкции и конфигурация категорий.
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
     description: Production
 security:
   - BearerAuth: []
@@ -372,4 +372,5 @@ x-kafka-topics:
         appliedAt:
           type: string
           format: date-time
+
 

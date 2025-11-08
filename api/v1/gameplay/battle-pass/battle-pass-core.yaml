@@ -14,7 +14,7 @@ info:
   description: "Ядро Battle Pass NECPGAME: сезоны, прогресс игроков, премиум-доступ, XP-источники и аналитика."
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -328,3 +328,4 @@ components:
     XpGrantRequest: { $ref: './examples.yaml#/components/examples/XpGrantRequest' }
     PremiumPurchaseRequest: { $ref: './examples.yaml#/components/examples/PremiumPurchaseRequest' }
     BattlePassAnalyticsResponse: { $ref: './examples.yaml#/components/examples/BattlePassAnalyticsResponse' }
+

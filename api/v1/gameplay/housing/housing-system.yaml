@@ -14,7 +14,7 @@ info:
   description: "Жилищная система NECPGAME: покупка апартаментов, кастомизация интерьера, социальные функции, хранилище и аналитика."
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -347,3 +347,4 @@ components:
     StorageStatus: { $ref: './examples.yaml#/components/examples/StorageStatus' }
     GuestInviteRequest: { $ref: './examples.yaml#/components/examples/GuestInviteRequest' }
     HousingAnalyticsResponse: { $ref: './examples.yaml#/components/examples/HousingAnalyticsResponse' }
+

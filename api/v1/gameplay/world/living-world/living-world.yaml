@@ -45,7 +45,7 @@ info:
     прокачкой Action XP с учётом усталости. Источник: `.BRAIN/02-gameplay/world/world-state/living-world-kenshi-hybrid.md`
     v0.2.0 (review, api-readiness: ready).
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
     description: Production
 security:
   - BearerAuth: []
@@ -642,7 +642,7 @@ x-kafka-topics:
       payload:
         $ref: './schemas/living-world-components.yaml#/components/schemas/ActionXpSoftCapEvent'
 x-websocket:
-  url: wss://api.necpgame.com/v1/world/chronicle/stream
+  url: wss://api.necp.game/v1/world/chronicle/stream
   description: Реалтайм поток событий хроники мира и статусов маршрутов.
   messages:
     chronicleEvent:
@@ -688,4 +688,5 @@ components:
     SkillFatigue: { $ref: './schemas/living-world-components.yaml#/components/schemas/SkillFatigue' }
     LivingWorldMetricsResponse: { $ref: './schemas/living-world-components.yaml#/components/schemas/LivingWorldMetricsResponse' }
     MaintenanceCommandResponse: { $ref: './schemas/living-world-components.yaml#/components/schemas/MaintenanceCommandResponse' }
+
 

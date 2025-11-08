@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: Управление календарём сезонных, регулярных и уникальных событий NECPGAME.
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 x-target-architecture:
   backend:
     - service: world-service
@@ -221,7 +221,7 @@ x-integrations:
   analytics-service:
     telemetry-topic: kafka.world.events
 x-websocket:
-  url: wss://api.necpgame.com/v1/world/events/seasonal
+  url: wss://api.necp.game/v1/world/events/seasonal
   description: Поток событий сезонного расписания и телеметрии.
   messages:
     EventTriggered:
@@ -267,3 +267,4 @@ components:
     BearerAuth: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
     GMToken: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/GMToken' }
     ServiceToken: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+

@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: Метрики фракций, авто-тюнинг баланса и управление алертами для analytics-service.
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 x-target-architecture:
   backend:
     - service: analytics-service
@@ -152,7 +152,7 @@ x-observability:
     - alerts_open_total
   pagerduty: AnalyticsJobLag
 x-websocket:
-  url: wss://api.necpgame.com/v1/analytics/factions
+  url: wss://api.necp.game/v1/analytics/factions
   description: Поток обновлений метрик, авто-тюнинга и алертов.
   messages:
     MetricUpdate:
@@ -182,4 +182,5 @@ components:
   securitySchemes:
     BearerAuth: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
     ServiceToken: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+
 

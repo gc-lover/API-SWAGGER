@@ -18,7 +18,7 @@ info:
 
     Источник: `.BRAIN/05-technical/content-generation/city-life-population-algorithm.md` v1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
     description: Production
 security:
   - BearerAuth: []
@@ -225,4 +225,5 @@ x-kafka-topics:
     summary: Ошибка задания пересчёта
     payload:
       $ref: './schemas/schedules-components.yaml#/components/schemas/ScheduleRecalcJob'
+
 

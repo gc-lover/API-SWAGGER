@@ -13,7 +13,7 @@ info:
   description: "Управление боевыми сессиями NECPGAME: создание, действия, лаг-компенсация, вознаграждения и realtime события."
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -276,7 +276,7 @@ paths:
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-websocket:
-  url: wss://api.necpgame.com/v1/combat/sessions/{sessionId}/stream
+  url: wss://api.necp.game/v1/combat/sessions/{sessionId}/stream
   description: Realtime события боевой сессии
   parameters:
     - name: sessionId
@@ -316,3 +316,4 @@ components:
     RaidSessionCreate: { $ref: './combat-session-examples.yaml#/components/examples/RaidSessionCreate' }
     CombatSessionState: { $ref: './combat-session-examples.yaml#/components/examples/CombatSessionState' }
     ActionRequest: { $ref: './combat-session-examples.yaml#/components/examples/ActionRequest' }
+

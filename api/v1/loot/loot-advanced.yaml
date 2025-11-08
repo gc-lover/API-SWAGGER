@@ -15,7 +15,7 @@ info:
     boss loot, bad luck protection и анти-дубликаты.
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -293,7 +293,7 @@ paths:
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-websocket:
-  url: wss://api.necpgame.com/v1/loot/stream
+  url: wss://api.necp.game/v1/loot/stream
   description: Realtime события распределения лута
   messages:
     rollStarted:
@@ -331,3 +331,4 @@ components:
     RollSubmissionRequest: { $ref: './loot-advanced-examples.yaml#/components/examples/RollSubmissionRequest' }
     BossLootDistributeRequest: { $ref: './loot-advanced-examples.yaml#/components/examples/BossLootDistributeRequest' }
     LootSettingsUpdateRequest: { $ref: './loot-advanced-examples.yaml#/components/examples/LootSettingsUpdateRequest' }
+

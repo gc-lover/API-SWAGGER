@@ -29,7 +29,7 @@ info:
     `API-SWAGGER/tasks/active/queue/task-243-social-resonance-api.md`. Индекс доверия комбинирует Reputation 40%, Romance 20%, Social Events 40%
     и синхронизируется с World Pulse и Crisis мониторингом.
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
     description: Production
 security:
   - BearerAuth: []
@@ -329,4 +329,5 @@ components:
   securitySchemes:
     BearerAuth:
       $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+
 

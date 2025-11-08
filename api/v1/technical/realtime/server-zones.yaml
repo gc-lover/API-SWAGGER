@@ -14,7 +14,7 @@ info:
   description: Управление realtime-инстансами Night City, распределением зон и эвакуацией игроков согласно `part1-architecture-zones.md`.
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -601,3 +601,4 @@ components:
         zoneId: { type: string }
         metrics: { type: object, additionalProperties: true }
         actions: { type: array, items: { type: string } }
+

@@ -6,7 +6,7 @@ info:
 servers:
   - url: kafka+ssl://kafka.internal.necpgame:9093
     description: Kafka кластер социальных событий
-  - url: wss://api.necpgame.com/v1/social/resonance/stream
+  - url: wss://api.necp.game/v1/social/resonance/stream
     description: WebSocket поток для UI `modules/social/resonance`
 paths: {}
 x-kafka-topics:
@@ -32,7 +32,7 @@ x-kafka-topics:
     payload:
       $ref: '../schemas/resonance-events-models.yaml#/components/schemas/SocialRelationshipUpdatedEvent'
 x-websocket:
-  url: wss://api.necpgame.com/v1/social/resonance/stream
+  url: wss://api.necp.game/v1/social/resonance/stream
   heartbeatSeconds: 15
   reconnectPolicy: exponential
   auth:
@@ -56,4 +56,5 @@ components:
   securitySchemes:
     BearerAuth:
       $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+
 

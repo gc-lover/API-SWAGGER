@@ -14,7 +14,7 @@ info:
   description: "Battle Pass награды, челленджи и бусты: выдача, реролл, realtime прогресс и аналитика."
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -279,7 +279,7 @@ paths:
         '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-websocket:
-  url: wss://api.necpgame.com/v1/gameplay/battle-pass/stream
+  url: wss://api.necp.game/v1/gameplay/battle-pass/stream
   description: Realtime события Battle Pass (прогресс челленджей, завершения, бусты, новые награды)
   protocols: [graphql-ws]
   messages:
@@ -314,3 +314,4 @@ components:
     WeeklyChallenges: { $ref: './examples.yaml#/components/examples/WeeklyChallenges' }
     BoostStatusResponse: { $ref: './examples.yaml#/components/examples/BoostStatusResponse' }
     RewardAnalyticsResponse: { $ref: './examples.yaml#/components/examples/RewardAnalyticsResponse' }
+

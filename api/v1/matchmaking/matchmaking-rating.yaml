@@ -11,7 +11,7 @@ info:
   version: 1.0.0
   description: Управление рейтингами матчмейкинга, сезонной статистикой и smurf-контролем.
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -295,4 +295,5 @@ components:
   securitySchemes:
     BearerAuth: { $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
     ServiceToken: { $ref: '../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+
 

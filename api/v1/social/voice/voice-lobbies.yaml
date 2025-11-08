@@ -14,7 +14,7 @@ info:
   description: API управления голосовыми лобби, ready-check, подканалами, матчмейкингом и модерацией.
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -372,3 +372,4 @@ components:
         eventType: { type: string, enum: [voice_lobby.created, voice_lobby.ready_check_started, voice_lobby.closed] }
         occurredAt: { type: string, format: date-time }
         payload: { type: object, additionalProperties: true }
+

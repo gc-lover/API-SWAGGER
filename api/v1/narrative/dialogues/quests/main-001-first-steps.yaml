@@ -15,7 +15,7 @@ info:
 
     Источник: `.BRAIN/04-narrative/dialogues/quest-main-001-first-steps.md` v1.0.0 (approved, api-readiness: ready).
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
     description: Production
   - url: https://api-staging.necpgame.com/v1
     description: Staging
@@ -179,4 +179,5 @@ components:
   securitySchemes:
     BearerAuth: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
     ServiceToken: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+
 

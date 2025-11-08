@@ -15,7 +15,7 @@ info:
     Социальная система друзей NECPGAME: запросы, статусы присутствия, блокировки,
     рекомендации и realtime взаимодействия.
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -209,7 +209,7 @@ paths:
         '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-websocket:
-  url: wss://api.necpgame.com/v1/social/friends/stream
+  url: wss://api.necp.game/v1/social/friends/stream
   description: Realtime события дружеской системы
   messages:
     friendRequest:
@@ -245,3 +245,4 @@ components:
   examples:
     FriendRequestCreate: { $ref: './friend-examples.yaml#/components/examples/FriendRequestCreate' }
     PresenceUpdateRequest: { $ref: './friend-examples.yaml#/components/examples/PresenceUpdateRequest' }
+

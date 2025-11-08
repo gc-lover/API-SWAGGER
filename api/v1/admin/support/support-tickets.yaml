@@ -14,7 +14,7 @@ info:
   description: "Полный жизненный цикл тикетов поддержки NECPGAME: создание, ответы, назначение, SLA, аналитика и эскалации."
   version: 1.0.0
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:
@@ -377,3 +377,4 @@ components:
         eventType: { type: string, enum: [ticket.created, ticket.assigned, ticket.response, ticket.sla.breach, ticket.resolved] }
         publishedAt: { type: string, format: date-time }
         payload: { type: object, additionalProperties: true }
+

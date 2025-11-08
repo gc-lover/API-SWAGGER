@@ -12,7 +12,7 @@ info:
   description: |
     Контракт world-service для расчёта влияния заказов игроков на города, экономические индексы и глобальные события.
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
     description: Production
 security:
   - BearerAuth: []
@@ -243,4 +243,5 @@ x-kafka-topics:
     summary: Новость о влиянии заказов опубликована.
     payload:
       $ref: './effects-schemas-news.yaml#/components/schemas/PlayerOrderNewsItem'
+
 

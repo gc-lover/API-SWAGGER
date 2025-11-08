@@ -14,7 +14,7 @@ info:
   description: |
     Контракт social-service для создания, модерации и выдачи отзывов по заказам игроков.
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
     description: Production
 security:
   - BearerAuth: []
@@ -340,4 +340,5 @@ x-kafka-topics:
           format: float
         reason:
           type: string
+
 
