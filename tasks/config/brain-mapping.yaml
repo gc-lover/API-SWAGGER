@@ -724,7 +724,7 @@ mappings:
     related_sources:
       - ".BRAIN/_02-gameplay/social/player-orders-economy.md"
       - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
-      - ".BRAIN/_05-technical/economy/escrow-pipeline.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
     related_targets:
       - "api/v1/economy/player-orders/budget.yaml"
       - "api/v1/economy/player-orders/budget-components.yaml"
@@ -3269,6 +3269,49 @@ mappings:
       - "api/v1/social/player-orders-components.yaml"
       - "api/v1/economy/player-orders/budget.yaml"
       - "api/v1/world/player-orders/validation.yaml"
+
+  - source: ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+    target: "api/v1/social/player-orders/ratings.yaml"
+    task_id: "API-TASK-318"
+    task_file: "tasks/active/queue/task-318-player-orders-ratings-api.md"
+    status: "queued"
+    created: "2025-11-08 12:30"
+    version: "v1.0.0"
+    updated: "2025-11-08 12:30"
+    related_sources:
+      - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+      - ".BRAIN/_02-gameplay/social/relationships-system-детально.md"
+      - ".BRAIN/_02-gameplay/social/npc-hiring-system-детально.md"
+      - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
+    related_targets:
+      - "api/v1/social/player-orders.yaml"
+      - "api/v1/social/player-orders-components.yaml"
+      - "api/v1/economy/player-orders/risk.yaml"
+      - "api/v1/social/player-orders/reviews.yaml"
+
+  - source: ".BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md"
+    target: "api/v1/world/player-orders/effects.yaml"
+    task_id: "API-TASK-319"
+    task_file: "tasks/active/queue/task-319-player-orders-world-impact-api.md"
+    status: "queued"
+    created: "2025-11-08 12:45"
+    version: "v1.0.0"
+    updated: "2025-11-08 12:45"
+    related_sources:
+      - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/_02-gameplay/social/relationships-system-детально.md"
+      - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
+      - ".BRAIN/03-lore/locations/locations-overview.md"
+      - ".BRAIN/03-lore/visual-guides/visual-style-locations-детально.md"
+    related_targets:
+      - "api/v1/world/player-orders/events.yaml"
+      - "api/v1/economy/player-orders/index.yaml"
+      - "api/v1/social/player-orders/news.yaml"
+      - "api/v1/shared/world/cities.yaml"
+
   
   - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
     target: "api/v1/economy/player-orders/budget.yaml"
