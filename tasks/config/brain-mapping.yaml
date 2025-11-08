@@ -230,6 +230,26 @@ mappings:
       - "api/v1/narrative/dialogues/npc-jake-archer.yaml"
       - "api/v1/narrative/dialogues/quest-choose-path.yaml"
 
+  - source: ".BRAIN/04-narrative/dialogues/quest-faction-arasaka-001-tokyo.md"
+    target: "api/v1/narrative/dialogues/quests/fq-arasaka-001.yaml"
+    task_id: "API-TASK-313"
+    task_file: "tasks/active/queue/task-313-quest-fq-arasaka-001-dialogue-api.md"
+    status: "queued"
+    created: "2025-11-08 09:44"
+    version: "1.1.0"
+    updated: "2025-11-08 09:44"
+    related_sources:
+      - ".BRAIN/04-narrative/quests/faction-world/arasaka-world-quests.md"
+      - ".BRAIN/04-narrative/dialogues/npc-hiroshi-tanaka.md"
+      - ".BRAIN/04-narrative/dialogues/npc-james-iron-reed.md"
+      - ".BRAIN/04-narrative/dialogues/npc-kaede-ishikawa.md"
+      - ".BRAIN/04-narrative/quest-dnd-checks.md"
+    related_targets:
+      - "api/v1/narrative/dialogues/npc-hiroshi-tanaka.yaml"
+      - "api/v1/narrative/dialogues/npc-james-iron-reed.yaml"
+      - "api/v1/narrative/dialogues/quests/main-001-first-steps.yaml"
+      - "api/v1/narrative/dialogues/quest-choose-path.yaml"
+
   - source: ".BRAIN/05-technical/ui-main-game.md"
     target: "api/v1/characters/status.yaml"
     task_id: "API-TASK-035"

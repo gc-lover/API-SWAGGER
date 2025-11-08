@@ -415,10 +415,35 @@ components:
   securitySchemes:
     BearerAuth: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
   parameters:
-    InstanceId: { name: instanceId, in: path, required: true, schema: { type: string }, description: UUID realtime-инстанса }
-    ZoneId: { name: zoneId, in: path, required: true, schema: { type: string }, description: Идентификатор зоны (например `night-city.watson`) }
-    CellKey: { name: cellKey, in: path, required: true, schema: { type: string, pattern: '^[0-9]+:[0-9]+$' }, description: Координаты cell (x:y, шаг 100м) }
-    PlayerId: { name: playerId, in: path, required: true, schema: { type: string }, description: UUID игрока }
+    InstanceId:
+      name: instanceId
+      in: path
+      required: true
+      description: UUID realtime-инстанса
+      schema:
+        type: string
+    ZoneId:
+      name: zoneId
+      in: path
+      required: true
+      description: Идентификатор зоны (например `night-city.watson`)
+      schema:
+        type: string
+    CellKey:
+      name: cellKey
+      in: path
+      required: true
+      description: Координаты cell (x:y, шаг 100м)
+      schema:
+        type: string
+        pattern: '^[0-9]+:[0-9]+$'
+    PlayerId:
+      name: playerId
+      in: path
+      required: true
+      description: UUID игрока
+      schema:
+        type: string
   schemas:
     RealtimeInstance:
       type: object
