@@ -1,4 +1,4 @@
-# Task ID: API-TASK-VIS-LOC-DET-001
+# Task ID: API-TASK-322
 **Тип:** API Generation  
 **Приоритет:** высокий  
 **Статус:** queued  

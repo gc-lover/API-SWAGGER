@@ -264,3 +264,5 @@ components:
     BearerAuth:
       $ref: '../../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 
+
+

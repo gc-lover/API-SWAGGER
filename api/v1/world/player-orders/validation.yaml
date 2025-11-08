@@ -221,3 +221,4 @@ x-kafka-topics:
       properties:
         policyVersion:
           type: string
+
