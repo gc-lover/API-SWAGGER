@@ -3540,10 +3540,11 @@ mappings:
     target: "api/v1/economy/player-orders/risk.yaml"
     task_id: "API-TASK-339"
     task_file: "tasks/active/queue/task-339-player-orders-risk-api.md"
-    status: "in_progress"
+    status: "completed"
     created: "2025-11-08 18:52"
     version: "v1.0.0"
-    updated: "2025-11-08 18:40"
+    updated: "2025-11-08 18:55"
+    completed: "2025-11-08 18:55"
     related_sources:
       - ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
       - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
@@ -3552,9 +3553,11 @@ mappings:
       - ".BRAIN/05-technical/backend/matchmaking/matchmaking-rating.md"
     related_targets:
       - "api/v1/economy/player-orders/risk.yaml"
-      - "api/v1/economy/player-orders/risk-components.yaml"
+      - "api/v1/economy/player-orders/risk-parameters.yaml"
+      - "api/v1/economy/player-orders/risk-schemas-core.yaml"
+      - "api/v1/economy/player-orders/risk-schemas-insurance.yaml"
+      - "api/v1/economy/player-orders/risk-schemas-alerts.yaml"
       - "api/v1/economy/player-orders/risk-examples.yaml"
-      - "api/v1/economy/player-orders/risk-schemas.yaml"
 
   - source: ".BRAIN/02-gameplay/social/player-orders-world-impact-детально.md"
     target: "api/v1/world/player-orders/effects.yaml"

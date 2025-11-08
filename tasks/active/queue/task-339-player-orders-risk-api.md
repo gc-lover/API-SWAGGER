@@ -1,7 +1,7 @@
 # Task ID: API-TASK-339
 **Тип:** API Generation  
 **Приоритет:** высокий  
-**Статус:** in_progress  
+**Статус:** completed  
 **Создано:** 2025-11-08 18:52  
 **Создатель:** AI Task Creator Agent  
 **Зависимости:** [API-TASK-317], [API-TASK-318], [API-TASK-320]
@@ -202,4 +202,5 @@ A: Предусмотреть `RiskEvaluationJob` и endpoints для выбор
 
 - 2025-11-08 – создано задание по `.BRAIN/02-gameplay/social/player-orders-reputation-детально.md`, статус `queued`.
 - 2025-11-08 – АПИТАСК активировал задачу, старт разработки OpenAPI `api/v1/economy/player-orders/risk.yaml` (`status: in_progress`).
+- 2025-11-08 – Подготовлена и провалидирована спецификация `api/v1/economy/player-orders/risk.yaml`, задача завершена (`status: completed`).
 
