@@ -1,8 +1,9 @@
 # Архитектура директорий API-SWAGGER
 
 **api-readiness:** not-applicable  
-**api-readiness-check-date:** 2025-11-03  
+**api-readiness-check-date:** 2025-11-08  
 **api-readiness-notes:** Служебный файл, описание архитектуры репозитория, не предназначен для создания API
+**Последнее обновление:** 2025-11-08 - Добавлена информация о микросервисной архитектуре
 
 ## Предлагаемая структура
 
@@ -142,23 +143,39 @@ API-SWAGGER/
 - Описание структуры и назначения директории
 - Примеры использования API из директории
 
-## Соответствие структуре .BRAIN
+## Соответствие структуре .BRAIN и Backend микросервисам
 
-Структура API-SWAGGER соответствует структуре `.BRAIN`:
+Структура API-SWAGGER соответствует структуре `.BRAIN` и распределяется по Backend микросервисам:
 
-| .BRAIN                        | API-SWAGGER                      |
-|-------------------------------|----------------------------------|
-| `02-gameplay/`                | `api/v1/gameplay/`              |
-| `02-gameplay/combat/`         | `api/v1/gameplay/combat/`      |
-| `02-gameplay/progression/`   | `api/v1/gameplay/progression/`  |
-| `02-gameplay/economy/`       | `api/v1/gameplay/economy/`     |
-| `02-gameplay/social/`        | `api/v1/gameplay/social/`       |
-| `02-gameplay/world/`         | `api/v1/gameplay/world/`        |
-| `03-lore/`                    | `api/v1/lore/`                  |
-| `03-lore/factions/`           | `api/v1/lore/factions.yaml`    |
-| `03-lore/locations/`         | `api/v1/lore/locations.yaml`   |
-| `03-lore/characters/`        | `api/v1/lore/characters.yaml` |
-| `04-narrative/`               | `api/v1/narrative/`            |
+| .BRAIN | API-SWAGGER | Backend микросервис |
+|--------|-------------|---------------------|
+| `02-gameplay/` | `api/v1/gameplay/` | Различные сервисы |
+| `02-gameplay/combat/` | `api/v1/gameplay/combat/` | gameplay-service (8083) |
+| `02-gameplay/progression/` | `api/v1/gameplay/progression/` | gameplay-service (8083) |
+| `02-gameplay/economy/` | `api/v1/gameplay/economy/` | economy-service (8085) |
+| `02-gameplay/social/` | `api/v1/gameplay/social/` | social-service (8084) |
+| `02-gameplay/world/` | `api/v1/gameplay/world/` | world-service (8086) |
+| `03-lore/` | `api/v1/lore/` | world-service (8086) |
+| `03-lore/factions/` | `api/v1/lore/factions.yaml` | world-service (8086) |
+| `03-lore/locations/` | `api/v1/lore/locations.yaml` | world-service (8086) |
+| `03-lore/characters/` | `api/v1/lore/characters.yaml` | character-service (8082) |
+| `04-narrative/` | `api/v1/narrative/` | narrative-service (8087) |
+
+**Метаданные микросервисов в OpenAPI:**
+
+Каждый API файл должен содержать метаданные о целевом микросервисе:
+
+```yaml
+info:
+  x-microservice:
+    name: gameplay-service
+    port: 8083
+    domain: gameplay
+    base-path: /api/v1/gameplay/combat
+    package: com.necpgame.gameplayservice
+```
+
+Скрипт генерации `generate-openapi-microservices.ps1` использует эти метаданные для определения целевого микросервиса.
 
 ## Рабочий процесс
 
