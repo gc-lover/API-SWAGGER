@@ -185,10 +185,11 @@ mappings:
     target: "api/v1/social/resonance.yaml"
     task_id: "API-TASK-243"
     task_file: "tasks/active/queue/task-243-social-resonance-api.md"
-    status: "in_progress"
+    status: "completed"
     created: "2025-11-07 16:53"
     version: "1.0.0"
-    updated: "2025-11-08 10:02"
+    updated: "2025-11-08 10:13"
+    completed: "2025-11-08 10:13"
     related_sources:
       - ".BRAIN/02-gameplay/social/social-overview.md"
       - ".BRAIN/02-gameplay/social/social-campaigns.md"

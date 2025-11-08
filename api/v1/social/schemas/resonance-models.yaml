@@ -61,6 +61,32 @@ components:
         projectedAfterCampaign:
           type: string
           example: CALM
+    SocialResonanceSnapshot:
+      type: object
+      required: [trustIndex, moodState, worldPulse, resonanceSources, updatedAt]
+      properties:
+        trustIndex:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+        moodState:
+          $ref: '#/components/schemas/MoodState'
+        worldPulse:
+          $ref: '#/components/schemas/WorldPulseLink'
+        resonanceSources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResonanceSourceBreakdown'
+        activeCampaigns:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocialCampaign'
+        forecast:
+          $ref: '#/components/schemas/TrustForecast'
+        updatedAt:
+          type: string
+          format: date-time
     AuditMetadata:
       type: object
       required: [createdBy, createdAt]
@@ -187,9 +213,6 @@ components:
             $ref: '#/components/schemas/CampaignEffect'
         approval:
           $ref: '#/components/schemas/AuditMetadata'
-        riskNotes:
-          type: string
-          nullable: true
     SocialCampaignLaunchRequest:
       type: object
       required: [campaignId, initiatedBy]
@@ -207,11 +230,6 @@ components:
         approvalToken:
           type: string
           nullable: true
-        motivation:
-          type: string
-        budgetOverride:
-          type: integer
-          nullable: true
         crisisFallbackPlan:
           type: string
           nullable: true
@@ -228,9 +246,6 @@ components:
         expectedDelta:
           type: number
           format: float
-        durationHours:
-          type: integer
-          nullable: true
         worldPulsePreview:
           $ref: '#/components/schemas/WorldPulseLink'
         approval:
@@ -269,15 +284,6 @@ components:
           type: number
           format: float
           example: 3.8
-        resonanceWeight:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          example: 0.18
-        riskLevel:
-          type: string
-          example: LOW
         audit:
           $ref: '#/components/schemas/AuditMetadata'
     RelationshipUpdateRequest:
@@ -391,8 +397,4 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TrustForecastPoint'
-        assumptions:
-          type: array
-          items:
-            type: string
 
