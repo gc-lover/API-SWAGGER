@@ -11,6 +11,7 @@ info:
     package: com.necpgame.adminservice
 servers:
   - url: https://api.necp.game/v1
+    description: Production API Gateway
   - url: http://localhost:8080/api/v1
     description: Local API Gateway
 x-target-architecture:

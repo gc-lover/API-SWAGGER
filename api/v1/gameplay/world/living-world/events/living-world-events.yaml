@@ -14,10 +14,6 @@ servers:
     description: Production API Gateway
   - url: http://localhost:8080/api/v1
     description: Local API Gateway
-  - url: kafka+ssl://kafka.internal.necpgame:9093
-    description: Kafka cluster
-  - url: wss://api.necp.game/v1/world/chronicle/stream
-    description: WebSocket realtime канал хроники мира
 paths: {}
 x-kafka-topics:
   world.faction.controlShifted:
