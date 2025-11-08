@@ -19,7 +19,7 @@ info:
 
 servers:
   - url: https://api.necp.game/v1
-  - url: https://api-staging.necpgame.com/v1
+    description: Production
 
 tags:
   - name: Event Generation

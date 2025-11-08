@@ -24,8 +24,6 @@ info:
 servers:
   - url: https://api.necp.game/v1
     description: Production server
-  - url: https://api-staging.necpgame.com/v1
-    description: Staging server
 
 tags:
   - name: Quest Map

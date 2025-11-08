@@ -14,7 +14,7 @@ info:
   description: "Управление объявлениями NECPGAME: черновики, расписание, каналы доставки, локализации, аналитика и экстренные уведомления."
   version: 1.0.0
 servers:
-  - url: https://admin.necpgame.com/api/v1
+  - url: https://api.necp.game/v1
 security:
   - BearerAuth: []
 tags:

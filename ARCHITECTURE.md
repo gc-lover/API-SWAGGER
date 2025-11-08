@@ -105,6 +105,7 @@ API-SWAGGER/
 - Backend состоит исключительно из микросервисов (`auth-service`, `character-service`, `gameplay-service`, `social-service`, `economy-service`, `world-service`, `admin-service`, `narrative-service`).
 - Каждая OpenAPI спецификация обязана иметь блок `info.x-microservice` с корректными `name`, `port`, `domain`, `base-path`, `package`.
 - Для Production всегда используется единый URL `https://api.necp.game/v1`, а локальное тестирование выполняется через `http://localhost:{port}/api/v1` конкретного микросервиса.
+- Дополнительные записи в `servers` (staging, dev и т.п.) запрещены — оставляй только Production адрес.
 
 ### 1. Версионирование API
 - Каждая версия API в отдельной директории (`v1/`, `v2/`, и т.д.)

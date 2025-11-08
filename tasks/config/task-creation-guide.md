@@ -38,6 +38,7 @@
 6. **⚠️ Целевой фронтенд-модуль** (для фронтенда)
 7. **⚠️ Требуемые UI компоненты** (@shared/ui, @shared/forms)
 8. Production URL `https://api.necp.game/v1` для всех OpenAPI servers
+9. Полный запрет на использование сторонних доменов (staging/dev) в заданиях и спецификациях
 
 **Правила именования:**
 - Файлы: kebab-case (shooting.yaml, combat-mechanics.yaml)

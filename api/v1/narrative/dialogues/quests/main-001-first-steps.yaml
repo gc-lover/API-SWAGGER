@@ -17,8 +17,6 @@ info:
 servers:
   - url: https://api.necp.game/v1
     description: Production
-  - url: https://api-staging.necpgame.com/v1
-    description: Staging
 security:
   - BearerAuth: []
 tags:

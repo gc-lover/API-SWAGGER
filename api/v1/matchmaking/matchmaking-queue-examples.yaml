@@ -105,6 +105,6 @@ components:
         matchId: "c7a54d91-3d6d-4d8f-9a7e-1f0d3e8f2aa5"
         emittedAt: "2025-11-08T21:58:12Z"
         payload:
-          lobbyUrl: "wss://realtime.necpgame.com/match/c7a54d91"
+          lobbyUrl: "wss://api.necp.game/v1/match/c7a54d91"
           expiresAt: "2025-11-08T21:58:42Z"
 

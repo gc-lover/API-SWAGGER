@@ -190,6 +190,7 @@
 - [ ] Определен целевой микросервис для backend
 - [ ] Указан порт микросервиса (8081-8090)
 - [ ] Указаны API пути для микросервиса (паттерн /api/v1/...)
+- [ ] В секции `servers` указан только Production URL `https://api.necp.game/v1`
 
 **Frontend (модуль):**
 - [ ] Определен целевой фронтенд-модуль (social/economy/combat/world/progression/narrative)
