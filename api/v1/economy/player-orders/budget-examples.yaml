@@ -1,0 +1,103 @@
+components:
+  examples:
+    BudgetEstimateRequestStandard:
+      summary: Стандартный заказ (боевой)
+      value:
+        templateCode: combat
+        complexityScore: 280
+        riskModifier: 1.1
+        marketIndex: 1.05
+        timeModifier: 1.0
+        districtCode: NC-WAT-01
+        preferredCurrency: NCU
+        guaranteeTier: extended
+        bonuses: ['faction_loyalty']
+        penalties: ['night_operation']
+    BudgetEstimateRequestCorporate:
+      summary: Корпоративный заказ
+      value:
+        templateCode: economic
+        complexityScore: 410
+        riskModifier: 1.35
+        marketIndex: 1.12
+        timeModifier: 1.2
+        districtCode: NC-COR-02
+        factionCode: ARASAKA
+        preferredCurrency: NCU
+        isCorporate: true
+        guaranteeTier: premium
+        manualAdjustment:
+          amount: 2500
+          reason: executive_priority
+    BudgetEstimateResponseStandard:
+      summary: Результат расчёта без предупреждений
+      value:
+        calculationId: 1a9d1b9b-9ae2-4b0c-a0a8-6c347a2c01aa
+        auditTraceId: 5e5d5d52-4dfd-4bff-9f0f-4d8fb4dbde31
+        baseReward: 98500
+        escrow: 19700
+        escrowRate: 0.2
+        commission: 7880
+        commissionRate: 0.08
+        insuranceFee: 3200
+        insuranceTier: extended
+        currency: NCU
+        recommendedBudgetRange:
+          min: 92000
+          max: 110000
+        median: 95000
+        medianDeviationPercent: 3.7
+        warnings: []
+        breakdown:
+          complexityComponent: 58000
+          riskComponent: 11000
+          marketComponent: 15000
+          timeComponent: 9000
+          manualAdjustments: -500
+          currency: NCU
+        recommendedActions: ['lock_escrow', 'notify_economy_operator']
+        timestamp: '2025-11-08T12:36:00Z'
+        expiresAt: '2025-11-08T13:06:00Z'
+    BudgetEstimateJobRunning:
+      summary: Асинхронный расчёт в процессе
+      value:
+        jobId: 0f4be52e-1a5d-4d25-8e0b-65b5b3e7fd12
+        status: running
+        submittedAt: '2025-11-08T12:40:00Z'
+        startedAt: '2025-11-08T12:40:05Z'
+        progress: 62
+        calculationId: null
+        result: null
+        errors: []
+    MarketIndexResponseWatson:
+      summary: Индексы района Ватсон
+      value:
+        templateCode: combat
+        districtCode: NC-WAT-01
+        snapshots:
+          - timestamp: '2025-11-08T12:00:00Z'
+            value: 1.08
+            volatility: 0.03
+            source: economy-service
+            nextRefreshAt: '2025-11-08T12:30:00Z'
+          - timestamp: '2025-11-08T11:00:00Z'
+            value: 1.05
+            volatility: 0.02
+            source: economy-service
+            nextRefreshAt: '2025-11-08T11:30:00Z'
+    BudgetComparisonWarning:
+      summary: Предупреждение о завышенном бюджете
+      value:
+        proposed: 140000
+        recommended: 110000
+        median: 100000
+        deviationPercent: 40
+        warnings:
+          - code: BUDGET_OVERESTIMATED
+            severity: warning
+            message: Диапазон превышен на 40%
+            suggestedAction: Подтвердить отклонение или скорректировать бюджет
+            threshold: 25
+        requiresAcknowledgement: true
+        acknowledgmentToken: VAL-ACK-001
+

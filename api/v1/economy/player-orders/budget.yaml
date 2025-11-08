@@ -1,0 +1,536 @@
+# Target Architecture:
+# - Microservice: economy-service (port 8085)
+# - Base Path: /api/v1/economy/player-orders/*
+# - Frontend Module: modules/social/player-orders/budget
+# - UI: BudgetSimulator, EscrowSummary, RiskIndicator, InsuranceTierCard
+# - Forms: BudgetAdjustForm, GuaranteeSelectionForm
+# - Hooks: useEconomyRates, useMarketIndex, useRealtime, useDebounce
+# - Depends On: world-service, factions-service, telemetry-service
+openapi: 3.0.3
+info:
+  title: Player Order Budget API
+  version: 1.0.0
+  description: |
+    Экономический сервис рассчитывает бюджет заказов игроков, управляет escrow и страховыми гарантиями.
+
+    Источники: `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`, `API-TASK-318`.
+servers:
+  - url: https://api.necpgame.com/v1
+    description: Production
+  - url: https://api.staging.necpgame.com/v1
+    description: Staging
+tags:
+  - name: Budget
+    description: Расчёт бюджета и сравнение с медианой.
+  - name: Market
+    description: Работа с рыночными индексами и страховыми планами.
+  - name: Escrow
+    description: Управление блокировкой и освобождением escrow.
+paths:
+  /economy/player-orders/budget/estimate:
+    post:
+      tags: [Budget]
+      summary: Рассчитать бюджет заказа
+      description: Синхронный расчёт `BaseReward`, escrow, комиссий и страховых тарифов. Возвращает предупреждения и разбивку расчёта.
+      operationId: calculatePlayerOrderBudget
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './player-orders-budget-components.yaml#/components/schemas/PlayerOrderBudgetEstimateRequest'
+      responses:
+        '200':
+          description: Бюджет рассчитан
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-budget-components.yaml#/components/schemas/PlayerOrderBudgetEstimateResponse'
+        '202':
+          description: Расчёт продолжится асинхронно, возвращён jobId
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-budget-components.yaml#/components/schemas/BudgetEstimateJob'
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '500': { $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError' }
+  /economy/player-orders/budget/estimate/jobs:
+    post:
+      tags: [Budget]
+      summary: Запустить асинхронный расчёт бюджета
+      operationId: enqueuePlayerOrderBudgetJob
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './player-orders-budget-components.yaml#/components/schemas/PlayerOrderBudgetEstimateRequest'
+      responses:
+        '202':
+          description: Задача расчёта поставлена в очередь
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-budget-components.yaml#/components/schemas/BudgetEstimateJob'
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '500': { $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError' }
+  /economy/player-orders/budget/estimate/jobs/{jobId}:
+    get:
+      tags: [Budget]
+      summary: Получить статус расчёта бюджета
+      operationId: getPlayerOrderBudgetJob
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: './player-orders-budget-components.yaml#/components/parameters/JobId'
+      responses:
+        '200':
+          description: Текущий статус асинхронного расчёта
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-budget-components.yaml#/components/schemas/BudgetEstimateJob'
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '500': { $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError' }
+  /economy/player-orders/market-index:
+    get:
+      tags: [Market]
+      summary: Получить рыночный индекс заказов
+      description: Возвращает текущие и исторические значения `MarketIndex` для района и фракции.
+      operationId: getPlayerOrderMarketIndex
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: './player-orders-budget-components.yaml#/components/parameters/DistrictCode'
+        - $ref: './player-orders-budget-components.yaml#/components/parameters/FactionCode'
+        - $ref: './player-orders-budget-components.yaml#/components/parameters/Interval'
+      responses:
+        '200':
+          description: Значения рыночного индекса
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-budget-components.yaml#/components/schemas/MarketIndexHistory'
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '500': { $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError' }
+  /economy/player-orders/insurance-tiers:
+    get:
+      tags: [Market]
+      summary: Получить страховые планы
+      operationId: listPlayerOrderInsuranceTiers
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: './player-orders-budget-components.yaml#/components/parameters/Currency'
+      responses:
+        '200':
+          description: Доступные страховые планы
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './player-orders-budget-components.yaml#/components/schemas/InsuranceTier'
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '500': { $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError' }
+  /economy/player-orders/{orderId}/budget/compare:
+    post:
+      tags: [Budget]
+      summary: Сравнить бюджет с медианой
+      operationId: comparePlayerOrderBudget
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: './player-orders-budget-components.yaml#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './player-orders-budget-components.yaml#/components/schemas/BudgetComparisonRequest'
+      responses:
+        '200':
+          description: Результат сравнения
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-budget-components.yaml#/components/schemas/BudgetComparisonResult'
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared.common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '500': { $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError' }
+  /economy/player-orders/{orderId}/escrow/lock:
+    post:
+      tags: [Escrow]
+      summary: Заблокировать escrow
+      description: Фиксирует сумму escrow и страховой план, публикует событие `economy.player-orders.escrow.locked`.
+      operationId: lockPlayerOrderEscrow
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: './player-orders-budget-components.yaml#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './player-orders-budget-components.yaml#/components/schemas/EscrowLockRequest'
+      responses:
+        '202':
+          description: Escrow заблокирован или запланирован
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-budget-components.yaml#/components/schemas/EscrowLockResponse'
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '500': { $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError' }
+    delete:
+      tags: [Escrow]
+      summary: Освободить escrow
+      operationId: releasePlayerOrderEscrow
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: './player-orders-budget-components.yaml#/components/parameters/OrderId'
+      responses:
+        '202':
+          description: Escrow освобождён или освобождение запланировано
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-budget-components.yaml#/components/schemas/EscrowReleaseResponse'
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared.common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '409': { $ref: '../../shared.common/responses.yaml#/components/responses/Conflict' }
+        '500': { $ref: '../../shared.common/responses.yaml#/components/responses/InternalServerError' }
+components:
+  securitySchemes:
+    BearerAuth:
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+x-kafka-topics:
+  economy.player-orders.budget.estimated:
+    summary: Расчёт бюджета завершён.
+    payload:
+      $ref: './player-orders-budget-components.yaml#/components/schemas/PlayerOrderBudgetEstimateResponse'
+  economy.player-orders.escrow.locked:
+    summary: Escrow заблокирован.
+    payload:
+      $ref: './player-orders-budget-components.yaml#/components/schemas/EscrowLockResponse'
+  economy.player-orders.insurance.applied:
+    summary: Страховой план применён к заказу.
+    payload:
+      $ref: './player-orders-budget-components.yaml#/components/schemas/InsuranceTier'
+# Target Architecture:
+# - Microservice: economy-service (8085)
+# - API Base: /api/v1/economy/player-orders/*
+# - Integrations: world-service, social-service, factions-service, content-service, telemetry-service
+# - Frontend: modules/social/player-orders/budget
+# - State: useSocialStore(budgetSimulator, escrowState)
+# - UI: BudgetSimulator, EscrowSummary, RiskIndicator, InsuranceTierCard
+# - Forms: BudgetAdjustForm, GuaranteeSelectionForm
+# - Hooks: useEconomyRates, useMarketIndex, useRealtime, useDebounce
+# - Events: economy.player-orders.budget.estimated, economy.player-orders.escrow.locked, economy.player-orders.insurance.applied
+openapi: 3.0.3
+info:
+  title: Player Orders Budget API
+  version: 1.0.0
+  description: |
+    Контракт economy-service для расчёта бюджета, escrow и страховых гарантий
+    заказов игроков NECPGAME. Обеспечивает синхронные и асинхронные сценарии,
+    интеграцию с мировыми ограничениями и контроль медианных значений.
+
+    Источники:
+      - `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` v1.0.0
+      - `.BRAIN/_02-gameplay/social/player-orders-economy.md`
+servers:
+  - url: https://api.necpgame.com/v1
+    description: Production
+  - url: https://api.staging.necpgame.com/v1
+    description: Staging
+security:
+  - BearerAuth:
+      - economy.player-orders.read
+      - economy.player-orders.write
+tags:
+  - name: Budget Estimation
+    description: Расчёт бюджета и сравнение с медианой
+  - name: Budget Jobs
+    description: Асинхронные расчёты бюджета
+  - name: Market Data
+    description: Рыночные индексы и страховые пакеты
+  - name: Escrow Management
+    description: Управление блокировкой escrow и гарантиями
+paths:
+  /economy/player-orders/budget/estimate:
+    post:
+      tags: [Budget Estimation]
+      summary: Рассчитать бюджет заказа (синхронно)
+      description: |
+        Выполняет мгновенный расчёт бюджета и escrow на основе коэффициентов
+        сложности, риска и рыночных индексов. Возвращает breakdown и предупреждения.
+      operationId: estimatePlayerOrderBudget
+      parameters:
+        - $ref: './budget-parameters.yaml#/components/parameters/TraceId'
+        - $ref: './budget-parameters.yaml#/components/parameters/BudgetContextId'
+        - $ref: './budget-parameters.yaml#/components/parameters/Locale'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './budget-schemas.yaml#/components/schemas/BudgetEstimateRequest'
+            examples:
+              standard:
+                $ref: './budget-examples.yaml#/components/examples/BudgetEstimateRequestStandard'
+      responses:
+        '200':
+          description: Бюджет рассчитан успешно
+          content:
+            application/json:
+              schema:
+                $ref: './budget-schemas.yaml#/components/schemas/BudgetEstimateResponse'
+              examples:
+                standard:
+                  $ref: './budget-examples.yaml#/components/examples/BudgetEstimateResponseStandard'
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '500': { $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError' }
+  /economy/player-orders/budget/estimate/jobs:
+    post:
+      tags: [Budget Jobs]
+      summary: Запустить асинхронный расчёт бюджета
+      description: |
+        Создаёт долгий расчёт бюджета для заказов с высоким ComplexityScore или
+        расширенным анализом гарантий. Результат публикуется в событии
+        `economy.player-orders.budget.estimated`.
+      operationId: startBudgetEstimateJob
+      parameters:
+        - $ref: './budget-parameters.yaml#/components/parameters/TraceId'
+        - $ref: './budget-parameters.yaml#/components/parameters/BudgetContextId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './budget-schemas.yaml#/components/schemas/BudgetEstimateRequest'
+            examples:
+              corporate:
+                $ref: './budget-examples.yaml#/components/examples/BudgetEstimateRequestCorporate'
+      responses:
+        '202':
+          description: Создано задание расчёта бюджета
+          content:
+            application/json:
+              schema:
+                $ref: './budget-schemas.yaml#/components/schemas/BudgetEstimateJob'
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+    get:
+      tags: [Budget Jobs]
+      summary: Получить список заданий расчёта бюджета
+      description: Возвращает задания расчёта с фильтрацией по статусу и шаблону заказа.
+      operationId: listBudgetEstimateJobs
+      parameters:
+        - $ref: './budget-parameters.yaml#/components/parameters/TraceId'
+        - $ref: './budget-parameters.yaml#/components/parameters/JobStatus'
+        - $ref: './budget-parameters.yaml#/components/parameters/TemplateCode'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/Page'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Список заданий получен
+          content:
+            application/json:
+              schema:
+                $ref: './budget-schemas.yaml#/components/schemas/BudgetEstimateJobList'
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+  /economy/player-orders/budget/estimate/jobs/{jobId}:
+    parameters:
+      - $ref: './budget-parameters.yaml#/components/parameters/JobId'
+    get:
+      tags: [Budget Jobs]
+      summary: Получить статус расчёта бюджета
+      description: Возвращает текущее состояние расчёта, прогресс и результат.
+      operationId: getBudgetEstimateJob
+      parameters:
+        - $ref: './budget-parameters.yaml#/components/parameters/TraceId'
+      responses:
+        '200':
+          description: Информация о задании
+          content:
+            application/json:
+              schema:
+                $ref: './budget-schemas.yaml#/components/schemas/BudgetEstimateJob'
+              examples:
+                running:
+                  $ref: './budget-examples.yaml#/components/examples/BudgetEstimateJobRunning'
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
+  /economy/player-orders/market-index:
+    get:
+      tags: [Market Data]
+      summary: Получить рыночные индексы
+      description: Предоставляет текущие и исторические значения рыночных индексов.
+      operationId: getMarketIndex
+      parameters:
+        - $ref: './budget-parameters.yaml#/components/parameters/TraceId'
+        - $ref: './budget-parameters.yaml#/components/parameters/TemplateCode'
+        - $ref: './budget-parameters.yaml#/components/parameters/DistrictCode'
+        - $ref: './budget-parameters.yaml#/components/parameters/FactionCode'
+        - $ref: './budget-parameters.yaml#/components/parameters/Interval'
+      responses:
+        '200':
+          description: Значения рыночного индекса
+          content:
+            application/json:
+              schema:
+                $ref: './budget-schemas.yaml#/components/schemas/MarketIndexResponse'
+              examples:
+                watson:
+                  $ref: './budget-examples.yaml#/components/examples/MarketIndexResponseWatson'
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+  /economy/player-orders/insurance-tiers:
+    get:
+      tags: [Market Data]
+      summary: Получить страховые пакеты
+      description: Возвращает перечень доступных страховых планов и коэффициентов.
+      operationId: listInsuranceTiers
+      parameters:
+        - $ref: './budget-parameters.yaml#/components/parameters/TraceId'
+        - $ref: './budget-parameters.yaml#/components/parameters/Locale'
+      responses:
+        '200':
+          description: Перечень страховых пакетов
+          content:
+            application/json:
+              schema:
+                $ref: './budget-schemas.yaml#/components/schemas/InsuranceTierList'
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+  /economy/player-orders/{orderId}/escrow/lock:
+    parameters:
+      - $ref: './budget-parameters.yaml#/components/parameters/OrderId'
+    post:
+      tags: [Escrow Management]
+      summary: Заблокировать escrow для заказа
+      description: |
+        Блокирует escrow сумму и применяет выбранный страховой план. При успехе
+        публикует событие `economy.player-orders.escrow.locked`.
+      operationId: lockEscrowForOrder
+      parameters:
+        - $ref: './budget-parameters.yaml#/components/parameters/TraceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './budget-schemas.yaml#/components/schemas/EscrowLockRequest'
+      responses:
+        '201':
+          description: Escrow успешно заблокирован
+          content:
+            application/json:
+              schema:
+                $ref: './budget-schemas.yaml#/components/schemas/EscrowLockResponse'
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+    delete:
+      tags: [Escrow Management]
+      summary: Отменить блокировку escrow
+      description: Освобождает escrow до публикации заказа и фиксирует причину в журнале.
+      operationId: releaseEscrowForOrder
+      parameters:
+        - $ref: './budget-parameters.yaml#/components/parameters/TraceId'
+        - $ref: './budget-parameters.yaml#/components/parameters/ReleaseReason'
+      responses:
+        '204':
+          description: Escrow разблокирован
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+  /economy/player-orders/{orderId}/budget/compare:
+    parameters:
+      - $ref: './budget-parameters.yaml#/components/parameters/OrderId'
+    post:
+      tags: [Budget Estimation]
+      summary: Сравнить бюджет с медианой и рекомендациями
+      description: |
+        Проверяет предлагаемый бюджет на соответствие медиане и диапазонам,
+        возвращает предупреждения и требования по подтверждению.
+      operationId: comparePlayerOrderBudget
+      parameters:
+        - $ref: './budget-parameters.yaml#/components/parameters/TraceId'
+        - $ref: './budget-parameters.yaml#/components/parameters/Locale'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './budget-schemas.yaml#/components/schemas/BudgetComparisonRequest'
+      responses:
+        '200':
+          description: Результат сравнения бюджета
+          content:
+            application/json:
+              schema:
+                $ref: './budget-schemas.yaml#/components/schemas/BudgetComparisonResponse'
+              examples:
+                warning:
+                  $ref: './budget-examples.yaml#/components/examples/BudgetComparisonWarning'
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+components:
+  securitySchemes:
+    BearerAuth:
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+x-kafka-topics:
+  economy.player-orders.budget.estimated:
+    summary: Результат расчёта бюджета
+    payload:
+      $ref: './budget-schemas.yaml#/components/schemas/BudgetEstimateResponse'
+  economy.player-orders.escrow.locked:
+    summary: Подтверждение блокировки escrow
+    payload:
+      $ref: './budget-schemas.yaml#/components/schemas/EscrowLockEvent'
+  economy.player-orders.insurance.applied:
+    summary: Применение страхового плана к заказу
+    payload:
+      $ref: './budget-schemas.yaml#/components/schemas/InsuranceAppliedEvent'
