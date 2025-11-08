@@ -224,19 +224,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                player_id:
-                  type: string
-                  format: uuid
-                currency:
-                  type: object
-                  nullable: true
-                items:
-                  type: array
-                  nullable: true
-                reason:
-                  type: string
+              $ref: '#/components/schemas/RevokeResourcesRequest'
       responses:
         '200':
           description: Ресурсы забраны
@@ -384,6 +372,43 @@ components:
                 type: integer
         reason:
           type: string
+
+    RevokeResourcesRequest:
+      type: object
+      required:
+        - player_id
+        - reason
+      properties:
+        player_id:
+          type: string
+          format: uuid
+        currency:
+          type: object
+          nullable: true
+          properties:
+            eddies:
+              type: integer
+            premium_currency:
+              type: integer
+        items:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/InventoryAdjustmentItem'
+        reason:
+          type: string
+
+    InventoryAdjustmentItem:
+      type: object
+      required:
+        - item_id
+        - quantity
+      properties:
+        item_id:
+          type: string
+          format: uuid
+        quantity:
+          type: integer
 
     AdminDashboard:
       type: object

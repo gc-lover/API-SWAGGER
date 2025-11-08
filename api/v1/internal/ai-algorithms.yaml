@@ -137,6 +137,16 @@ paths:
                   type: object
                 recent_interactions:
                   type: array
+                  items:
+                    type: object
+                    properties:
+                      interaction_type:
+                        type: string
+                      timestamp:
+                        type: string
+                        format: date-time
+                      impact_score:
+                        type: number
       responses:
         '200':
           description: Триггер определен
@@ -219,6 +229,16 @@ paths:
                   type: object
                 player_actions:
                   type: array
+                  items:
+                    type: object
+                    properties:
+                      action:
+                        type: string
+                      timestamp:
+                        type: string
+                        format: date-time
+                      intensity:
+                        type: number
                 relationship_level:
                   type: integer
       responses:
@@ -286,6 +306,13 @@ components:
           type: array
           items:
             type: object
+            properties:
+              headline:
+                type: string
+              summary:
+                type: string
+              image_url:
+                type: string
         server_status:
           type: string
         version_info:
@@ -331,16 +358,28 @@ components:
       properties:
         body_types:
           type: array
+          items:
+            type: string
         faces:
           type: array
+          items:
+            type: string
         hair:
           type: array
+          items:
+            type: string
         scars:
           type: array
+          items:
+            type: string
         tattoos:
           type: array
+          items:
+            type: string
         cyberware_visible:
           type: array
+          items:
+            type: string
 
     CharacterSelectInfo:
       type: object
@@ -370,10 +409,33 @@ components:
           type: object
         quest_tracker:
           type: array
+          items:
+            type: object
+            properties:
+              quest_id:
+                type: string
+              title:
+                type: string
+              status:
+                type: string
         quick_slots:
           type: array
+          items:
+            type: object
+            properties:
+              slot:
+                type: integer
+              ability_id:
+                type: string
         buffs_debuffs:
           type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              remaining_seconds:
+                type: integer
 
     UIFeature:
       type: object
