@@ -122,6 +122,91 @@ mappings:
       - "api/v1/world/world-interaction-suite.yaml"
       - "api/v1/social/feeds/helios-conspiracy.yaml"
 
+  - source: ".BRAIN/04-narrative/cutscenes/2025-11-07-helios-conspiracy-cutscenes.md"
+    target: "api/v1/narrative/cutscenes/helios-countermesh.yaml"
+    task_id: "API-TASK-377"
+    task_file: "tasks/active/queue/task-377-helios-countermesh-cutscenes-api.md"
+    status: "queued"
+    created: "2025-11-08 21:10"
+    version: "1.0.0"
+    updated: "2025-11-08 21:10"
+    related_sources:
+      - ".BRAIN/04-narrative/quests/raid/2025-11-07-quest-helios-countermesh-conspiracy.md"
+      - ".BRAIN/02-gameplay/world/specter-hq.md"
+      - ".BRAIN/02-gameplay/world/helios-countermesh-ops.md"
+    related_targets:
+      - "api/v1/narrative/quests/helios-countermesh-conspiracy.yaml"
+      - "api/v1/narrative/raids/specter-surge.yaml"
+      - "api/v1/social/feeds/helios-conspiracy.yaml"
+
+  - source: ".BRAIN/04-narrative/npc-lore/important/npc-kaede-ishikawa.md"
+    target: "api/v1/narrative/npcs/kaede-ishikawa.yaml"
+    task_id: "API-TASK-378"
+    task_file: "tasks/active/queue/task-378-kaede-ishikawa-npc-api.md"
+    status: "queued"
+    created: "2025-11-08 21:25"
+    version: "1.0.0"
+    updated: "2025-11-08 21:25"
+    related_sources:
+      - ".BRAIN/04-narrative/quests/raid/2025-11-07-quest-helios-countermesh-conspiracy.md"
+      - ".BRAIN/04-narrative/cutscenes/2025-11-07-helios-conspiracy-cutscenes.md"
+      - ".BRAIN/04-narrative/dialogues/npc-kaede-ishikawa.md"
+    related_targets:
+      - "api/v1/narrative/quests/helios-countermesh-conspiracy.yaml"
+      - "api/v1/narrative/cutscenes/helios-countermesh.yaml"
+      - "api/v1/social/resonance.yaml"
+
+  - source: ".BRAIN/04-narrative/dialogues/DIALOGUE-TEMPLATE.md"
+    target: "api/v1/narrative/dialogues/templates.yaml"
+    task_id: "API-TASK-379"
+    task_file: "tasks/active/queue/task-379-dialogue-template-api.md"
+    status: "queued"
+    created: "2025-11-08 21:45"
+    version: "1.0.0"
+    updated: "2025-11-08 21:45"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/reputation-formulas.md"
+      - ".BRAIN/02-gameplay/world/events/world-events-framework.md"
+      - ".BRAIN/04-narrative/dialogues/npc-kaede-ishikawa.md"
+    related_targets:
+      - "api/v1/narrative/npcs/kaede-ishikawa.yaml"
+      - "api/v1/narrative/quests/helios-countermesh-conspiracy.yaml"
+      - "api/v1/social/resonance.yaml"
+
+  - source: ".BRAIN/04-narrative/quests/side/heywood-valentinos-chain.md"
+    target: "api/v1/narrative/dialogues/quests/heywood-valentinos-chain.yaml"
+    task_id: "API-TASK-380"
+    task_file: "tasks/active/queue/task-380-valentinos-dialogue-chain-api.md"
+    status: "queued"
+    created: "2025-11-08 22:05"
+    version: "1.0.0"
+    updated: "2025-11-08 22:05"
+    related_sources:
+      - ".BRAIN/04-narrative/dialogues/npc-jose-tiger-ramirez.md"
+      - ".BRAIN/04-narrative/dialogues/npc-rita-moreno.md"
+      - ".BRAIN/02-gameplay/social/reputation-formulas.md"
+    related_targets:
+      - "api/v1/narrative/dialogues/templates.yaml"
+      - "api/v1/social/resonance.yaml"
+      - "api/v1/world/world-interaction-suite.yaml"
+
+  - source: ".BRAIN/04-narrative/dialogues/quest-side-maelstrom-double-cross.md"
+    target: "api/v1/narrative/dialogues/quests/maelstrom-double-cross.yaml"
+    task_id: "API-TASK-381"
+    task_file: "tasks/active/queue/task-381-maelstrom-double-cross-dialogue-api.md"
+    status: "queued"
+    created: "2025-11-08 22:25"
+    version: "1.1.0"
+    updated: "2025-11-08 22:25"
+    related_sources:
+      - ".BRAIN/04-narrative/dialogues/npc-royce.md"
+      - ".BRAIN/02-gameplay/social/reputation-formulas.md"
+      - ".BRAIN/02-gameplay/world/events/world-events-framework.md"
+    related_targets:
+      - "api/v1/narrative/dialogues/templates.yaml"
+      - "api/v1/social/resonance.yaml"
+      - "api/v1/world/world-interaction-suite.yaml"
+
   - source: ".BRAIN/05-technical/backend/player-character-management.md"
     target: "api/v1/players/players.yaml"
     task_id: "API-TASK-127"
@@ -136,6 +221,23 @@ mappings:
     related_targets:
       - "api/v1/players/players.yaml"
       - "api/v1/players/characters.yaml"
+
+  - source: ".BRAIN/05-technical/backend/inventory-system/README.md"
+    target: "api/v1/inventory/inventory.yaml"
+    task_id: "API-TASK-128"
+    task_file: "tasks/completed/2025-11-08-inventory-system/task-128-inventory-system-api.md"
+    status: "completed"
+    created: "2025-11-07 10:10"
+    version: "v1.0.2"
+    updated: "2025-11-08 18:20"
+    completed: "2025-11-08 18:20"
+    related_sources:
+      - ".BRAIN/05-technical/backend/inventory-system/part1-core-system.md"
+      - ".BRAIN/05-technical/backend/inventory-system/part2-advanced-features.md"
+    related_targets:
+      - "api/v1/inventory/inventory.yaml"
+      - "api/v1/inventory/equipment.yaml"
+      - "api/v1/inventory/bank.yaml"
 
   - source: ".BRAIN/02-gameplay/social/npc-hiring-world-impact-детально.md"
     target: "api/v1/world/npc-hiring/effects.yaml"
