@@ -1,3 +1,53 @@
+  - source: ".BRAIN/02-gameplay/social/relationships-system-детально.md"
+    target: "api/v1/social/relationships/status.yaml"
+    task_id: "API-TASK-340"
+    task_file: "tasks/active/queue/task-340-relationships-status-api.md"
+    status: "queued"
+    created: "2025-11-08 18:55"
+    version: "v1.0.0"
+    updated: "2025-11-08 18:55"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-locations-детально.md"
+    related_targets:
+      - "api/v1/social/trust/contracts.yaml"
+      - "api/v1/world/alliances/events.yaml"
+      - "api/v1/social/player-orders/ratings.yaml"
+
+  - source: ".BRAIN/02-gameplay/social/relationships-system-детально.md"
+    target: "api/v1/social/trust/contracts.yaml"
+    task_id: "API-TASK-341"
+    task_file: "tasks/active/queue/task-341-trust-contracts-api.md"
+    status: "queued"
+    created: "2025-11-08 18:55"
+    version: "v1.0.0"
+    updated: "2025-11-08 18:55"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/02-gameplay/economy/escrow-system.md"
+      - ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
+    related_targets:
+      - "api/v1/social/relationships/status.yaml"
+      - "api/v1/world/alliances/events.yaml"
+      - "api/v1/economy/player-orders/risk.yaml"
+
+  - source: ".BRAIN/02-gameplay/social/relationships-system-детально.md"
+    target: "api/v1/world/alliances/events.yaml"
+    task_id: "API-TASK-342"
+    task_file: "tasks/active/queue/task-342-alliances-events-api.md"
+    status: "queued"
+    created: "2025-11-08 18:55"
+    version: "v1.0.0"
+    updated: "2025-11-08 18:55"
+    related_sources:
+      - ".BRAIN/03-lore/_03-lore/factions/factions-overview-детально.md"
+      - ".BRAIN/02-gameplay/world/world-events-system-детально.md"
+      - ".BRAIN/02-gameplay/economy/economic-influence-system.md"
+    related_targets:
+      - "api/v1/social/relationships/status.yaml"
+      - "api/v1/social/trust/contracts.yaml"
+      - "api/v1/analytics/visuals/metrics.yaml"
 # Маппинг документов .BRAIN -> задания в API-SWAGGER
 
 # Этот файл отслеживает связи между документами из .BRAIN и заданиями в API-SWAGGER.
@@ -3367,10 +3417,10 @@ mappings:
     target: "api/v1/social/player-orders/reviews.yaml"
     task_id: "API-TASK-338"
     task_file: "tasks/active/queue/task-338-player-orders-reviews-api.md"
-    status: "queued"
+    status: "in_progress"
     created: "2025-11-08 18:50"
     version: "v1.0.0"
-    updated: "2025-11-08 18:50"
+    updated: "2025-11-08 18:15"
     related_sources:
       - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
       - ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
