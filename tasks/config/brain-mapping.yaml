@@ -3367,10 +3367,10 @@ mappings:
     target: "api/v1/world/player-orders/effects.yaml"
     task_id: "API-TASK-319"
     task_file: "tasks/active/queue/task-319-player-orders-world-impact-api.md"
-    status: "queued"
+    status: "in_progress"
     created: "2025-11-08 12:45"
     version: "v1.0.0"
-    updated: "2025-11-08 12:45"
+    updated: "2025-11-08 17:55"
     related_sources:
       - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
       - ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
@@ -3808,6 +3808,24 @@ mappings:
       - "api/v1/character/visuals/romance-states.yaml"
       - "api/v1/character/visuals/romance-scenes.yaml"
       - "api/v1/marketing/visuals/packages.yaml"
+
+  - source: ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets-детально.md"
+    target: "api/v1/analytics/visuals/metrics.yaml"
+    task_id: "API-TASK-337"
+    task_file: "tasks/active/queue/task-337-visuals-analytics-metrics-api.md"
+    status: "queued"
+    created: "2025-11-08 18:38"
+    version: "v1.0.0"
+    updated: "2025-11-08 18:38"
+    related_sources:
+      - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
+      - ".BRAIN/05-technical/backend/realtime-server/part1-architecture-zones.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/04-narrative/dialogues/quest-main-001-first-steps.md"
+    related_targets:
+      - "api/v1/character/visuals/romance-states.yaml"
+      - "api/v1/character/visuals/romance-scenes.yaml"
+      - "api/v1/character/visuals/romance-export.yaml"
 
   # === WORLD/SOCIAL VISUALS DETAILED (2025-11-08) ===
 
