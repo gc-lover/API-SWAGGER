@@ -15,7 +15,7 @@ info:
     name: social-service
     port: 8084
     domain: social
-    base-path: /api/v1/gameplay/social
+    base-path: /api/v1/social/player-orders
     package: com.necpgame.socialservice
 servers:
   - url: https://api.necp.game/v1
@@ -28,7 +28,7 @@ tags:
     description: Заказы игроков
 
 paths:
-  /gameplay/social/player-orders:
+  /:
     get:
       summary: Получить доступные заказы
       description: Возвращает список активных заказов от игроков
@@ -91,7 +91,7 @@ paths:
                   order_id:
                     type: string
 
-  /gameplay/social/player-orders/{order_id}/accept:
+  /{order_id}/accept:
     post:
       summary: Принять заказ
       description: Исполнитель принимает заказ

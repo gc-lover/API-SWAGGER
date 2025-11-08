@@ -15,7 +15,7 @@ info:
     name: economy-service
     port: 8085
     domain: economy
-    base-path: /api/v1/gameplay/economy
+    base-path: /api/v1/economy/trading
     package: com.necpgame.economyservice
 servers:
   - url: https://api.necp.game/v1
@@ -30,7 +30,7 @@ tags:
     description: Рынки и торговцы
 
 paths:
-  /gameplay/economy/trading/markets:
+  /markets:
     get:
       summary: Получить доступные рынки
       description: |
@@ -85,7 +85,7 @@ paths:
                         region: "city_center"
                         reputation_required: -500
 
-  /gameplay/economy/trading/vendor/{vendor_id}/inventory:
+  /vendor/{vendor_id}/inventory:
     get:
       summary: Получить инвентарь торговца
       description: |
@@ -124,7 +124,7 @@ paths:
                     format: date-time
                     description: Время обновления ассортимента
 
-  /gameplay/economy/trading/buy:
+  /buy:
     post:
       summary: Купить предмет
       description: |
@@ -170,7 +170,7 @@ paths:
         '409':
           $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
 
-  /gameplay/economy/trading/sell:
+  /sell:
     post:
       summary: Продать предмет
       description: |
@@ -207,7 +207,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/TradeResult'
 
-  /gameplay/economy/trading/price-check:
+  /price-check:
     post:
       summary: Проверить цену
       description: |
