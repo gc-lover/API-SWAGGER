@@ -1,3 +1,20 @@
+  - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+    target: "api/v1/social/player-orders.yaml"
+    task_id: "API-TASK-SOC-PO-Create"
+    task_file: "tasks/active/queue/task-SOC-PO-create.md"
+    status: "completed"
+    created: "2025-11-08 09:53"
+    version: "1.0.0"
+    updated: "2025-11-08 10:08"
+    completed: "2025-11-08 10:08"
+    related_sources:
+      - ".BRAIN/02-gameplay/social/player-orders-system.md"
+      - ".BRAIN/02-gameplay/social/player-orders-types.md"
+      - ".BRAIN/02-gameplay/economy/economy-infrastructure.md"
+      - ".BRAIN/02-gameplay/world/world-state/player-impact-systems.md"
+    related_targets:
+      - "api/v1/social/player-orders.yaml"
+      - "api/v1/social/player-orders-components.yaml"
 # Маппинг документов .BRAIN -> задания в API-SWAGGER
 
 # Этот файл отслеживает связи между документами из .BRAIN и заданиями в API-SWAGGER.

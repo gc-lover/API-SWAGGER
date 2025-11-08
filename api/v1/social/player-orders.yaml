@@ -1,0 +1,273 @@
+# Target Architecture:
+# - Microservice: social-service (8084)
+# - Dependencies: economy-service, world-service, npc-service, factions-service, notification-service, analytics-service
+# - Frontend Module: modules/social/player-orders
+# - State: useSocialStore(playerOrders)
+# - UI: OrderCreationWizard, BudgetEstimator, RiskIndicator, GuaranteeSelector, SummaryPanel
+# - Forms: PlayerOrderBriefForm, BudgetAdjustForm, AttachmentUploadForm, GuaranteeForm
+# - Hooks: usePlayerProfile, useEconomyRates, useFactionPermissions, useRealtime
+# - Events: social.player-order.created, social.player-order.published, economy.player-order.escrow.locked, world.player-order.validation.failed
+# - API Base: /api/v1/social/player-orders/*
+openapi: 3.0.3
+info:
+  title: Player Orders Creation API
+  version: 1.0.0
+  description: |
+    Контракт social-service для создания и публикации заказов игроков: подготовка брифа,
+    оценка бюджета, сохранение черновиков и публикация с гарантиями.
+
+    Источник: `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` v1.0.0 (approved, api-readiness: ready)
+servers:
+  - url: https://api.necpgame.com/v1
+    description: Production
+security:
+  - BearerAuth: []
+tags:
+  - name: Player Orders
+    description: Управление брифами и публикацией заказов игроков
+  - name: Order Drafts
+    description: Работа с черновиками заказов
+  - name: Order Budget
+    description: Оценка бюджета, гарантий и escrow
+paths:
+  /social/player-orders/templates:
+    get:
+      tags: [Player Orders]
+      summary: Получить шаблоны заказов
+      description: Возвращает шаблоны заказов с предзаполненными полями и подсказками.
+      operationId: listPlayerOrderTemplates
+      responses:
+        '200':
+          description: Шаблоны получены
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderTemplateList'
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
+  /social/player-orders/drafts:
+    post:
+      tags: [Order Drafts]
+      summary: Создать черновик заказа
+      description: Создаёт черновик заказа с базовым брифом и параметрами.
+      operationId: createPlayerOrderDraft
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderDraftCreateRequest'
+      responses:
+        '201':
+          description: Черновик создан
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderDraft'
+        '400': { $ref: '../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../shared/common/responses.yaml#/components/responses/Conflict' }
+    get:
+      tags: [Order Drafts]
+      summary: Список черновиков заказов
+      description: Возвращает черновики заказов игрока с фильтрами по статусу и шаблону.
+      operationId: listPlayerOrderDrafts
+      parameters:
+        - $ref: './player-orders-components.yaml#/components/parameters/TemplateFilter'
+        - $ref: './player-orders-components.yaml#/components/parameters/DraftStatusFilter'
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/Page'
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Черновики найдены
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderDraftList'
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
+  /social/player-orders/drafts/{orderId}:
+    parameters:
+      - $ref: './player-orders-components.yaml#/components/parameters/OrderId'
+    get:
+      tags: [Order Drafts]
+      summary: Получить черновик заказа
+      description: Возвращает детали черновика заказа.
+      operationId: getPlayerOrderDraft
+      responses:
+        '200':
+          description: Черновик найден
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderDraft'
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+    patch:
+      tags: [Order Drafts]
+      summary: Обновить черновик заказа
+      description: Обновляет поля черновика, включая бриф, вложения и гарантии.
+      operationId: updatePlayerOrderDraft
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderDraftUpdateRequest'
+      responses:
+        '200':
+          description: Черновик обновлён
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderDraft'
+        '400': { $ref: '../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+  /social/player-orders/drafts/{orderId}/budget:
+    post:
+      tags: [Order Budget]
+      summary: Рассчитать бюджет заказа
+      description: Расчитывает бюджет, escrow и коэффициенты риска для заказа.
+      operationId: calculatePlayerOrderBudget
+      parameters:
+        - $ref: './player-orders-components.yaml#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderBudgetRequest'
+      responses:
+        '200':
+          description: Бюджет рассчитан
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderBudget'
+        '400': { $ref: '../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '422': { $ref: '../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+  /social/player-orders/drafts/{orderId}/publish:
+    post:
+      tags: [Player Orders]
+      summary: Опубликовать заказ
+      description: Публикует заказ, создаёт escrow и распространяет уведомления.
+      operationId: publishPlayerOrder
+      parameters:
+        - $ref: './player-orders-components.yaml#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderPublishRequest'
+      responses:
+        '202':
+          description: Публикация запущена
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderPublishResponse'
+        '400': { $ref: '../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+  /social/player-orders/{orderId}:
+    parameters:
+      - $ref: './player-orders-components.yaml#/components/parameters/OrderId'
+    get:
+      tags: [Player Orders]
+      summary: Получить опубликованный заказ
+      description: Возвращает опубликованный заказ с текущим статусом и гарантиями.
+      operationId: getPlayerOrder
+      responses:
+        '200':
+          description: Заказ найден
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-components.yaml#/components/schemas/PlayerOrder'
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+  /social/player-orders/{orderId}/attachments:
+    post:
+      tags: [Player Orders]
+      summary: Загрузить вложение заказа
+      description: Загружает вложение к заказу и возвращает ссылку на `content-service`.
+      operationId: uploadPlayerOrderAttachment
+      parameters:
+        - $ref: './player-orders-components.yaml#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderAttachmentRequest'
+      responses:
+        '201':
+          description: Вложение принято
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderAttachment'
+        '400': { $ref: '../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
+  /social/player-orders/{orderId}/cancel:
+    post:
+      tags: [Player Orders]
+      summary: Отменить заказ
+      description: Отменяет заказ, освобождает escrow и отправляет уведомления.
+      operationId: cancelPlayerOrder
+      parameters:
+        - $ref: './player-orders-components.yaml#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderCancelRequest'
+      responses:
+        '202':
+          description: Отмена запланирована
+          content:
+            application/json:
+              schema:
+                $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderCancelResponse'
+        '400': { $ref: '../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+components:
+  securitySchemes:
+    BearerAuth: { $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+x-kafka-topics:
+  social.player-order.created:
+    summary: Черновик заказа создан
+    payload:
+      $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderDraft'
+  social.player-order.published:
+    summary: Заказ опубликован
+    payload:
+      $ref: './player-orders-components.yaml#/components/schemas/PlayerOrder'
+  social.player-order.cancelled:
+    summary: Заказ отменён
+    payload:
+      $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderCancelResponse'
+  economy.player-order.escrow.locked:
+    summary: Escrow заказа заблокирован в economy-service
+    payload:
+      $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderEscrowEvent'
+  world.player-order.validation.failed:
+    summary: Проверка world-service не прошла
+    payload:
+      $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderValidationEvent'
+

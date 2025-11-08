@@ -1,0 +1,403 @@
+openapi: 3.0.3
+info:
+  title: Player Orders Components
+  version: 1.0.0
+paths: {}
+components:
+  parameters:
+    OrderId:
+      name: orderId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Идентификатор заказа игрока.
+    TemplateFilter:
+      name: template
+      in: query
+      schema:
+        type: string
+        enum: [combat, hacker, economy, social, exploration]
+      description: Фильтр по шаблону заказа.
+    DraftStatusFilter:
+      name: status
+      in: query
+      schema:
+        type: string
+        enum: [draft, submitted, pending_budget, ready_to_publish]
+      description: Фильтр по статусу черновика.
+  schemas:
+    PlayerOrderTemplate:
+      type: object
+      required:
+        - templateId
+        - template
+        - title
+        - description
+      properties:
+        templateId:
+          type: string
+        template:
+          type: string
+          enum: [combat, hacker, economy, social, exploration]
+        title:
+          type: string
+        description:
+          type: string
+        defaultBrief:
+          type: string
+        risks:
+          type: array
+          items:
+            type: string
+        suggestedGuarantees:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerOrderGuarantee'
+    PlayerOrderTemplateList:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerOrderTemplate'
+    PlayerOrderDraftCreateRequest:
+      type: object
+      required:
+        - template
+        - title
+        - brief
+      properties:
+        template:
+          type: string
+          enum: [combat, hacker, economy, social, exploration]
+        title:
+          type: string
+        brief:
+          type: string
+        deadline:
+          type: string
+          format: date-time
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerOrderAttachment'
+        visibility:
+          type: string
+          enum: [public, invite_only, private]
+        requiredRating:
+          type: string
+          enum: [bronze, silver, gold, platinum]
+          default: bronze
+    PlayerOrderDraft:
+      type: object
+      required:
+        - orderId
+        - template
+        - title
+        - brief
+        - status
+      properties:
+        orderId:
+          type: string
+          format: uuid
+        template:
+          type: string
+        title:
+          type: string
+        brief:
+          type: string
+        status:
+          type: string
+          enum: [draft, submitted, pending_budget, ready_to_publish]
+        deadline:
+          type: string
+          format: date-time
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerOrderAttachment'
+        guarantees:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerOrderGuarantee'
+        budget:
+          $ref: '#/components/schemas/PlayerOrderBudget'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    PlayerOrderDraftUpdateRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        brief:
+          type: string
+        deadline:
+          type: string
+          format: date-time
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerOrderAttachment'
+        guarantees:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerOrderGuarantee'
+        visibility:
+          type: string
+          enum: [public, invite_only, private]
+        requiredRating:
+          type: string
+          enum: [bronze, silver, gold, platinum]
+    PlayerOrderDraftList:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerOrderDraft'
+        pagination:
+          $ref: '../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
+    PlayerOrderGuarantee:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum: [escrow, insurance, reputation_bond, performance_bonus]
+        description:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+          default: "eddy"
+    PlayerOrderAttachment:
+      type: object
+      properties:
+        attachmentId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        mimeType:
+          type: string
+    PlayerOrderAttachmentRequest:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+        description:
+          type: string
+    PlayerOrderBudgetRequest:
+      type: object
+      required:
+        - baseAmount
+        - riskLevel
+      properties:
+        baseAmount:
+          type: number
+        riskLevel:
+          type: string
+          enum: [low, medium, high, extreme]
+        bonuses:
+          type: array
+          items:
+            type: number
+        penalties:
+          type: array
+          items:
+            type: number
+        teamSlots:
+          type: integer
+        guarantees:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerOrderGuarantee'
+    PlayerOrderBudget:
+      type: object
+      required:
+        - totalAmount
+        - escrowAmount
+        - suggestedBonuses
+      properties:
+        totalAmount:
+          type: number
+        escrowAmount:
+          type: number
+        suggestedBonuses:
+          type: array
+          items:
+            type: number
+        suggestedPenalties:
+          type: array
+          items:
+            type: number
+        riskScore:
+          type: number
+        notes:
+          type: string
+    PlayerOrderPublishRequest:
+      type: object
+      properties:
+        visibility:
+          type: string
+          enum: [public, invite_only, private]
+        invitedPlayerIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        releaseEscrowImmediately:
+          type: boolean
+          default: true
+    PlayerOrderPublishResponse:
+      type: object
+      required:
+        - orderId
+        - status
+      properties:
+        orderId:
+          type: string
+        status:
+          type: string
+          enum: [publishing, published]
+        publishToken:
+          type: string
+        message:
+          type: string
+    PlayerOrder:
+      type: object
+      required:
+        - orderId
+        - title
+        - status
+        - template
+        - brief
+        - budget
+      properties:
+        orderId:
+          type: string
+        title:
+          type: string
+        status:
+          type: string
+          enum: [draft, published, cancelled]
+        template:
+          type: string
+        brief:
+          type: string
+        budget:
+          $ref: '#/components/schemas/PlayerOrderBudget'
+        guarantees:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerOrderGuarantee'
+        createdAt:
+          type: string
+          format: date-time
+        publishedAt:
+          type: string
+          format: date-time
+        cancelledAt:
+          type: string
+          format: date-time
+    PlayerOrderCancelRequest:
+      type: object
+      required:
+        - reason
+      properties:
+        reason:
+          type: string
+        refundEscrow:
+          type: boolean
+          default: true
+        notes:
+          type: string
+    PlayerOrderCancelResponse:
+      type: object
+      required:
+        - orderId
+        - status
+      properties:
+        orderId:
+          type: string
+        status:
+          type: string
+          enum: [cancelled, cancellation_pending]
+        message:
+          type: string
+    PlayerOrderEscrowEvent:
+      type: object
+      properties:
+        orderId:
+          type: string
+        escrowAmount:
+          type: number
+        currency:
+          type: string
+        lockedAt:
+          type: string
+          format: date-time
+    PlayerOrderValidationEvent:
+      type: object
+      properties:
+        orderId:
+          type: string
+        validationStage:
+          type: string
+        reason:
+          type: string
+        blockedAt:
+          type: string
+          format: date-time
+  examples:
+    PlayerOrderDraftExample:
+      summary: Черновик заказа — боевой шаблон
+      value:
+        orderId: "0f8fad5b-d9cb-469f-a165-70867728950e"
+        template: "combat"
+        title: "Операция «Ночная гроза»"
+        brief: "Подготовить рейд на склад корпорации, цель — захватить серверные блоки."
+        status: "draft"
+        deadline: "2025-11-12T18:00:00Z"
+        guarantees:
+          - type: "escrow"
+            amount: 50000
+            currency: "eddy"
+        budget:
+          totalAmount: 85000
+          escrowAmount: 50000
+          riskScore: 0.72
+        createdAt: "2025-11-08T09:54:00Z"
+    PlayerOrderBudgetExample:
+      summary: Рассчитанный бюджет заказа
+      value:
+        totalAmount: 92000
+        escrowAmount: 60000
+        suggestedBonuses: [5000, 10000]
+        suggestedPenalties: [3000]
+        riskScore: 0.68
+        notes: "Рекомендуется добавить страхование доставки."
+    PlayerOrderPublishResponseExample:
+      summary: Публикация заказа
+      value:
+        orderId: "0f8fad5b-d9cb-469f-a165-70867728950e"
+        status: "publishing"
+        publishToken: "publish-3ac21f"
+        message: "Заказ отправлен на публикацию, escrow будет заблокирован в течение 60 секунд."
+
