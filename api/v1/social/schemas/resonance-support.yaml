@@ -1,0 +1,146 @@
+openapi: 3.0.3
+info:
+  title: Social Resonance Support Components
+  version: 1.0.0
+  description: Параметры, request body и примеры для Social Resonance API.
+paths: {}
+components:
+  parameters:
+    IncludeCampaignsQuery:
+      name: include_campaigns
+      in: query
+      schema:
+        type: boolean
+        default: false
+      description: Добавить активные кампании в snapshot.
+    IncludeRelationshipsQuery:
+      name: include_relationships
+      in: query
+      schema:
+        type: boolean
+        default: false
+      description: Добавить агрегат связей в snapshot.
+    CampaignStatusFilter:
+      name: status
+      in: query
+      schema:
+        $ref: './resonance-models.yaml#/components/schemas/SocialCampaignStatus'
+      description: Фильтр кампаний по статусу.
+    CampaignCategoryFilter:
+      name: category
+      in: query
+      schema:
+        $ref: './resonance-models.yaml#/components/schemas/SocialCampaignCategory'
+      description: Фильтр кампаний по категории.
+    CampaignTierFilter:
+      name: tier
+      in: query
+      schema:
+        $ref: './resonance-models.yaml#/components/schemas/CampaignTier'
+      description: Фильтр кампаний по уровню.
+    SimulateQuery:
+      name: simulate
+      in: query
+      schema:
+        type: boolean
+        default: false
+      description: Выполнить только симуляцию кампании.
+    IdempotencyKeyHeader:
+      name: X-Idempotency-Key
+      in: header
+      schema:
+        type: string
+        maxLength: 64
+      description: Идентификатор для защиты от повторных запусков.
+    RelationshipTypeFilter:
+      name: type
+      in: query
+      schema:
+        $ref: './resonance-models.yaml#/components/schemas/RelationshipType'
+      description: Фильтр связей по типу.
+    RelationshipTierFilter:
+      name: tier
+      in: query
+      schema:
+        $ref: './resonance-models.yaml#/components/schemas/RelationshipTier'
+      description: Фильтр связей по уровню.
+    OrganizationFilter:
+      name: organization_id
+      in: query
+      schema:
+        type: string
+      description: Ограничить список связей выбранной организацией.
+    RelationshipIdPath:
+      name: relationshipId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Идентификатор связи.
+    FromDateQuery:
+      name: from
+      in: query
+      schema:
+        type: string
+        format: date-time
+      description: Начало диапазона истории.
+    ToDateQuery:
+      name: to
+      in: query
+      schema:
+        type: string
+        format: date-time
+      description: Конец диапазона истории.
+    ResolutionQuery:
+      name: resolution
+      in: query
+      schema:
+        type: string
+        enum: [hour, day, week]
+        default: hour
+      description: Гранулярность временного ряда.
+    HorizonQuery:
+      name: horizon
+      in: query
+      schema:
+        type: integer
+        enum: [24, 72]
+        default: 24
+      description: Горизонт прогноза в часах.
+  requestBodies:
+    SocialCampaignLaunchRequest:
+      required: true
+      description: Параметры запуска или симуляции социальной кампании.
+      content:
+        application/json:
+          schema:
+            $ref: './resonance-models.yaml#/components/schemas/SocialCampaignLaunchRequest'
+          examples:
+            default:
+              $ref: './resonance-examples.yaml#/components/examples/CampaignLaunchRequestExample'
+    RelationshipUpdateRequest:
+      required: true
+      description: Обновление статуса связи.
+      content:
+        application/json:
+          schema:
+            $ref: './resonance-models.yaml#/components/schemas/RelationshipUpdateRequest'
+          examples:
+            default:
+              $ref: './resonance-examples.yaml#/components/examples/RelationshipUpdatePayloadExample'
+  examples:
+    ResonanceSnapshotExample:
+      $ref: './resonance-examples.yaml#/components/examples/ResonanceSnapshotExample'
+    CampaignListExample:
+      $ref: './resonance-examples.yaml#/components/examples/CampaignListExample'
+    CampaignLaunchExample:
+      $ref: './resonance-examples.yaml#/components/examples/CampaignLaunchExample'
+    RelationshipListExample:
+      $ref: './resonance-examples.yaml#/components/examples/RelationshipListExample'
+    RelationshipUpdateExample:
+      $ref: './resonance-examples.yaml#/components/examples/RelationshipUpdateExample'
+    HistoryResponseExample:
+      $ref: './resonance-examples.yaml#/components/examples/HistoryResponseExample'
+    ForecastExample:
+      $ref: './resonance-examples.yaml#/components/examples/ForecastExample'
+

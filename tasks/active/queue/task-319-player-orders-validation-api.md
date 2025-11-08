@@ -2,6 +2,198 @@
 **Тип:** API Generation  
 **Приоритет:** высокий  
 **Статус:** queued  
+**Создано:** 2025-11-08 16:12  
+**Создатель:** GPT-5 Codex  
+**Зависимости:** API-TASK-317 (social-service мастер заказов), API-TASK-318 (economy-service расчёт бюджета)
+
+---
+
+## 📋 Краткое описание
+
+Создать OpenAPI спецификацию `api/v1/world/player-orders/validation.yaml`, обеспечивающую проверку заказов игроков по зонам, юридическим ограничениям, санкциям фракций и токсичности контента.
+
+**Что нужно сделать:** Подготовить новый файл world-service с REST endpoints, моделями данных и Kafka событиями, который предоставляет social-service полный отчёт по валидации брифа перед публикацией.
+
+---
+
+## 🎯 Цель задания
+
+Гарантировать, что каждый заказ соответствует мировым правилам и политике фракций, а мастер создания заказов отображает точные блокировки и предупреждения.
+
+**Зачем это нужно:**
+- Централизовать проверки территорий, санкций и запрещённых сценариев в world-service.
+- Выдавать social-service и фронтенду подробный чеклист нарушений и рекомендаций.
+- Синхронизировать санкционные правила с economy-service и relationships-service.
+
+---
+
+## 📚 Источники информации
+
+### Основной источник
+**Репозиторий:** `.BRAIN`  
+**Документ:** `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`  
+**Версия:** v1.0.0 (approved)  
+**Последнее обновление:** 2025-11-08 09:53  
+
+**Ключевые моменты:**
+- Раздел 8 «Валидация и проверки» — юридический фильтр, санкции, токсичные формулировки, бюджетные пороги.
+- Предусловия из раздела 2 — рейтинг, санкции, escrow минимум.
+- Интеграции с `world-service`, `factions-service`, `relationships-service`, `content-service`.
+- Kafka событие `social.player-orders.validation.failed` и требования к полному отчёту.
+
+### Дополнительные источники
+- `.BRAIN/_02-gameplay/social/player-orders-system-детально.md` — жизненный цикл и статусы заказов.
+- `.BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md` — влияние заказов на мир и фракции.
+- `.BRAIN/_02-gameplay/social/player-orders-reputation-детально.md` — последствия нарушений.
+- `.BRAIN/_02-gameplay/social/relationships-system-детально.md` — whitelists/blacklists адресных приглашений.
+- `.BRAIN/05-technical/content-generation/city-life-population-algorithm.md` — уровни зон и риски.
+- Спецификации: `api/v1/social/player-orders.yaml`, `api/v1/world/cities/population.yaml` (стиль world-service).
+
+### Связанные задачи
+- API-TASK-317 — orchestration social-service.
+- API-TASK-318 — бюджет и escrow (economy-service).
+
+---
+
+## 📁 Целевая структура API
+
+- **Репозиторий:** `API-SWAGGER`  
+- **Целевой файл:** `api/v1/world/player-orders/validation.yaml`  
+- **Версия API:** v1  
+- **Тип:** OpenAPI 3.0.3 YAML  
+
+```
+api/
+└── v1/
+    └── world/
+        └── player-orders/
+            ├── validation.yaml                ← создать
+            ├── validation-components.yaml     ← вынести модели при необходимости
+            └── validation-examples.yaml       ← опционально для примеров
+```
+
+Применять общие компоненты: `api/v1/shared/common/security.yaml`, `api/v1/shared/common/responses.yaml`, `api/v1/shared/common/pagination.yaml`.
+
+---
+
+## 🏗️ Целевая архитектура
+
+### Backend
+- **Микросервис:** world-service  
+- **Порт:** 8086  
+- **Базовый путь:** `/api/v1/world/player-orders/*`  
+- **Интеграции:** factions-service (санкции и репутация), economy-service (бюджетные лимиты), content-service (NLP фильтр), relationships-service (адресные списки), telemetry-service (аудит), auth-service (scopes).  
+- **Kafka:** `world.player-orders.validation.completed`, `world.player-orders.validation.failed`, `world.player-orders.policies.updated`.
+
+### Frontend
+- **Модуль:** `modules/social/player-orders/validation`  
+- **State Store:** `useSocialStore` (`validationSummary`, `territoryWarnings`)  
+- **UI:** `ValidationSummary`, `ViolationList`, `RiskBadge`, `PolicyReferenceLink`  
+- **Forms:** `OrderValidationForm`, `InviteeWhitelistForm`  
+- **Hooks:** `useWorldPolicies`, `useFactionPermissions`, `useRealtime`, `useNotification`
+
+**Комментарий:** В начале `validation.yaml` добавить блок `Target Architecture` с микросервисом, портом, модулями UI, Kafka событиями и зависимостями.
+
+---
+
+## ✅ Детальный план выполнения
+
+1. **Каталог правил:** собрать из `.BRAIN` все проверки (зоны, санкции, токсичность, бюджетные ограничения, дублирование) и определить внешние источники данных.  
+2. **Проектирование endpoints:** определить основной чеклист и специализированные проверки (территории, санкции, контент, дубликаты, справочники политик).  
+3. **Модели данных:** описать `ValidationChecklist`, `ValidationIssue`, `TerritoryRestriction`, `SanctionRecord`, `ToxicityResult`, `DuplicateOrderHint`, `ValidationSummary`.  
+4. **Обработка результатов:** предусмотреть severity (`info`, `warning`, `error`), коды правил, рекомендации и поля `blocking`, `auditTraceId`.  
+5. **Безопасность и ошибки:** использовать BearerAuth, общие ответы (`401/403/404/409/422/500`), описать требования к ролям (`world.validator`, `social-service`).  
+6. **Kafka и асинхронность:** задокументировать события, указать headers трассировки (`X-Validation-Context`, `X-Trace-Id`), описать SLA и повторные запросы.  
+7. **Примеры:** подготовить сценарии: успешная валидация, блокировка по санкциям, блокировка по зоне, предупреждение токсичности, предупреждение дублирования.  
+8. **Валидация:** после генерации запустить `npx swagger-cli validate api/v1/world/player-orders/validation.yaml` и пройти чеклист `tasks/config/checklist.md`.
+
+---
+
+## 🧩 Endpoints (минимальный набор)
+
+1. **POST `/api/v1/world/player-orders/validation`** — полная проверка брифа, возвращает `ValidationChecklist` с разбивкой по категориям и `ValidationSummary`.  
+2. **GET `/api/v1/world/player-orders/validation/rules`** — справочник правил (`ruleCode`, `description`, `severity`, `applicability`).  
+3. **GET `/api/v1/world/player-orders/zones/{zoneId}/restrictions`** — правовой статус зоны, разрешённые шаблоны, необходимые разрешения, комендантские часы.  
+4. **POST `/api/v1/world/player-orders/validation/factions`** — проверка участников на санкции и репутационные ограничения.  
+5. **POST `/api/v1/world/player-orders/validation/content`** — агрегированная проверка токсичности (интеграция с content-service).  
+6. **POST `/api/v1/world/player-orders/validation/duplicates`** — анализ возможных дублирующих заказов.  
+7. **GET `/api/v1/world/player-orders/validation/history/{orderId}`** — история проверок для арбитража (опционально).  
+8. **GET `/api/v1/world/player-orders/validation/policies`** — список действующих политик с версиями и ETag для кэширования.
+
+Все endpoints должны поддерживать `locale` и `traceId`, а также возвращать ссылки на remediation (`referenceLinks`).
+
+---
+
+## 🧱 Ключевые модели
+
+- `PlayerOrderValidationRequest` — `orderId?`, `ownerId`, `brief`, `objectives[]`, `budget`, `templateCode`, `zoneId`, `privacyMode`, `invitees[]`, `documents[]`.  
+- `ValidationChecklist` — категории `territory`, `sanctions`, `legal`, `toxicity`, `budgetBounds`, `duplicates`, каждая с `status`, `issues[]`, `warnings[]`.  
+- `ValidationIssue` — `ruleCode`, `severity`, `messageKey`, `blocking`, `serviceSource`, `recommendation`, `affectedFields`, `links[]`.  
+- `TerritoryRestriction` — `zoneId`, `legalStatus`, `allowedTemplates[]`, `restrictedActions[]`, `curfew`, `hazardLevel`, `requiredPermits[]`.  
+- `SanctionRecord` — `entityId`, `entityType`, `sanctionType`, `severity`, `expiresAt`, `appealUrl`.  
+- `ToxicityResult` — `toxicityScore`, `flaggedPhrases[]`, `categories[]`, `moderationRequired`.  
+- `DuplicateOrderHint` — `similarOrderId`, `similarityScore`, `reason`, `createdAt`, `trustedRelationship`.  
+- `ValidationSummary` — `overallStatus`, `blockingIssues`, `warningsCount`, `recommendedActions[]`, `policyVersion`, `auditTraceId`.
+
+Повторяющиеся структуры вынести в `validation-components.yaml`. Добавить перечисления (`ValidationSeverity`, `ViolationCode`, `PrivacyMode`) и примеры.
+
+---
+
+## 📌 Принципы и правила
+
+- Соблюдать SOLID, DRY, KISS, API First.  
+- Не дублировать стандартные ответы — использовать `shared/common`.  
+- Файл ≤ 400 строк; вынести схемы/примеры при необходимости.  
+- Отразить зависимости и Kafka события в `x-kafka-topics`.  
+- Указать требования к audit-trail (поля `auditTraceId`, `Validation-Context-Id`).  
+- Прописать конфигурацию кэширования справочников (`ETag`, `Cache-Control`).  
+- Версия спецификации `1.0.0`, описание связывать с `.BRAIN` источниками.
+
+---
+
+## ✅ Критерии приёмки
+
+1. Создан `api/v1/world/player-orders/validation.yaml` с блоком `Target Architecture`.  
+2. Описаны endpoints: `validation`, `rules`, `zones/{zoneId}/restrictions`, `validation/factions`, `validation/content`, `validation/duplicates`, `validation/history`, `validation/policies`.  
+3. Модели включают подробные структуры нарушений, статусов и рекомендаций.  
+4. Добавлены перечисления severity/код правил и примеры ответов для ключевых сценариев.  
+5. Подключены стандартные ответы и схемы безопасности из `shared/common`.  
+6. Описаны Kafka события и их payload.  
+7. Указаны зависимости от внешних сервисов и требования к заголовкам трассировки.  
+8. Добавлены минимум три примера (успех, блокировка санкций, предупреждение токсичности).  
+9. Прописаны механизмы кэширования справочников и версионирования политик.  
+10. Указаны поля для аудита (`auditTraceId`, `policyVersion`).  
+11. Прохождение `npx swagger-cli validate` отмечено в истории задачи.  
+12. Чеклист `tasks/config/checklist.md` выполнен.
+
+---
+
+## ❓ FAQ
+
+- **В:** Почему world-service агрегирует токсичность, если анализ делает content-service?  
+  **О:** World-service создаёт единый отчёт; контент-сервис возвращает оценку, а world-service объединяет её с другими проверками.  
+- **В:** Как обновляются политики?  
+  **О:** При изменениях world-service публикует `world.player-orders.policies.updated`; клиенты повторно запрашивают справочник по `policyVersion`.  
+- **В:** Можно ли пропустить проверки на этапе черновика?  
+  **О:** Использовать лёгкую проверку `validation` с флагом `preview=true`, возвращающую только предупреждения.  
+- **В:** Как отображать локализованные сообщения?  
+  **О:** Ответ содержит `messageKey` и опционально `defaultMessage`; UI подтягивает локализацию по `locale`.  
+- **В:** Какие роли имеют доступ?  
+  **О:** Сервисные аккаунты `social-service`, `economy-service`, `arbitration-service` с scope `world.player-orders.validate`, а также внутренние инструменты модерации.
+
+---
+
+## 🧭 История выполнения
+
+- 2025-11-08 16:12 — задача создана, статус `queued`.
+
+---
+
+**Следующие шаги:** После подготовки спецификации обновить `brain-mapping.yaml`, добавить ссылку на задачу в `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`, выполнить `npx swagger-cli validate` и зафиксировать результат в Истории.
+# Task ID: API-TASK-319
+**Тип:** API Generation  
+**Приоритет:** высокий  
+**Статус:** queued  
 **Создано:** 2025-11-08 15:35  
 **Создатель:** GPT-5 Codex  
 **Зависимости:** [API-TASK-317] – мастер создания заказа (`api/v1/social/player-orders.yaml`), [API-TASK-318] – расчёт бюджета (`api/v1/economy/player-orders/budget.yaml`)
@@ -265,60 +457,62 @@ API-SWAGGER/
 **Тип:** API Generation  
 **Приоритет:** высокий  
 **Статус:** queued  
-**Создано:** 2025-11-08 12:40  
+**Создано:** 2025-11-08 15:35  
 **Создатель:** GPT-5 Codex  
-**Зависимости:** [API-TASK-317] — мастер создания заказов (social-service)
+**Зависимости:** [API-TASK-317] – мастер создания заказа (`api/v1/social/player-orders.yaml`), [API-TASK-318] – расчёт бюджета (`api/v1/economy/player-orders/budget.yaml`)
 
 ---
 
 ## 📋 Краткое описание
 
-Разработать OpenAPI спецификацию `api/v1/world/player-orders/validation.yaml`, обеспечивающую многоуровневую проверку заказов игроков: юридические ограничения, санкции, токсичный контент, соответствие зонам и лимитам бюджета.
+Разработать OpenAPI спецификацию `api/v1/world/player-orders/validation.yaml`, которая агрегирует проверки территорий, санкций, юридических ограничений, токсичности и дублирования заказов перед публикацией.
 
-**Что нужно сделать:** Создать новый контракт world-service для комплексной валидации брифа заказа на основе `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` и связанных документов.
+**Что нужно сделать:** Создать contract-first файл для world-service, описывающий полный чеклист валидации заказа и интеграцию с зависимыми сервисами, чтобы social-service мог завершить мастер создания заказа.
 
 ---
 
 ## 🎯 Цель задания
 
-Предоставить social-service и фронтенду централизованный сервис проверок, который подтверждает готовность заказа к публикации и синхронизирует статус с economy и factions сервисами.
+Обеспечить централизованный сервис проверки заказов, чтобы публикация соответствовала мировым ограничениям и требованиям безопасности.
 
 **Зачем это нужно:**
-- Гарантировать соблюдение мировых и юридических правил перед публикацией заказа.
-- Обеспечить единый чеклист валидации для UI и автоматического мониторинга.
-- Повысить доверие к системе заказов за счёт детализированных отчетов и рекомендаций.
+- Гарантировать соответствие заказов мировым законам, санкциям и ограничениям зон.
+- Дать UI мастера создания заказа единый источник правдивых сообщений и рекомендаций.
+- Синхронизировать проверки с economy-service и factions-service для корректного бюджета и статусов участников.
 
 ---
 
 ## 📚 Источники информации
 
-### Основной источник концепции
+### Основной документ
 
 **Репозиторий:** `.BRAIN`  
-**Путь к документу:** `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`  
-**Версия документа:** v1.0.0  
-**Дата последнего обновления:** 2025-11-08 09:53  
-**Статус документа:** approved  
+**Путь:** `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md`  
+**Версия:** v1.0.0  
+**Дата обновления:** 2025-11-08 09:53  
+**Статус:** approved  
 
-**Что важно из этого документа:**
-- Обязательные проверки: полнота полей, юридический фильтр, санкции, токсичный контент, минимальные/максимальные бюджеты.
-- Интеграции с world-service (территории), factions-service (репутация и санкции), content-service (токсичность), economy-service (лимиты бюджета).
-- Логирование ошибок в telemetry-service и повторные проверки после исправлений.
+**Ключевые разделы:**
+- §1 «Общий конвейер» и §8 «Валидация и проверки» – обязательные этапы чеклиста.
+- §2 «Предусловия» – рейтинги, санкции, escrow-лимиты.
+- §6 «Расчёт бюджета» и §7 «Режимы публикации» – связи с economy и режимами доступа.
+- §14 «Kafka события» – `social.player-orders.validation.failed` и связанные уведомления.
 
-### Дополнительные источники
+### Дополнительные документы
 
-- `.BRAIN/_02-gameplay/social/player-orders-system.md` — жизненный цикл заказов.
-- `.BRAIN/_02-gameplay/social/player-orders-reputation-детально.md` — влияние санкций и нарушений.
-- `.BRAIN/_02-gameplay/social/player-orders-advanced.md` — расширенные правила и edge cases.
-- `.BRAIN/_02-gameplay/world/world-state/player-impact-systems.md` — зоны влияния и ограничения.
-- `.BRAIN/_02-gameplay/social/relationships-system-детально.md` — адресные приглашения и доверие.
-- `.BRAIN/_02-gameplay/social/npc-hiring-system-детально.md` — правила для NPC исполнителей.
+- `.BRAIN/_02-gameplay/social/player-orders-system-детально.md` – общий жизненный цикл заказов.
+- `.BRAIN/_02-gameplay/social/player-orders-reputation-детально.md` – влияние нарушений и санкций.
+- `.BRAIN/_02-gameplay/social/relationships-system-детально.md` – доверенные списки и адресные приглашения.
+- `.BRAIN/_02-gameplay/social/player-orders-advanced.md` – расширенные кейсы и edge cases.
+- `.BRAIN/_02-gameplay/world/world-state/player-impact-systems.md` – ограничения зон и мировые события.
+- `.BRAIN/_05-technical/content-generation/city-life-population-algorithm.md` – пример территориальных метрик.
 
-### Связанные API
+### Связанные спецификации
 
-- `API-SWAGGER/api/v1/social/player-orders.yaml` — основной мастер (API-TASK-317).
-- `API-SWAGGER/api/v1/world/cities/population.yaml` — контексты территорий и рисков.
-- `API-SWAGGER/api/v1/shared/common/responses.yaml`, `security.yaml` — стандартные компоненты.
+- `api/v1/social/player-orders.yaml` – основной REST контракт мастера (API-TASK-317).
+- `api/v1/economy/player-orders/budget.yaml` – расчёт бюджета и escrow (API-TASK-318).
+- `api/v1/social/player-orders-components.yaml` – общие схемы заказов (использовать через `$ref`).
+- `api/v1/shared/common/{responses,pagination,security}.yaml` – стандартные компоненты.
 
 ---
 
@@ -326,15 +520,15 @@ API-SWAGGER/
 
 ### Репозиторий: `API-SWAGGER`
 
-**Целевой файл:** `api/v1/world/player-orders/validation.yaml`  
-**Вспомогательные файлы:**  
-- `api/v1/world/player-orders/validation-components.yaml` (если потребуется вынести схемы)  
-- Общие компоненты: `api/v1/shared/common/responses.yaml`, `security.yaml`
+**Файл:** `api/v1/world/player-orders/validation.yaml`  
+**Возможные дополнительные файлы:**  
+- `api/v1/world/player-orders/validation-components.yaml` – вынести схемы, если >400 строк.  
+- `api/v1/world/player-orders/validation-examples.yaml` – крупные примеры ответов.
 
 **API версия:** v1  
-**Тип файла:** OpenAPI 3.0.3 (YAML)
+**Формат:** OpenAPI 3.0.3 (YAML)
 
-**Структура директории:**
+**Структура:**
 ```
 API-SWAGGER/
 └── api/
@@ -342,133 +536,191 @@ API-SWAGGER/
         └── world/
             └── player-orders/
                 ├── validation.yaml              ← создать
-                └── validation-components.yaml   ← создать при необходимости
+                ├── validation-components.yaml   ← при необходимости
+                └── validation-examples.yaml     ← при необходимости
 ```
 
 ---
 
 ## 🏗️ Целевая архитектура (⚠️ ОБЯЗАТЕЛЬНО)
 
-### Backend (микросервисная архитектура)
+### Backend
 - **Микросервис:** world-service  
 - **Порт:** 8086  
-- **API Base Path:** `/api/v1/world/player-orders/*`  
-- **Интеграции:** social-service (бриф заказа), economy-service (пороговые значения бюджета), factions-service (санкции и репутация), content-service (токсичный контент), telemetry-service (логирование), auth-service (аутентификация).
-- **Kafka события:** `world.player-orders.validation.started`, `world.player-orders.validation.completed`, `world.player-orders.validation.failed`.
+- **API Base:** `/api/v1/world/player-orders/*`  
+- **Домен:** территориальные ограничения, юридические правила, санкции  
+- **Внешние зависимости:** factions-service, security-service, economy-service, content-service, relationships-service, telemetry-service  
+- **Kafka события:** `world.player-orders.validation.started`, `world.player-orders.validation.completed`, `world.player-orders.validation.failed`, `world.player-orders.validation.audit`
 
-### Frontend (модульная архитектура)
+### Frontend
 - **Модуль:** `modules/social/player-orders/create-wizard`  
-- **State Store:** `useSocialStore` (`validationChecklist`, `issueFeed`)  
-- **UI компоненты @shared/ui:** `OrderValidationSummary`, `IssueList`, `RiskLevelBadge`, `SanctionAlert`, `ChecklistProgress`  
-- **Формы @shared/forms:** `OrderValidationReviewForm`, `InviteListForm` (для отображения санкций)  
-- **Layouts @shared/layouts:** `WizardLayout`, `GameLayout`  
-- **Хуки @shared/hooks:** `useValidationPolling`, `useRealtime`, `useFactionPermissions`, `useContentModeration`
+- **State Store:** `useSocialStore` (`validationSummary`, `territoryWarnings`, `issueFeed`)  
+- **UI:** `OrderValidationSummary`, `ViolationBadge`, `RestrictionDetailsPanel`, `ZoneAccessMap`, `ChecklistProgress`  
+- **Forms:** `ValidationResolutionForm`, `SanctionAppealForm`, `InviteListForm`  
+- **Layouts:** `WizardLayout`, `GameLayout`  
+- **Hooks:** `useValidationPolling`, `useWorldMap`, `useFactionPermissions`, `useContentModeration`, `useRealtime`
 
-### Комментарий для OpenAPI файла
-В верхней части `validation.yaml` зафиксировать микросервис, модуль фронтенда, используемые компоненты, хуки и Kafka события.
+### Требование к комментариям
+В начале `validation.yaml` добавить блок:
+```
+# Target Architecture:
+# - Microservice: world-service (8086)
+# - API Base: /api/v1/world/player-orders/*
+# - Integrations: factions, security, economy, content, relationships, telemetry
+# - Frontend: modules/social/player-orders/create-wizard
+# - State: useSocialStore(validationSummary, territoryWarnings)
+# - UI: OrderValidationSummary, ViolationBadge, RestrictionDetailsPanel, ZoneAccessMap, ChecklistProgress
+# - Forms: ValidationResolutionForm, SanctionAppealForm, InviteListForm
+# - Hooks: useValidationPolling, useWorldMap, useFactionPermissions, useContentModeration, useRealtime
+# - Events: world.player-orders.validation.* , social.player-orders.validation.failed
+```
 
 ---
 
-## ✅ Детальный план работ
+## ✅ Детальный план
 
-1. **Собрать требования:** выписать сценарии проверок из `.BRAIN` документов, разделить на синхронные и асинхронные.
-2. **Определить эндпоинты:** запуск валидации, получение результатов, проверка отдельных чеков, предоставление рекомендаций.
-3. **Спроектировать модели:** `ValidationRequest`, `ValidationChecklist`, `ValidationIssue`, `SanctionRecord`, `ToxicityReport`, `Recommendation`.
-4. **Настроить статусы и события:** `pending`, `in_progress`, `passed`, `failed`, `needs_attention`.
-5. **Описать интеграции:** как сервис обращается к economy, factions, content, npc, relationships.
-6. **Указать бизнес-правила:** обязательные поля, лимиты бюджета, уровни санкций, токсичности.
-7. **Добавить примеры:** успешная валидация, провал по санкциям, предупреждение о токсичном контенте, превышение бюджета.
-8. **Проверить OpenAPI:** вынести повторяющиеся структуры в `validation-components.yaml`, запустить `npx swagger-cli validate`.
+### Шаг 1. Инвентаризация правил
+1. Составить таблицу проверок (`territory`, `sanctions`, `legal`, `toxicity`, `budgetBounds`, `duplicates`, `relationships`).  
+2. Для каждой проверки зафиксировать источник данных, критичность и требуемые поля ответа.
+
+### Шаг 2. Проектирование API
+1. Определить основные и вспомогательные endpoints (см. ниже).  
+2. Для синхронных операций продумать временной SLA, для долгих – предусмотреть `pending` и события.  
+3. Ввести единообразные query/header параметры (`locale`, `traceId`, `Validation-Context-Id`).
+
+### Шаг 3. Модели данных
+1. Описать `ValidationChecklist`, `ValidationIssue`, `TerritoryRestriction`, `SanctionRecord`, `ToxicityResult`, `DuplicateOrderHint`, `ValidationSummary`.  
+2. Добавить `ruleCode`, `severity`, `blocking`, `recommendation`, `serviceSource`, `auditTraceId`.  
+3. Повторяющиеся структуры вынести в `validation-components.yaml`.
+
+### Шаг 4. Интеграции и безопасность
+1. Подключить `security.yaml` (BearerAuth).  
+2. Подключить `responses.yaml` и `pagination.yaml` по DRY.  
+3. Описать Kafka события и webhook/события для отложенных проверок.  
+4. Зафиксировать требования к логированию (`telemetry-service`, `auditTraceId`).
+
+### Шаг 5. Примеры и проверка
+1. Создать примеры: pass, санкции, зона, токсичность, дубликат.  
+2. Обновить `info` (версия `1.0.0`, ссылки на источники, `x-created-by`).  
+3. Запустить `npx swagger-cli validate api/v1/world/player-orders/validation.yaml`.  
+4. Пройти чеклист приемки и обновить `.BRAIN` + `brain-mapping`.
 
 ---
 
-## 🛣️ Предложенные endpoints
+## 🛣️ Эндпоинты (предложение)
 
-1. **POST `/world/player-orders/{orderId}/validation`** — запускает полный чеклист, возвращает `validationId`, статус `pending`.
-2. **GET `/world/player-orders/{orderId}/validation/{validationId}`** — текущий статус, результаты чеков, рекомендации.
-3. **POST `/world/player-orders/{orderId}/validation/checks/{check}`** — ручной запуск/повторный запуск конкретного чекпойнта (`completeness`, `legal`, `sanctions`, `toxicity`, `budget`).
-4. **GET `/world/player-orders/{orderId}/validation/issues`** — список актуальных `ValidationIssue[]` с пагинацией и фильтрами по `severity`.
-5. **GET `/world/player-orders/{orderId}/validation/recommendations`** — контекстные рекомендации по устранению проблем.
-6. **GET `/world/player-orders/{orderId}/sanctions`** — детали санкций и ограничений из factions-service.
-7. **GET `/world/player-orders/{orderId}/toxicity`** — отчёт по токсичности от content-service.
-8. **POST `/world/player-orders/{orderId}/validation/acknowledge`** — подтверждение знакомство с предупреждениями (для публикации при отклонениях медианы/рисков).
+1. **POST `/world/player-orders/validation`** – полный чеклист; вход: бриф заказа, выход: `ValidationChecklist`, `ValidationSummary`, `issues[]`.  
+2. **GET `/world/player-orders/validation/rules`** – справочник правил (`ruleCode`, `description`, `severity`, `applicability`).  
+3. **GET `/world/player-orders/zones/{zoneId}/restrictions`** – ограничения территории (`legalStatus`, `allowedTemplates`, `curfew`, `requiredPermits`).  
+4. **POST `/world/player-orders/validation/sanctions`** – проверка участников (`SanctionRecord[]`, `overallStatus`).  
+5. **POST `/world/player-orders/validation/toxicity`** – агрегация результатов content-service (`toxicityScore`, `flaggedPhrases`, `moderationRequired`).  
+6. **POST `/world/player-orders/validation/duplicates`** – выявление схожих заказов (`DuplicateOrderHint[]`).  
+7. **GET `/world/player-orders/validation/history/{orderId}`** *(опция)* – история проверок, пагинация.  
+8. **POST `/world/player-orders/validation/acknowledge`** – подтверждение заказчиком предупреждений (`acknowledgedWarnings[]`, `timestamp`).
 
-Все методы используют общие ответы `400/401/403/404/409/422/500` через `$ref` и параметр `orderId` из компонентов.
+Все endpoints: обязательный header `Trace-Id`, опциональный `Validation-Context-Id`; ошибки через `$ref` на `shared/common/responses.yaml`.
 
 ---
 
 ## 🧱 Основные модели
 
-- **ValidationRequest** — `orderId`, `template`, `riskLevel`, `budgetEstimate`, `visibility`, `invitedMembers[]`, `npcAgents[]`, `isCorporate`.
-- **ValidationChecklist** — список шагов (`completeness`, `legal`, `sanctions`, `toxicity`, `budget`, `relationships`) с `status`, `severity`, `checkedAt`, `serviceSource`.
-- **ValidationIssue** — `issueId`, `category`, `severity` (info/warning/error/blocker), `description`, `recommendation`, `sourceService`, `detectedAt`, `remediationDeadline?`.
-- **SanctionRecord** — `factionId`, `sanctionType`, `expiresAt`, `appealAvailable`, `penalties`.
-- **ToxicityReport** — `score`, `threshold`, `phrases[]`, `suggestedReplacements[]`.
-- **BudgetConstraint** — `minBudget`, `maxBudget`, `median`, `deviation`, `requiresApproval`.
-- **ValidationResultSummary** — `status`, `issuesCount`, `warningsCount`, `passedChecks`, `failedChecks`, `nextActions`.
-- **ValidationEvent** — `eventId`, `eventType`, `timestamp`, `payload`.
+- **ValidationRequest** – `orderId`, `template`, `zoneId`, `riskLevel`, `privacyMode`, `budget`, `participants[]`, `npcAgents[]`, `documents[]`, `auditTraceId`.  
+- **ValidationChecklist** – массив категорий с `category`, `status` (`passed`, `warning`, `failed`, `pending`), `issues[]`, `warnings[]`.  
+- **ValidationIssue** – `issueId`, `ruleCode`, `severity`, `messageKey`, `localizedMessage`, `blocking`, `recommendation`, `serviceSource`, `detectedAt`, `remediationDeadline?`.  
+- **TerritoryRestriction** – `zoneId`, `legalStatus`, `restrictedActions`, `allowedTemplates`, `sanctionedFactions`, `securityLevel`, `requiredPermits`.  
+- **SanctionRecord** – `entityId`, `entityType` (`player`, `faction`, `npc`), `sanctionType`, `severity`, `expiresAt`, `appealUrl`, `sourceFaction`.  
+- **ToxicityResult** – `toxicityScore`, `threshold`, `flaggedPhrases[]`, `categories[]`, `moderationRequired`.  
+- **DuplicateOrderHint** – `similarOrderId`, `similarityScore`, `reason`, `createdAt`, `trustedRelationship`.  
+- **ValidationSummary** – `overallStatus`, `blockingIssues`, `warningsCount`, `recommendedActions[]`, `nextSteps`.
+
+Каждая схема: `required`, типы, `enum`, `minimum/maximum`, `example`. Повторения вынести в `validation-components.yaml`.
 
 ---
 
-## 📈 Бизнес-правила и ограничения
+## 📏 Правила и ограничения
 
-- Все обязательные поля брифа должны быть заполнены; отсутствие любого критического поля → `severity: blocker`.
-- Заказы в запрещённых зонах (`world-service` blacklist) отклоняются автоматически.
-- Если бюджет < минимального порога или > максимального — `severity: warning` с требованием подтверждения; повторная отправка без изменений → `409`.
-- При активных санкциях у заказчика или приглашённых — блокировать публикацию, вернуть список санкций.
-- Токсичный контент (`toxicityScore > threshold`) требует устранения; при серьёзных нарушениях → `severity: blocker`.
-- Корпоративные заказы должны иметь `factionAuthorizationId`.
-- Валидация должна фиксировать `auditTrail` с указанием источника каждого нарушения.
+- Соблюдать SOLID / DRY / KISS, избегать дублирования общих компонентов.  
+- Файл ≤400 строк; при превышении вынести `components`/`examples` в отдельные YAML.  
+- Все проверки трассируемы: `auditTraceId`, `Validation-Context-Id`, `Trace-Id`.  
+- Для санкций обязателен `sourceService` и `appealUrl`.  
+- Токсичный контент > `0.7` → статус `failed`, 0.5–0.7 → `warning`.  
+- Для узкоспециализированных зон отразить требования `requiredPermits` и `securityLevel`.
 
 ---
 
-## 📊 Критерии приемки (минимум 10)
+## 🧪 Примеры, которые нужно включить
 
-1. Файл `api/v1/world/player-orders/validation.yaml` создан и проходит `npx swagger-cli validate`.
-2. В начале файла есть архитектурный комментарий из секции «Целевая архитектура».
-3. Реализован запуск полной валидации и повторных чеков.
-4. Описаны модели `ValidationChecklist`, `ValidationIssue`, `SanctionRecord`, `ToxicityReport`.
-5. Для каждого чекпойнта определены статусы и уровни серьёзности.
-6. Документированы интеграции с economy, factions, content, relationships, npc сервисами.
-7. Приведены примеры ответов для успешного и проваленного чеклистов.
-8. Все ошибки используют общие ответы из `shared/common/responses.yaml`.
-9. `security` подключает схемы из `shared/common/security.yaml`.
-10. Добавлены Kafka события с payload примерами.
-11. Спецификация ≤400 строк либо вынесены компоненты в отдельный файл.
-12. Прописан чеклист в конце задания и связь с обновлением `.BRAIN` документа.
+1. **Success** – все категории `passed`, пустые `issues`.  
+2. **Sanction Blocker** – `SanctionRecord` для заказчика, `severity: error`, рекомендация обратиться в factions-service.  
+3. **Zone Restriction** – зона `NC-14`, запрещён шаблон `hacker`, `status: failed`.  
+4. **Toxicity Warning** – `toxicityScore: 0.74`, список фраз, `moderationRequired: true`.  
+5. **Duplicate Hint** – `similarityScore: 0.86`, ссылка на активный заказ, `recommendedAction: review_existing`.  
+6. *(опция)* Асинхронный сценарий с `status: pending` и последующим событием `world.player-orders.validation.completed`.
+
+---
+
+## 🔗 Интеграции и события
+
+- **social-service:** инициирует проверки, сохраняет чеклист, отображает предупреждения.  
+- **economy-service:** использует `TerritoryRestriction` и `budgetBounds` для финального бюджета.  
+- **factions-service:** источник санкций и разрешений; возврат `sanctionId`.  
+- **content-service:** анализ токсичности; world-service агрегирует результат.  
+- **relationships-service:** данные whitelists/blacklists для ограничений и дубликатов.  
+- **telemetry-service:** получает `validationId`, `issuesCount`, `durationMs` для мониторинга.  
+- **Kafka/Webhooks:** документировать payload для `validation.failed` и `validation.audit`.
+
+---
+
+## ✅ Критерии приемки (минимум 12)
+
+1. `api/v1/world/player-orders/validation.yaml` создан, версия `1.0.0`, есть архитектурный комментарий.  
+2. Endpoint `POST /world/player-orders/validation` описан с полным чеклистом и примерами ответов.  
+3. Добавлены endpoints для `rules`, `zones/{zoneId}/restrictions`, `sanctions`, `toxicity`, `duplicates`, `acknowledge`; история – опционально.  
+4. Все ответы об ошибках используют `shared/common/responses.yaml`; `security` подключён из `security.yaml`.  
+5. Описаны `ValidationChecklist`, `ValidationIssue`, `ValidationSummary`, `TerritoryRestriction`, `SanctionRecord`, `ToxicityResult`, `DuplicateOrderHint`.  
+6. Для `ValidationIssue` указаны `ruleCode`, `severity`, `blocking`, `recommendation`, `serviceSource`.  
+7. Документированы Kafka события и `x-kafka-topics`.  
+8. Примеры покрывают минимум пять сценариев (успех, санкции, зона, токсичность, дубликат).  
+9. Файл проходит `npx swagger-cli validate api/v1/world/player-orders/validation.yaml`.  
+10. Общий объём ≤400 строк; при превышении вынесены компоненты/примеры.  
+11. Включён `auditTraceId` и `Validation-Context-Id` для трассировки.  
+12. После завершения задания обновлены `.BRAIN/_02-gameplay/social/player-orders-creation-детально.md` и `tasks/config/brain-mapping.yaml`.
 
 ---
 
 ## ❓ FAQ
 
-- **В:** Как часто можно запускать повторную валидацию?  
-  **О:** Не ограничивать, но логировать каждую попытку; при >5 попыток за час возвращать предупреждение.
+- **Почему world-service агрегирует токсичность, если этим занимается content-service?**  
+  Чтобы предоставить social-service единый чеклист; world-service вызывает content-service и возвращает собранный результат.
 
-- **В:** Что делать, если сервис зависимостей недоступен?  
-  **О:** Возвращать `503` с описанием недоступного сервиса и рекомендовать повтор через `retryAfter`.
+- **Что делать, если зависимый сервис недоступен?**  
+  Возвращать `503` с `retryAfter`, публиковать событие `world.player-orders.validation.audit` при восстановлении.
 
-- **В:** Можно ли опубликовать заказ при предупреждениях?  
-  **О:** Да, если все блокирующие issues устранены и заказчик подтвердил предупреждения через `/validation/acknowledge`.
+- **Можно ли опубликовать заказ при предупреждениях?**  
+  Да, если нет блокирующих issues и пользователь подтвердил их через `/validation/acknowledge`.
 
-- **В:** Как обрабатывать NPC приглашения?  
-  **О:** Проверять наличие контракта и доступности NPC через npc-service; иначе создавать `warning` с рекомендацией замены.
+- **Как обрабатываются дубликаты?**  
+  `DuplicateOrderHint` содержит `similarityScore`, `reason`, `trustedRelationship`; social-service решает, блокировать или предупреждать.
+
+- **Как локализуются сообщения?**  
+  Возвращать `messageKey` + `localizedMessage` (по `locale`), UI использует ключи для локализации.
 
 ---
 
 ## 🧾 Отчётность и интеграции
 
-- Событие `world.player-orders.validation.started` публикуется при запуске чеклиста (payload: `orderId`, `validationId`, `startedAt`).
-- Событие `world.player-orders.validation.failed` содержит список блокирующих issues.
-- Логи направляются в telemetry-service (`validationId`, `issuesCount`, `durationMs`).
-- Необходимо синхронизировать статусы с social-service (через REST или события) для отображения прогресса в мастере.
+- Логировать `validationId`, `orderId`, `issuesCount`, `blockingIssues`, `durationMs`, `auditTraceId`.  
+- Публиковать `world.player-orders.validation.started/completed/failed` с payload.  
+- Передавать `ValidationSummary` в social-service для отображения статуса.  
+- Обновлять `telemetry-service` и `monitoring-service` для аналитики.
 
 ---
 
 **Чеклист перед сдачей:**  
-- [ ] Задокументированы все чекпойнты и модели.  
-- [ ] Добавлены примеры успешного/неуспешного выполнения.  
-- [ ] Описаны Kafka события.  
-- [ ] Файл прошёл `npx swagger-cli validate`.  
+- [ ] Все эндпоинты и модели описаны.  
+- [ ] Примеры покрывают ключевые сценарии.  
+- [ ] Kafka события задокументированы.  
+- [ ] Выполнена `npx swagger-cli validate`.  
 - [ ] Обновлены `brain-mapping.yaml` и `.BRAIN` документ.
 
 

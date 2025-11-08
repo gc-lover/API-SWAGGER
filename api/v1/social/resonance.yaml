@@ -55,18 +55,18 @@ paths:
       x-required-scopes:
         - social:resonance:read
       parameters:
-        - $ref: './schemas/resonance.yaml#/components/parameters/IncludeCampaignsQuery'
-        - $ref: './schemas/resonance.yaml#/components/parameters/IncludeRelationshipsQuery'
+        - $ref: './schemas/resonance-support.yaml#/components/parameters/IncludeCampaignsQuery'
+        - $ref: './schemas/resonance-support.yaml#/components/parameters/IncludeRelationshipsQuery'
       responses:
         '200':
           description: Текущее состояние индекса доверия и связанных с ним компонентов
           content:
             application/json:
               schema:
-                $ref: './schemas/resonance.yaml#/components/schemas/SocialResonanceSnapshot'
+                $ref: './schemas/resonance-models.yaml#/components/schemas/SocialResonanceSnapshot'
               examples:
                 default:
-                  $ref: './schemas/resonance.yaml#/components/examples/ResonanceSnapshotExample'
+                  $ref: './schemas/resonance-support.yaml#/components/examples/ResonanceSnapshotExample'
         '401':
           $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
         '403':
@@ -87,19 +87,29 @@ paths:
       parameters:
         - $ref: '../shared/common/pagination.yaml#/components/parameters/Page'
         - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
-        - $ref: './schemas/resonance.yaml#/components/parameters/CampaignStatusFilter'
-        - $ref: './schemas/resonance.yaml#/components/parameters/CampaignCategoryFilter'
-        - $ref: './schemas/resonance.yaml#/components/parameters/CampaignTierFilter'
+        - $ref: './schemas/resonance-support.yaml#/components/parameters/CampaignStatusFilter'
+        - $ref: './schemas/resonance-support.yaml#/components/parameters/CampaignCategoryFilter'
+        - $ref: './schemas/resonance-support.yaml#/components/parameters/CampaignTierFilter'
       responses:
         '200':
           description: Перечень кампаний и их ожидаемых эффектов
           content:
             application/json:
               schema:
-                $ref: './schemas/resonance.yaml#/components/schemas/CampaignListResponse'
+                type: object
+                required:
+                  - data
+                  - meta
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: './schemas/resonance-models.yaml#/components/schemas/SocialCampaign'
+                  meta:
+                    $ref: '../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
               examples:
                 default:
-                  $ref: './schemas/resonance.yaml#/components/examples/CampaignListExample'
+                  $ref: './schemas/resonance-support.yaml#/components/examples/CampaignListExample'
         '401':
           $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
         '403':
