@@ -1,3 +1,9 @@
+openapi: 3.0.3
+info:
+  title: Player Order Budget Shared Components
+  version: 1.0.0
+  description: Переиспользуемые параметры и схемы для API расчёта бюджета заказов игроков.
+paths: {}
 components:
   parameters:
     OrderId:

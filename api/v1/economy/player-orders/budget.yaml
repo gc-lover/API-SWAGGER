@@ -42,6 +42,9 @@ paths:
           application/json:
             schema:
               $ref: './player-orders-budget-components.yaml#/components/schemas/PlayerOrderBudgetEstimateRequest'
+            examples:
+              default:
+                $ref: './budget-examples.yaml#/components/examples/BudgetEstimateRequestExample'
       responses:
         '200':
           description: Бюджет рассчитан
@@ -49,12 +52,18 @@ paths:
             application/json:
               schema:
                 $ref: './player-orders-budget-components.yaml#/components/schemas/PlayerOrderBudgetEstimateResponse'
+              examples:
+                calculated:
+                  $ref: './budget-examples.yaml#/components/examples/BudgetEstimateResponseExample'
         '202':
           description: Расчёт продолжится асинхронно, возвращён jobId
           content:
             application/json:
               schema:
                 $ref: './player-orders-budget-components.yaml#/components/schemas/BudgetEstimateJob'
+              examples:
+                queued:
+                  $ref: './budget-examples.yaml#/components/examples/BudgetEstimateJobExample'
         '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
         '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
         '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
@@ -72,6 +81,9 @@ paths:
           application/json:
             schema:
               $ref: './player-orders-budget-components.yaml#/components/schemas/PlayerOrderBudgetEstimateRequest'
+            examples:
+              default:
+                $ref: './budget-examples.yaml#/components/examples/BudgetEstimateRequestExample'
       responses:
         '202':
           description: Задача расчёта поставлена в очередь
@@ -79,6 +91,9 @@ paths:
             application/json:
               schema:
                 $ref: './player-orders-budget-components.yaml#/components/schemas/BudgetEstimateJob'
+              examples:
+                status:
+                  $ref: './budget-examples.yaml#/components/examples/BudgetEstimateJobExample'
         '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
         '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
         '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
@@ -180,6 +195,9 @@ paths:
           application/json:
             schema:
               $ref: './player-orders-budget-components.yaml#/components/schemas/EscrowLockRequest'
+            examples:
+              default:
+                $ref: './budget-examples.yaml#/components/examples/EscrowLockRequestExample'
       responses:
         '202':
           description: Escrow заблокирован или запланирован
@@ -187,6 +205,9 @@ paths:
             application/json:
               schema:
                 $ref: './player-orders-budget-components.yaml#/components/schemas/EscrowLockResponse'
+              examples:
+                default:
+                  $ref: './budget-examples.yaml#/components/examples/EscrowLockResponseExample'
         '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
         '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
         '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }

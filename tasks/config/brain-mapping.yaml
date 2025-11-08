@@ -760,8 +760,8 @@ mappings:
     task_file: "tasks/active/queue/task-317-player-orders-creation-api.md"
     status: "in_progress"
     created: "2025-11-08 12:10"
-    version: "1.0.0"
-    updated: "2025-11-08 13:25"
+    version: "1.2.0"
+    updated: "2025-11-08 17:05"
     related_sources:
       - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
       - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
@@ -770,6 +770,10 @@ mappings:
     related_targets:
       - "api/v1/social/player-orders.yaml"
       - "api/v1/social/player-orders-components.yaml"
+      - "api/v1/social/player-orders-brief-components.yaml"
+      - "api/v1/social/player-orders-budget-components.yaml"
+      - "api/v1/social/player-orders-validation-components.yaml"
+      - "api/v1/social/player-orders-publication-components.yaml"
 
   - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
     target: "api/v1/economy/player-orders/budget.yaml"
@@ -790,6 +794,7 @@ mappings:
       - "api/v1/economy/player-orders/budget-schemas-core.yaml"
       - "api/v1/economy/player-orders/budget-schemas-support.yaml"
       - "api/v1/economy/player-orders/budget-examples.yaml"
+      - "api/v1/economy/player-orders/player-orders-budget-components.yaml"
 
   - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
     target: "api/v1/world/player-orders/validation.yaml"
@@ -3688,6 +3693,62 @@ mappings:
     created: "2025-11-07 11:28"
     version: "v1.2.0"
     updated: "2025-11-07 11:28"
+
+  # === VISUAL ASSETS CORE (2025-11-08) ===
+
+  - source: ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets.md"
+    target: "api/v1/character/visuals/archetypes.yaml"
+    task_id: "API-TASK-328"
+    task_file: "tasks/active/queue/task-328-character-visuals-archetypes-api.md"
+    status: "queued"
+    created: "2025-11-08 17:34"
+    version: "v1.0.0"
+    updated: "2025-11-08 17:34"
+    related_sources:
+      - ".BRAIN/03-lore/visual-guides/visual-style-locations.md"
+      - ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets-детально.md"
+      - ".BRAIN/03-lore/characters/characters-overview.md"
+      - ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
+    related_targets:
+      - "api/v1/gameplay/visuals/equipment.yaml"
+      - "api/v1/economy/visuals/items.yaml"
+      - "api/v1/character/visuals/archetypes-detailed.yaml"
+
+  - source: ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets.md"
+    target: "api/v1/gameplay/visuals/equipment.yaml"
+    task_id: "API-TASK-329"
+    task_file: "tasks/active/queue/task-329-gameplay-visuals-equipment-api.md"
+    status: "queued"
+    created: "2025-11-08 17:34"
+    version: "v1.0.0"
+    updated: "2025-11-08 17:34"
+    related_sources:
+      - ".BRAIN/03-lore/visual-guides/visual-style-locations.md"
+      - ".BRAIN/02-gameplay/combat/weapon-archetypes.md"
+      - ".BRAIN/02-gameplay/progression/progression-skills-mapping.md"
+      - ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets-детально.md"
+    related_targets:
+      - "api/v1/character/visuals/archetypes.yaml"
+      - "api/v1/economy/visuals/items.yaml"
+      - "api/v1/gameplay/visuals/equipment-detailed.yaml"
+
+  - source: ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets.md"
+    target: "api/v1/economy/visuals/items.yaml"
+    task_id: "API-TASK-330"
+    task_file: "tasks/active/queue/task-330-economy-visuals-items-api.md"
+    status: "queued"
+    created: "2025-11-08 17:34"
+    version: "v1.0.0"
+    updated: "2025-11-08 17:34"
+    related_sources:
+      - ".BRAIN/03-lore/visual-guides/visual-style-locations.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+      - ".BRAIN/02-gameplay/economy/economy-auction-house.md"
+      - ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets-детально.md"
+    related_targets:
+      - "api/v1/character/visuals/archetypes.yaml"
+      - "api/v1/gameplay/visuals/equipment.yaml"
+      - "api/v1/economy/visuals/items-detailed.yaml"
 
   # === WORLD/SOCIAL VISUALS DETAILED (2025-11-08) ===
 

@@ -1,3 +1,9 @@
+openapi: 3.0.3
+info:
+  title: Player Order Budget Core Schemas
+  version: 1.0.0
+  description: Базовые структуры расчёта бюджета заказов игроков.
+paths: {}
 components:
   schemas:
     BudgetEstimateRequest:
