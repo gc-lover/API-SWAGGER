@@ -104,7 +104,7 @@ paths:
   /economy/player-orders/market-index:
     get:
       tags: [Market]
-    summary: Получить рыночный индекс заказов
+      summary: Получить рыночный индекс заказов
       description: Возвращает текущие и исторические значения `MarketIndex` для района и фракции.
       operationId: getPlayerOrderMarketIndex
       parameters:
