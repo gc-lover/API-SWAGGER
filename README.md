@@ -63,7 +63,12 @@ api/v1/
 
 ### **Backend (Java Spring Boot):**
 ```bash
-# Generate code from OpenAPI specs
+# В репозитории BACK-GO используется скрипт генерации в микросервисы:
+cd ../BACK-GO
+.\scripts\validate-openapi.ps1 -ApiDirectory ../API-SWAGGER/api/v1/
+.\scripts\generate-openapi-microservices.ps1 -ApiDirectory ../API-SWAGGER/api/v1/
+
+# Или напрямую через openapi-generator (если нужно):
 openapi-generator generate -i api/v1/auth/authentication.yaml \
   -g spring -o backend/auth-service
 ```
