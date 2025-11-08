@@ -1,5 +1,5 @@
 # Target Architecture:
-# - Microservice: social-service (guilds module, port 8091)
+# - Microservice: social-service (guilds module, port 8084)
 # - API Base: /api/v1/guilds
 # - Dependencies: auth-service, friend-service, clan-war-service, progression-service, economy-service, notification-service, analytics-service, realtime-service, moderation-service
 # - Frontend Module: modules/social/guilds (useGuildStore)
@@ -12,8 +12,15 @@ info:
   title: Guild System API
   description: "Управление гильдиями NECPGAME: членство, ранги, банк, события, войны и аналитика."
   version: 1.0.0
+  x-microservice:
+    name: social-service
+    port: 8084
+    domain: social
+    base-path: /api/v1/guilds
+    package: com.necpgame.socialservice
 servers:
-  - url: https://api.necpgame.com/v1
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
 security:
   - BearerAuth: []
 tags:
@@ -439,7 +446,7 @@ paths:
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-websocket:
-  url: wss://api.necpgame.com/v1/guilds/{guildId}/stream
+  url: wss://api.necp.game/v1/guilds/{guildId}/stream
   description: Realtime события гильдий
   parameters:
     - name: guildId
