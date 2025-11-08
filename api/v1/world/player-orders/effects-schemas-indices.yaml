@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: Player Order Economic Index Schemas
+  version: 1.0.0
+  description: Схемы экономических индексов и аналитических показателей влияния заказов.
+paths: {}
+components:
+  schemas:
+    PlayerOrderEconomicIndex:
+      type: object
+      required:
+        - orderEconomicIndex
+        - serviceDemandIndex
+        - marketVolatility
+        - updatedAt
+      properties:
+        orderEconomicIndex:
+          type: number
+          format: float
+          description: Сводный индекс влияния заказов на экономику.
+        serviceDemandIndex:
+          type: number
+          format: float
+          description: Индекс спроса на услуги по категориям заказов.
+        marketVolatility:
+          type: number
+          format: float
+          description: Волатильность рынка заказов.
+        regionalBreakdown:
+          type: array
+          items:
+            $ref: '#/components/schemas/EconomicIndexRegion'
+        commentary:
+          type: string
+          description: Текстовый комментарий аналитики.
+        ttl:
+          type: integer
+          description: Время жизни данных в секундах.
+        updatedAt:
+          type: string
+          format: date-time
+    EconomicIndexRegion:
+      type: object
+      required:
+        - regionId
+        - orderEconomicIndex
+        - serviceDemandIndex
+      properties:
+        regionId:
+          type: string
+        orderEconomicIndex:
+          type: number
+          format: float
+        serviceDemandIndex:
+          type: number
+          format: float
+        volatility:
+          type: number
+          format: float
+        trend:
+          type: string
+          enum: [up, down, stable]
+

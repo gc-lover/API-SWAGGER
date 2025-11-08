@@ -1,7 +1,7 @@
 # Task ID: API-TASK-319
 **Тип:** API Generation  
 **Приоритет:** высокий  
-**Статус:** in_progress  
+**Статус:** completed  
 **Создано:** 2025-11-08 12:45  
 **Создатель:** GPT-5 Codex  
 **Зависимости:** [API-TASK-317] – создание заказов; [API-TASK-318] – рейтинги; [API-TASK-158] – базовые social/player-orders компоненты
@@ -261,5 +261,6 @@ API-SWAGGER/
 
 - 2025-11-08 – создано задание по `.BRAIN/_02-gameplay/social/player-orders-world-impact-детально.md`, статус `queued`.
 - 2025-11-08 – АПИТАСК активировал задачу, начало разработки OpenAPI `api/v1/world/player-orders/effects.yaml` (`status: in_progress`).
+- 2025-11-08 – Подготовлена и провалидирована спецификация `api/v1/world/player-orders/effects.yaml`, задача выполнена (`status: completed`).
 
 
