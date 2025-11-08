@@ -3768,6 +3768,24 @@ mappings:
       - "api/v1/social/visuals/hubs-detailed.yaml"
       - "api/v1/world/visuals/events.yaml"
 
+  - source: ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets-детально.md"
+    target: "api/v1/character/visuals/romance-scenes.yaml"
+    task_id: "API-TASK-335"
+    task_file: "tasks/active/queue/task-335-character-visuals-romance-scenes-api.md"
+    status: "queued"
+    created: "2025-11-08 18:12"
+    version: "v1.0.0"
+    updated: "2025-11-08 18:12"
+    related_sources:
+      - ".BRAIN/04-narrative/dialogues/quest-main-001-first-steps.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/03-lore/visual-guides/visual-style-locations-детально.md"
+      - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
+    related_targets:
+      - "api/v1/character/visuals/romance-states.yaml"
+      - "api/v1/world/visuals/events.yaml"
+      - "api/v1/social/visuals/hubs-detailed.yaml"
+
   # === WORLD/SOCIAL VISUALS DETAILED (2025-11-08) ===
 
   - source: ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-locations-детально.md"
