@@ -106,13 +106,13 @@ paths:
                 welcomeMessage: "Добро пожаловать в Night City. Вы стоите в центре корпоративного района Downtown. Неоновые вывески мигают на стенах зданий. Ваше приключение начинается..."
                 tutorialEnabled: true
         '400':
-          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
         '404':
-          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
         '409':
-          $ref: '../shared/common/responses.yaml#/components/responses/Conflict'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
         '500':
-          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
       security:
         - BearerAuth: []
 
@@ -161,9 +161,9 @@ paths:
                   - id: "skip-tutorial"
                     label: "Пропустить туториал"
         '404':
-          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
       security:
         - BearerAuth: []
 
@@ -228,9 +228,9 @@ paths:
                   - questId: "quest-delivery-001"
                     progress: 50
         '404':
-          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
       security:
         - BearerAuth: []
 
@@ -512,7 +512,7 @@ components:
 
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 
 security:
   - BearerAuth: []

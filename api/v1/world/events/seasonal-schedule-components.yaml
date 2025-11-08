@@ -286,7 +286,7 @@ components:
         payload: { type: object, additionalProperties: true }
     ScheduleError:
       allOf:
-        - $ref: '../../../shared/common/responses.yaml#/components/schemas/Error'
+        - $ref: '../../shared/common/responses.yaml#/components/schemas/Error'
         - type: object
           properties:
             error:

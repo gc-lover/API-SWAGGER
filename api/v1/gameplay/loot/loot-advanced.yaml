@@ -54,7 +54,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './loot-advanced-components.yaml#/components/schemas/LootDropsResponse' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /loot/drops/{dropId}/claim:
     parameters:
       - $ref: './loot-advanced-components.yaml#/components/parameters/DropId'
@@ -81,7 +81,7 @@ paths:
             application/json:
               schema:
                 $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError'
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /loot/rolls/{rollId}:
     parameters:
       - $ref: './loot-advanced-components.yaml#/components/parameters/RollId'
@@ -94,8 +94,8 @@ paths:
           content:
             application/json:
               schema: { $ref: './loot-advanced-components.yaml#/components/schemas/LootRoll' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
   /loot/rolls/{rollId}/submit:
     parameters:
       - $ref: './loot-advanced-components.yaml#/components/parameters/RollId'
@@ -119,7 +119,7 @@ paths:
             application/json:
               schema:
                 $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError'
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
         '409':
           description: Ролл завершён
           content:
@@ -146,7 +146,7 @@ paths:
             application/json:
               schema:
                 $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError'
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /loot/rolls/active:
     get:
       tags: [Drops]
@@ -157,7 +157,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './loot-advanced-components.yaml#/components/schemas/ActiveRollsResponse' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /loot/settings:
     get:
       tags: [Settings]
@@ -168,7 +168,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './loot-advanced-components.yaml#/components/schemas/LootSettingsResponse' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
     put:
       tags: [Settings]
       summary: Обновить настройки smart loot и autoloot
@@ -189,7 +189,7 @@ paths:
             application/json:
               schema:
                 $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError'
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /loot/boss/{bossId}:
     parameters:
       - $ref: './loot-advanced-components.yaml#/components/parameters/BossId'
@@ -202,8 +202,8 @@ paths:
           content:
             application/json:
               schema: { $ref: './loot-advanced-components.yaml#/components/schemas/BossLootInfo' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
   /loot/boss/{bossId}/distribute:
     parameters:
       - $ref: './loot-advanced-components.yaml#/components/parameters/BossId'
@@ -231,7 +231,7 @@ paths:
             application/json:
               schema:
                 $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError'
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /loot/history:
     get:
       tags: [History]
@@ -243,15 +243,15 @@ paths:
         - in: query
           name: rarity
           schema: { type: string }
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Журнал лута
           content:
             application/json:
               schema: { $ref: './loot-advanced-components.yaml#/components/schemas/LootHistoryResponse' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /loot/bad-luck:
     get:
       tags: [History]
@@ -262,7 +262,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './loot-advanced-components.yaml#/components/schemas/BadLuckProtection' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /loot/duplicate-check:
     post:
       tags: [History]
@@ -278,7 +278,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './loot-advanced-components.yaml#/components/schemas/DuplicateCheckResponse' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /loot/admin/reroll:
     post:
       tags: [Boss Loot]
@@ -299,7 +299,7 @@ paths:
             application/json:
               schema:
                 $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError'
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-websocket:
   url: wss://api.necp.game/v1/loot/stream
@@ -325,8 +325,8 @@ x-websocket:
       payload: { $ref: './loot-advanced-components.yaml#/components/schemas/DuplicateEvent' }
 components:
   securitySchemes:
-    BearerAuth: { $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
-    ServiceToken: { $ref: '../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+    BearerAuth: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+    ServiceToken: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
   parameters:
     DropId: { $ref: './loot-advanced-components.yaml#/components/parameters/DropId' }
     RollId: { $ref: './loot-advanced-components.yaml#/components/parameters/RollId' }

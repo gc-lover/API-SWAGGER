@@ -200,7 +200,7 @@ components:
         entries:
           type: array
           items: { $ref: '#/components/schemas/InventoryHistoryEntry' }
-        pagination: { $ref: '../shared/common/pagination.yaml#/components/schemas/PaginationMeta' }
+        pagination: { $ref: '../../../shared/common/pagination.yaml#/components/schemas/PaginationMeta' }
     InventoryHistoryEntry:
       type: object
       properties:

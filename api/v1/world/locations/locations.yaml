@@ -100,9 +100,9 @@ paths:
                     description: Общее количество локаций
                     example: 15
         '401':
-          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '500':
-          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
   /locations/{locationId}:
     get:
@@ -146,11 +146,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/LocationDetails'
         '403':
-          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
         '404':
-          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
         '401':
-          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
 
   /locations/current:
     get:
@@ -187,9 +187,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/LocationDetails'
         '404':
-          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
         '401':
-          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
 
   /locations/travel:
     post:
@@ -239,13 +239,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/TravelResponse'
         '400':
-          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
         '403':
-          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
         '404':
-          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
         '401':
-          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
 
   /locations/{locationId}/actions:
     get:
@@ -297,9 +297,9 @@ paths:
                     items:
                       $ref: '#/components/schemas/LocationAction'
         '404':
-          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
         '401':
-          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
 
   /locations/{locationId}/connected:
     get:
@@ -353,9 +353,9 @@ paths:
                     items:
                       $ref: '#/components/schemas/ConnectedLocation'
         '404':
-          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
         '401':
-          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
 
 components:
   schemas:
@@ -654,5 +654,5 @@ components:
 
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 

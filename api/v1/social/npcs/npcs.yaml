@@ -39,7 +39,7 @@ paths:
                 type: object
                 properties:
                   npcs: {type: array, items: {$ref: '#/components/schemas/NPC'}}
-        '401': {$ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'}
+        '401': {$ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'}
 
   /npcs/location/{locationId}:
     get:
@@ -75,7 +75,7 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NPC'}
-        '404': {$ref: '../shared/common/responses.yaml#/components/responses/NotFound'}
+        '404': {$ref: '../../shared/common/responses.yaml#/components/responses/NotFound'}
 
   /npcs/{npcId}/dialogue:
     get:
@@ -182,5 +182,5 @@ components:
 
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 

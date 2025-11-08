@@ -54,9 +54,9 @@ paths:
             application/json:
               schema:
                 $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderTemplateList'
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '500': { $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '500': { $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError' }
   /social/player-orders/draft:
     post:
       tags: [Player Order Drafts]
@@ -75,10 +75,10 @@ paths:
               examples:
                 draft:
                   $ref: './player-orders-components.yaml#/components/examples/CombatDraftExample'
-        '400': { $ref: '../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '409': { $ref: '../shared/common/responses.yaml#/components/responses/Conflict' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
   /social/player-orders/{orderId}/draft:
     patch:
       tags: [Player Order Drafts]
@@ -96,11 +96,11 @@ paths:
             application/json:
               schema:
                 $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderDraft'
-        '400': { $ref: '../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
-        '409': { $ref: '../shared/common/responses.yaml#/components/responses/Conflict' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
   /social/player-orders:
     get:
       tags: [Player Orders]
@@ -111,8 +111,8 @@ paths:
         - $ref: './player-orders-components.yaml#/components/parameters/TemplateFilter'
         - $ref: './player-orders-components.yaml#/components/parameters/OrderStatusFilter'
         - $ref: './player-orders-components.yaml#/components/parameters/VisibilityFilter'
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/Page'
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/Page'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Список заказов возвращён
@@ -127,10 +127,10 @@ paths:
                     items:
                       $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderSummary'
                   pagination:
-                    $ref: '../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '500': { $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError' }
+                    $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '500': { $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError' }
   /social/player-orders/{orderId}:
     parameters:
       - $ref: './player-orders-components.yaml#/components/parameters/OrderId'
@@ -146,9 +146,9 @@ paths:
             application/json:
               schema:
                 $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderSummary'
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
   /social/player-orders/{orderId}/estimate:
     post:
       tags: [Player Order Budget]
@@ -169,11 +169,11 @@ paths:
               examples:
                 estimate:
                   $ref: './player-orders-components.yaml#/components/examples/EstimateRequestExample'
-        '400': { $ref: '../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '422': { $ref: '../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
-        '500': { $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '500': { $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError' }
   /social/player-orders/{orderId}/validate:
     post:
       tags: [Player Order Validation]
@@ -191,11 +191,11 @@ paths:
             application/json:
               schema:
                 $ref: './player-orders-validation-components.yaml#/components/schemas/PlayerOrderValidationResult'
-        '400': { $ref: '../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '409': { $ref: '../shared/common/responses.yaml#/components/responses/Conflict' }
-        '500': { $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '500': { $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError' }
   /social/player-orders/{orderId}/publish:
     post:
       tags: [Player Orders]
@@ -213,11 +213,11 @@ paths:
             application/json:
               schema:
                 $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderPublicationInfo'
-        '400': { $ref: '../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '409': { $ref: '../shared/common/responses.yaml#/components/responses/Conflict' }
-        '422': { $ref: '../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
   /social/player-orders/{orderId}/cancel:
     post:
       tags: [Player Orders]
@@ -231,11 +231,11 @@ paths:
       responses:
         '202':
           $ref: './player-orders-components.yaml#/components/responses/PlayerOrderCancellationAccepted'
-        '400': { $ref: '../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '409': { $ref: '../shared/common/responses.yaml#/components/responses/Conflict' }
-        '422': { $ref: '../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
   /social/player-orders/{orderId}/attachments:
     post:
       tags: [Player Orders]
@@ -253,14 +253,14 @@ paths:
             application/json:
               schema:
                 $ref: './player-orders-components.yaml#/components/schemas/PlayerOrderAttachment'
-        '400': { $ref: '../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '409': { $ref: '../shared/common/responses.yaml#/components/responses/Conflict' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
 components:
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 x-kafka-topics:
   social.player-orders.draft.saved:
     summary: Черновик сохранён

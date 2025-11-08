@@ -37,7 +37,7 @@ components:
         items:
           type: array
           items: { $ref: '#/components/schemas/MailSummary' }
-        pagination: { $ref: '../shared/common/pagination.yaml#/components/schemas/PaginationMeta' }
+        pagination: { $ref: '../../../shared/common/pagination.yaml#/components/schemas/PaginationMeta' }
     MailDetail:
       type: object
       properties:
@@ -198,7 +198,7 @@ components:
         entries:
           type: array
           items: { $ref: '#/components/schemas/MailHistoryEntry' }
-        pagination: { $ref: '../shared/common/pagination.yaml#/components/schemas/PaginationMeta' }
+        pagination: { $ref: '../../../shared/common/pagination.yaml#/components/schemas/PaginationMeta' }
     MailHistoryEntry:
       type: object
       properties:

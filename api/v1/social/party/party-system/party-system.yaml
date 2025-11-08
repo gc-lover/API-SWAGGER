@@ -60,7 +60,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/{partyId}:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/PartyId'
@@ -76,8 +76,8 @@ paths:
               examples:
                 partyDetail:
                   $ref: './party-examples.yaml#/components/examples/PartyDetail'
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
     patch:
       tags: [Party]
       summary: Обновить настройки party
@@ -94,7 +94,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
     delete:
       tags: [Party]
       summary: Распустить группу
@@ -106,8 +106,8 @@ paths:
       responses:
         '202':
           description: "Распуск инициирован"
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
   /social/party/{partyId}/members:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/PartyId'
@@ -120,7 +120,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyMembersResponse' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
     post:
       tags: [Members]
       summary: Добавить участника (по коду или автоматический join)
@@ -137,7 +137,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/{partyId}/members/{memberId}:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/PartyId'
@@ -158,14 +158,14 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
     delete:
       tags: [Members]
       summary: Исключить участника или выйти
       responses:
         '204':
           description: "Участник удалён"
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/{partyId}/invites:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/PartyId'
@@ -178,7 +178,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyInvitesResponse' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
     post:
       tags: [Members]
       summary: Отправить приглашение
@@ -198,7 +198,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/invites/{inviteId}/accept:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/InviteId'
@@ -213,7 +213,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/invites/{inviteId}/decline:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/InviteId'
@@ -228,7 +228,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/{partyId}/loot:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/PartyId'
@@ -241,7 +241,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/LootSettings' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
     post:
       tags: [Loot]
       summary: Обновить настройки лута
@@ -258,7 +258,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/{partyId}/loot/distribute:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/PartyId'
@@ -281,7 +281,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/{partyId}/ready-check:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/PartyId'
@@ -304,7 +304,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/{partyId}/ready-check/respond:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/PartyId'
@@ -324,7 +324,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/{partyId}/vote-kick:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/PartyId'
@@ -344,7 +344,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/{partyId}/queue:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/PartyId'
@@ -364,14 +364,14 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
     delete:
       tags: [Coordination]
       summary: Отменить очередь
       responses:
         '204':
           description: "Очередь отменена"
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/{partyId}/quests:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/PartyId'
@@ -384,7 +384,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyQuestsResponse' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/{partyId}/quests/{questId}/sync:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/PartyId'
@@ -405,7 +405,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/{partyId}/status:
     parameters:
       - $ref: './party-components.yaml#/components/parameters/PartyId'
@@ -418,7 +418,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartyStatus' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/party/search:
     get:
       tags: [Party]
@@ -433,15 +433,15 @@ paths:
         - in: query
           name: requiredRole
           schema: { type: string }
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Найденные группы
           content:
             application/json:
               schema: { $ref: './party-components.yaml#/components/schemas/PartySearchResponse' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-websocket:
   url: wss://api.necp.game/v1/party/{partyId}/stream
@@ -472,9 +472,9 @@ x-websocket:
       payload: { $ref: './party-components.yaml#/components/schemas/QuestSyncEvent' }
 components:
   securitySchemes:
-    BearerAuth: { $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
-    ServiceToken: { $ref: '../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
-    LeaderScope: { $ref: '../shared/common/security.yaml#/components/securitySchemes/LeaderScope' }
+    BearerAuth: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+    ServiceToken: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+    LeaderScope: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/LeaderScope' }
   parameters:
     PartyId: { $ref: './party-components.yaml#/components/parameters/PartyId' }
     MemberId: { $ref: './party-components.yaml#/components/parameters/MemberId' }

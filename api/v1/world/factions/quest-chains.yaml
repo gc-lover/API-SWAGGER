@@ -59,7 +59,7 @@ paths:
             application/json:
               schema: { $ref: './quest-chains-components.yaml#/components/schemas/FactionChainList' }
               examples: { default: { $ref: './quest-chains-examples.yaml#/components/examples/ContractListResponse' } }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /world/factions/contracts/{chainId}:
     get:
       tags: [Contracts]
@@ -251,6 +251,6 @@ x-websocket:
 
 components:
   securitySchemes:
-    BearerAuth: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
-    ServiceToken: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+    BearerAuth: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+    ServiceToken: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
 

@@ -266,7 +266,7 @@ components:
         entries:
           type: array
           items: { $ref: '#/components/schemas/WarHistoryEntry' }
-        pagination: { $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginationMeta' }
+        pagination: { $ref: '../../../shared/common/pagination.yaml#/components/schemas/PaginationMeta' }
     WarHistoryEntry:
       type: object
       properties:

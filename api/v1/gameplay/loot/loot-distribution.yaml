@@ -44,8 +44,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LootDropDetails'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
 
   /loot/drops/{dropId}/claim:
     post:
@@ -70,10 +70,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LootClaimResponse'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
-        '409': { "$ref": "../shared/common/responses.yaml#/components/responses/Conflict" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
+        '409': { "$ref": "../../shared/common/responses.yaml#/components/responses/Conflict" }
 
   /loot/drops/nearby:
     get:
@@ -109,7 +109,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/LootDropSummary'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
   /loot/settings:
     post:
@@ -132,8 +132,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LootSettings'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
   /loot/history:
     get:
@@ -150,8 +150,8 @@ paths:
           schema:
             type: string
             format: uuid
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: История лута
@@ -159,12 +159,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LootHistoryPage'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
 components:
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 
   parameters:
     DropId:

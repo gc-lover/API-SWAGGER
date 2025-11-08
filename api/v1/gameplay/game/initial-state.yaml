@@ -137,9 +137,9 @@ paths:
                     description: "Откройте инвентарь для управления предметами"
                     enabled: true
         '404':
-          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
       security:
         - BearerAuth: []
 
@@ -196,9 +196,9 @@ paths:
                 totalSteps: 4
                 canSkip: true
         '404':
-          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
         '500':
-          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
       security:
         - BearerAuth: []
 
@@ -446,7 +446,7 @@ components:
 
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 
 security:
   - BearerAuth: []

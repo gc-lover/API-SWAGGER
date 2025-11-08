@@ -145,7 +145,7 @@ paths:
                   slot:
                     type: integer
         '400':
-          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
 
   /inventory/{character_id}/drop:
     post:

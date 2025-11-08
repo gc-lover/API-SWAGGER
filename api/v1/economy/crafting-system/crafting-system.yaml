@@ -65,7 +65,7 @@ components:
       $ref: './schemas/index.yaml#/components/schemas/CraftingCalculation'
   securitySchemes:
     BearerAuth:
-      $ref: '../../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 
 security:
   - BearerAuth: []

@@ -56,8 +56,8 @@ paths:
             application/json:
               schema: { $ref: './faction-balance-components.yaml#/components/schemas/MetricsResponse' }
               examples: { default: { $ref: './faction-balance-examples.yaml#/components/examples/MetricsResponse' } }
-        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '422': { $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
   /analytics/factions/metrics/{metricId}:
     get:
       tags: [Metrics]
@@ -107,7 +107,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './faction-balance-components.yaml#/components/schemas/AnalyticsError' }
-        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '422': { $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
   /analytics/factions/alerts:
     get:
       tags: [Alerts]
@@ -189,7 +189,7 @@ x-websocket:
 
 components:
   securitySchemes:
-    BearerAuth: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
-    ServiceToken: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+    BearerAuth: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+    ServiceToken: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
 
 

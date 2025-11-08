@@ -33,14 +33,18 @@ if ([string]::IsNullOrEmpty($ReportFile)) {
 function Get-ApiFiles {
     param([string]$FilePath, [string]$DirectoryPath)
     if (-not [string]::IsNullOrEmpty($FilePath)) {
-        return @(Resolve-Path $FilePath)
+        return @((Resolve-Path $FilePath).Path)
     }
-    Get-ChildItem -Path $DirectoryPath -Filter "*.yml" -File -Recurse |
-        Sort-Object FullName |
-        ForEach-Object { $_.FullName } +
-    (Get-ChildItem -Path $DirectoryPath -Filter "*.yaml" -File -Recurse |
-        Sort-Object FullName |
-        ForEach-Object { $_.FullName })
+
+    if ([string]::IsNullOrEmpty($DirectoryPath)) {
+        return @()
+    }
+
+    $files = @()
+    $files += (Get-ChildItem -Path $DirectoryPath -Filter "*.yml" -File -Recurse -ErrorAction SilentlyContinue | Sort-Object FullName | Select-Object -ExpandProperty FullName)
+    $files += (Get-ChildItem -Path $DirectoryPath -Filter "*.yaml" -File -Recurse -ErrorAction SilentlyContinue | Sort-Object FullName | Select-Object -ExpandProperty FullName)
+
+    return ($files | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | Sort-Object -Unique)
 }
 
 function Detect-Microservice {
@@ -57,8 +61,21 @@ function Detect-Microservice {
         "*/api/v1/trade/*" { return "economy-service" }
         "*/api/v1/world/*" { return "world-service" }
         "*/api/v1/locations/*" { return "world-service" }
+        "*/api/v1/narrative/*" { return "narrative-service" }
+        "*/api/v1/admin/*" { return "admin-service" }
         default { return "" }
     }
+}
+
+$MicroserviceRules = [ordered]@{
+    "auth-service"      = @{ port = 8081; domain = "auth" }
+    "character-service" = @{ port = 8082; domain = "characters" }
+    "gameplay-service"  = @{ port = 8083; domain = "gameplay" }
+    "social-service"    = @{ port = 8084; domain = "social" }
+    "economy-service"   = @{ port = 8085; domain = "economy" }
+    "world-service"     = @{ port = 8086; domain = "world" }
+    "narrative-service" = @{ port = 8087; domain = "narrative" }
+    "admin-service"     = @{ port = 8088; domain = "admin" }
 }
 
 function Validate-File {
@@ -81,25 +98,105 @@ function Validate-File {
         } else {
             $micro = $parsed.info."x-microservice"
             if ($null -eq $micro) {
+                $result.metadataStatus = "missing"
+                $result.errors += "Отсутствует обязательная секция info.x-microservice."
                 $detected = Detect-Microservice -Path $FilePath
-                if ([string]::IsNullOrEmpty($detected)) {
-                    $result.metadataStatus = "missing"
-                    $result.errors += "Не обнаружена секция info.x-microservice и не удалось определить микроcервис по пути."
-                } else {
-                    $result.metadataStatus = "detected"
+                if (-not [string]::IsNullOrEmpty($detected)) {
                     $result.microservice = $detected
-                    $result.warnings += "info.x-microservice отсутствует, автоматически определено: $detected"
+                    $result.errors += "Предполагаемый микросервис по пути файла: $detected."
                 }
             } else {
-                $requiredKeys = @("name", "port", "domain", "base-path", "package")
-                $missingKeys = $requiredKeys | Where-Object { -not $micro.PSObject.Properties.Name.Contains($_) }
+                $metadataErrors = @()
+                $metadataWarnings = @()
+
+                $properties = @($micro.PSObject.Properties.Name)
+
+                $requiredKeys = @("name", "port", "domain", "base-path", "directory", "package")
+                $missingKeys = $requiredKeys | Where-Object { $properties -notcontains $_ }
                 if ($missingKeys.Count -gt 0) {
+                    $metadataErrors += "info.x-microservice отсутствуют обязательные ключи: $($missingKeys -join ', ')"
+                }
+
+                $microName = if ($properties -contains "name") { $micro.name } else { $null }
+                if ([string]::IsNullOrWhiteSpace($microName)) {
+                    $metadataErrors += "info.x-microservice.name не должен быть пустым."
+                } else {
+                    $result.microservice = $microName
+                    if (-not $MicroserviceRules.Contains($microName)) {
+                        $metadataErrors += "Недопустимое значение info.x-microservice.name: $($microName). Разрешены: $($MicroserviceRules.Keys -join ', ')."
+                    } else {
+                        $expected = $MicroserviceRules[$microName]
+
+                        if ($properties -contains "port") {
+                            $rawPort = $micro.port
+                            if ($null -eq $rawPort) {
+                                $metadataErrors += "info.x-microservice.port должно быть целым числом."
+                            } else {
+                                $declaredPortValue = 0
+                                if (-not [int]::TryParse($rawPort.ToString(), [ref]$declaredPortValue)) {
+                                    $metadataErrors += "info.x-microservice.port должно быть целым числом."
+                                } elseif ($declaredPortValue -ne $expected.port) {
+                                    $metadataErrors += "Некорректный порт для $($microName): указан $declaredPortValue, ожидается $($expected.port)."
+                                }
+                            }
+                        }
+
+                        if ($properties -contains "domain") {
+                            $declaredDomain = [string]$micro.domain
+                            if ([string]::IsNullOrWhiteSpace($declaredDomain)) {
+                                $metadataErrors += "info.x-microservice.domain не должен быть пустым."
+                            } elseif (-not [string]::Equals($declaredDomain, $expected.domain, [System.StringComparison]::OrdinalIgnoreCase)) {
+                                $metadataErrors += "Для $($microName) ожидается domain '$($expected.domain)', указано '$declaredDomain'."
+                            }
+                        }
+
+                        if ($properties -contains "base-path") {
+                            $basePath = [string]$micro.'base-path'
+                            if ([string]::IsNullOrWhiteSpace($basePath)) {
+                                $metadataErrors += "info.x-microservice.base-path не должен быть пустым."
+                            } elseif (-not $basePath.StartsWith("/api/v1/$($expected.domain)", [System.StringComparison]::OrdinalIgnoreCase)) {
+                                $metadataErrors += "info.x-microservice.base-path '$basePath' должен начинаться с '/api/v1/$($expected.domain)'."
+                            }
+                        }
+
+                        if ($properties -contains "directory") {
+                            $directoryValue = [string]$micro.directory
+                            if ([string]::IsNullOrWhiteSpace($directoryValue)) {
+                                $metadataErrors += "info.x-microservice.directory не должен быть пустым."
+                            } else {
+                                $normalizedDirectoryValue = $directoryValue.TrimEnd('/')
+                                if (-not $normalizedDirectoryValue.StartsWith("api/v1/$($expected.domain)", [System.StringComparison]::OrdinalIgnoreCase)) {
+                                    $metadataErrors += "info.x-microservice.directory '$directoryValue' должен начинаться с 'api/v1/$($expected.domain)'."
+                                }
+
+                                $relativePath = $result.file.Replace("\\", "/")
+                                $actualDirectory = [System.IO.Path]::GetDirectoryName($relativePath)
+                                if ($null -eq $actualDirectory) {
+                                    $actualDirectory = ""
+                                } else {
+                                    $actualDirectory = $actualDirectory.Replace("\\", "/")
+                                }
+                                if ($actualDirectory.StartsWith("API-SWAGGER/", [System.StringComparison]::OrdinalIgnoreCase)) {
+                                    $actualDirectory = $actualDirectory.Substring("API-SWAGGER/".Length)
+                                }
+
+                                if (-not [string]::Equals($actualDirectory, $normalizedDirectoryValue, [System.StringComparison]::OrdinalIgnoreCase)) {
+                                    $metadataErrors += "info.x-microservice.directory '$directoryValue' не совпадает с фактическим путем '$actualDirectory'."
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if ($metadataErrors.Count -gt 0) {
+                    $result.metadataStatus = "invalid"
+                    $result.errors += $metadataErrors
+                } elseif ($metadataWarnings.Count -gt 0) {
                     $result.metadataStatus = "partial"
-                    $result.warnings += "info.x-microservice отсутствуют ключи: $($missingKeys -join ', ')"
+                    $result.warnings += $metadataWarnings
                 } else {
                     $result.metadataStatus = "ok"
                 }
-                $result.microservice = $micro.name
             }
         }
     } catch {
@@ -107,7 +204,7 @@ function Validate-File {
         $result.errors += "Ошибка чтения YAML: $($_.Exception.Message)"
     }
 
-    if (-not $SkipMetadataCheck -and ($result.metadataStatus -eq "missing" -or $result.metadataStatus -eq "error")) {
+    if (-not $SkipMetadataCheck -and ($result.metadataStatus -in @("missing", "error", "invalid"))) {
         return $result
     }
 
@@ -146,12 +243,12 @@ if ($Parallel) {
 }
 
 $summary = [ordered]@{
-    total        = $results.Count
-    metadata_ok  = ($results | Where-Object { $_.metadataStatus -eq "ok" }).Count
-    metadata_auto= ($results | Where-Object { $_.metadataStatus -eq "detected" }).Count
-    metadata_warn= ($results | Where-Object { $_.metadataStatus -eq "partial" }).Count
-    metadata_err = ($results | Where-Object { $_.metadataStatus -in @("missing", "error") }).Count
-    validation_ok= ($results | Where-Object { $_.validationStatus -eq "passed" }).Count
+    total         = $results.Count
+    metadata_ok   = ($results | Where-Object { $_.metadataStatus -eq "ok" }).Count
+    metadata_auto = ($results | Where-Object { $_.metadataStatus -eq "detected" }).Count
+    metadata_warn = ($results | Where-Object { $_.metadataStatus -eq "partial" }).Count
+    metadata_err  = ($results | Where-Object { $_.metadataStatus -in @("missing", "error", "invalid") }).Count
+    validation_ok = ($results | Where-Object { $_.validationStatus -eq "passed" }).Count
     validation_err= ($results | Where-Object { $_.validationStatus -eq "failed" }).Count
 }
 

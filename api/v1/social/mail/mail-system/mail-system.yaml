@@ -56,15 +56,15 @@ paths:
         - in: query
           name: system
           schema: { type: boolean }
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Входящие письма
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/MailListResponse' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/mail/outbox:
     get:
       tags: [Outbox]
@@ -73,15 +73,15 @@ paths:
         - in: query
           name: status
           schema: { type: string }
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Отправленные письма
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/MailListResponse' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/mail/{mailId}:
     parameters:
       - $ref: './mail-components.yaml#/components/parameters/MailId'
@@ -97,15 +97,15 @@ paths:
               examples:
                 mailDetail:
                   $ref: './mail-examples.yaml#/components/examples/MailDetail'
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
     delete:
       tags: [Mail]
       summary: Удалить письмо из почтового ящика
       responses:
         '204':
           description: "Письмо помечено к удалению"
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/mail:
     post:
       tags: [Mail]
@@ -129,8 +129,8 @@ paths:
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '429': { $ref: '../shared/common/responses.yaml#/components/responses/TooManyRequests' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '429': { $ref: '../../../shared/common/responses.yaml#/components/responses/TooManyRequests' }
   /social/mail/{mailId}/attachments/claim:
     parameters:
       - $ref: './mail-components.yaml#/components/parameters/MailId'
@@ -153,7 +153,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/mail/{mailId}/cod/pay:
     parameters:
       - $ref: './mail-components.yaml#/components/parameters/MailId'
@@ -179,7 +179,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/mail/{mailId}/return:
     parameters:
       - $ref: './mail-components.yaml#/components/parameters/MailId'
@@ -199,7 +199,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/mail/{mailId}/flag:
     parameters:
       - $ref: './mail-components.yaml#/components/parameters/MailId'
@@ -214,7 +214,7 @@ paths:
       responses:
         '202':
           description: "Жалоба зарегистрирована"
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/mail/settings:
     get:
       tags: [Settings]
@@ -225,7 +225,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/MailSettings' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
     put:
       tags: [Settings]
       summary: Обновить почтовые настройки
@@ -242,7 +242,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/mail/system:
     post:
       tags: [System Mail]
@@ -265,7 +265,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/mail/system/batch:
     post:
       tags: [System Mail]
@@ -285,7 +285,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/mail/history:
     get:
       tags: [Analytics]
@@ -294,15 +294,15 @@ paths:
         - in: query
           name: type
           schema: { type: string }
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: История операций
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/MailHistoryResponse' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/mail/{mailId}/read:
     parameters:
       - $ref: './mail-components.yaml#/components/parameters/MailId'
@@ -312,7 +312,7 @@ paths:
       responses:
         '200':
           description: "Письмо отмечено"
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/mail/stats:
     get:
       tags: [Analytics]
@@ -327,7 +327,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/MailStats' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /social/mail/{mailId}/resend:
     parameters:
       - $ref: './mail-components.yaml#/components/parameters/MailId'
@@ -342,7 +342,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './mail-components.yaml#/components/schemas/MailError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-websocket:
   url: wss://api.necp.game/v1/social/mail/stream
@@ -368,9 +368,9 @@ x-websocket:
       payload: { $ref: './mail-components.yaml#/components/schemas/MailFlagEvent' }
 components:
   securitySchemes:
-    BearerAuth: { $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
-    ServiceToken: { $ref: '../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
-    GMToken: { $ref: '../shared/common/security.yaml#/components/securitySchemes/GMToken' }
+    BearerAuth: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+    ServiceToken: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+    GMToken: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/GMToken' }
   parameters:
     MailId: { $ref: './mail-components.yaml#/components/parameters/MailId' }
   schemas:

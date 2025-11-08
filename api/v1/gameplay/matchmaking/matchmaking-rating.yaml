@@ -60,7 +60,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './matchmaking-rating-components.yaml#/components/schemas/RatingError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /matchmaking/ratings/{activityType}/history:
     get:
       tags: [PlayerRatings]
@@ -80,7 +80,7 @@ paths:
             application/json:
               schema: { $ref: './matchmaking-rating-components.yaml#/components/schemas/RatingHistoryPage' }
               examples: { history: { $ref: './matchmaking-rating-examples.yaml#/components/examples/RatingHistoryPage' } }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /matchmaking/ratings/{activityType}/delta:
     post:
       tags: [RatingDelta]
@@ -164,7 +164,7 @@ paths:
             application/json:
               schema: { $ref: './matchmaking-rating-components.yaml#/components/schemas/LeaderboardPage' }
               examples: { board: { $ref: './matchmaking-rating-examples.yaml#/components/examples/LeaderboardResponse' } }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /matchmaking/ratings/{activityType}/tiers:
     get:
       tags: [Seasons]
@@ -203,7 +203,7 @@ paths:
             application/json:
               schema: { $ref: './matchmaking-rating-components.yaml#/components/schemas/SeasonSummary' }
               examples: { summary: { $ref: './matchmaking-rating-examples.yaml#/components/examples/SeasonSummary' } }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /matchmaking/ratings/{activityType}/seasons/reset:
     post:
       tags: [Seasons]
@@ -247,7 +247,7 @@ paths:
             application/json:
               schema: { $ref: './matchmaking-rating-components.yaml#/components/schemas/SmurfFlagList' }
               examples: { flags: { $ref: './matchmaking-rating-examples.yaml#/components/examples/SmurfFlagList' } }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /matchmaking/ratings/{activityType}/smurf-review:
     post:
       tags: [SmurfDetection]
@@ -302,7 +302,7 @@ x-kafka:
 
 components:
   securitySchemes:
-    BearerAuth: { $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
-    ServiceToken: { $ref: '../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+    BearerAuth: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+    ServiceToken: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
 
 

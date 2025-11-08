@@ -49,8 +49,8 @@ paths:
                   timer_expires_at:
                     type: string
                     format: date-time
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
     post:
       tags: [LootRolls]
       summary: Сделать roll на предмет
@@ -73,10 +73,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LootRoll'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
-        '409': { "$ref": "../shared/common/responses.yaml#/components/responses/Conflict" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
+        '409': { "$ref": "../../shared/common/responses.yaml#/components/responses/Conflict" }
 
   /loot/drops/{dropId}/winner:
     get:
@@ -95,8 +95,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LootRollWinner'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
 
   /loot/drops/{dropId}/pass-all:
     post:
@@ -121,13 +121,13 @@ paths:
                   format: uuid
       responses:
         '200': { description: Pass зафиксирован }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
 
 components:
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 
   parameters:
     DropId:

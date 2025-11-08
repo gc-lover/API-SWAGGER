@@ -39,7 +39,7 @@ components:
         tables:
           type: array
           items: { $ref: '#/components/schemas/LootTableSummary' }
-        page: { $ref: '../shared/common/pagination.yaml#/components/schemas/Page' }
+        page: { $ref: '../../../shared/common/pagination.yaml#/components/schemas/Page' }
 
     LootTableUpsertRequest:
       type: object

@@ -53,7 +53,7 @@ paths:
                 type: object
                 properties:
                   quests: {type: array, items: {$ref: '#/components/schemas/Quest'}}
-        '401': {$ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'}
+        '401': {$ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'}
 
   /quests/active:
     get:
@@ -76,7 +76,7 @@ paths:
                 type: object
                 properties:
                   quests: {type: array, items: {$ref: '#/components/schemas/QuestProgress'}}
-        '401': {$ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'}
+        '401': {$ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'}
 
   /quests/{questId}:
     get:
@@ -100,8 +100,8 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/Quest'}
-        '404': {$ref: '../shared/common/responses.yaml#/components/responses/NotFound'}
-        '401': {$ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'}
+        '404': {$ref: '../../shared/common/responses.yaml#/components/responses/NotFound'}
+        '401': {$ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'}
 
   /quests/accept:
     post:
@@ -126,8 +126,8 @@ paths:
                   success: {type: boolean}
                   message: {type: string}
                   quest: {$ref: '#/components/schemas/QuestProgress'}
-        '400': {$ref: '../shared/common/responses.yaml#/components/responses/BadRequest'}
-        '403': {$ref: '../shared/common/responses.yaml#/components/responses/Forbidden'}
+        '400': {$ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'}
+        '403': {$ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'}
 
   /quests/complete:
     post:
@@ -152,7 +152,7 @@ paths:
                   success: {type: boolean}
                   message: {type: string}
                   rewards: {$ref: '#/components/schemas/QuestRewards'}
-        '400': {$ref: '../shared/common/responses.yaml#/components/responses/BadRequest'}
+        '400': {$ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'}
 
   /quests/abandon:
     post:
@@ -181,7 +181,7 @@ paths:
                 properties:
                   success: {type: boolean}
                   message: {type: string}
-        '404': {$ref: '../shared/common/responses.yaml#/components/responses/NotFound'}
+        '404': {$ref: '../../shared/common/responses.yaml#/components/responses/NotFound'}
 
   /quests/{questId}/objectives:
     get:
@@ -208,7 +208,7 @@ paths:
                 type: object
                 properties:
                   objectives: {type: array, items: {$ref: '#/components/schemas/QuestObjective'}}
-        '404': {$ref: '../shared/common/responses.yaml#/components/responses/NotFound'}
+        '404': {$ref: '../../shared/common/responses.yaml#/components/responses/NotFound'}
 
 components:
   schemas:
@@ -286,5 +286,5 @@ components:
 
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 

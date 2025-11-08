@@ -187,7 +187,7 @@ components:
         entries:
           type: array
           items: { $ref: '#/components/schemas/LootHistoryEntry' }
-        pagination: { $ref: '../shared/common/pagination.yaml#/components/schemas/PaginationMeta' }
+        pagination: { $ref: '../../../shared/common/pagination.yaml#/components/schemas/PaginationMeta' }
     LootHistoryEntry:
       type: object
       properties:

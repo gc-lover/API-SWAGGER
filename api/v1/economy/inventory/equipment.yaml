@@ -40,8 +40,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EquipmentState'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
 
   /inventory/characters/{characterId}/equipment/equip:
     post:
@@ -66,11 +66,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EquipResponse'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '403': { "$ref": "../shared/common/responses.yaml#/components/responses/Forbidden" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
-        '409': { "$ref": "../shared/common/responses.yaml#/components/responses/Conflict" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '403': { "$ref": "../../shared/common/responses.yaml#/components/responses/Forbidden" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
+        '409': { "$ref": "../../shared/common/responses.yaml#/components/responses/Conflict" }
 
   /inventory/characters/{characterId}/equipment/unequip:
     post:
@@ -95,10 +95,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UnequipResponse'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
-        '409': { "$ref": "../shared/common/responses.yaml#/components/responses/Conflict" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
+        '409': { "$ref": "../../shared/common/responses.yaml#/components/responses/Conflict" }
 
   /inventory/characters/{characterId}/equipment/swap:
     post:
@@ -123,15 +123,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EquipmentState'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
-        '409': { "$ref": "../shared/common/responses.yaml#/components/responses/Conflict" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
+        '409': { "$ref": "../../shared/common/responses.yaml#/components/responses/Conflict" }
 
 components:
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 
   parameters:
     CharacterId:

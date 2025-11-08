@@ -40,15 +40,15 @@ paths:
                     type: integer
                     example: 5
         '401':
-          $ref: '../../../../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '403':
-          $ref: '../../../../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden'
         '404':
-          $ref: '../../../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
         '400':
-          $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
         '500':
-          $ref: '../../../../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 
 servers:
   - url: https://api.necp.game/v1

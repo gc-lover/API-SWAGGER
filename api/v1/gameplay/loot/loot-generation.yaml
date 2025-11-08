@@ -47,8 +47,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LootGenerateResponse'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
   /loot/drops:
     post:
@@ -71,8 +71,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LootDrop'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
   /loot/tables/{lootTableId}:
     get:
@@ -91,13 +91,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LootTable'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
 
 components:
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 
   parameters:
     LootTableId:

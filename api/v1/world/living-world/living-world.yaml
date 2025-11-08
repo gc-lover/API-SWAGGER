@@ -92,10 +92,10 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/FactionControl'
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
-        '429': { $ref: '../../../shared/common/responses.yaml#/components/responses/TooManyRequests' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '429': { $ref: '../../shared/common/responses.yaml#/components/responses/TooManyRequests' }
   /world/factions/control-shift:
     post:
       summary: Инициировать смену контроля региона
@@ -125,11 +125,11 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/ControlShiftResponse'
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '409': { $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict' }
-        '422': { $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
   /world/settlements:
     get:
       summary: Получить список поселений и баз
@@ -140,8 +140,8 @@ paths:
         - $ref: './schemas/living-world-components.yaml#/components/parameters/OwnerFactionQuery'
         - $ref: './schemas/living-world-components.yaml#/components/parameters/SettlementStatusQuery'
         - $ref: './schemas/living-world-components.yaml#/components/parameters/SettlementTierQuery'
-        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/Page'
-        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/Page'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Список поселений
@@ -149,15 +149,15 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '../../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
+                  - $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
                           $ref: './schemas/living-world-components.yaml#/components/schemas/Settlement'
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
   /world/settlements/{settlementId}:
     parameters:
       - $ref: './schemas/living-world-components.yaml#/components/parameters/SettlementId'
@@ -172,9 +172,9 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/Settlement'
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
     patch:
       summary: Обновить статус поселения
       description: Позволяет повысить статус базы, обновить оборону и логистические приоритеты с учётом требований.
@@ -198,11 +198,11 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/Settlement'
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '409': { $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict' }
-        '422': { $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
   /world/logistics/routes:
     get:
       summary: Получить логистические маршруты
@@ -213,8 +213,8 @@ paths:
         - $ref: './schemas/living-world-components.yaml#/components/parameters/RouteTypeQuery'
         - $ref: './schemas/living-world-components.yaml#/components/parameters/RouteStatusQuery'
         - $ref: './schemas/living-world-components.yaml#/components/parameters/OwnerFactionQuery'
-        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/Page'
-        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/Page'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Список маршрутов
@@ -222,15 +222,15 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '../../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
+                  - $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
                           $ref: './schemas/living-world-components.yaml#/components/schemas/LogisticsRoute'
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
     post:
       summary: Создать логистический маршрут
       description: Планирует новый маршрут с расчётом ETA, охраны и требований к ресурсам.
@@ -254,11 +254,11 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/LogisticsRoute'
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '409': { $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict' }
-        '422': { $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
   /world/logistics/routes/{routeId}:
     parameters:
       - $ref: './schemas/living-world-components.yaml#/components/parameters/RouteId'
@@ -273,9 +273,9 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/LogisticsRoute'
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
     patch:
       summary: Обновить статус маршрута
       description: Обновляет статус маршрута, угрозы и назначенные отряды при перехватах или сопровождении.
@@ -299,11 +299,11 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/LogisticsRoute'
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '409': { $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict' }
-        '422': { $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
   /world/squads:
     get:
       summary: Получить активные автономные отряды
@@ -322,8 +322,8 @@ paths:
                 type: array
                 items:
                   $ref: './schemas/living-world-components.yaml#/components/schemas/AutonomousSquad'
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
     post:
       summary: Зарегистрировать автономный отряд
       description: Регистрирует новый отряд симуляции или игроков для сопровождения маршрутов.
@@ -347,10 +347,10 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/AutonomousSquad'
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '409': { $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
   /world/squads/{squadId}:
     parameters:
       - $ref: './schemas/living-world-components.yaml#/components/parameters/SquadId'
@@ -377,11 +377,11 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/AutonomousSquad'
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
-        '409': { $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
   /world/chronicle:
     get:
       summary: Получить хронику мира
@@ -400,8 +400,8 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/ChronicleFeed'
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
   /world/chronicle/subscriptions:
     get:
       summary: Получить активные подписки
@@ -416,7 +416,7 @@ paths:
                 type: array
                 items:
                   $ref: './schemas/living-world-components.yaml#/components/schemas/ChronicleSubscription'
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
     post:
       summary: Создать подписку на хронику
       description: Регистрирует подписку игрока или гильдии на события регионов, типов или логистических маршрутов.
@@ -439,9 +439,9 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/ChronicleSubscription'
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '409': { $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
   /world/chronicle/subscriptions/{subscriptionId}:
     parameters:
       - $ref: './schemas/living-world-components.yaml#/components/parameters/SubscriptionId'
@@ -454,8 +454,8 @@ paths:
       responses:
         '204':
           description: Подписка отменена
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
   /world/living-world/metrics:
     get:
       summary: Получить метрики живого мира
@@ -475,8 +475,8 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/LivingWorldMetricsResponse'
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
   /world/living-world/maintenance/pause:
     post:
       summary: Приостановить симуляцию живого мира
@@ -503,8 +503,8 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/MaintenanceCommandResponse'
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
   /world/living-world/maintenance/resume:
     post:
       summary: Возобновить симуляцию живого мира
@@ -531,8 +531,8 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/MaintenanceCommandResponse'
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
   /progression/action-xp:
     post:
       summary: Батчевое начисление Action XP
@@ -557,11 +557,11 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/ActionXpBatchResponse'
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '409': { $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict' }
-        '422': { $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
   /progression/action-xp/summary:
     get:
       summary: Получить сводку Action XP
@@ -578,8 +578,8 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/ActionXpSummary'
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
   /progression/action-xp/metrics:
     get:
       summary: Получить метрики Action XP
@@ -597,7 +597,7 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/ActionXpMetrics'
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /progression/fatigue/reset:
     post:
       summary: Сброс усталости по навыку
@@ -622,10 +622,10 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/living-world-components.yaml#/components/schemas/SkillFatigue'
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '409': { $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
 x-kafka-topics:
   bootstrapServers: kafka+ssl://kafka.internal.necpgame:9093
   topics:
@@ -667,8 +667,8 @@ x-websocket:
         $ref: './schemas/living-world-components.yaml#/components/schemas/ActionXpSoftCapEvent'
 components:
   securitySchemes:
-    BearerAuth: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
-    ServiceToken: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+    BearerAuth: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+    ServiceToken: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
   parameters:
     FactionId: { $ref: './schemas/living-world-components.yaml#/components/parameters/FactionId' }
     RegionId: { $ref: './schemas/living-world-components.yaml#/components/parameters/RegionId' }

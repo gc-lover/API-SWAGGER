@@ -199,7 +199,7 @@ components:
           items:
             $ref: '#/components/schemas/PlayerOrderNewsItem'
         pagination:
-          $ref: '../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
+          $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
     PlayerOrderNewsHighlight:
       type: object
       required: [highlightId, title, type, publishedAt]

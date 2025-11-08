@@ -88,9 +88,9 @@ paths:
                       code: "VAL_MATCH_LATENCY_CAP_EXCEEDED"
                       message: "Латентность выше допустимого порога"
                       details: []
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '500': { $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '500': { $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError' }
   /matchmaking/matches/pending:
     get:
       tags: [Matches]
@@ -113,7 +113,7 @@ paths:
             application/json:
               schema: { $ref: './matchmaking-algorithm-components.yaml#/components/schemas/PendingMatchPage' }
               examples: { pending: { $ref: './matchmaking-algorithm-examples.yaml#/components/examples/PendingMatchesResponse' } }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /matchmaking/matches/{matchId}:
     parameters:
       - $ref: './matchmaking-algorithm-components.yaml#/components/parameters/MatchId'
@@ -146,7 +146,7 @@ paths:
                       code: "BIZ_MATCH_NOT_FOUND"
                       message: "Матч не найден или завершён"
                       details: []
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /matchmaking/matches/{matchId}/accept:
     parameters:
       - $ref: './matchmaking-algorithm-components.yaml#/components/parameters/MatchId'
@@ -170,8 +170,8 @@ paths:
           content:
             application/json:
               schema: { $ref: './matchmaking-algorithm-components.yaml#/components/schemas/MatchmakingError' }
-        '403': { $ref: '../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
   /matchmaking/matches/{matchId}/decline:
     parameters:
       - $ref: './matchmaking-algorithm-components.yaml#/components/parameters/MatchId'
@@ -233,7 +233,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './matchmaking-algorithm-components.yaml#/components/schemas/MatchmakingError' }
-        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
   /matchmaking/matches/{matchId}/lock:
     parameters:
       - $ref: './matchmaking-algorithm-components.yaml#/components/parameters/MatchId'
@@ -290,7 +290,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './matchmaking-algorithm-components.yaml#/components/schemas/MatchQualityReport' }
-        '404': { $ref: '../shared/common/responses.yaml#/components/responses/NotFound' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
         '409':
           description: Пересчёт невозможен (матч в неподходящем статусе).
           content:
@@ -324,7 +324,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './matchmaking-algorithm-components.yaml#/components/schemas/MatchmakingError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /matchmaking/matches/{matchId}/telemetry:
     parameters:
       - $ref: './matchmaking-algorithm-components.yaml#/components/parameters/MatchId'
@@ -356,7 +356,7 @@ paths:
           content:
             application/json:
               schema: { $ref: './matchmaking-algorithm-components.yaml#/components/schemas/MatchmakingError' }
-        '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-websocket:
   url: wss://api.necp.game/v1/matchmaking/stream
@@ -404,7 +404,7 @@ x-kafka:
 
 components:
   securitySchemes:
-    BearerAuth: { $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
-    ServiceToken: { $ref: '../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+    BearerAuth: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+    ServiceToken: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
 
 

@@ -40,7 +40,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountProfile'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
   /auth/roles/assign:
     post:
@@ -63,9 +63,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RoleAssignmentResult'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '403': { "$ref": "../shared/common/responses.yaml#/components/responses/Forbidden" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '403': { "$ref": "../../shared/common/responses.yaml#/components/responses/Forbidden" }
 
   /auth/roles/revoke:
     post:
@@ -84,9 +84,9 @@ paths:
       responses:
         '200':
           description: Роль удалена
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '403': { "$ref": "../shared/common/responses.yaml#/components/responses/Forbidden" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '403': { "$ref": "../../shared/common/responses.yaml#/components/responses/Forbidden" }
 
   /auth/permissions/check:
     post:
@@ -109,8 +109,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PermissionCheckResponse'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
   /auth/roles/catalog:
     get:
@@ -132,12 +132,12 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/RoleDescriptor'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
 components:
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 
   schemas:
     AccountProfile:

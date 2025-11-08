@@ -180,58 +180,80 @@ mappings:
   - api/v1/quests/quest-engine.yaml
   - api/v1/achievements/achievement-tracking.yaml
 - source: .BRAIN/05-technical/backend/achievement-system.md
-  target: api/v1/achievements/achievements.yaml
+  target: api/v1/world/achievements/achievement-system.yaml
   task_id: API-TASK-136
   task_file: tasks/active/queue/task-136-achievement-system-api.md
   status: queued
   created: 2025-11-07 10:32
   version: v1.0.0
-  updated: 2025-11-07 10:32
-  related_sources: []
-  related_targets: []
+  updated: 2025-11-08 18:05
+  related_sources:
+  - .BRAIN/05-technical/backend/progression-backend.md
+  - .BRAIN/05-technical/backend/notification-system.md
+  - .BRAIN/05-technical/backend/analytics-data-lake.md
+  related_targets:
+  - api/v1/gameplay/progression/progression-engine.yaml
+  - api/v1/social/notifications/notifications.yaml
 - source: .BRAIN/05-technical/backend/leaderboard-system.md
-  target: api/v1/leaderboards/leaderboards.yaml
+  target: api/v1/world/leaderboards/leaderboard-system.yaml
   task_id: API-TASK-137
   task_file: tasks/active/queue/task-137-leaderboard-system-api.md
   status: queued
   created: 2025-11-07 10:34
   version: v1.0.0
-  updated: 2025-11-07 10:34
-  related_sources: []
-  related_targets: []
+  updated: 2025-11-08 18:10
+  related_sources:
+  - .BRAIN/05-technical/backend/progression-backend.md
+  - .BRAIN/05-technical/backend/pvp-rating-system.md
+  - .BRAIN/05-technical/backend/analytics-data-lake.md
+  related_targets:
+  - api/v1/gameplay/progression/progression-engine.yaml
+  - api/v1/social/guilds/guild-system.yaml
 - source: .BRAIN/05-technical/backend/quest-engine-backend.md
-  target: api/v1/quests/quest-engine.yaml
+  target: api/v1/gameplay/quests/quest-engine.yaml
   task_id: API-TASK-138
   task_file: tasks/active/queue/task-138-quest-engine-api.md
   status: queued
   created: 2025-11-07 10:36
   version: v1.0.0
-  updated: 2025-11-07 10:36
+  updated: 2025-11-08 18:15
   related_sources:
   - .BRAIN/05-technical/backend/player-character-management.md
-  related_targets: []
+  - .BRAIN/05-technical/backend/dialogue-system.md
+  - .BRAIN/05-technical/backend/achievement-system.md
+  related_targets:
+  - api/v1/gameplay/combat/combat-session.yaml
+  - api/v1/world/achievements/achievement-system.yaml
 - source: .BRAIN/05-technical/backend/combat-session-backend.md
-  target: api/v1/combat/combat-session.yaml
+  target: api/v1/gameplay/combat/combat-session.yaml
   task_id: API-TASK-139
   task_file: tasks/active/queue/task-139-combat-session-api.md
   status: queued
   created: 2025-11-07 10:38
   version: v1.0.0
-  updated: 2025-11-07 10:38
+  updated: 2025-11-08 18:20
   related_sources:
-  - .BRAIN/05-technical/backend/inventory-system.md
-  related_targets: []
+  - .BRAIN/05-technical/backend/matchmaking-system.md
+  - .BRAIN/05-technical/backend/lag-compensation.md
+  - .BRAIN/05-technical/backend/loot-system.md
+  related_targets:
+  - api/v1/gameplay/quests/quest-engine.yaml
+  - api/v1/world/achievements/achievement-system.yaml
 - source: .BRAIN/05-technical/backend/progression-backend.md
-  target: api/v1/progression/progression-engine.yaml
+  target: api/v1/gameplay/progression/progression-engine.yaml
   task_id: API-TASK-140
   task_file: tasks/active/queue/task-140-progression-backend-api.md
   status: queued
   created: 2025-11-07 10:40
   version: v1.0.0
-  updated: 2025-11-07 10:40
+  updated: 2025-11-08 18:25
   related_sources:
   - .BRAIN/05-technical/backend/player-character-management.md
-  related_targets: []
+  - .BRAIN/05-technical/backend/rebirth-design.md
+  - .BRAIN/05-technical/backend/skill-system.md
+  related_targets:
+  - api/v1/world/achievements/achievement-system.yaml
+  - api/v1/gameplay/combat/combat-session.yaml
 - source: .BRAIN/05-technical/backend/daily-weekly-reset-system.md
   target: api/v1/system/reset-system.yaml
   task_id: API-TASK-141

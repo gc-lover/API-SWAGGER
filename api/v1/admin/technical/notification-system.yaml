@@ -88,7 +88,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Notification'
                   pagination:
-                    $ref: '../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
+                    $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
 
   /technical/notifications/send:
     post:

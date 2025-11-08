@@ -73,10 +73,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RegisterResponse'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '409': { "$ref": "../shared/common/responses.yaml#/components/responses/Conflict" }
-        '429': { "$ref": "../shared/common/responses.yaml#/components/responses/TooManyRequests" }
-        '500': { "$ref": "../shared/common/responses.yaml#/components/responses/InternalServerError" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '409': { "$ref": "../../shared/common/responses.yaml#/components/responses/Conflict" }
+        '429': { "$ref": "../../shared/common/responses.yaml#/components/responses/TooManyRequests" }
+        '500': { "$ref": "../../shared/common/responses.yaml#/components/responses/InternalServerError" }
 
   /auth/login:
     post:
@@ -106,10 +106,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResponse'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '403': { "$ref": "../shared/common/responses.yaml#/components/responses/Forbidden" }
-        '429': { "$ref": "../shared/common/responses.yaml#/components/responses/TooManyRequests" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '403': { "$ref": "../../shared/common/responses.yaml#/components/responses/Forbidden" }
+        '429': { "$ref": "../../shared/common/responses.yaml#/components/responses/TooManyRequests" }
 
   /auth/logout:
     post:
@@ -132,7 +132,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LogoutResponse'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
   /auth/password/forgot:
     post:
@@ -158,7 +158,7 @@ paths:
       responses:
         '200':
           description: Письмо отправлено (или будет отправлено после rate-limit)
-        '429': { "$ref": "../shared/common/responses.yaml#/components/responses/TooManyRequests" }
+        '429': { "$ref": "../../shared/common/responses.yaml#/components/responses/TooManyRequests" }
 
   /auth/password/reset:
     post:
@@ -179,8 +179,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PasswordResetResponse'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '410': { "$ref": "../shared/common/responses.yaml#/components/responses/ResourceGone" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '410': { "$ref": "../../shared/common/responses.yaml#/components/responses/ResourceGone" }
 
   /auth/email/verify:
     post:
@@ -197,8 +197,8 @@ paths:
       responses:
         '200':
           description: Email подтвержден
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '410': { "$ref": "../shared/common/responses.yaml#/components/responses/ResourceGone" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '410': { "$ref": "../../shared/common/responses.yaml#/components/responses/ResourceGone" }
 
   /auth/email/resend:
     post:
@@ -221,7 +221,7 @@ paths:
       responses:
         '200':
           description: Письмо будет отправлено, если аккаунт не подтвержден
-        '429': { "$ref": "../shared/common/responses.yaml#/components/responses/TooManyRequests" }
+        '429': { "$ref": "../../shared/common/responses.yaml#/components/responses/TooManyRequests" }
 
   /auth/two-factor/setup:
     post:
@@ -238,7 +238,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TwoFactorSetupResponse'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
   /auth/two-factor/verify:
     post:
@@ -261,8 +261,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TwoFactorStatusResponse'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
   /auth/two-factor/disable:
     post:
@@ -285,8 +285,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TwoFactorStatusResponse'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
   /auth/two-factor/status:
     get:
@@ -303,12 +303,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TwoFactorStatusResponse'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
 components:
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 
   schemas:
     RegisterRequest:

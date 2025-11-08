@@ -76,11 +76,11 @@ paths:
                 default:
                   $ref: './schemas/resonance-support.yaml#/components/examples/ResonanceSnapshotExample'
         '401':
-          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '403':
-          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
         '500':
-          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
   /social/resonance/campaigns:
     get:
       summary: Получить доступные и активные кампании
@@ -93,8 +93,8 @@ paths:
       x-required-scopes:
         - social:resonance:read
       parameters:
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/Page'
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/Page'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
         - $ref: './schemas/resonance-support.yaml#/components/parameters/CampaignStatusFilter'
         - $ref: './schemas/resonance-support.yaml#/components/parameters/CampaignCategoryFilter'
         - $ref: './schemas/resonance-support.yaml#/components/parameters/CampaignTierFilter'
@@ -114,16 +114,16 @@ paths:
                     items:
                       $ref: './schemas/resonance-models.yaml#/components/schemas/SocialCampaign'
                   meta:
-                    $ref: '../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
+                    $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
               examples:
                 default:
                   $ref: './schemas/resonance-support.yaml#/components/examples/CampaignListExample'
         '401':
-          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '403':
-          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
         '500':
-          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
     post:
       summary: Запустить социальную кампанию или выполнить симуляцию
       description: |
@@ -158,17 +158,17 @@ paths:
               schema:
                 $ref: './schemas/resonance-models.yaml#/components/schemas/SocialCampaignLaunchResponse'
         '400':
-          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
-          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '403':
-          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
         '409':
-          $ref: '../shared/common/responses.yaml#/components/responses/Conflict'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
         '422':
-          $ref: '../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
         '500':
-          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
   /social/resonance/relationships:
     get:
       summary: Получить связи игрока и организации
@@ -181,8 +181,8 @@ paths:
       x-required-scopes:
         - social:resonance:relationships:read
       parameters:
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/Page'
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/Page'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
         - $ref: './schemas/resonance-support.yaml#/components/parameters/RelationshipTypeFilter'
         - $ref: './schemas/resonance-support.yaml#/components/parameters/RelationshipTierFilter'
         - $ref: './schemas/resonance-support.yaml#/components/parameters/OrganizationFilter'
@@ -202,16 +202,16 @@ paths:
                     items:
                       $ref: './schemas/resonance-models.yaml#/components/schemas/RelationshipSummary'
                   meta:
-                    $ref: '../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
+                    $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
               examples:
                 default:
                   $ref: './schemas/resonance-support.yaml#/components/examples/RelationshipListExample'
         '401':
-          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '403':
-          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
         '500':
-          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
   /social/resonance/relationships/{relationshipId}/update:
     parameters:
       - $ref: './schemas/resonance-support.yaml#/components/parameters/RelationshipIdPath'
@@ -240,19 +240,19 @@ paths:
                 default:
                   $ref: './schemas/resonance-support.yaml#/components/examples/RelationshipUpdateExample'
         '400':
-          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
         '401':
-          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '403':
-          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
         '404':
-          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
         '409':
-          $ref: '../shared/common/responses.yaml#/components/responses/Conflict'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
         '422':
-          $ref: '../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
         '500':
-          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
   /social/resonance/history:
     get:
       summary: Получить историю изменений индекса доверия
@@ -294,13 +294,13 @@ paths:
                 default:
                   $ref: './schemas/resonance-support.yaml#/components/examples/HistoryResponseExample'
         '401':
-          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '403':
-          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
         '422':
-          $ref: '../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
         '500':
-          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
   /social/resonance/forecasts:
     get:
       summary: Получить прогноз индекса доверия
@@ -326,16 +326,16 @@ paths:
                 default:
                   $ref: './schemas/resonance-support.yaml#/components/examples/ForecastExample'
         '401':
-          $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
         '403':
-          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
         '422':
-          $ref: '../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+          $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
         '500':
-          $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
+          $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
 components:
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 
 

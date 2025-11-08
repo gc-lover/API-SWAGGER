@@ -39,10 +39,10 @@ paths:
             application/json:
               schema:
                 $ref: '../schemas/index.yaml#/components/schemas/CraftingCalculation'
-        '400': { $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '404': { $ref: '../../../../shared/common/responses.yaml#/components/responses/NotFound' }
-        '500': { $ref: '../../../../shared/common/responses.yaml#/components/responses/InternalServerError' }
+        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '500': { $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError' }
 
 servers:
   - url: https://api.necp.game/v1

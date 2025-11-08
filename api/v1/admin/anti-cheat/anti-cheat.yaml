@@ -68,7 +68,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CheatReport'
         '400':
-          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
 
   /admin/anti-cheat/reports:
     get:
@@ -87,8 +87,8 @@ paths:
           schema:
             type: string
             enum: [LOW, MEDIUM, HIGH, CRITICAL]
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Список репортов
@@ -96,7 +96,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
+                  - $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
                   - type: object
                     properties:
                       data:
@@ -104,7 +104,7 @@ paths:
                         items:
                           $ref: '#/components/schemas/CheatReport'
         '403':
-          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
 
   /admin/anti-cheat/reports/{report_id}:
     get:
@@ -126,7 +126,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CheatReportDetailed'
         '403':
-          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
 
   /admin/anti-cheat/reports/{report_id}/review:
     post:
@@ -150,7 +150,7 @@ paths:
         '200':
           description: Ревью завершено
         '403':
-          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
 
   /admin/anti-cheat/bans:
     post:
@@ -171,7 +171,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Ban'
         '403':
-          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
 
     get:
       summary: Получить список банов
@@ -188,8 +188,8 @@ paths:
           schema:
             type: string
             enum: [TEMPORARY, PERMANENT]
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Список банов
@@ -197,7 +197,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
+                  - $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
                   - type: object
                     properties:
                       data:
@@ -249,7 +249,7 @@ paths:
         '200':
           description: Бан снят
         '403':
-          $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
+          $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
 
   /admin/anti-cheat/appeals:
     post:
@@ -280,8 +280,8 @@ paths:
           schema:
             type: string
             enum: [PENDING, UNDER_REVIEW, APPROVED, REJECTED]
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Список апелляций
@@ -289,7 +289,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
+                  - $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
                   - type: object
                     properties:
                       data:

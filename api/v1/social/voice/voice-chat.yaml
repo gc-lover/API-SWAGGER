@@ -57,10 +57,10 @@ paths:
                   proximity: { enabled: false }
       responses:
         '201': { description: Канал создан, content: { application/json: { schema: { $ref: '#/components/schemas/VoiceChannel' } } } }
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '409': { $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
     get:
       tags: [Channels]
       summary: Список каналов
@@ -69,12 +69,12 @@ paths:
         - { in: query, name: ownerId, schema: { type: string } }
         - { in: query, name: channelType, schema: { type: string, enum: [party, guild, raid, proximity, custom] } }
         - { in: query, name: isActive, schema: { type: boolean } }
-        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200': { description: Найденные каналы, content: { application/json: { schema: { $ref: '#/components/schemas/VoiceChannelList' } } } }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
   /social/voice/channels/{channelId}:
     get:
       tags: [Channels]
@@ -83,9 +83,9 @@ paths:
         - $ref: '#/components/parameters/ChannelId'
       responses:
         '200': { description: Детали канала, content: { application/json: { schema: { $ref: '#/components/schemas/VoiceChannel' } } } }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
     patch:
       tags: [Channels]
       summary: Обновить настройки
@@ -98,10 +98,10 @@ paths:
             schema: { $ref: '#/components/schemas/UpdateVoiceChannelRequest' }
       responses:
         '200': { description: Обновлённый канал, content: { application/json: { schema: { $ref: '#/components/schemas/VoiceChannel' } } } }
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
     delete:
       tags: [Channels]
       summary: Закрыть канал
@@ -109,9 +109,9 @@ paths:
         - $ref: '#/components/parameters/ChannelId'
       responses:
         '204': { description: Канал закрыт }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
   /social/voice/channels/{channelId}/join:
     post:
       tags: [Participants]
@@ -132,12 +132,12 @@ paths:
                   location: { worldId: "night-city", x: 123.4, y: 88, z: 12.5 }
       responses:
         '200': { description: Токен выдан, content: { application/json: { schema: { $ref: '#/components/schemas/JoinVoiceResponse' } } } }
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
-        '409': { $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict' }
-        '422': { $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
   /social/voice/channels/{channelId}/leave:
     post:
       tags: [Participants]
@@ -146,9 +146,9 @@ paths:
         - $ref: '#/components/parameters/ChannelId'
       responses:
         '200': { description: Игрок отключён, content: { application/json: { schema: { $ref: '#/components/schemas/LeaveVoiceResponse' } } } }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
   /social/voice/channels/{channelId}/participants:
     get:
       tags: [Participants]
@@ -157,9 +157,9 @@ paths:
         - $ref: '#/components/parameters/ChannelId'
       responses:
         '200': { description: Участники, content: { application/json: { schema: { $ref: '#/components/schemas/VoiceParticipantList' } } } }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
   /social/voice/channels/{channelId}/participants/{playerId}/mute:
     post:
       tags: [Participants]
@@ -177,10 +177,10 @@ paths:
                 value: { action: mute, reason: "Toxic behaviour", durationSeconds: 900, moderatorId: "player-mod-1" }
       responses:
         '200': { description: Статус mute обновлён, content: { application/json: { schema: { $ref: '#/components/schemas/VoiceParticipant' } } } }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
-        '409': { $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '409': { $ref: '../../shared/common/responses.yaml#/components/responses/Conflict' }
   /social/voice/channels/{channelId}/participants/{playerId}/deafen:
     post:
       tags: [Participants]
@@ -190,9 +190,9 @@ paths:
         - $ref: '#/components/parameters/PlayerId'
       responses:
         '200': { description: Статус deafen обновлён, content: { application/json: { schema: { $ref: '#/components/schemas/VoiceParticipant' } } } }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
   /social/voice/channels/{channelId}/quality:
     post:
       tags: [Quality]
@@ -206,10 +206,10 @@ paths:
             schema: { $ref: '#/components/schemas/VoiceQualityRequest' }
       responses:
         '200': { description: Актуальные настройки, content: { application/json: { schema: { $ref: '#/components/schemas/VoiceQualityConfig' } } } }
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
   /social/voice/proximity/update:
     post:
       tags: [Quality]
@@ -224,9 +224,9 @@ paths:
                 value: { playerId: "player-5510", worldId: "night-city", coordinates: { x: 122.3, y: 17.5, z: 4.2 }, velocity: { x: 0.4, y: 0.0, z: -0.1 }, timestamp: "2025-11-07T18:44:00Z" }
       responses:
         '202': { description: Обновление принято, content: { application/json: { schema: { $ref: '#/components/schemas/ProximityUpdateAccepted' } } } }
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
   /social/voice/metrics:
     get:
       tags: [Quality]
@@ -237,8 +237,8 @@ paths:
         - { in: query, name: range, schema: { type: string, enum: [5m, 1h, 24h, 7d], default: 1h } }
       responses:
         '200': { description: Метрики, content: { application/json: { schema: { $ref: '#/components/schemas/VoiceMetrics' } } } }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '403': { $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '403': { $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden' }
   /social/voice/channels/{channelId}/events:
     post:
       tags: [Provider Events]
@@ -255,20 +255,20 @@ paths:
                 value: { eventType: NETWORK_DEGRADED, occurredAt: "2025-11-07T18:50:00Z", payload: { packetLossPercent: 12.5, recommendation: "Switch to medium preset" } }
       responses:
         '202': { description: Событие принято, content: { application/json: { schema: { $ref: '#/components/schemas/EventAck' } } } }
-        '400': { $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest' }
-        '401': { $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '404': { $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound' }
-        '422': { $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
+        '400': { $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
+        '422': { $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity' }
 components:
   securitySchemes:
-    BearerAuth: { $ref: '../../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+    BearerAuth: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
   parameters:
     ChannelId: { name: channelId, in: path, required: true, schema: { type: string } }
     PlayerId: { name: playerId, in: path, required: true, schema: { type: string } }
   schemas:
     VoiceChannelList:
       type: object
-      properties: { items: { type: array, items: { $ref: '#/components/schemas/VoiceChannelSummary' } }, pagination: { $ref: '../../../shared/common/pagination.yaml#/components/schemas/PaginationMeta' } }
+      properties: { items: { type: array, items: { $ref: '#/components/schemas/VoiceChannelSummary' } }, pagination: { $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginationMeta' } }
     VoiceChannelSummary:
       type: object
       required: [channelId, channelName, channelType, owner, qualityPreset, status]

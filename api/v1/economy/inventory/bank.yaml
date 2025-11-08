@@ -38,7 +38,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BankSnapshot'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
   /inventory/bank/deposit:
     post:
@@ -61,9 +61,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BankSnapshot'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '409': { "$ref": "../shared/common/responses.yaml#/components/responses/Conflict" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '409': { "$ref": "../../shared/common/responses.yaml#/components/responses/Conflict" }
 
   /inventory/bank/withdraw:
     post:
@@ -86,10 +86,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BankTransferResponse'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
-        '409': { "$ref": "../shared/common/responses.yaml#/components/responses/Conflict" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
+        '409': { "$ref": "../../shared/common/responses.yaml#/components/responses/Conflict" }
 
   /inventory/bank/capacity:
     get:
@@ -106,12 +106,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BankCapacity'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
 components:
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 
   schemas:
     BankSnapshot:

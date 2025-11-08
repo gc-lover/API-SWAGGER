@@ -45,7 +45,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CharacterListResponse'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
     post:
       tags: [Characters]
       summary: Создать нового персонажа
@@ -74,10 +74,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CharacterDetails'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '409': { "$ref": "../shared/common/responses.yaml#/components/responses/Conflict" }
-        '429': { "$ref": "../shared/common/responses.yaml#/components/responses/TooManyRequests" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '409': { "$ref": "../../shared/common/responses.yaml#/components/responses/Conflict" }
+        '429': { "$ref": "../../shared/common/responses.yaml#/components/responses/TooManyRequests" }
 
   /characters/{characterId}:
     get:
@@ -95,8 +95,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CharacterDetails'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
     delete:
       tags: [Characters]
       summary: Удалить персонажа (soft delete)
@@ -112,8 +112,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CharacterDeleteResponse'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
 
   /characters/{characterId}/restore:
     post:
@@ -131,9 +131,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CharacterDetails'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
-        '410': { "$ref": "../shared/common/responses.yaml#/components/responses/ResourceGone" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
+        '410': { "$ref": "../../shared/common/responses.yaml#/components/responses/ResourceGone" }
 
   /characters/{characterId}/switch:
     post:
@@ -152,8 +152,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CharacterSwitchResponse'
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '404': { "$ref": "../shared/common/responses.yaml#/components/responses/NotFound" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '404': { "$ref": "../../shared/common/responses.yaml#/components/responses/NotFound" }
 
   /characters/{characterId}/appearance:
     patch:
@@ -177,8 +177,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CharacterAppearance'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
 
   /characters/{characterId}/name:
     patch:
@@ -203,14 +203,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CharacterDetails'
-        '400': { "$ref": "../shared/common/responses.yaml#/components/responses/BadRequest" }
-        '401': { "$ref": "../shared/common/responses.yaml#/components/responses/Unauthorized" }
-        '409': { "$ref": "../shared/common/responses.yaml#/components/responses/Conflict" }
+        '400': { "$ref": "../../shared/common/responses.yaml#/components/responses/BadRequest" }
+        '401': { "$ref": "../../shared/common/responses.yaml#/components/responses/Unauthorized" }
+        '409': { "$ref": "../../shared/common/responses.yaml#/components/responses/Conflict" }
 
 components:
   securitySchemes:
     BearerAuth:
-      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
 
   parameters:
     CharacterId:
