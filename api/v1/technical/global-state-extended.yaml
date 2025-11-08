@@ -25,9 +25,17 @@ info:
     
     Источники: .BRAIN/05-technical/global-state/ (5 documents)
 
+  x-microservice:
+    name: admin-service
+    port: 8088
+    domain: admin
+    base-path: /api/v1/technical
+    package: com.necpgame.adminservice
 servers:
   - url: https://api.necp.game/v1
     description: Production server
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 
 tags:
   - name: Global State

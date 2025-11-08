@@ -12,8 +12,16 @@ info:
   title: Maintenance Mode API
   version: 1.0.0
   description: "Управление окнами обслуживания NECPGAME: планирование, уведомления, graceful shutdown и интеграции."
+  x-microservice:
+    name: system-service
+    port: 8098
+    domain: system
+    base-path: /api/v1/system
+    package: com.necpgame.systemservice
 servers:
   - url: https://api.necp.game/v1
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 security:
   - ServiceToken: []
 tags:

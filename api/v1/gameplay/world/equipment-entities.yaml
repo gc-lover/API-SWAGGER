@@ -3,8 +3,16 @@ info:
   title: Equipment Entities API
   version: 1.0.0
   description: API для сущностей экипировки (структура, слоты, наборы)
+  x-microservice:
+    name: world-service
+    port: 8086
+    domain: world
+    base-path: /api/v1/gameplay/world
+    package: com.necpgame.worldservice
 servers:
   - url: https://api.necp.game/v1
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 tags:
   - name: Equipment Entities
 paths:

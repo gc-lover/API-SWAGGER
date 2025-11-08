@@ -3,6 +3,12 @@ info:
   title: Player Order News Schemas
   version: 1.0.0
   description: Схемы новостей и информационных событий, связанных с заказами игроков.
+  x-microservice:
+    name: world-service
+    port: 8086
+    domain: world
+    base-path: /api/v1/world
+    package: com.necpgame.worldservice
 paths: {}
 components:
   schemas:
@@ -79,3 +85,8 @@ components:
         pagination:
           $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

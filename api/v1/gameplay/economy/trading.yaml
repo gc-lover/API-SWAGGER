@@ -11,9 +11,17 @@ info:
     Влияние: репутация, социальные навыки, региональные цены
     Торговые маршруты: межрегиональная торговля
 
+  x-microservice:
+    name: economy-service
+    port: 8085
+    domain: economy
+    base-path: /api/v1/gameplay/economy
+    package: com.necpgame.economyservice
 servers:
   - url: https://api.necp.game/v1
     description: Production server
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 
 tags:
   - name: Trading

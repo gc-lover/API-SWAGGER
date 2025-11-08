@@ -12,8 +12,16 @@ info:
   title: Notification System API
   description: "Универсальная платформа уведомлений NECPGAME: inbox, push, email, предпочтения, история, аналитика."
   version: 1.0.0
+  x-microservice:
+    name: notification-service
+    port: 8092
+    domain: notifications
+    base-path: /api/v1/notifications
+    package: com.necpgame.notificationservice
 servers:
   - url: https://api.necp.game/v1
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 security:
   - BearerAuth: []
 tags:

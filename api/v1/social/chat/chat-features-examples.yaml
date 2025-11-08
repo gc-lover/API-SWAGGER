@@ -6,6 +6,12 @@ info:
   title: Chat Features Examples
   version: 1.0.0
   description: Примеры запросов и ответов для Chat Features API.
+  x-microservice:
+    name: social-service
+    port: 8084
+    domain: social
+    base-path: /api/v1/social
+    package: com.necpgame.socialservice
 paths: {}
 components:
   examples:
@@ -135,3 +141,8 @@ components:
         hasMoreAfter: false
         nextCursor: "eyJtZXNzYWdlSWQiOiI1ZjZlN2Q4MS0..."
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

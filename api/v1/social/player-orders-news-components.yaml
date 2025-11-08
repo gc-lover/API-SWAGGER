@@ -2,6 +2,12 @@ openapi: 3.0.3
 info:
   title: Player Orders News Components
   version: 1.0.0
+  x-microservice:
+    name: social-service
+    port: 8084
+    domain: social
+    base-path: /api/v1/social
+    package: com.necpgame.socialservice
 paths: {}
 components:
   parameters:
@@ -422,3 +428,8 @@ components:
           type: string
           format: date-time
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

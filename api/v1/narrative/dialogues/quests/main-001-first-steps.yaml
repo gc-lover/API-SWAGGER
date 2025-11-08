@@ -14,9 +14,17 @@ info:
     обучение HUD и телеметрию попыток.
 
     Источник: `.BRAIN/04-narrative/dialogues/quest-main-001-first-steps.md` v1.0.0 (approved, api-readiness: ready).
+  x-microservice:
+    name: narrative-service
+    port: 8087
+    domain: narrative
+    base-path: /api/v1/narrative
+    package: com.necpgame.narrativeservice
 servers:
   - url: https://api.necp.game/v1
     description: Production
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 security:
   - BearerAuth: []
 tags:

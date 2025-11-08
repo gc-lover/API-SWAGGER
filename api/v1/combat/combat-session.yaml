@@ -12,8 +12,16 @@ info:
   title: Combat Session API
   description: "Управление боевыми сессиями NECPGAME: создание, действия, лаг-компенсация, вознаграждения и realtime события."
   version: 1.0.0
+  x-microservice:
+    name: combat-service
+    port: 8088
+    domain: combat
+    base-path: /api/v1/combat
+    package: com.necpgame.combatservice
 servers:
   - url: https://api.necp.game/v1
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 security:
   - BearerAuth: []
 tags:

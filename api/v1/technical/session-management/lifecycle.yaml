@@ -13,8 +13,16 @@ info:
   title: Session Lifecycle API
   description: Управление игровыми сессиями (создание, heartbeat, AFK, force logout) по документу `part1-lifecycle-heartbeat.md`.
   version: 1.0.0
+  x-microservice:
+    name: session-service
+    port: 8082
+    domain: session
+    base-path: /api/v1/technical
+    package: com.necpgame.sessionservice
 servers:
   - url: https://api.necp.game/v1
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 security:
   - BearerAuth: []
 tags:

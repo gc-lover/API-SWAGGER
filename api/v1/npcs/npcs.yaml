@@ -8,8 +8,16 @@ info:
   version: 1.0.0
   description: API для взаимодействия с NPC и диалогами в текстовой версии NECPGAME.
 
+  x-microservice:
+    name: social-service
+    port: 8084
+    domain: social
+    base-path: /api/v1/npcs
+    package: com.necpgame.socialservice
 servers:
   - url: https://api.necp.game/v1
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 
 paths:
   /npcs:

@@ -11,9 +11,17 @@ info:
   version: 1.0.0
   description: |
     Контракт world-service для расчёта влияния заказов игроков на города, экономические индексы и глобальные события.
+  x-microservice:
+    name: world-service
+    port: 8086
+    domain: world
+    base-path: /api/v1/world
+    package: com.necpgame.worldservice
 servers:
   - url: https://api.necp.game/v1
     description: Production
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 security:
   - BearerAuth: []
 tags:

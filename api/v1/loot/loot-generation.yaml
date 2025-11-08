@@ -12,8 +12,16 @@ info:
   title: Loot Generation API
   version: 1.0.0
   description: Базовая система генерации и распределения лута NECPGAME.
+  x-microservice:
+    name: loot-service
+    port: 8097
+    domain: loot
+    base-path: /api/v1/loot
+    package: com.necpgame.lootservice
 servers:
   - url: https://api.necp.game/v1
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 security:
   - ServiceToken: []
 tags:

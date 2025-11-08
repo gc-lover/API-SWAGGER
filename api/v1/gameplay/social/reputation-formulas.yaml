@@ -7,9 +7,17 @@ info:
     
     Источник: .BRAIN/02-gameplay/social/reputation-formulas.md v1.0.0
 
+  x-microservice:
+    name: social-service
+    port: 8084
+    domain: social
+    base-path: /api/v1/gameplay/social
+    package: com.necpgame.socialservice
 servers:
   - url: https://api.necp.game/v1
     description: Production server
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 
 paths:
   /gameplay/social/reputation-formulas/calculate:

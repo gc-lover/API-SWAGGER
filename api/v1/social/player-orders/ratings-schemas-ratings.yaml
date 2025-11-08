@@ -3,6 +3,12 @@ info:
   title: Player Order Ratings Core Schemas
   version: 1.0.0
   description: Базовые структуры рейтингов и метрик для системы заказов игроков.
+  x-microservice:
+    name: social-service
+    port: 8084
+    domain: social
+    base-path: /api/v1/social
+    package: com.necpgame.socialservice
 paths: {}
 components:
   schemas:
@@ -235,3 +241,8 @@ components:
         pagination:
           $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

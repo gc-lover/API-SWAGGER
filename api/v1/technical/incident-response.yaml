@@ -5,8 +5,16 @@ info:
   description: >
     Управление жизненным циклом инцидентов: обнаружение, эскалация, RCA и коммуникации
     внутри команды поддержки.
+  x-microservice:
+    name: admin-service
+    port: 8088
+    domain: admin
+    base-path: /api/v1/technical
+    package: com.necpgame.adminservice
 servers:
   - url: https://api.necp.game/v1
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 security:
   - BearerAuth: []
 tags:

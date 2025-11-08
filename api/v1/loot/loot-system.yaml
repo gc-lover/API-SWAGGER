@@ -26,9 +26,17 @@ info:
     - loot_rolls (id, world_drop_id, character_id, roll_type, roll_value)
     - loot_history (character_id, item_id, source, obtained_at)
 
+  x-microservice:
+    name: loot-service
+    port: 8097
+    domain: loot
+    base-path: /api/v1/loot
+    package: com.necpgame.lootservice
 servers:
   - url: https://api.necp.game/v1
     description: Production server
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 
 tags:
   - name: Loot Generation

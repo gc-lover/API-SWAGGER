@@ -2,6 +2,12 @@ openapi: 3.0.3
 info:
   title: Inventory Examples
   version: 1.0.0
+  x-microservice:
+    name: inventory-service
+    port: 8096
+    domain: inventory
+    base-path: /api/v1/inventory
+    package: com.necpgame.inventoryservice
 paths: {}
 components:
   examples:
@@ -35,3 +41,8 @@ components:
           - itemInstanceId: "item-inst-cred-chip"
             quantity: 5
         expiresAt: "2025-11-08T07:15:00Z"
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

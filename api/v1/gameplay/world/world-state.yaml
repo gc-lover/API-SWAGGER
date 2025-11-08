@@ -12,9 +12,17 @@ info:
     
     Философия: KENSHI + RIMWORLD + EVE Online (мир живет сам по себе)
 
+  x-microservice:
+    name: world-service
+    port: 8086
+    domain: world
+    base-path: /api/v1/gameplay/world
+    package: com.necpgame.worldservice
 servers:
   - url: https://api.necp.game/v1
     description: Production server
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 
 tags:
   - name: World State

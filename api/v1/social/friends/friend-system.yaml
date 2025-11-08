@@ -14,8 +14,16 @@ info:
   description: >
     Социальная система друзей NECPGAME: запросы, статусы присутствия, блокировки,
     рекомендации и realtime взаимодействия.
+  x-microservice:
+    name: social-service
+    port: 8090
+    domain: social
+    base-path: /api/v1/social
+    package: com.necpgame.socialservice
 servers:
   - url: https://api.necp.game/v1
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 security:
   - BearerAuth: []
 tags:

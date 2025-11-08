@@ -4,6 +4,12 @@ info:
   version: 1.0.0
   description: Запросы для операций управления киберпсихозом
 
+  x-microservice:
+    name: gameplay-service
+    port: 8083
+    domain: gameplay
+    base-path: /api/v1/gameplay
+    package: com.necpgame.gameplayservice
 paths: {}
 
 components:
@@ -364,3 +370,8 @@ components:
           maxLength: 500
           description: Ожидаемый результат программы
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

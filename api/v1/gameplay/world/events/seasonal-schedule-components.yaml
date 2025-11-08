@@ -3,6 +3,12 @@ info:
   title: Seasonal Events Schedule Components
   version: 1.0.0
   description: Переиспользуемые параметры, схемы и ошибки для управления расписанием сезонных событий.
+  x-microservice:
+    name: world-service
+    port: 8086
+    domain: world
+    base-path: /api/v1/world
+    package: com.necpgame.worldservice
 paths: {}
 components:
   parameters:
@@ -300,3 +306,8 @@ components:
                     - INT_WORLD_EVENT_SOCIAL_FAILURE
                     - INT_WORLD_EVENT_ANALYTICS_FAILURE
               required: [code, message]
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

@@ -22,7 +22,17 @@ info:
     
     Источники: .BRAIN/05-technical/algorithms/ & ai-systems/ (5 documents)
 
+  x-microservice:
+    name: admin-service
+    port: 8088
+    domain: admin
+    base-path: /api/v1/internal
+    package: com.necpgame.adminservice
 servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
   - url: https://internal.api.necp.game/v1
     description: Internal services only
 

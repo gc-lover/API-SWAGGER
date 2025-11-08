@@ -3,6 +3,12 @@ info:
   title: Player Order Ratings Examples
   version: 1.0.0
   description: Примеры запросов и ответов для API рейтингов, отзывов и санкций.
+  x-microservice:
+    name: social-service
+    port: 8084
+    domain: social
+    base-path: /api/v1/social
+    package: com.necpgame.socialservice
 paths: {}
 components:
   examples:
@@ -261,3 +267,8 @@ components:
           inactivityGraceDays: 14
           minimumFloor: 20
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

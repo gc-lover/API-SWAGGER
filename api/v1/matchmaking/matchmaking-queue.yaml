@@ -10,8 +10,16 @@ info:
   title: Matchmaking Queue API
   version: 1.0.0
   description: API управления очередями матчмейкинга NECPGAME.
+  x-microservice:
+    name: gameplay-service
+    port: 8083
+    domain: gameplay
+    base-path: /api/v1/matchmaking
+    package: com.necpgame.gameplayservice
 servers:
   - url: https://api.necp.game/v1
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 security:
   - BearerAuth: []
 tags:

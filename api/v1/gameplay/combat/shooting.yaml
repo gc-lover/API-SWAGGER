@@ -18,9 +18,17 @@ info:
     ПРИМЕЧАНИЕ: Модели данных вынесены в shooting/shooting-models.yaml
     для соблюдения лимита 400 строк на файл.
 
+  x-microservice:
+    name: gameplay-service
+    port: 8083
+    domain: gameplay
+    base-path: /api/v1/gameplay/combat
+    package: com.necpgame.gameplayservice
 servers:
   - url: https://api.necp.game/v1
     description: Production server
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
   - url: https://api-dev.necp.game/v1
     description: Development server
 

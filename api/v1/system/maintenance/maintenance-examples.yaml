@@ -7,6 +7,12 @@ info:
   title: Maintenance Mode Examples
   version: 1.0.0
   description: Примеры полезной нагрузки для Maintenance Mode API.
+  x-microservice:
+    name: system-service
+    port: 8098
+    domain: system
+    base-path: /api/v1/system
+    package: com.necpgame.systemservice
 paths: {}
 components:
   examples:
@@ -126,3 +132,8 @@ components:
             url: "https://ops.necpgame.com/reports/drain-test-2025-11-09.pdf"
         timestamp: "2025-11-09T18:02:17Z"
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

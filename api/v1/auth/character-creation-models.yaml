@@ -11,6 +11,12 @@ info:
     Модели данных для API начального интерфейса: аутентификация и создание персонажей.
     Используется через $ref в главном файле character-creation.yaml.
 
+  x-microservice:
+    name: auth-service
+    port: 8081
+    domain: auth
+    base-path: /api/v1/auth
+    package: com.necpgame.authservice
 paths: {}
 
 components:
@@ -313,3 +319,8 @@ components:
           description: Дата последнего входа в игру
           example: "2025-01-27T10:00:00Z"
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

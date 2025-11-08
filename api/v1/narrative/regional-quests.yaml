@@ -25,9 +25,17 @@ info:
     
     Источники: .BRAIN/04-narrative/quests/world-regions/ (9 documents)
 
+  x-microservice:
+    name: narrative-service
+    port: 8087
+    domain: narrative
+    base-path: /api/v1/narrative
+    package: com.necpgame.narrativeservice
 servers:
   - url: https://api.necp.game/v1
     description: Production server
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 
 tags:
   - name: Daily Weekly

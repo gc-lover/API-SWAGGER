@@ -13,8 +13,16 @@ info:
   title: Battle Pass Core API
   description: "Ядро Battle Pass NECPGAME: сезоны, прогресс игроков, премиум-доступ, XP-источники и аналитика."
   version: 1.0.0
+  x-microservice:
+    name: gameplay-service
+    port: 8083
+    domain: gameplay
+    base-path: /api/v1/gameplay/battle-pass
+    package: com.necpgame.gameplayservice
 servers:
   - url: https://api.necp.game/v1
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 security:
   - BearerAuth: []
 tags:

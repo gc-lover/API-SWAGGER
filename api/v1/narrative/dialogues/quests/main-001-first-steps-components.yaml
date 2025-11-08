@@ -2,6 +2,12 @@ openapi: 3.0.3
 info:
   title: Main Quest 001 First Steps Dialogue Components
   version: 1.0.0
+  x-microservice:
+    name: narrative-service
+    port: 8087
+    domain: narrative
+    base-path: /api/v1/narrative
+    package: com.necpgame.narrativeservice
 paths: {}
 components:
   parameters:
@@ -729,3 +735,8 @@ components:
               element: path_hint
               action: pulse
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

@@ -3,6 +3,12 @@ info:
   title: Player Order World Impact Schemas
   version: 1.0.0
   description: Основные схемы эффектов, кризисов и событий влияния заказов игроков.
+  x-microservice:
+    name: world-service
+    port: 8086
+    domain: world
+    base-path: /api/v1/world
+    package: com.necpgame.worldservice
 paths: {}
 components:
   schemas:
@@ -335,3 +341,8 @@ components:
           type: object
           additionalProperties: true
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

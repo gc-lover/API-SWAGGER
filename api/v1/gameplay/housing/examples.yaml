@@ -2,6 +2,12 @@ openapi: 3.0.3
 info:
   title: Housing Examples
   version: 1.0.0
+  x-microservice:
+    name: gameplay-service
+    port: 8083
+    domain: gameplay
+    base-path: /api/v1/gameplay
+    package: com.necpgame.gameplayservice
 paths: {}
 
 components:
@@ -98,3 +104,8 @@ components:
           - { apartmentId: apt-5512, prestige: 740, ownerId: player-elite-07 }
         dwellTime: 42.6
         housingRevenue: 12500000
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

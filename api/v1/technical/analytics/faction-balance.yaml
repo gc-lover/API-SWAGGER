@@ -3,8 +3,16 @@ info:
   title: Faction Analytics Balance API
   version: 1.0.0
   description: Метрики фракций, авто-тюнинг баланса и управление алертами для analytics-service.
+  x-microservice:
+    name: admin-service
+    port: 8088
+    domain: admin
+    base-path: /api/v1/analytics
+    package: com.necpgame.adminservice
 servers:
   - url: https://api.necp.game/v1
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 x-target-architecture:
   backend:
     - service: analytics-service

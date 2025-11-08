@@ -8,8 +8,16 @@ info:
   version: 1.0.0
   description: API для системы случайных событий в NECPGAME.
 
+  x-microservice:
+    name: world-service
+    port: 8086
+    domain: world
+    base-path: /api/v1/events
+    package: com.necpgame.worldservice
 servers:
   - url: https://api.necp.game/v1
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 
 paths:
   /events/random:

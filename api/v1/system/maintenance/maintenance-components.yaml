@@ -12,6 +12,12 @@ info:
   title: Maintenance Mode Components
   version: 1.0.0
   description: Базовые параметры и схемы для Maintenance Mode API.
+  x-microservice:
+    name: system-service
+    port: 8098
+    domain: system
+    base-path: /api/v1/system
+    package: com.necpgame.systemservice
 paths: {}
 components:
   parameters:
@@ -264,3 +270,8 @@ components:
         message: { type: string }
         details: { type: object, additionalProperties: true }
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

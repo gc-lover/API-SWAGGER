@@ -3,6 +3,12 @@ info:
   title: Player Order Risk Core Schemas
   version: 1.0.0
   description: Основные структуры скоринга рисков и страхования заказов игроков.
+  x-microservice:
+    name: economy-service
+    port: 8085
+    domain: economy
+    base-path: /api/v1/economy
+    package: com.necpgame.economyservice
 paths: {}
 components:
   schemas:
@@ -235,3 +241,8 @@ components:
           type: string
           format: date-time
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

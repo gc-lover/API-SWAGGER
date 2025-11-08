@@ -13,9 +13,17 @@ info:
     PvE зоны: Рейды, подземелья, инстансы, экстракт-зоны
     Сложность AI: 5 уровней (легкая → смертельная)
 
+  x-microservice:
+    name: gameplay-service
+    port: 8083
+    domain: gameplay
+    base-path: /api/v1/gameplay/combat
+    package: com.necpgame.gameplayservice
 servers:
   - url: https://api.necp.game/v1
     description: Production server
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 
 tags:
   - name: PvP/PvE Balance

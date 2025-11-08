@@ -6,6 +6,12 @@ info:
   title: Matchmaking Queue Examples
   version: 1.0.0
   description: Примеры полезной нагрузки для Matchmaking Queue API.
+  x-microservice:
+    name: gameplay-service
+    port: 8083
+    domain: gameplay
+    base-path: /api/v1/gameplay
+    package: com.necpgame.gameplayservice
 paths: {}
 components:
   examples:
@@ -108,3 +114,8 @@ components:
           lobbyUrl: "wss://api.necp.game/v1/match/c7a54d91"
           expiresAt: "2025-11-08T21:58:42Z"
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

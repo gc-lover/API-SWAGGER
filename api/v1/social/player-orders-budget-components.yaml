@@ -3,6 +3,12 @@ info:
   title: Player Orders Budget Components
   version: 1.0.0
   description: Формулы и структуры расчёта бюджета заказов игроков.
+  x-microservice:
+    name: social-service
+    port: 8084
+    domain: social
+    base-path: /api/v1/social
+    package: com.necpgame.socialservice
 paths: {}
 components:
   schemas:
@@ -183,3 +189,8 @@ components:
         corporateOrder: true
         factionId: "0d48bf02-8388-44c9-9c38-2a4dfb2a8b77"
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

@@ -3,6 +3,12 @@ info:
   title: Player Order World Impact Examples
   version: 1.0.0
   description: Примеры запросов и ответов для API влияния заказов игроков на мир.
+  x-microservice:
+    name: world-service
+    port: 8086
+    domain: world
+    base-path: /api/v1/world
+    package: com.necpgame.worldservice
 paths: {}
 components:
   examples:
@@ -204,3 +210,8 @@ components:
           total: 2
           totalPages: 1
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

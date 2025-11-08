@@ -26,9 +26,17 @@ info:
     - email_verification_tokens
     - login_history (audit log)
 
+  x-microservice:
+    name: auth-service
+    port: 8081
+    domain: auth
+    base-path: /api/v1/auth
+    package: com.necpgame.authservice
 servers:
   - url: https://api.necp.game/v1
     description: Production server
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 
 tags:
   - name: Authentication

@@ -2,6 +2,12 @@ openapi: 3.0.3
 info:
   title: Announcement Components
   version: 1.0.0
+  x-microservice:
+    name: admin-service
+    port: 8088
+    domain: admin
+    base-path: /api/v1/admin
+    package: com.necpgame.adminservice
 paths: {}
 
 components:
@@ -255,3 +261,8 @@ components:
         code: { type: string, enum: [INVALID_CHANNEL, SCHEDULE_CONFLICT, NOT_AUTHORIZED, ALREADY_PUBLISHED, TRANSLATION_MISSING, LIMIT_EXCEEDED] }
         message: { type: string }
         retryAfterSeconds: { type: integer }
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

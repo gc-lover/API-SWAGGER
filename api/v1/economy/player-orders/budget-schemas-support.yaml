@@ -3,6 +3,12 @@ info:
   title: Player Order Budget Support Schemas
   version: 1.0.0
   description: Дополнительные структуры и события для API расчёта бюджета заказов игроков.
+  x-microservice:
+    name: economy-service
+    port: 8085
+    domain: economy
+    base-path: /api/v1/economy
+    package: com.necpgame.economyservice
 paths: {}
 components:
   schemas:
@@ -90,3 +96,8 @@ components:
           type: string
           format: uuid
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

@@ -3,6 +3,12 @@ info:
   title: Player Orders Validation Components
   version: 1.0.0
   description: Схемы чек-листов и результатов валидации заказов игроков.
+  x-microservice:
+    name: social-service
+    port: 8084
+    domain: social
+    base-path: /api/v1/social
+    package: com.necpgame.socialservice
 paths: {}
 components:
   schemas:
@@ -98,3 +104,8 @@ components:
         orderId: "0f8fad5b-d9cb-469f-a165-70867728950e"
         force: true
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

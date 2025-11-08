@@ -2,6 +2,12 @@ openapi: 3.0.3
 info:
   title: Mail Components
   version: 1.0.0
+  x-microservice:
+    name: mail-service
+    port: 8094
+    domain: mail
+    base-path: /api/v1/mail
+    package: com.necpgame.mailservice
 paths: {}
 components:
   parameters:
@@ -251,3 +257,8 @@ components:
           enum: [MAILBOX_FULL, ATTACHMENT_INVALID, COD_REQUIRED, COD_FAILED, MAIL_EXPIRED, RATE_LIMIT, ATTACHMENT_LOCKED, SPAM_BLOCKED]
         message: { type: string }
         traceId: { type: string }
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

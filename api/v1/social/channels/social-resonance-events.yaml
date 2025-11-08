@@ -3,7 +3,17 @@ info:
   title: Social Resonance Event Streams
   version: 1.0.0
   description: Асинхронные каналы social-service для индекса доверия, кампаний и обновлений связей.
+  x-microservice:
+    name: social-service
+    port: 8084
+    domain: social
+    base-path: /api/v1/social
+    package: com.necpgame.socialservice
 servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
   - url: kafka+ssl://kafka.internal.necpgame:9093
     description: Kafka кластер социальных событий
   - url: wss://api.necp.game/v1/social/resonance/stream

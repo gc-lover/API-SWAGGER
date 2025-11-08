@@ -3,6 +3,12 @@ info:
   title: Player Order Risk Examples
   version: 1.0.0
   description: Примеры запросов и ответов для Risk API.
+  x-microservice:
+    name: economy-service
+    port: 8085
+    domain: economy
+    base-path: /api/v1/economy
+    package: com.necpgame.economyservice
 paths: {}
 components:
   examples:
@@ -97,3 +103,8 @@ components:
             value: 0.2
         createdAt: "2025-11-08T18:50:00Z"
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

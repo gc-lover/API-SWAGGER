@@ -1,3 +1,15 @@
+openapi: 3.0.3
+info:
+  title: Player Order Budget Shared Parameters
+  version: 1.0.0
+  description: Переиспользуемые параметры, используемые в API расчёта бюджета заказов игроков.
+  x-microservice:
+    name: economy-service
+    port: 8085
+    domain: economy
+    base-path: /api/v1/economy
+    package: com.necpgame.economyservice
+paths: {}
 components:
   parameters:
     TraceId:
@@ -98,5 +110,8 @@ components:
         type: string
         maxLength: 140
         example: manual_adjustment_required
-
-
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

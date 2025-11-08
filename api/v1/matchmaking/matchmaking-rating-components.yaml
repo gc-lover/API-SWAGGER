@@ -10,6 +10,12 @@ info:
   title: Matchmaking Rating Components
   version: 1.0.0
   description: Переиспользуемые параметры, заголовки и схемы Matchmaking Rating API.
+  x-microservice:
+    name: gameplay-service
+    port: 8083
+    domain: gameplay
+    base-path: /api/v1/gameplay
+    package: com.necpgame.gameplayservice
 paths: {}
 components:
   parameters:
@@ -336,3 +342,8 @@ components:
                     - INT_RATING_ANALYTICS_FAILURE
               required: [code, message]
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

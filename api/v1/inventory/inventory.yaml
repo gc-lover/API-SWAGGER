@@ -16,9 +16,17 @@ info:
     - Task ID: API-TASK-029
     - Дополнительные данные: `.BRAIN/05-technical/mvp-data-json/items.json`
 
+  x-microservice:
+    name: inventory-service
+    port: 8096
+    domain: inventory
+    base-path: /api/v1/inventory
+    package: com.necpgame.inventoryservice
 servers:
   - url: https://api.necp.game/v1
     description: Production server
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 
 paths:
   /inventory:

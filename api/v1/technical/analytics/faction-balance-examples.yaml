@@ -3,6 +3,12 @@ info:
   title: Faction Analytics Balance Examples
   version: 1.0.0
   description: Примеры запросов и ответов для Faction Analytics Balance API.
+  x-microservice:
+    name: admin-service
+    port: 8088
+    domain: admin
+    base-path: /api/v1/admin
+    package: com.necpgame.adminservice
 paths: {}
 components:
   examples:
@@ -150,3 +156,8 @@ components:
           details:
             - "actionId=adj-quest-requirement"
 
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

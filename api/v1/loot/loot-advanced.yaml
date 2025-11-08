@@ -14,8 +14,16 @@ info:
     Продвинутые механики распределения добычи NECPGAME: Need/Greed роллы, smart loot,
     boss loot, bad luck protection и анти-дубликаты.
   version: 1.0.0
+  x-microservice:
+    name: gameplay-service
+    port: 8083
+    domain: gameplay
+    base-path: /api/v1/loot
+    package: com.necpgame.gameplayservice
 servers:
   - url: https://api.necp.game/v1
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
 security:
   - BearerAuth: []
 tags:
