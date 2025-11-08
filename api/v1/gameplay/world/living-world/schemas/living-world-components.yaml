@@ -772,7 +772,6 @@ components:
           enum: [player, guild, faction]
         filters:
           type: object
-          required: []
           properties:
             regions:
               type: array

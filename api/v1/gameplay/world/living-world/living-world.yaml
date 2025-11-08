@@ -451,7 +451,9 @@ paths:
   /world/living-world/metrics:
     get:
       summary: Получить метрики живого мира
-      description: Возвращает контрольные показатели мира: частота смен власти, перегруз Action XP, безопасность маршрутов.
+      description: >
+        Возвращает контрольные показатели мира: частота смен власти, перегруз Action XP,
+        безопасность маршрутов.
       operationId: getLivingWorldMetrics
       tags: [Metrics]
       x-required-scopes:
