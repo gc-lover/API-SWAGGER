@@ -32,7 +32,7 @@ components:
         flags:
           type: array
           items:
-            $ref: '../reviews-schemas-core.yaml#/components/schemas/ReviewFlag'
+            $ref: './reviews-schemas-core.yaml#/components/schemas/ReviewFlag'
     ReviewModerationRequest:
       type: object
       required:
@@ -96,7 +96,7 @@ components:
           additionalProperties:
             type: integer
         averages:
-          $ref: '../reviews-schemas-core.yaml#/components/schemas/ReviewRatings'
+          $ref: './reviews-schemas-core.yaml#/components/schemas/ReviewRatings'
         flagsBreakdown:
           type: object
           additionalProperties:

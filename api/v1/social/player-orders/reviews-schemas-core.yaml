@@ -243,4 +243,27 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/ReviewSummary'
+    PlayerOrderReviewUpdateRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          minLength: 16
+          maxLength: 2000
+        tags:
+          type: array
+          items:
+            type: string
+            maxLength: 32
+        visibility:
+          type: string
+          enum: [public, private, trusted_only]
+        locale:
+          type: string
+          pattern: '^[a-z]{2}(-[A-Z]{2})?$'
+        attachments:
+          type: array
+          items:
+            type: string
+            format: uri
 

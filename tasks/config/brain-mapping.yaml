@@ -3417,10 +3417,11 @@ mappings:
     target: "api/v1/social/player-orders/reviews.yaml"
     task_id: "API-TASK-338"
     task_file: "tasks/active/queue/task-338-player-orders-reviews-api.md"
-    status: "in_progress"
+    status: "completed"
     created: "2025-11-08 18:50"
     version: "v1.0.0"
-    updated: "2025-11-08 18:15"
+    updated: "2025-11-08 18:35"
+    completed: "2025-11-08 18:35"
     related_sources:
       - ".BRAIN/02-gameplay/social/player-orders-system-детально.md"
       - ".BRAIN/02-gameplay/social/player-orders-creation-детально.md"
@@ -3430,7 +3431,9 @@ mappings:
     related_targets:
       - "api/v1/social/player-orders/ratings.yaml"
       - "api/v1/social/player-orders/reviews.yaml"
-      - "api/v1/social/player-orders/reviews-components.yaml"
+      - "api/v1/social/player-orders/reviews-parameters.yaml"
+      - "api/v1/social/player-orders/reviews-schemas-core.yaml"
+      - "api/v1/social/player-orders/reviews-schemas-admin.yaml"
       - "api/v1/social/player-orders/reviews-examples.yaml"
 
   - source: ".BRAIN/02-gameplay/social/player-orders-reputation-детально.md"
