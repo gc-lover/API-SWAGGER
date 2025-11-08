@@ -1,17 +1,31 @@
-get:
-  summary: Получить доступные крафтинг станции
-  operationId: getCraftingStations
-  tags: [Crafting]
-  responses:
-    '200':
-      description: Станции крафта
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              stations:
-                type: array
-                items:
-                  $ref: '../schemas/index.yaml#/components/schemas/CraftingStation'
+openapi: 3.0.3
+info:
+  title: Crafting System - Get Crafting Stations
+  version: 1.0.0
+paths:
+  /gameplay/economy/crafting/stations:
+    get:
+      summary: Получить доступные крафтинг станции
+      operationId: getCraftingStations
+      tags: [Crafting]
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Станции крафта
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stations:
+                    type: array
+                    items:
+                      $ref: '../schemas/index.yaml#/components/schemas/CraftingStation'
+        '400':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '500':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 

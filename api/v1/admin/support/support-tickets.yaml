@@ -11,7 +11,7 @@
 openapi: 3.0.3
 info:
   title: Support Ticket System API
-  description: Полный жизненный цикл тикетов поддержки NECPGAME: создание, ответы, назначение, SLA, аналитика и эскалации.
+  description: "Полный жизненный цикл тикетов поддержки NECPGAME: создание, ответы, назначение, SLA, аналитика и эскалации."
   version: 1.0.0
 servers:
   - url: https://api.necpgame.com/v1

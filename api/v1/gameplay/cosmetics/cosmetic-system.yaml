@@ -11,7 +11,7 @@
 openapi: 3.0.3
 info:
   title: Cosmetic System API
-  description: Косметическая экосистема NECPGAME: каталог, магазин ротаций, инвентарь, экипировка, подарки и аналитика.
+  description: "Косметическая экосистема NECPGAME: каталог, магазин ротаций, инвентарь, экипировка, подарки и аналитика."
   version: 1.0.0
 servers:
   - url: https://api.necpgame.com/v1
@@ -139,7 +139,8 @@ paths:
           application/json:
             schema: { $ref: './cosmetic-components.yaml#/components/schemas/RedeemRequest' }
       responses:
-        '201': { description: Предмет начислен, событие опубликовано }
+        '201':
+          description: "Предмет начислен, событие опубликовано"
         '400':
           description: Источник недействителен или лимит исчерпан
           content:

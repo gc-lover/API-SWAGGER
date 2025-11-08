@@ -1,3 +1,9 @@
+openapi: 3.0.3
+info:
+  title: Clan War Components
+  version: 1.0.0
+paths: {}
+
 components:
   parameters:
     ClanId:

@@ -1,57 +1,65 @@
-post:
-  summary: Сгенерировать событие для локации
-  operationId: generateEventForLocation
-  tags:
-    - Event Triggers
-  description: Backend вызывает при перемещении игрока
-  requestBody:
-    required: true
-    content:
-      application/json:
-        schema:
-          type: object
-          required:
-            - character_id
-            - location_id
-          properties:
-            character_id:
-              type: string
-              format: uuid
-            location_id:
-              type: string
-            location_type:
-              type: string
-            time_of_day:
-              type: string
-              enum:
-                - MORNING
-                - DAY
-                - EVENING
-                - NIGHT
-  responses:
-    '200':
-      description: Событие сгенерировано или нет
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              event_generated:
-                type: boolean
-              event:
-                $ref: '../schemas/index.yaml#/TriggeredEventInstance'
-                nullable: true
-              generation_chance_was:
-                type: number
-                format: float
-    '400':
-      $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
-    '401':
-      $ref: '../../../../shared/common/responses.yaml#/components/responses/Unauthorized'
-    '403':
-      $ref: '../../../../shared/common/responses.yaml#/components/responses/Forbidden'
-    '404':
-      $ref: '../../../../shared/common/responses.yaml#/components/responses/NotFound'
-    '500':
-      $ref: '../../../../shared/common/responses.yaml#/components/responses/InternalServerError'
+openapi: 3.0.3
+info:
+  title: Generate Event For Location
+  version: 1.0.0
+paths:
+  /gameplay/world/random-events/generate:
+    post:
+      summary: Сгенерировать событие для локации
+      operationId: generateEventForLocation
+      tags:
+        - Event Triggers
+      description: Backend вызывает при перемещении игрока
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - character_id
+                - location_id
+              properties:
+                character_id:
+                  type: string
+                  format: uuid
+                location_id:
+                  type: string
+                location_type:
+                  type: string
+                time_of_day:
+                  type: string
+                  enum:
+                    - MORNING
+                    - DAY
+                    - EVENING
+                    - NIGHT
+      responses:
+        '200':
+          description: Событие сгенерировано или нет
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  event_generated:
+                    type: boolean
+                  event:
+                    $ref: '../schemas/index.yaml#/components/schemas/TriggeredEventInstance'
+                    nullable: true
+                  generation_chance_was:
+                    type: number
+                    format: float
+        '400':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 

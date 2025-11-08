@@ -1,3 +1,9 @@
+openapi: 3.0.3
+info:
+  title: Companion Components
+  version: 1.0.0
+paths: {}
+
 components:
   parameters:
     CompanionId:
@@ -17,11 +23,22 @@ components:
       type: object
       required: [playerId, type]
       properties:
-        playerId: { type: string, description: Аккаунт игрока, создающего компаньона }
-        type: { type: string, enum: [combat, utility, social], description: Архетип компаньона }
-        subType: { type: string, description: Класс внутри архетипа (assault_drone, medic_hound) }
-        rarity: { type: string, enum: [common, rare, epic, legendary, mythic] }
-        nickname: { type: string, maxLength: 32 }
+        playerId:
+          type: string
+          description: "Аккаунт игрока, создающего компаньона"
+        type:
+          type: string
+          enum: [combat, utility, social]
+          description: "Архетип компаньона"
+        subType:
+          type: string
+          description: "Класс внутри архетипа (assault_drone, medic_hound)"
+        rarity:
+          type: string
+          enum: [common, rare, epic, legendary, mythic]
+        nickname:
+          type: string
+          maxLength: 32
         startingAbilities:
           type: array
           maxItems: 4
@@ -30,8 +47,8 @@ components:
       type: object
       required: [slot, abilityId]
       properties:
-        slot: { type: string, description: Слот способности (active_1, passive_1, ultimate) }
-        abilityId: { type: string, description: Идентификатор способности из каталога }
+        slot: { type: string, description: "Слот способности (active_1, passive_1, ultimate)" }
+        abilityId: { type: string, description: "Идентификатор способности из каталога" }
     CompanionDetail:
       type: object
       required: [companionId, playerId, type, status]
@@ -52,7 +69,7 @@ components:
         aiMode: { type: string, enum: [assist, defend, sentry, autonomous] }
         progression: { $ref: '#/components/schemas/CompanionProgression' }
         loadout: { $ref: '#/components/schemas/CompanionLoadout' }
-        missionSlots: { type: integer, description: Доступные слоты миссий }
+        missionSlots: { type: integer, description: "Доступные слоты миссий" }
         lastUsedAt: { type: string, format: date-time }
         createdAt: { type: string, format: date-time }
         antiAbuse: { $ref: '#/components/schemas/AntiAbuseStatus' }
@@ -95,7 +112,7 @@ components:
       type: object
       required: [slot, modId]
       properties:
-        slot: { type: string, description: Слот модуля (core, augment, chip) }
+        slot: { type: string, description: "Слот модуля (core, augment, chip)" }
         modId: { type: string }
         rarityRequirement: { type: string }
     CompanionLoadout:
@@ -126,7 +143,7 @@ components:
         context: { type: string, enum: [pve, arena, raid] }
         targetId: { type: string }
         manualOverride: { type: boolean }
-        energyOverride: { type: integer, description: Новое значение энергии при ручном триггере }
+        energyOverride: { type: integer, description: "Новое значение энергии при ручном триггере" }
     AbilityActivationResponse:
       type: object
       properties:
@@ -213,7 +230,7 @@ components:
         unlockedAbilities:
           type: array
           items: { type: string }
-        synergyScore: { type: integer, description: Синергия с классом игрока }
+        synergyScore: { type: integer, description: "Синергия с классом игрока" }
     XpAdjustmentRequest:
       type: object
       required: [source, delta]

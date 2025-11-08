@@ -1,20 +1,33 @@
-get:
-  summary: Получить детали рецепта
-  operationId: getRecipe
-  tags: [Recipes]
-  parameters:
-    - name: recipe_id
-      in: path
-      required: true
-      schema:
-        type: string
-  responses:
-    '200':
-      description: Детали рецепта
-      content:
-        application/json:
+openapi: 3.0.3
+info:
+  title: Crafting System - Get Recipe
+  version: 1.0.0
+paths:
+  /gameplay/economy/crafting/recipes/{recipe_id}:
+    get:
+      summary: Получить детали рецепта
+      operationId: getRecipe
+      tags: [Recipes]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: recipe_id
+          in: path
+          required: true
           schema:
-            $ref: '../schemas/index.yaml#/components/schemas/CraftingRecipeDetailed'
-    '404':
-      $ref: '../../../../shared/common/responses.yaml#/components/responses/NotFound'
-
+            type: string
+      responses:
+        '200':
+          description: Детали рецепта
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/index.yaml#/components/schemas/CraftingRecipeDetailed'
+        '404':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/NotFound'
+        '400':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '500':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/InternalServerError'

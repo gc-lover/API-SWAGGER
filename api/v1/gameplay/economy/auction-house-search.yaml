@@ -105,11 +105,11 @@ paths:
                   lots:
                     type: array
                     items:
-                      $ref: '../../economy/auction-house-core.yaml#/components/schemas/AuctionLot'
+                      $ref: './auction-house-core.yaml#/components/schemas/AuctionLot'
                   total:
                     type: integer
                   pagination:
-                    $ref: '../../shared/common/responses.yaml#/components/schemas/Pagination'
+                    $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginationMeta'
               examples:
                 legendary_weapons:
                   summary: Поиск легендарного оружия

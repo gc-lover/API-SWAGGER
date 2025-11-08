@@ -6,6 +6,8 @@ info:
     Common response templates for NECPGAME APIs.
     Reference these responses via $ref in endpoint specifications.
 
+paths: {}
+
 components:
   responses:
     BadRequest:

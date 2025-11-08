@@ -1,38 +1,46 @@
-post:
-  summary: Разрешить событие (сделать выбор)
-  operationId: resolveEvent
-  tags:
-    - Random Events
-  parameters:
-    - name: character_id
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-  requestBody:
-    required: true
-    content:
-      application/json:
-        schema:
-          $ref: '../schemas/index.yaml#/ResolveEventRequest'
-  responses:
-    '200':
-      description: Событие разрешено
-      content:
-        application/json:
+openapi: 3.0.3
+info:
+  title: Resolve Event
+  version: 1.0.0
+paths:
+  /gameplay/world/random-events/character/{character_id}/resolve:
+    post:
+      summary: Разрешить событие (сделать выбор)
+      operationId: resolveEvent
+      tags:
+        - Random Events
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: character_id
+          in: path
+          required: true
           schema:
-            $ref: '../schemas/index.yaml#/EventResolutionResult'
-    '400':
-      $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
-    '401':
-      $ref: '../../../../shared/common/responses.yaml#/components/responses/Unauthorized'
-    '403':
-      $ref: '../../../../shared/common/responses.yaml#/components/responses/Forbidden'
-    '404':
-      $ref: '../../../../shared/common/responses.yaml#/components/responses/NotFound'
-    '422':
-      $ref: '../../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
-    '500':
-      $ref: '../../../../shared/common/responses.yaml#/components/responses/InternalServerError'
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/index.yaml#/components/schemas/ResolveEventRequest'
+      responses:
+        '200':
+          description: Событие разрешено
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/index.yaml#/components/schemas/EventResolutionResult'
+        '400':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/NotFound'
+        '422':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/InternalServerError'
 

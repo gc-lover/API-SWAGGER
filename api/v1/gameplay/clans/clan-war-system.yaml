@@ -11,7 +11,7 @@
 openapi: 3.0.3
 info:
   title: Clan War System API
-  description: Клановые войны, осады и контроль территорий NECPGAME: объявление, расписания, награды, штрафы и аналитика.
+  description: "Клановые войны, осады и контроль территорий NECPGAME: объявление, расписания, награды, штрафы и аналитика."
   version: 1.0.0
 servers:
   - url: https://api.necpgame.com/v1

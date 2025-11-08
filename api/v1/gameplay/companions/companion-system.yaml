@@ -11,7 +11,7 @@
 openapi: 3.0.3
 info:
   title: Companion System API
-  description: Компаньоны игроков NECPGAME: создание, прогрессия, миссии, способности, аналитика, анти-абуз.
+  description: "Компаньоны игроков NECPGAME: создание, прогрессия, миссии, способности, аналитика, анти-абуз."
   version: 1.0.0
 servers:
   - url: https://api.necpgame.com/v1

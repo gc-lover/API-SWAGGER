@@ -55,7 +55,8 @@ paths:
                   type: integer
                 expires_in:
                   type: integer
-                  description: Время жизни ордера (часы), default: 24
+                  description: "Время жизни ордера (часы)"
+                  default: 24
             examples:
               buy_order:
                 summary: Buy Order на оружие

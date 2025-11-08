@@ -38,44 +38,44 @@ tags:
 
 paths:
   /gameplay/world/random-events:
-    $ref: './paths/list-random-events.yaml'
+    $ref: './paths/list-random-events.yaml#/paths/~1gameplay~1world~1random-events'
   /gameplay/world/random-events/{event_id}:
-    $ref: './paths/get-random-event.yaml'
+    $ref: './paths/get-random-event.yaml#/paths/~1gameplay~1world~1random-events~1{event_id}'
   /gameplay/world/random-events/trigger:
-    $ref: './paths/trigger-random-event.yaml'
+    $ref: './paths/trigger-random-event.yaml#/paths/~1gameplay~1world~1random-events~1trigger'
   /gameplay/world/random-events/character/{character_id}/active:
-    $ref: './paths/get-active-events.yaml'
+    $ref: './paths/get-active-events.yaml#/paths/~1gameplay~1world~1random-events~1character~1{character_id}~1active'
   /gameplay/world/random-events/character/{character_id}/resolve:
-    $ref: './paths/resolve-event.yaml'
+    $ref: './paths/resolve-event.yaml#/paths/~1gameplay~1world~1random-events~1character~1{character_id}~1resolve'
   /gameplay/world/random-events/character/{character_id}/history:
-    $ref: './paths/get-event-history.yaml'
+    $ref: './paths/get-event-history.yaml#/paths/~1gameplay~1world~1random-events~1character~1{character_id}~1history'
   /gameplay/world/random-events/generate:
-    $ref: './paths/generate-event-for-location.yaml'
+    $ref: './paths/generate-event-for-location.yaml#/paths/~1gameplay~1world~1random-events~1generate'
 
 components:
   schemas:
     RandomEvent:
-      $ref: './schemas/index.yaml#/RandomEvent'
+      $ref: './schemas/index.yaml#/components/schemas/RandomEvent'
     RandomEventDetailed:
-      $ref: './schemas/index.yaml#/RandomEventDetailed'
+      $ref: './schemas/index.yaml#/components/schemas/RandomEventDetailed'
     TriggerConditions:
-      $ref: './schemas/index.yaml#/TriggerConditions'
+      $ref: './schemas/index.yaml#/components/schemas/TriggerConditions'
     EventChoice:
-      $ref: './schemas/index.yaml#/EventChoice'
+      $ref: './schemas/index.yaml#/components/schemas/EventChoice'
     EventOutcome:
-      $ref: './schemas/index.yaml#/EventOutcome'
+      $ref: './schemas/index.yaml#/components/schemas/EventOutcome'
     TriggerEventRequest:
-      $ref: './schemas/index.yaml#/TriggerEventRequest'
+      $ref: './schemas/index.yaml#/components/schemas/TriggerEventRequest'
     TriggeredEventInstance:
-      $ref: './schemas/index.yaml#/TriggeredEventInstance'
+      $ref: './schemas/index.yaml#/components/schemas/TriggeredEventInstance'
     ActiveEventInstance:
-      $ref: './schemas/index.yaml#/ActiveEventInstance'
+      $ref: './schemas/index.yaml#/components/schemas/ActiveEventInstance'
     ResolveEventRequest:
-      $ref: './schemas/index.yaml#/ResolveEventRequest'
+      $ref: './schemas/index.yaml#/components/schemas/ResolveEventRequest'
     EventResolutionResult:
-      $ref: './schemas/index.yaml#/EventResolutionResult'
+      $ref: './schemas/index.yaml#/components/schemas/EventResolutionResult'
     EventHistoryEntry:
-      $ref: './schemas/index.yaml#/EventHistoryEntry'
+      $ref: './schemas/index.yaml#/components/schemas/EventHistoryEntry'
     PaginatedResponse:
       $ref: '../../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
 

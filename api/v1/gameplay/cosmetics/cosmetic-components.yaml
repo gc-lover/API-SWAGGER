@@ -1,3 +1,9 @@
+openapi: 3.0.3
+info:
+  title: Cosmetic Components
+  version: 1.0.0
+paths: {}
+
 components:
   parameters:
     ItemId:
@@ -8,6 +14,69 @@ components:
       schema:
         type: string
   schemas:
+    AdminItemRequest:
+      type: object
+      description: "Запрос на создание или обновление косметического предмета администрацией"
+      required: [code, name, type, rarity]
+      properties:
+        itemId:
+          type: string
+          description: "Если указан — обновление существующего предмета"
+        code:
+          type: string
+          description: "Уникальный код предмета"
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum: [skin_character, skin_weapon, emote, title, nameplate, pose, effect]
+        category:
+          type: string
+          description: "Категория/подкатегория отображения"
+        rarity:
+          type: string
+          enum: [common, rare, epic, legendary, mythic]
+        price:
+          type: object
+          properties:
+            amount: { type: integer, minimum: 0 }
+            currency: { type: string, enum: [eddies, shards, premium_tokens] }
+            discountedAmount: { type: integer, minimum: 0 }
+        exclusivity:
+          type: object
+          properties:
+            type: { type: string, enum: [none, battle_pass, event_only, limited_time, founder] }
+            season: { type: string }
+            regions:
+              type: array
+              items: { type: string }
+        availability:
+          type: object
+          properties:
+            purchasable: { type: boolean }
+            rotationTags:
+              type: array
+              items: { type: string }
+            startAt: { type: string, format: date-time }
+            endAt: { type: string, format: date-time }
+        assets:
+          type: object
+          properties:
+            iconUrl: { type: string, format: uri }
+            previewUrl: { type: string, format: uri }
+            hologramUrl: { type: string, format: uri }
+        metadata:
+          type: object
+          properties:
+            collectionId: { type: string }
+            bundleIds:
+              type: array
+              items: { type: string }
+            tags:
+              type: array
+              items: { type: string }
     CatalogResponse:
       type: object
       properties:
@@ -25,7 +94,9 @@ components:
         name: { type: string }
         description: { type: string }
         type: { type: string, enum: [skin_character, skin_weapon, emote, title, nameplate, pose, effect] }
-        category: { type: string, description: Подкатегория (например,枪/нож) }
+        category:
+          type: string
+          description: "Подкатегория (например,枪/нож)"
         rarity: { type: string, enum: [common, rare, epic, legendary, mythic] }
         price:
           type: object

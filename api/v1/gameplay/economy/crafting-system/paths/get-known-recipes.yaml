@@ -1,34 +1,49 @@
-get:
-  summary: Получить известные рецепты персонажа
-  operationId: getKnownRecipes
-  tags: [Recipes]
-  parameters:
-    - name: character_id
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-    - name: category
-      in: query
-      schema:
-        type: string
-  responses:
-    '200':
-      description: Известные рецепты
-      content:
-        application/json:
+openapi: 3.0.3
+info:
+  title: Crafting System - Get Known Recipes
+  version: 1.0.0
+paths:
+  /gameplay/economy/crafting/character/{character_id}/known-recipes:
+    get:
+      summary: Получить известные рецепты персонажа
+      operationId: getKnownRecipes
+      tags: [Recipes]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: character_id
+          in: path
+          required: true
           schema:
-            type: object
-            properties:
-              known_recipes:
-                type: array
-                items:
-                  $ref: '../schemas/index.yaml#/components/schemas/CraftingRecipe'
-              total_recipes:
-                type: integer
-              recipes_by_category:
+            type: string
+            format: uuid
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Известные рецепты
+          content:
+            application/json:
+              schema:
                 type: object
-                additionalProperties:
-                  type: integer
-
+                properties:
+                  known_recipes:
+                    type: array
+                    items:
+                      $ref: '../schemas/index.yaml#/components/schemas/CraftingRecipe'
+                  total_recipes:
+                    type: integer
+                  recipes_by_category:
+                    type: object
+                    additionalProperties:
+                      type: integer
+        '400':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/NotFound'
+        '500':
+          $ref: '../../../../shared/common/responses.yaml#/components/responses/InternalServerError'

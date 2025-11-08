@@ -148,7 +148,8 @@ paths:
                   minimum: 1
                 currency:
                   type: string
-                  description: Валюта оплаты (default: eurodollar)
+                  description: "Валюта оплаты"
+                  default: eurodollar
       responses:
         '200':
           description: Предмет куплен

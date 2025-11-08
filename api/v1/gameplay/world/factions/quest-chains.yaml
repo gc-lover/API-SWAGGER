@@ -209,7 +209,7 @@ x-websocket:
     StageStart:
       summary: Новый этап активен.
       payload:
-        $ref: './factions/quest-chains-examples.yaml#/components/examples/WebSocketStageStart/value'
+        $ref: './quest-chains-examples.yaml#/components/examples/WebSocketStageStart/value'
     StageUpdate:
       summary: Обновление прогресса этапа.
       payload:

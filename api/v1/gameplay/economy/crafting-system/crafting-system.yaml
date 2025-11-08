@@ -19,23 +19,23 @@ tags:
 
 paths:
   /gameplay/economy/crafting/recipes:
-    $ref: './paths/list-recipes.yaml'
+    $ref: './paths/list-recipes.yaml#/paths/~1gameplay~1economy~1crafting~1recipes'
   /gameplay/economy/crafting/recipes/{recipe_id}:
-    $ref: './paths/get-recipe.yaml'
+    $ref: './paths/get-recipe.yaml#/paths/~1gameplay~1economy~1crafting~1recipes~1{recipe_id}'
   /gameplay/economy/crafting/character/{character_id}/known-recipes:
-    $ref: './paths/get-known-recipes.yaml'
+    $ref: './paths/get-known-recipes.yaml#/paths/~1gameplay~1economy~1crafting~1character~1{character_id}~1known-recipes'
   /gameplay/economy/crafting/character/{character_id}/learn-recipe:
-    $ref: './paths/learn-recipe.yaml'
+    $ref: './paths/learn-recipe.yaml#/paths/~1gameplay~1economy~1crafting~1character~1{character_id}~1learn-recipe'
   /gameplay/economy/crafting/craft:
-    $ref: './paths/craft-item.yaml'
+    $ref: './paths/craft-item.yaml#/paths/~1gameplay~1economy~1crafting~1craft'
   /gameplay/economy/crafting/sessions/{session_id}:
-    $ref: './paths/get-crafting-session.yaml'
+    $ref: './paths/get-crafting-session.yaml#/paths/~1gameplay~1economy~1crafting~1sessions~1{session_id}'
   /gameplay/economy/crafting/sessions/{session_id}/complete:
-    $ref: './paths/complete-crafting.yaml'
+    $ref: './paths/complete-crafting.yaml#/paths/~1gameplay~1economy~1crafting~1sessions~1{session_id}~1complete'
   /gameplay/economy/crafting/stations:
-    $ref: './paths/get-crafting-stations.yaml'
+    $ref: './paths/get-crafting-stations.yaml#/paths/~1gameplay~1economy~1crafting~1stations'
   /gameplay/economy/crafting/calculate:
-    $ref: './paths/calculate-crafting-chance.yaml'
+    $ref: './paths/calculate-crafting-chance.yaml#/paths/~1gameplay~1economy~1crafting~1calculate'
 
 components:
   schemas:

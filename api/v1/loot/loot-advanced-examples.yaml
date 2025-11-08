@@ -1,3 +1,9 @@
+openapi: 3.0.3
+info:
+  title: Advanced Loot Examples
+  version: 1.0.0
+paths: {}
+
 components:
   examples:
     LootClaimRequest:

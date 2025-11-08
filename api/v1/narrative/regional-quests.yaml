@@ -377,6 +377,38 @@ components:
           nullable: true
           description: Для временных квестов
 
+    OriginStory:
+      type: object
+      description: Базовая информация об origin story
+      properties:
+        origin_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        starting_location:
+          type: string
+        bonuses:
+          type: object
+          properties:
+            attributes:
+              type: object
+              additionalProperties:
+                type: integer
+            skills:
+              type: object
+              additionalProperties:
+                type: integer
+            starting_items:
+              type: array
+              items:
+                type: string
+        recommended_classes:
+          type: array
+          items:
+            type: string
+
     OriginStoryDetailed:
       allOf:
         - $ref: '#/components/schemas/OriginStory'

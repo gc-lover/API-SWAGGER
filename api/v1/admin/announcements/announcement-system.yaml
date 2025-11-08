@@ -11,7 +11,7 @@
 openapi: 3.0.3
 info:
   title: Announcement System API
-  description: Управление объявлениями NECPGAME: черновики, расписание, каналы доставки, локализации, аналитика и экстренные уведомления.
+  description: "Управление объявлениями NECPGAME: черновики, расписание, каналы доставки, локализации, аналитика и экстренные уведомления."
   version: 1.0.0
 servers:
   - url: https://admin.necpgame.com/api/v1

@@ -1,3 +1,9 @@
+openapi: 3.0.3
+info:
+  title: Crafting System Schemas
+  version: 1.0.0
+paths: {}
+
 components:
   schemas:
     CraftingRecipe:

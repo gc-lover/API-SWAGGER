@@ -406,24 +406,77 @@ components:
               type: integer
             attributes:
               type: object
+              description: Ключевые характеристики персонажа
+              additionalProperties:
+                type: integer
         active_quests:
           type: array
+          description: Активные квесты игрока
           items:
             type: object
+            properties:
+              quest_id:
+                type: string
+              title:
+                type: string
+              status:
+                type: string
+                enum: [ACTIVE, COMPLETED, FAILED]
         inventory:
           type: object
           properties:
             slots:
               type: array
+              description: Слоты инвентаря с предметами
+              items:
+                type: object
+                properties:
+                  slot_id:
+                    type: string
+                  item_name:
+                    type: string
+                  rarity:
+                    type: string
+                  quantity:
+                    type: integer
             weight:
               type: number
+              format: float
         party:
           type: object
           nullable: true
+          properties:
+            leader_id:
+              type: string
+              format: uuid
+            members:
+              type: array
+              items:
+                type: object
+                properties:
+                  character_id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  role:
+                    type: string
         notifications:
           type: array
+          description: Последние уведомления игрока
           items:
             type: object
+            properties:
+              message:
+                type: string
+              category:
+                type: string
+              priority:
+                type: string
+                enum: [LOW, MEDIUM, HIGH, CRITICAL]
+              created_at:
+                type: string
+                format: date-time
         world_state:
           type: object
           properties:
@@ -433,6 +486,16 @@ components:
               type: string
             active_events:
               type: array
+              description: Текущие события в мире
+              items:
+                type: object
+                properties:
+                  event_id:
+                    type: string
+                  name:
+                    type: string
+                  status:
+                    type: string
 
   securitySchemes:
     BearerAuth:
