@@ -9,7 +9,7 @@ info:
   title: Chat Features Components
   version: 1.0.0
   description: Переиспользуемые параметры и схемы для Chat Features API.
-
+paths: {}
 components:
   parameters:
     VoiceSessionId:

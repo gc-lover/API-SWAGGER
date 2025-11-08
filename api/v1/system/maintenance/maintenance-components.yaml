@@ -12,7 +12,7 @@ info:
   title: Maintenance Mode Components
   version: 1.0.0
   description: Базовые параметры и схемы для Maintenance Mode API.
-
+paths: {}
 components:
   parameters:
     WindowId:

@@ -9,7 +9,7 @@ info:
   description: |
     Общие стандартные ответы для всех API спецификаций.
     Используйте эти компоненты через $ref в других API файлах.
-
+paths: {}
 components:
   responses:
     BadRequest:
@@ -137,6 +137,25 @@ components:
                 error:
                   code: "INTERNAL_SERVER_ERROR"
                   message: "Произошла внутренняя ошибка сервера"
+                  details: []
+    TooManyRequests:
+      description: |
+        Превышен лимит запросов. Повторите попытку позже или снизьте частоту запросов.
+      headers:
+        Retry-After:
+          description: Время в секундах до следующей попытки.
+          schema: { type: integer, minimum: 1 }
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            rate_limited:
+              summary: Превышен лимит запросов
+              value:
+                error:
+                  code: "RATE_LIMITED"
+                  message: "Достигнут лимит запросов. Повторите попытку позже."
                   details: []
 
   schemas:

@@ -3,6 +3,7 @@ info:
   title: Seasonal Events Schedule Examples
   version: 1.0.0
   description: Примеры запросов и ответов для расписания сезонных событий.
+paths: {}
 components:
   examples:
     ScheduleResponse:

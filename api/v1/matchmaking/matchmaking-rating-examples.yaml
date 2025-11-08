@@ -6,7 +6,7 @@ info:
   title: Matchmaking Rating Examples
   version: 1.0.0
   description: Примеры запросов и ответов для Matchmaking Rating API.
-
+paths: {}
 components:
   examples:
     RatingProfileArena:

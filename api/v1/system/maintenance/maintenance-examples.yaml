@@ -7,7 +7,7 @@ info:
   title: Maintenance Mode Examples
   version: 1.0.0
   description: Примеры полезной нагрузки для Maintenance Mode API.
-
+paths: {}
 components:
   examples:
     ScheduledWindowCreate:

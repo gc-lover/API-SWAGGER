@@ -6,7 +6,7 @@ info:
   title: Matchmaking Queue Examples
   version: 1.0.0
   description: Примеры полезной нагрузки для Matchmaking Queue API.
-
+paths: {}
 components:
   examples:
     QueueRequestSolo:

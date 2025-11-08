@@ -1,8 +1,10 @@
 openapi: 3.0.3
 info:
   title: Incident Response API
-  description: Управление жизненным циклом инцидентов: обнаружение, эскалация, RCA, коммуникация.
   version: 1.0.0
+  description: >
+    Управление жизненным циклом инцидентов: обнаружение, эскалация, RCA и коммуникации
+    внутри команды поддержки.
 servers:
   - url: https://api.necpgame.com/v1
 security:

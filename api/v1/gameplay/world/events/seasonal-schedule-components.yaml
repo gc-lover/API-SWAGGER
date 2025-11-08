@@ -3,6 +3,7 @@ info:
   title: Seasonal Events Schedule Components
   version: 1.0.0
   description: Переиспользуемые параметры, схемы и ошибки для управления расписанием сезонных событий.
+paths: {}
 components:
   parameters:
     Frequency:

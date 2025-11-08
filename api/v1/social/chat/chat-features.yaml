@@ -9,7 +9,9 @@ openapi: 3.0.3
 info:
   title: Chat Features API
   version: 1.0.0
-  description: Расширенные функции чата NECPGAME: команды, форматирование, голос, перевод и история сообщений.
+  description: >
+    Расширенные функции чата NECPGAME: команды, форматирование, голосовые возможности,
+    перевод сообщений и доступ к истории.
 servers:
   - url: https://api.necpgame.com/v1
 security:

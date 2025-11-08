@@ -9,7 +9,7 @@ info:
   title: Chat Moderation Components
   version: 1.0.0
   description: Переиспользуемые параметры и схемы для Chat Moderation API.
-
+paths: {}
 components:
   parameters:
     ReportId:

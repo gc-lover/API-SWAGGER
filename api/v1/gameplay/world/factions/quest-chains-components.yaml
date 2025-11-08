@@ -3,6 +3,7 @@ info:
   title: Faction Quest Chains Components
   version: 1.0.0
   description: Переиспользуемые параметры, схемы и ошибки для управления фракционными цепочками контрактов.
+paths: {}
 components:
   parameters:
     ChainId:

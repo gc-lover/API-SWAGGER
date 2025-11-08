@@ -10,7 +10,7 @@ info:
   title: Matchmaking Rating Components
   version: 1.0.0
   description: Переиспользуемые параметры, заголовки и схемы Matchmaking Rating API.
-
+paths: {}
 components:
   parameters:
     ActivityType:
@@ -317,7 +317,7 @@ components:
 
     RatingError:
       allOf:
-        - $ref: '../../shared/common/responses.yaml#/components/schemas/Error'
+        - $ref: '../shared/common/responses.yaml#/components/schemas/Error'
         - type: object
           properties:
             error:

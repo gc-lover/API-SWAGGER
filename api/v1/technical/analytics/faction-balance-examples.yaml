@@ -3,6 +3,7 @@ info:
   title: Faction Analytics Balance Examples
   version: 1.0.0
   description: Примеры запросов и ответов для Faction Analytics Balance API.
+paths: {}
 components:
   examples:
     MetricsResponse:

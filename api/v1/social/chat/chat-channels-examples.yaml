@@ -6,7 +6,7 @@ info:
   title: Chat Channels Examples
   version: 1.0.0
   description: Примеры запросов/ответов для Chat Channels API.
-
+paths: {}
 components:
   examples:
     ChannelListGlobal:

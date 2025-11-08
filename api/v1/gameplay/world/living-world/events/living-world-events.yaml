@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: Living World Event Streams
+  version: 1.0.0
+  description: Асинхронные каналы `world-service` и `gameplay-service` для живого мира и Action XP.
+servers:
+  - url: kafka+ssl://kafka.internal.necpgame:9093
+    description: Kafka cluster
+  - url: wss://api.necpgame.com/v1/world/chronicle/stream
+    description: WebSocket realtime канал хроники мира
+paths: {}
+x-kafka-topics:
+  world.faction.controlShifted:
+    summary: Фиксация смены контроля региона
+    retentionHours: 168
+    partitions: 12
+    deliveryGuarantee: at-least-once
+    payload:
+      $ref: '../schemas/living-world-components.yaml#/components/schemas/ControlShiftEvent'
+  world.logistics.routeCreated:
+    summary: Планирование нового логистического маршрута
+    retentionHours: 72
+    partitions: 12
+    deliveryGuarantee: at-least-once
+    payload:
+      $ref: '../schemas/living-world-components.yaml#/components/schemas/LogisticsRouteEvent'
+  world.squad.spawned:
+    summary: Появление автономного отряда
+    retentionHours: 48
+    partitions: 6
+    deliveryGuarantee: at-least-once
+    payload:
+      $ref: '../schemas/living-world-components.yaml#/components/schemas/AutonomousSquadEvent'
+  gameplay.actionXp.gained:
+    summary: Начисление Action XP
+    retentionHours: 168
+    partitions: 24
+    deliveryGuarantee: exactly-once
+    payload:
+      $ref: '../schemas/living-world-components.yaml#/components/schemas/ActionXpEvent'
+  gameplay.actionXp.softCapReached:
+    summary: Достижение мягкого лимита Action XP
+    retentionHours: 168
+    partitions: 6
+    deliveryGuarantee: at-least-once
+    payload:
+      $ref: '../schemas/living-world-components.yaml#/components/schemas/ActionXpSoftCapEvent'
+x-websocket:
+  url: wss://api.necpgame.com/v1/world/chronicle/stream
+  heartbeatSeconds: 15
+  reconnectPolicy: exponential
+  messages:
+    chronicleEvent:
+      summary: Событие хроники мира
+      payload:
+        $ref: '../schemas/living-world-components.yaml#/components/schemas/ChronicleEvent'
+    logisticsAlert:
+      summary: Предупреждение по логистическому маршруту
+      payload:
+        $ref: '../schemas/living-world-components.yaml#/components/schemas/LogisticsAlertEvent'
+    fatigueWarning:
+      summary: Сообщение об усталости Action XP
+      payload:
+        $ref: '../schemas/living-world-components.yaml#/components/schemas/ActionXpSoftCapEvent'
+components:
+  schemas:
+    ControlShiftEvent:
+      $ref: '../schemas/living-world-components.yaml#/components/schemas/ControlShiftEvent'
+    LogisticsRouteEvent:
+      $ref: '../schemas/living-world-components.yaml#/components/schemas/LogisticsRouteEvent'
+    LogisticsAlertEvent:
+      $ref: '../schemas/living-world-components.yaml#/components/schemas/LogisticsAlertEvent'
+    AutonomousSquadEvent:
+      $ref: '../schemas/living-world-components.yaml#/components/schemas/AutonomousSquadEvent'
+    ActionXpEvent:
+      $ref: '../schemas/living-world-components.yaml#/components/schemas/ActionXpEvent'
+    ActionXpSoftCapEvent:
+      $ref: '../schemas/living-world-components.yaml#/components/schemas/ActionXpSoftCapEvent'
+    ChronicleEvent:
+      $ref: '../schemas/living-world-components.yaml#/components/schemas/ChronicleEvent'
+

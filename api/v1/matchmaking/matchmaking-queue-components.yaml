@@ -9,7 +9,7 @@ info:
   title: Matchmaking Queue Components
   version: 1.0.0
   description: Переиспользуемые параметры и схемы для Matchmaking Queue API.
-
+paths: {}
 components:
   parameters:
     TicketId:

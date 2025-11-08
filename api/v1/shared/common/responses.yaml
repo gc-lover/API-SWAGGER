@@ -101,6 +101,15 @@ components:
                       message: "Достигнут максимальный лимит NPC (10)"
                       code: "LIMIT_EXCEEDED"
 
+    Gone:
+      description: |
+        Запрошенный ресурс больше недоступен или был завершён.
+        Используется, например, когда голосовая сессия или лобби уже закрыты.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
     UnprocessableEntity:
       description: |
         Запрос синтаксически корректен, но семантически неверен.

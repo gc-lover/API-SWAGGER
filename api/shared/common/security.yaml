@@ -9,7 +9,7 @@ info:
   description: |
     Схемы безопасности для всех API.
     Используйте эти схемы через $ref в других API файлах.
-
+paths: {}
 components:
   securitySchemes:
     BearerAuth:
@@ -19,4 +19,11 @@ components:
       description: |
         Аутентификация через JWT токен в заголовке Authorization.
         Формат: `Authorization: Bearer <token>`
+    ServiceToken:
+      type: apiKey
+      in: header
+      name: X-Service-Token
+      description: >
+        Служебный токен для внутренних сервисов. Используется для системных интеграций
+        и автоматических вызовов без участия игрока.
 

@@ -6,7 +6,7 @@ info:
   title: Chat Features Examples
   version: 1.0.0
   description: Примеры запросов и ответов для Chat Features API.
-
+paths: {}
 components:
   examples:
     ChatCommandRequestWhisper:
@@ -69,7 +69,9 @@ components:
         sdpAnswer: "v=0\r\no=- 46117325 2 IN IP4 127.0.0.1\r\n..."
         iceServers:
           - urls: ["stun:stun1.example.com"]
-          - urls: ["turn:turn.example.com"], username: "user", credential: "secret"
+          - urls: ["turn:turn.example.com"]
+            username: "user"
+            credential: "secret"
         expiresAt: "2025-11-08T23:10:00Z"
     VoiceParticipantsResponse:
       summary: Участники голосового канала

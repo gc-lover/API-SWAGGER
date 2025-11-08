@@ -9,7 +9,7 @@ info:
   title: Chat Channels Components
   version: 1.0.0
   description: Общие параметры, заголовки и схемы для Chat Channels API.
-
+paths: {}
 components:
   parameters:
     ChannelId:
@@ -48,14 +48,10 @@ components:
       required: false
       description: Максимальное число участников (<=500).
       schema: { type: integer, minimum: 1, maximum: 500, default: 100 }
-    ChannelScopeHeader:
-      name: X-Channel-Scope
-      in: header
-      required: false
-      description: Scope канала в ответах (GLOBAL, LOCAL, GROUP, PRIVATE).
-      schema: { $ref: '#/components/schemas/ChannelScope' }
-
   headers:
+    ChannelScopeHeader:
+      description: Scope канала в ответах (SERVER, ZONE, PARTY, PRIVATE, GROUP).
+      schema: { $ref: '#/components/schemas/ChannelScope' }
     ChannelCooldownHeader:
       description: Текущий cooldown в секундах для отправки сообщений в канале.
       schema: { type: integer, minimum: 0 }

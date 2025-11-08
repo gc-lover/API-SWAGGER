@@ -10,8 +10,10 @@
 openapi: 3.0.3
 info:
   title: Friend System API
-  description: Социальная система друзей NECPGAME: запросы, присутствие, блокировки, рекомендации и realtime события.
   version: 1.0.0
+  description: >
+    Социальная система друзей NECPGAME: запросы, статусы присутствия, блокировки,
+    рекомендации и realtime взаимодействия.
 servers:
   - url: https://api.necpgame.com/v1
 security:

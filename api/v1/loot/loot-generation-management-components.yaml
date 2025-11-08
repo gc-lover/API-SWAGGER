@@ -9,6 +9,8 @@ info:
   version: 1.0.0
   description: Компоненты для управления таблицами, распределением и конфигурациями лута.
 
+paths: {}
+
 components:
   schemas:
     LootTableSummary:
@@ -136,7 +138,7 @@ components:
         raidId: { type: string, format: uuid }
         guaranteedTokens:
           type: array
-          items: { $ref: '../loot-generation-components.yaml#/components/schemas/GuaranteedReward' }
+          items: { $ref: './loot-generation-components.yaml#/components/schemas/GuaranteedReward' }
         lootCouncil:
           type: array
           items: { type: string, format: uuid }
@@ -146,7 +148,7 @@ components:
       required: [playerId, reward]
       properties:
         playerId: { type: string, format: uuid }
-        reward: { $ref: '../loot-generation-components.yaml#/components/schemas/GuaranteedReward' }
+        reward: { $ref: './loot-generation-components.yaml#/components/schemas/GuaranteedReward' }
         trigger: { type: string, enum: [PITY_TIMER, MILESTONE, COMPENSATION] }
 
     DistributionResult:
@@ -160,7 +162,7 @@ components:
         grantReference: { type: string }
         errors:
           type: array
-          items: { $ref: '../loot-generation-components.yaml#/components/schemas/LootGenerationError' }
+          items: { $ref: './loot-generation-components.yaml#/components/schemas/LootGenerationError' }
 
     RollConfig:
       type: object
@@ -193,7 +195,7 @@ components:
       properties:
         dropRates:
           type: array
-          items: { $ref: '../loot-generation-components.yaml#/components/schemas/SimulationBucket' }
+          items: { $ref: './loot-generation-components.yaml#/components/schemas/SimulationBucket' }
         pityHeatmap:
           type: array
           items: { $ref: '#/components/schemas/PityTimerState' }

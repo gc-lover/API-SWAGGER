@@ -36,7 +36,7 @@ paths:
         '200':
           description: Список каналов.
           headers:
-            X-Channel-Scope: { $ref: './chat-channels-components.yaml#/components/parameters/ChannelScopeHeader' }
+            X-Channel-Scope: { $ref: './chat-channels-components.yaml#/components/headers/ChannelScopeHeader' }
           content:
             application/json:
               schema: { $ref: './chat-channels-components.yaml#/components/schemas/ChannelList' }

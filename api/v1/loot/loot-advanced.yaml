@@ -10,7 +10,9 @@
 openapi: 3.0.3
 info:
   title: Advanced Loot System API
-  description: Продвинутые механики распределения добычи NECPGAME: Need/Greed роллы, smart loot, boss loot, bad luck protection и анти-дубликаты.
+  description: >
+    Продвинутые механики распределения добычи NECPGAME: Need/Greed роллы, smart loot,
+    boss loot, bad luck protection и анти-дубликаты.
   version: 1.0.0
 servers:
   - url: https://api.necpgame.com/v1
@@ -64,7 +66,12 @@ paths:
           content:
             application/json:
               schema: { $ref: './loot-advanced-components.yaml#/components/schemas/LootRoll' }
-        '400': { description: Ошибка распределения, content: { application/json: { schema: { $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError' } } } }
+        '400':
+          description: Ошибка распределения
+          content:
+            application/json:
+              schema:
+                $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError'
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /loot/rolls/{rollId}:
     parameters:
@@ -95,10 +102,21 @@ paths:
               submitRoll:
                 $ref: './loot-advanced-examples.yaml#/components/examples/RollSubmissionRequest'
       responses:
-        '200': { description: Ставка зарегистрирована }
-        '400': { description: Ставка недопустима, content: { application/json: { schema: { $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError' } } } }
+        '200':
+          description: Ставка зарегистрирована
+        '400':
+          description: Ставка недопустима
+          content:
+            application/json:
+              schema:
+                $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError'
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
-        '409': { description: Ролл завершён, content: { application/json: { schema: { $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError' } } } }
+        '409':
+          description: Ролл завершён
+          content:
+            application/json:
+              schema:
+                $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError'
   /loot/rolls/{rollId}/resolve:
     parameters:
       - $ref: './loot-advanced-components.yaml#/components/parameters/RollId'
@@ -111,8 +129,14 @@ paths:
           application/json:
             schema: { $ref: './loot-advanced-components.yaml#/components/schemas/RollResolveRequest' }
       responses:
-        '200': { description: Ролл завершён }
-        '400': { description: Завершение недоступно, content: { application/json: { schema: { $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError' } } } }
+        '200':
+          description: Ролл завершён
+        '400':
+          description: Завершение недоступно
+          content:
+            application/json:
+              schema:
+                $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError'
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /loot/rolls/active:
     get:
@@ -148,8 +172,14 @@ paths:
               updateSettings:
                 $ref: './loot-advanced-examples.yaml#/components/examples/LootSettingsUpdateRequest'
       responses:
-        '200': { description: Настройки обновлены }
-        '400': { description: Ошибка в настройках, content: { application/json: { schema: { $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError' } } } }
+        '200':
+          description: Настройки обновлены
+        '400':
+          description: Ошибка в настройках
+          content:
+            application/json:
+              schema:
+                $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError'
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /loot/boss/{bossId}:
     parameters:
@@ -184,8 +214,14 @@ paths:
           description: Босcовый лут распределён
           content:
             application/json:
-              schema: { $ref: './loot-advanced-components.yaml#/components/schemas/BossLootDistributeResponse' }
-        '400': { description: Ошибка распределения, content: { application/json: { schema: { $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError' } } } }
+              schema:
+                $ref: './loot-advanced-components.yaml#/components/schemas/BossLootDistributeResponse'
+        '400':
+          description: Ошибка распределения
+          content:
+            application/json:
+              schema:
+                $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError'
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
   /loot/history:
     get:
@@ -246,8 +282,14 @@ paths:
           application/json:
             schema: { $ref: './loot-advanced-components.yaml#/components/schemas/AdminRerollRequest' }
       responses:
-        '202': { description: Перераспределение запланировано }
-        '400': { description: Перераспределение отклонено, content: { application/json: { schema: { $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError' } } } }
+        '202':
+          description: Перераспределение запланировано
+        '400':
+          description: Перераспределение отклонено
+          content:
+            application/json:
+              schema:
+                $ref: './loot-advanced-components.yaml#/components/schemas/LootAdvancedError'
         '401': { $ref: '../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
 x-websocket:

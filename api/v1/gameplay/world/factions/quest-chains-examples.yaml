@@ -3,6 +3,7 @@ info:
   title: Faction Quest Chains Examples
   version: 1.0.0
   description: Примеры запросов и ответов для работы с фракционными цепочками контрактов.
+paths: {}
 components:
   examples:
     ContractListResponse:

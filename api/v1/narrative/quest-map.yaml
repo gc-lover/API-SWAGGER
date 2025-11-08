@@ -93,7 +93,7 @@ paths:
                     quest_chains: 8
                 total_quests: 357
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
 
   /narrative/quest-map/districts/{district_id}:
     get:
@@ -128,7 +128,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/DistrictQuestsResponse'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
 
   /narrative/quest-map/factions/{faction_id}:
     get:
@@ -169,7 +169,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/FactionQuestsResponse'
         '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+          $ref: '../shared/common/responses.yaml#/components/responses/NotFound'
 
   /narrative/quest-map/player/{player_id}/available:
     get:
@@ -213,7 +213,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AvailableQuestsResponse'
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+          $ref: '../shared/common/responses.yaml#/components/responses/BadRequest'
 
   /narrative/quest-map/connections:
     get:
@@ -302,8 +302,8 @@ paths:
           in: query
           schema:
             type: integer
-        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageNumber'
-        - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageNumber'
+        - $ref: '../shared/common/pagination.yaml#/components/parameters/PageSize'
       responses:
         '200':
           description: Search results
@@ -311,7 +311,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '../../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
+                  - $ref: '../shared/common/pagination.yaml#/components/schemas/PaginatedResponse'
                   - type: object
                     properties:
                       data:
@@ -441,7 +441,8 @@ components:
             type: string
 
     DistrictQuestsResponse:
-      type: object:
+      type: object
+      properties:
         district_id:
           type: string
         district_name:

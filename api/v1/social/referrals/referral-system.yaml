@@ -11,7 +11,9 @@
 openapi: 3.0.3
 info:
   title: Referral System API
-  description: Реферальная программа NECPGAME: генерация кодов, регистрация друзей, milestones, награды и аналитика.
+  description: >
+    Реферальная программа NECPGAME: генерация кодов, регистрация друзей, milestones,
+    выдача наград и аналитические отчёты.
   version: 1.0.0
 servers:
   - url: https://api.necpgame.com/v1
@@ -28,7 +30,7 @@ paths:
     post:
       tags: [Codes]
       summary: Сгенерировать реферальный код
-      description: Создаёт или возвращает активный код для игрока. Ограничение: один активный код на аккаунт.
+      description: "Создаёт или возвращает активный код для игрока. Ограничение: один активный код на аккаунт."
       requestBody:
         required: true
         content:

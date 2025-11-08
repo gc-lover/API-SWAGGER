@@ -13,6 +13,8 @@ info:
   version: 1.0.0
   description: Компоненты для Loot Generation API.
 
+paths: {}
+
 components:
   parameters:
     SourceId:

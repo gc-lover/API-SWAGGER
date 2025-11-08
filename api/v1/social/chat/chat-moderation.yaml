@@ -9,7 +9,9 @@ openapi: 3.0.3
 info:
   title: Chat Moderation API
   version: 1.0.0
-  description: REST API для модерации чат-системы NECPGAME: жалобы, баны, фильтры, автоматизация.
+  description: >
+    REST API для модерации чат-системы NECPGAME: обработка жалоб, управление банами,
+    конфигурация фильтров и автоматизация действий.
 servers:
   - url: https://api.necpgame.com/v1
 security:

@@ -3,6 +3,7 @@ info:
   title: Faction Analytics Balance Components
   version: 1.0.0
   description: Переиспользуемые параметры, схемы и ошибки для Faction Analytics Balance API.
+paths: {}
 components:
   parameters:
     FactionId:
