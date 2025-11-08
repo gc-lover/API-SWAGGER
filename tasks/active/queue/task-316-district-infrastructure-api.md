@@ -1,7 +1,7 @@
 # Task ID: API-TASK-316
 **Тип:** API Generation  
 **Приоритет:** высокий  
-**Статус:** queued  
+**Статус:** completed  
 **Создано:** 2025-11-08 09:51  
 **Создатель:** AI Task Creator Agent  
 **Зависимости:** API-TASK-314 (population), API-TASK-315 (schedules)

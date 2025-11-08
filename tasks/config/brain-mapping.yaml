@@ -290,15 +290,18 @@ mappings:
     target: "api/v1/economy/districts/infrastructure.yaml"
     task_id: "API-TASK-316"
     task_file: "tasks/active/queue/task-316-district-infrastructure-api.md"
-    status: "queued"
+    status: "completed"
     created: "2025-11-08 09:51"
     version: "1.0.0"
-    updated: "2025-11-08 09:51"
+    updated: "2025-11-08 10:03"
+    completed: "2025-11-08 10:03"
     related_sources:
       - ".BRAIN/02-gameplay/economy/economy-infrastructure.md"
       - ".BRAIN/02-gameplay/economy/economy-logistics.md"
       - ".BRAIN/02-gameplay/world/world-state/player-impact-systems.md"
-    related_targets: []
+    related_targets:
+      - "api/v1/economy/districts/infrastructure.yaml"
+      - "api/v1/economy/districts/schemas/infrastructure-components.yaml"
 
   - source: ".BRAIN/05-technical/ui-main-game.md"
     target: "api/v1/characters/status.yaml"
