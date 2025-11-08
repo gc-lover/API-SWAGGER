@@ -1,3 +1,15 @@
+openapi: 3.0.3
+info:
+  title: World Player Order Validation Components
+  version: 1.0.0
+  description: Общие параметры и схемы для проверки заказов игроков в world-service.
+  x-microservice:
+    name: world-service
+    port: 8086
+    domain: world
+    base-path: /api/v1/world
+    package: com.necpgame.worldservice
+paths: {}
 components:
   parameters:
     OrderId:
@@ -261,4 +273,8 @@ components:
           $ref: '#/components/schemas/ValidationStatus'
         checklist:
           $ref: '#/components/schemas/ValidationChecklist'
-
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway

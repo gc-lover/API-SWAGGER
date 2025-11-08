@@ -51,7 +51,7 @@ tags:
   - name: Analytics
     description: История и прогнозы Resonance, связи с Crisis системой
 paths:
-  /api/v1/social/resonance:
+  /social/resonance:
     get:
       summary: Получить текущее состояние Social Resonance
       description: |
@@ -81,7 +81,7 @@ paths:
           $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
         '500':
           $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
-  /api/v1/social/resonance/campaigns:
+  /social/resonance/campaigns:
     get:
       summary: Получить доступные и активные кампании
       description: |
@@ -169,7 +169,7 @@ paths:
           $ref: '../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
         '500':
           $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
-  /api/v1/social/resonance/relationships:
+  /social/resonance/relationships:
     get:
       summary: Получить связи игрока и организации
       description: |
@@ -212,7 +212,7 @@ paths:
           $ref: '../shared/common/responses.yaml#/components/responses/Forbidden'
         '500':
           $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
-  /api/v1/social/resonance/relationships/{relationshipId}/update:
+  /social/resonance/relationships/{relationshipId}/update:
     parameters:
       - $ref: './schemas/resonance-support.yaml#/components/parameters/RelationshipIdPath'
     post:
@@ -253,7 +253,7 @@ paths:
           $ref: '../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
         '500':
           $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
-  /api/v1/social/resonance/history:
+  /social/resonance/history:
     get:
       summary: Получить историю изменений индекса доверия
       description: |
@@ -301,7 +301,7 @@ paths:
           $ref: '../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
         '500':
           $ref: '../shared/common/responses.yaml#/components/responses/InternalServerError'
-  /api/v1/social/resonance/forecasts:
+  /social/resonance/forecasts:
     get:
       summary: Получить прогноз индекса доверия
       description: |
