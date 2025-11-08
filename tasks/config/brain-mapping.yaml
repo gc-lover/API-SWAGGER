@@ -1,20 +1,3 @@
-  - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
-    target: "api/v1/social/player-orders.yaml"
-    task_id: "API-TASK-SOC-PO-Create"
-    task_file: "tasks/active/queue/task-SOC-PO-create.md"
-    status: "completed"
-    created: "2025-11-08 09:53"
-    version: "1.0.0"
-    updated: "2025-11-08 10:08"
-    completed: "2025-11-08 10:08"
-    related_sources:
-      - ".BRAIN/02-gameplay/social/player-orders-system.md"
-      - ".BRAIN/02-gameplay/social/player-orders-types.md"
-      - ".BRAIN/02-gameplay/economy/economy-infrastructure.md"
-      - ".BRAIN/02-gameplay/world/world-state/player-impact-systems.md"
-    related_targets:
-      - "api/v1/social/player-orders.yaml"
-      - "api/v1/social/player-orders-components.yaml"
 # Маппинг документов .BRAIN -> задания в API-SWAGGER
 
 # Этот файл отслеживает связи между документами из .BRAIN и заданиями в API-SWAGGER.
@@ -202,10 +185,10 @@ mappings:
     target: "api/v1/social/resonance.yaml"
     task_id: "API-TASK-243"
     task_file: "tasks/active/queue/task-243-social-resonance-api.md"
-    status: "queued"
+    status: "in_progress"
     created: "2025-11-07 16:53"
     version: "1.0.0"
-    updated: "2025-11-07 16:53"
+    updated: "2025-11-08 10:02"
     related_sources:
       - ".BRAIN/02-gameplay/social/social-overview.md"
       - ".BRAIN/02-gameplay/social/social-campaigns.md"
@@ -713,6 +696,56 @@ mappings:
     related_targets:
       - "api/v1/gameplay/social/personal-npc-tool.yaml"
   
+  - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+    target: "api/v1/social/player-orders.yaml"
+    task_id: "API-TASK-317"
+    task_file: "tasks/active/queue/task-317-player-orders-creation-api.md"
+    status: "queued"
+    created: "2025-11-08 12:10"
+    version: "1.0.0"
+    updated: "2025-11-08 12:10"
+    related_sources:
+      - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-economy.md"
+      - ".BRAIN/_02-gameplay/social/relationships-system-детально.md"
+    related_targets:
+      - "api/v1/social/player-orders.yaml"
+      - "api/v1/social/player-orders-components.yaml"
+
+  - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+    target: "api/v1/economy/player-orders/budget.yaml"
+    task_id: "API-TASK-318"
+    task_file: "tasks/active/queue/task-318-player-orders-budget-api.md"
+    status: "queued"
+    created: "2025-11-08 12:35"
+    version: "1.0.0"
+    updated: "2025-11-08 12:35"
+    related_sources:
+      - ".BRAIN/_02-gameplay/social/player-orders-economy.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/_05-technical/economy/escrow-pipeline.md"
+    related_targets:
+      - "api/v1/economy/player-orders/budget.yaml"
+      - "api/v1/economy/player-orders/budget-components.yaml"
+
+  - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+    target: "api/v1/world/player-orders/validation.yaml"
+    task_id: "API-TASK-319"
+    task_file: "tasks/active/queue/task-319-player-orders-validation-api.md"
+    status: "queued"
+    created: "2025-11-08 12:40"
+    version: "1.0.0"
+    updated: "2025-11-08 12:40"
+    related_sources:
+      - ".BRAIN/_02-gameplay/social/player-orders-advanced.md"
+      - ".BRAIN/_02-gameplay/world/world-state/player-impact-systems.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/_02-gameplay/social/npc-hiring-system-детально.md"
+    related_targets:
+      - "api/v1/world/player-orders/validation.yaml"
+      - "api/v1/world/player-orders/validation-components.yaml"
+
   - source: ".BRAIN/02-gameplay/social/relationships-system.md"
     target: "api/v1/gameplay/social/relationships.yaml"
     task_id: "API-TASK-060"
@@ -3217,7 +3250,60 @@ mappings:
     created: "2025-11-07 11:20"
     version: "v1.0.0"
     updated: "2025-11-07 11:20"
+
+  - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+    target: "api/v1/social/player-orders.yaml"
+    task_id: "API-TASK-317"
+    task_file: "tasks/active/queue/task-317-player-orders-creation-api.md"
+    status: "queued"
+    created: "2025-11-08 12:10"
+    version: "v1.0.0"
+    updated: "2025-11-08 12:10"
+    related_sources:
+      - ".BRAIN/_02-gameplay/social/player-orders-system.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-economy.md"
+      - ".BRAIN/_02-gameplay/social/relationships-system-детально.md"
+      - ".BRAIN/_02-gameplay/social/npc-hiring-system-детально.md"
+    related_targets:
+      - "api/v1/social/player-orders-components.yaml"
+      - "api/v1/economy/player-orders/budget.yaml"
+      - "api/v1/world/player-orders/validation.yaml"
   
+  - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+    target: "api/v1/economy/player-orders/budget.yaml"
+    task_id: "API-TASK-318"
+    task_file: "tasks/active/queue/task-318-player-orders-budget-api.md"
+    status: "queued"
+    created: "2025-11-08 15:25"
+    version: "v1.0.0"
+    updated: "2025-11-08 15:25"
+    related_sources:
+      - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-economy.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+    related_targets:
+      - "api/v1/social/player-orders.yaml"
+      - "api/v1/economy/player-orders/budget-components.yaml"
+      - "api/v1/economy/player-orders/budget-examples.yaml"
+
+  - source: ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+    target: "api/v1/world/player-orders/validation.yaml"
+    task_id: "API-TASK-319"
+    task_file: "tasks/active/queue/task-319-player-orders-validation-api.md"
+    status: "queued"
+    created: "2025-11-08 15:35"
+    version: "v1.0.0"
+    updated: "2025-11-08 15:35"
+    related_sources:
+      - ".BRAIN/_02-gameplay/social/player-orders-system-детально.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-reputation-детально.md"
+      - ".BRAIN/_05-technical/content-generation/city-life-population-algorithm.md"
+    related_targets:
+      - "api/v1/social/player-orders.yaml"
+      - "api/v1/world/player-orders/validation-components.yaml"
+      - "api/v1/world/player-orders/validation-examples.yaml"
+
   - source: ".BRAIN/02-gameplay/social/player-orders-execution.md"
     target: "api/v1/social/player-orders/player-orders-execution.yaml"
     task_id: "API-TASK-158"
