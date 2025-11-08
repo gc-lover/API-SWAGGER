@@ -128,7 +128,7 @@ mappings:
     related_targets:
       - "api/v1/game/initial-state.yaml"
       - "api/v1/combat/combat.yaml"
-      - "api/v1/inventory/inventory.yaml"
+      - "api/v1/economy/inventory/inventory.yaml"
       - "api/v1/quests/quests.yaml"
 
   - source: ".BRAIN/05-technical/mvp-content/events.json"
@@ -377,3 +377,4 @@ mappings:
       - ".BRAIN/02-gameplay/progression/classes-overview.md"
     related_targets:
       - "api/v1/gameplay/progression/classes.yaml"
+

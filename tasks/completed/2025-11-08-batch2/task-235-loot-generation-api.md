@@ -13,7 +13,7 @@
 
 Сформировать OpenAPI спецификацию базовой системы генерации лута: таблицы, вероятности, распределение по режимам (solo/party/raid), roll системы, личный/общий лут, garant drop.
 
-**Что нужно сделать:** Создать `api/v1/loot/loot-generation.yaml`, используя `.BRAIN/05-technical/backend/loot-system/part1-loot-generation.md`.
+**Что нужно сделать:** Создать `api/v1/gameplay/loot/loot-generation.yaml`, используя `.BRAIN/05-technical/backend/loot-system/part1-loot-generation.md`.
 
 ---
 
@@ -63,7 +63,7 @@
 
 ## 📁 Целевая структура API
 
-- **Файл:** `api/v1/loot/loot-generation.yaml`
+- **Файл:** `api/v1/gameplay/loot/loot-generation.yaml`
 - **Версия:** v1
 - **Формат:** OpenAPI 3.0.3
 
@@ -219,7 +219,7 @@ API-SWAGGER/api/v1/loot/
 
 ## 📦 Результат
 
-- Создана спецификация `api/v1/loot/loot-generation.yaml` с 20 REST/WS операциями.
+- Создана спецификация `api/v1/gameplay/loot/loot-generation.yaml` с 20 REST/WS операциями.
 - Добавлены файлы `loot-generation-components.yaml`, `loot-generation-management-components.yaml`, `loot-generation-examples.yaml`.
 - Задание перенесено в completed, статусы в `brain-mapping.yaml` и `implementation-tracker.yaml` обновлены.
 
@@ -240,4 +240,5 @@ API-SWAGGER/api/v1/loot/
 - Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
 - В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
 - WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 

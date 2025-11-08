@@ -332,7 +332,7 @@ mappings:
       - ".BRAIN/05-technical/backend/progression-backend.md"
       - ".BRAIN/05-technical/backend/notification-system.md"
     related_targets:
-      - "api/v1/inventory/inventory.yaml"
+      - "api/v1/economy/inventory/inventory.yaml"
       - "api/v1/economy/shop/shop-system.yaml"
 
   - source: ".BRAIN/05-technical/backend/loot-system/part2-advanced-loot.md"
@@ -350,7 +350,7 @@ mappings:
       - ".BRAIN/05-technical/backend/achievement-system.md"
       - ".BRAIN/05-technical/backend/notification-system.md"
     related_targets:
-      - "api/v1/loot/loot-generation.yaml"
+      - "api/v1/gameplay/loot/loot-generation.yaml"
       - "api/v1/inventory/inventory-advanced.yaml"
 
   - source: ".BRAIN/05-technical/backend/player-character-mgmt/part2-switching-management.md"
@@ -368,5 +368,6 @@ mappings:
       - ".BRAIN/05-technical/backend/inventory-system/part2-advanced-features.md"
       - ".BRAIN/05-technical/backend/progression-backend.md"
     related_targets:
-      - "api/v1/players/players.yaml"
+      - "api/v1/characters/players/players.yaml"
       - "api/v1/session/session-lifecycle.yaml"
+

@@ -18,7 +18,7 @@ mappings:
       - ".BRAIN/05-technical/backend/authentication-authorization-system.md"
       - ".BRAIN/05-technical/backend/world/starting-areas.md"
     related_targets:
-      - "api/v1/players/players.yaml"
+      - "api/v1/characters/players/players.yaml"
       - "api/v1/players/character-switching.yaml"
 
   - source: ".BRAIN/05-technical/backend/achievement/achievement-core.md"
@@ -364,3 +364,4 @@ mappings:
       - "api/v1/party/party-system.yaml"
       - "api/v1/realtime/realtime-zones.yaml"
       - "api/v1/voice/voice-lobby.yaml"
+

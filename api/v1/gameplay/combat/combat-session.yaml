@@ -1,23 +1,17 @@
+# Target Architecture:
+# - Microservice: gameplay-service (port 8083)
+# - API Base: /api/v1/gameplay/combat
+# - Dependencies: progression-service, inventory-service, loot-service, achievement-service, quest-service, realtime-service, analytics-service, incident-service, notification-service
+# - Frontend Module: modules/combat/session (useCombatStore)
+# - UI: CombatHUD, TurnOrderTimeline, DamageLog, StatusEffectBar, CombatResultModal, RespawnPrompt
+# - Forms: AbilityCastForm, ConsumableUseForm, RespawnChoiceForm
+# - Hooks: useCombatSession, useTurnManager, useDamagePreview, useLagCompensation
+
 openapi: 3.0.3
 info:
   title: Combat Session API
+  description: "Управление боевыми сессиями NECPGAME: создание, действия, лаг-компенсация, вознаграждения и realtime события."
   version: 1.0.0
-  description: |
-    API для backend боевых сессий.
-    КРИТИЧЕСКИЙ MVP БЛОКЕР! Без этого нет боевого геймплея!
-    
-    Функционал:
-    - Combat instance creation (создание боевой сессии)
-    - Turn order (для turn-based элементов)
-    - Damage calculation (расчет урона)
-    - Death handling (обработка смерти)
-    - Combat rewards (опыт, лут)
-    - Session state management
-    - Participant tracking
-    - Combat events & logs
-    
-    Источник: .BRAIN/05-technical/backend/combat-session-backend.md v1.0.0
-
   x-microservice:
     name: gameplay-service
     port: 8083
@@ -29,507 +23,306 @@ servers:
     description: Production API Gateway
   - url: http://localhost:8080/api/v1
     description: Local API Gateway
-
+security:
+  - BearerAuth: []
 tags:
-  - name: Combat Sessions
-    description: Управление боевыми сессиями
-  - name: Combat Actions
-    description: Боевые действия
-  - name: Combat Results
-    description: Результаты боя
-
+  - name: Sessions
+    description: Жизненный цикл боевых сессий
+  - name: Actions
+    description: Боевые действия и лаг-компенсация
+  - name: Rewards
+    description: Завершение, награды и метрики
 paths:
   /gameplay/combat/sessions:
     post:
+      tags: [Sessions]
       summary: Создать боевую сессию
-      operationId: createCombatSession
-      tags: [Combat Sessions]
       requestBody:
         required: true
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/CreateCombatSessionRequest'
+            schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatSessionCreateRequest' }
+            examples:
+              raidCreate:
+                $ref: './combat-session-examples.yaml#/components/examples/RaidSessionCreate'
       responses:
         '201':
-          description: Боевая сессия создана
+          description: Сессия создана
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/CombatSession'
+              schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatSession' }
         '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-
-  /gameplay/combat/sessions/{session_id}:
+          description: Некорректные параметры или конфликты
+          content:
+            application/json:
+              schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /gameplay/combat/sessions/{sessionId}:
+    parameters:
+      - $ref: './combat-session-components.yaml#/components/parameters/SessionId'
     get:
+      tags: [Sessions]
       summary: Получить состояние боевой сессии
-      operationId: getCombatSession
-      tags: [Combat Sessions]
-      parameters:
-        - name: session_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
       responses:
         '200':
-          description: Состояние боя
+          description: Состояние, участники и эффекты
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/CombatSession'
-        '404':
-          $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
-
-  /gameplay/combat/sessions/{session_id}/damage:
+              schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatSessionStateResponse' }
+              examples:
+                sessionState:
+                  $ref: './combat-session-examples.yaml#/components/examples/CombatSessionState'
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '404': { $ref: '../../shared/common/responses.yaml#/components/responses/NotFound' }
+  /gameplay/combat/sessions/{sessionId}/join:
+    parameters:
+      - $ref: './combat-session-components.yaml#/components/parameters/SessionId'
     post:
-      summary: Нанести урон
-      operationId: applyDamage
-      tags: [Combat Actions]
-      parameters:
-        - name: session_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+      tags: [Sessions]
+      summary: Присоединиться к существующему бою
       requestBody:
         required: true
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/DamageRequest'
+            schema: { $ref: './combat-session-components.yaml#/components/schemas/SessionJoinRequest' }
       responses:
         '200':
-          description: Урон применен
+          description: Участник добавлен/переведён в spectate
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/DamageResult'
-        '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-
-  /gameplay/combat/sessions/{session_id}/turn/next:
+              schema: { $ref: './combat-session-components.yaml#/components/schemas/Participant' }
+        '400': { description: Присоединение невозможно, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /gameplay/combat/sessions/{sessionId}/actions:
+    parameters:
+      - $ref: './combat-session-components.yaml#/components/parameters/SessionId'
     post:
-      summary: Следующий ход
-      operationId: nextTurn
-      tags: [Combat Actions]
-      description: Для turn-based combat
-      parameters:
-        - name: session_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Новый ход начат
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  current_turn:
-                    type: integer
-                  active_participant:
-                    $ref: '#/components/schemas/Participant'
-
-  /gameplay/combat/sessions/{session_id}/end:
-    post:
-      summary: Завершить бой
-      operationId: endCombatSession
-      tags: [Combat Results]
-      parameters:
-        - name: session_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+      tags: [Actions]
+      summary: Выполнить действие в боевой сессии
       requestBody:
         required: true
         content:
           application/json:
-            schema:
-              type: object
-              properties:
-                outcome:
-                  type: string
-                  enum: [VICTORY, DEFEAT, DRAW, TIMEOUT]
+            schema: { $ref: './combat-session-components.yaml#/components/schemas/ActionRequest' }
+            examples:
+              abilityCast:
+                $ref: './combat-session-examples.yaml#/components/examples/ActionRequest'
       responses:
         '200':
-          description: Бой завершен
+          description: Действие принято и выполнено
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/CombatEndResult'
-
-  /gameplay/combat/sessions/{session_id}/events:
+              schema: { $ref: './combat-session-components.yaml#/components/schemas/ActionResult' }
+        '400': { description: Действие отклонено, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+        '409': { description: Нарушен порядок ходов, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
+  /gameplay/combat/sessions/{sessionId}/turn/end:
+    parameters:
+      - $ref: './combat-session-components.yaml#/components/parameters/SessionId'
+    post:
+      tags: [Actions]
+      summary: Завершить текущий ход
+      responses:
+        '200':
+          description: "Ход завершён, следующий определён"
+        '400': { description: Нельзя завершить ход, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /gameplay/combat/sessions/{sessionId}/damage/preview:
+    parameters:
+      - $ref: './combat-session-components.yaml#/components/parameters/SessionId'
+    post:
+      tags: [Actions]
+      summary: Получить предварительный расчёт урона
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './combat-session-components.yaml#/components/schemas/DamagePreviewRequest' }
+      responses:
+        '200':
+          description: Предварительный расчёт урона
+          content:
+            application/json:
+              schema: { $ref: './combat-session-components.yaml#/components/schemas/DamagePreviewResponse' }
+        '400': { description: Расчёт невозможен, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /gameplay/combat/sessions/{sessionId}/lag-compensation:
+    parameters:
+      - $ref: './combat-session-components.yaml#/components/parameters/SessionId'
+    post:
+      tags: [Actions]
+      summary: Запрос лаг-компенсации события
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './combat-session-components.yaml#/components/schemas/LagCompensationRequest' }
+      responses:
+        '200':
+          description: Пересчёт выполнен
+          content:
+            application/json:
+              schema: { $ref: './combat-session-components.yaml#/components/schemas/LagCompensationResponse' }
+        '400': { description: Пересчёт невозможен, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /gameplay/combat/sessions/{sessionId}/revive:
+    parameters:
+      - $ref: './combat-session-components.yaml#/components/parameters/SessionId'
+    post:
+      tags: [Actions]
+      summary: Воскрешение участника
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './combat-session-components.yaml#/components/schemas/ReviveRequest' }
+      responses:
+        '200':
+          description: "Участник оживлён"
+        '400': { description: Воскрешение недоступно, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /gameplay/combat/sessions/{sessionId}/surrender:
+    parameters:
+      - $ref: './combat-session-components.yaml#/components/parameters/SessionId'
+    post:
+      tags: [Actions]
+      summary: Инициировать капитуляцию команды
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './combat-session-components.yaml#/components/schemas/SurrenderRequest' }
+      responses:
+        '202':
+          description: "Голосование начато"
+        '400': { description: Капитуляция невозможна, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /gameplay/combat/sessions/{sessionId}/complete:
+    parameters:
+      - $ref: './combat-session-components.yaml#/components/parameters/SessionId'
+    post:
+      tags: [Rewards]
+      summary: Завершить бой и выдать награды
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './combat-session-components.yaml#/components/schemas/SessionCompleteRequest' }
+      responses:
+        '200':
+          description: Бой завершён, награды выданы
+          content:
+            application/json:
+              schema: { $ref: './combat-session-components.yaml#/components/schemas/SessionCompleteResponse' }
+        '400': { description: Завершение невозможно, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /gameplay/combat/sessions/{sessionId}/abort:
+    parameters:
+      - $ref: './combat-session-components.yaml#/components/parameters/SessionId'
+    post:
+      tags: [Rewards]
+      summary: Аварийно завершить бой
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: './combat-session-components.yaml#/components/schemas/SessionAbortRequest' }
+      responses:
+        '200':
+          description: "Сессия завершена аварийно"
+        '400': { description: Операция отклонена, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /gameplay/combat/sessions/{sessionId}/log:
+    parameters:
+      - $ref: './combat-session-components.yaml#/components/parameters/SessionId'
     get:
-      summary: Получить лог событий боя
-      operationId: getCombatEvents
-      tags: [Combat Sessions]
+      tags: [Rewards]
+      summary: Получить журнал боя
       parameters:
-        - name: session_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: since_event_id
-          in: query
-          description: Получить события после указанного ID
-          schema:
-            type: integer
+        - in: query
+          name: from
+          schema: { type: string, format: date-time }
+        - in: query
+          name: to
+          schema: { type: string, format: date-time }
       responses:
         '200':
-          description: События боя
+          description: Журнал событий
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  events:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/CombatEvent'
-
-  /gameplay/combat/sessions/{session_id}/participants/{participant_id}/status:
-    put:
-      summary: Обновить статус участника
-      operationId: updateParticipantStatus
-      tags: [Combat Actions]
-      parameters:
-        - name: session_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: participant_id
-          in: path
-          required: true
-          schema:
-            type: string
+              schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatLogResponse' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /gameplay/combat/sessions/{sessionId}/metrics:
+    parameters:
+      - $ref: './combat-session-components.yaml#/components/parameters/SessionId'
+    get:
+      tags: [Rewards]
+      summary: Аналитические метрики сессии
+      responses:
+        '200':
+          description: Метрики боя
+          content:
+            application/json:
+              schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatMetricsResponse' }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
+  /gameplay/combat/sessions/{sessionId}/simulate:
+    parameters:
+      - $ref: './combat-session-components.yaml#/components/parameters/SessionId'
+    post:
+      tags: [Rewards]
+      summary: Запуск симуляции боя (GM/Design)
+      security:
+        - ServiceToken: []
       requestBody:
         required: true
         content:
           application/json:
-            schema:
-              type: object
-              properties:
-                hp:
-                  type: integer
-                status_effects:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/StatusEffect'
+            schema: { $ref: './combat-session-components.yaml#/components/schemas/SimulationRequest' }
       responses:
-        '200':
-          description: Статус обновлен
+        '202':
+          description: "Симуляция запущена"
+        '400': { description: Ошибка симуляции, content: { application/json: { schema: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' } } } }
+        '401': { $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized' }
 
+x-websocket:
+  url: wss://api.necp.game/v1/gameplay/combat/sessions/{sessionId}/stream
+  description: Realtime события боевой сессии
+  parameters:
+    - name: sessionId
+      in: path
+      required: true
+      schema: { type: string }
+  messages:
+    actionExecuted:
+      summary: Действие выполнено
+      payload: { $ref: './combat-session-components.yaml#/components/schemas/ActionEvent' }
+    turnStart:
+      summary: Начало нового хода
+      payload: { $ref: './combat-session-components.yaml#/components/schemas/TurnEvent' }
+    damageApplied:
+      summary: Нанесён урон
+      payload: { $ref: './combat-session-components.yaml#/components/schemas/DamageEvent' }
+    statusUpdated:
+      summary: Обновлены эффекты/статусы
+      payload: { $ref: './combat-session-components.yaml#/components/schemas/StatusEvent' }
+    participantDead:
+      summary: Участник погиб
+      payload: { $ref: './combat-session-components.yaml#/components/schemas/ParticipantEvent' }
+    sessionCompleted:
+      summary: Бой завершён
+      payload: { $ref: './combat-session-components.yaml#/components/schemas/SessionCompleteEvent' }
 components:
-  schemas:
-    CreateCombatSessionRequest:
-      type: object
-      required:
-        - combat_type
-        - participants
-      properties:
-        combat_type:
-          type: string
-          enum: [PVE, PVP_DUEL, PVP_ARENA, RAID_BOSS, EXTRACTION]
-        participants:
-          type: array
-          items:
-            $ref: '#/components/schemas/ParticipantInit'
-        location_id:
-          type: string
-          description: ID локации, где происходит бой
-        settings:
-          type: object
-          properties:
-            turn_based:
-              type: boolean
-              default: false
-            time_limit_seconds:
-              type: integer
-              nullable: true
-
-    ParticipantInit:
-      type: object
-      required:
-        - type
-        - id
-        - team
-      properties:
-        type:
-          type: string
-          enum: [PLAYER, NPC, AI_ENEMY]
-        id:
-          type: string
-          description: character_id для игроков, npc_id для NPC
-        team:
-          type: string
-          example: "A"
-        initial_position:
-          type: object
-          properties:
-            x:
-              type: number
-            y:
-              type: number
-            z:
-              type: number
-
-    CombatSession:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        combat_type:
-          type: string
-          enum: [PVE, PVP_DUEL, PVP_ARENA, RAID_BOSS, EXTRACTION]
-        status:
-          type: string
-          enum: [STARTING, ACTIVE, PAUSED, ENDED]
-        participants:
-          type: array
-          items:
-            $ref: '#/components/schemas/Participant'
-        current_turn:
-          type: integer
-          nullable: true
-        active_participant_id:
-          type: string
-          nullable: true
-        started_at:
-          type: string
-          format: date-time
-        ended_at:
-          type: string
-          format: date-time
-          nullable: true
-        duration_seconds:
-          type: integer
-        winner_team:
-          type: string
-          nullable: true
-
-    Participant:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum: [PLAYER, NPC, AI_ENEMY]
-        team:
-          type: string
-        character_name:
-          type: string
-        hp:
-          type: integer
-        max_hp:
-          type: integer
-        status:
-          type: string
-          enum: [ALIVE, DOWNED, DEAD]
-        status_effects:
-          type: array
-          items:
-            $ref: '#/components/schemas/StatusEffect'
-        position:
-          type: object
-          properties:
-            x:
-              type: number
-            y:
-              type: number
-            z:
-              type: number
-        stats:
-          type: object
-          properties:
-            damage_dealt:
-              type: integer
-            damage_taken:
-              type: integer
-            kills:
-              type: integer
-            deaths:
-              type: integer
-
-    StatusEffect:
-      type: object
-      properties:
-        effect_id:
-          type: string
-        name:
-          type: string
-          example: "Burning"
-        type:
-          type: string
-          enum: [BUFF, DEBUFF, DOT, HOT, STUN, ROOT]
-        duration_seconds:
-          type: integer
-        stacks:
-          type: integer
-          default: 1
-
-    DamageRequest:
-      type: object
-      required:
-        - attacker_id
-        - target_id
-        - damage_amount
-      properties:
-        attacker_id:
-          type: string
-        target_id:
-          type: string
-        damage_amount:
-          type: integer
-        damage_type:
-          type: string
-          enum: [PHYSICAL, ENERGY, FIRE, ICE, ELECTRIC, POISON, PSYCHIC]
-        is_critical:
-          type: boolean
-          default: false
-        weapon_id:
-          type: string
-          format: uuid
-          nullable: true
-        ability_id:
-          type: string
-          nullable: true
-
-    DamageResult:
-      type: object
-      properties:
-        damage_dealt:
-          type: integer
-          description: Финальный урон после защиты
-        damage_blocked:
-          type: integer
-          description: Урон, заблокированный броней/щитом
-        is_critical:
-          type: boolean
-        target_hp_before:
-          type: integer
-        target_hp_after:
-          type: integer
-        target_killed:
-          type: boolean
-        status_effects_applied:
-          type: array
-          items:
-            $ref: '#/components/schemas/StatusEffect'
-
-    CombatEndResult:
-      type: object
-      properties:
-        session_id:
-          type: string
-          format: uuid
-        outcome:
-          type: string
-          enum: [VICTORY, DEFEAT, DRAW, TIMEOUT]
-        winner_team:
-          type: string
-          nullable: true
-        duration_seconds:
-          type: integer
-        participant_results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ParticipantResult'
-        rewards:
-          $ref: '#/components/schemas/CombatRewards'
-
-    ParticipantResult:
-      type: object
-      properties:
-        participant_id:
-          type: string
-        type:
-          type: string
-        final_status:
-          type: string
-          enum: [ALIVE, DOWNED, DEAD]
-        stats:
-          type: object
-          properties:
-            damage_dealt:
-              type: integer
-            damage_taken:
-              type: integer
-            kills:
-              type: integer
-            deaths:
-              type: integer
-            headshots:
-              type: integer
-            abilities_used:
-              type: integer
-
-    CombatRewards:
-      type: object
-      properties:
-        experience:
-          type: integer
-        currency:
-          type: object
-          properties:
-            eddies:
-              type: integer
-        loot:
-          type: array
-          items:
-            type: object
-            properties:
-              item_id:
-                type: string
-                format: uuid
-              quantity:
-                type: integer
-              rarity:
-                type: string
-
-    CombatEvent:
-      type: object
-      properties:
-        event_id:
-          type: integer
-        timestamp:
-          type: string
-          format: date-time
-        event_type:
-          type: string
-          enum: [DAMAGE, HEAL, KILL, ABILITY_USED, STATUS_EFFECT, TURN_START, TURN_END]
-        actor_id:
-          type: string
-          nullable: true
-        target_id:
-          type: string
-          nullable: true
-        data:
-          type: object
-          additionalProperties: true
-          example:
-            damage: 150
-            is_critical: true
-            weapon: "Mantis Blades"
-
   securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-
-security:
-  - BearerAuth: []
+    BearerAuth: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/BearerAuth' }
+    ServiceToken: { $ref: '../../shared/common/security.yaml#/components/securitySchemes/ServiceToken' }
+  parameters:
+    SessionId: { $ref: './combat-session-components.yaml#/components/parameters/SessionId' }
+  schemas:
+    CombatSession: { $ref: './combat-session-components.yaml#/components/schemas/CombatSession' }
+    CombatError: { $ref: './combat-session-components.yaml#/components/schemas/CombatError' }
+    ActionResult: { $ref: './combat-session-components.yaml#/components/schemas/ActionResult' }
+  examples:
+    RaidSessionCreate: { $ref: './combat-session-examples.yaml#/components/examples/RaidSessionCreate' }
+    CombatSessionState: { $ref: './combat-session-examples.yaml#/components/examples/CombatSessionState' }
+    ActionRequest: { $ref: './combat-session-examples.yaml#/components/examples/ActionRequest' }
 

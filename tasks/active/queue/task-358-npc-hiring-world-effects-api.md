@@ -11,7 +11,7 @@
 ## 📋 Краткое описание
 
 Подготовить спецификацию `NPC Hiring World Effects API`, агрегирующую влияние найма NPC на мир: индексы занятости, кризисы, миграцию и события.  
-**Целевой файл:** `api/v1/world/npc-hiring/effects.yaml`
+**Целевой файл:** `api/v1/world/player-orders/effects.yaml`
 
 ---
 
@@ -39,7 +39,7 @@
 - §1–4: социальная экосистема, экономическое влияние, фракционные эффекты, геймплей.  
 - §5: события и кризисы (забастовки, похищения, миграция, чёрный рынок).  
 - §6: UX (карта найма, HR-дэшборд, сводки, уведомления).  
-- §9: REST макеты (`GET /world/npc-hiring/effects`, `POST /world/npc-hiring/effects/recalculate`).  
+- §9: REST макеты (`GET /world/player-orders/effects`, `POST /world/player-orders/effects/recalculate`).  
 - §10–11: Kafka события (`world.npc-hiring.impact`, `world.npc-hiring.crisis`) и метрики.
 
 ### Дополнительные источники
@@ -55,7 +55,7 @@
 ## 📁 Целевая структура API
 
 **Репозиторий:** `API-SWAGGER`  
-**Файл:** `api/v1/world/npc-hiring/effects.yaml`  
+**Файл:** `api/v1/world/player-orders/effects.yaml`  
 **Тип:** OpenAPI 3.0.3 (YAML)
 
 **Структура:**
@@ -106,7 +106,7 @@ API-SWAGGER/
 # - Layouts: WorldHiringLayout, NpcHiringInsightsLayout
 # - Hooks: useNpcHiringImpact, useNpcHiringForecast, useNpcHiringCrises, useNpcHiringAlerts
 # - Events: world.npc-hiring.impact, world.npc-hiring.crisis, economy.npc-hiring.index, social.npc-hiring.alert
-# - API Base: /api/v1/world/npc-hiring/*
+# - API Base: /api/v1/world/player-orders/*
 ```
 
 ---
@@ -122,22 +122,22 @@ API-SWAGGER/
 7. **Shared components:** security/responses/pagination, вынести схемы/примеры, соблюдать лимит 400 строк.  
 8. **Коды ошибок:** пересчёт в процессе, отсутствующие данные, блокировки кризисов.  
 9. **Прописать метрики и их использование в аналитике.**  
-10. **Прогнать `scripts/validate-swagger.ps1`, обновить README в `world/npc-hiring`.**
+10. **Прогнать `scripts/validate-swagger.ps1`, обновить README в `world/player-orders`.**
 
 ---
 
 ## 🔌 Эндпоинты
 
-1. **GET `/world/npc-hiring/effects`** — текущие индексы по регионам/фракциям.  
-2. **GET `/world/npc-hiring/effects/{regionId}`** — детализация региона (impact, crises, forecast).  
-3. **POST `/world/npc-hiring/effects/recalculate`** — пересчёт индексов и генерация world-events.  
-4. **GET `/world/npc-hiring/effects/history`** — временные ряды (пагинация).  
-5. **GET `/world/npc-hiring/effects/crises`** — активные кризисы, статусы, действия.  
-6. **POST `/world/npc-hiring/effects/crises/{crisisId}/ack`** — подтверждение обработки кризиса.  
-7. **GET `/world/npc-hiring/effects/forecast`** — прогнозы занятости/спроса.  
-8. **GET `/world/npc-hiring/effects/alerts`** — алерты для UI и уведомлений.  
-9. **GET `/world/npc-hiring/effects/summary`** — агрегаты (по городам, фракциям, секторам).  
-10. **GET `/world/npc-hiring/effects/export`** — экспорт данных (CSV/JSON).
+1. **GET `/world/player-orders/effects`** — текущие индексы по регионам/фракциям.  
+2. **GET `/world/player-orders/effects/{regionId}`** — детализация региона (impact, crises, forecast).  
+3. **POST `/world/player-orders/effects/recalculate`** — пересчёт индексов и генерация world-events.  
+4. **GET `/world/player-orders/effects/history`** — временные ряды (пагинация).  
+5. **GET `/world/player-orders/effects/crises`** — активные кризисы, статусы, действия.  
+6. **POST `/world/player-orders/effects/crises/{crisisId}/ack`** — подтверждение обработки кризиса.  
+7. **GET `/world/player-orders/effects/forecast`** — прогнозы занятости/спроса.  
+8. **GET `/world/player-orders/effects/alerts`** — алерты для UI и уведомлений.  
+9. **GET `/world/player-orders/effects/summary`** — агрегаты (по городам, фракциям, секторам).  
+10. **GET `/world/player-orders/effects/export`** — экспорт данных (CSV/JSON).
 
 ---
 
@@ -168,12 +168,12 @@ API-SWAGGER/
 
 ## ✅ Критерии приемки
 
-1. Файл `api/v1/world/npc-hiring/effects.yaml` создан/обновлён и проходит `scripts/validate-swagger.ps1`.  
+1. Файл `api/v1/world/player-orders/effects.yaml` создан/обновлён и проходит `scripts/validate-swagger.ps1`.  
 2. В начале файла присутствует `Target Architecture` блок.  
 3. Реализованы все указанные эндпоинты, схемы и примеры.  
 4. Подключены shared security/responses/pagination.  
 5. Документированы Kafka события и очередь кризисов.  
-6. README в `world/npc-hiring` обновлён (в рамках реализации).  
+6. README в `world/player-orders` обновлён (в рамках реализации).  
 7. Task отражён в `brain-mapping.yaml`.  
 8. `.BRAIN` документ обновлён (API Tasks Status).  
 9. Указаны зависимости на social/economy сервисы, mentorship, player orders.  
@@ -199,4 +199,6 @@ A: Да, включить `keyNpcIds[]` и ссылки на workforce/relations
 ---
 
 **Следующие шаги исполнителя:** реализовать OpenAPI-файл, вынести компоненты, описать интеграции, подготовить примеры и прогнать проверки.
+
+
 

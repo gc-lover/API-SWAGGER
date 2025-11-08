@@ -453,7 +453,7 @@ CharacterStatus:
 
 - `api/v1/gameplay/actions/actions.yaml` - **API-TASK-034** - изменяют статус при отдыхе
 - `api/v1/combat/combat.yaml` - **API-TASK-032** - изменяют здоровье в бою
-- `api/v1/inventory/inventory.yaml` - **API-TASK-029** - восстанавливают здоровье/энергию
+- `api/v1/economy/inventory/inventory.yaml` - **API-TASK-029** - восстанавливают здоровье/энергию
 - `api/v1/quests/quests.yaml` - **API-TASK-030** - дают опыт за квесты
 - `api/v1/game/initial-state.yaml` - использует статус персонажа
 
@@ -519,4 +519,5 @@ A: В MVP навыки хранятся, но не прокачиваются а
 - Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
 - В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
 - WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 

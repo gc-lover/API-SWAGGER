@@ -399,7 +399,7 @@ API-SWAGGER/
 
 - `api/v1/combat/combat.yaml` - **API-TASK-032** - события могут инициировать бой
 - `api/v1/quests/quests.yaml` - **API-TASK-030** - события могут давать квесты
-- `api/v1/inventory/inventory.yaml` - **API-TASK-029** - события могут давать предметы
+- `api/v1/economy/inventory/inventory.yaml` - **API-TASK-029** - события могут давать предметы
 
 ---
 
@@ -464,4 +464,5 @@ A: Да, backend проверяет requirements и возвращает тол�
 - Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
 - В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
 - WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 

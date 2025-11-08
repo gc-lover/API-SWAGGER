@@ -46,7 +46,7 @@
 
 ## 📁 Целевая структура API
 
-**Целевой файл:** `api/v1/inventory/inventory.yaml`
+**Целевой файл:** `api/v1/economy/inventory/inventory.yaml`
 
 ---
 
@@ -83,7 +83,7 @@
 
 ## ✅ Критерии приемки
 
-1. Файл `api/v1/inventory/inventory.yaml` создан
+1. Файл `api/v1/economy/inventory/inventory.yaml` создан
 2. OpenAPI 3.0.3 валидный
 3. Все 6 endpoints описаны
 4. Все 6 моделей описаны
@@ -101,4 +101,5 @@
 - Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
 - В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
 - WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
+
 
