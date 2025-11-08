@@ -3750,6 +3750,24 @@ mappings:
       - "api/v1/gameplay/visuals/equipment.yaml"
       - "api/v1/economy/visuals/items-detailed.yaml"
 
+  - source: ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets-детально.md"
+    target: "api/v1/character/visuals/romance-states.yaml"
+    task_id: "API-TASK-334"
+    task_file: "tasks/active/queue/task-334-character-visuals-romance-states-api.md"
+    status: "queued"
+    created: "2025-11-08 18:01"
+    version: "v1.0.0"
+    updated: "2025-11-08 18:01"
+    related_sources:
+      - ".BRAIN/04-narrative/dialogues/quest-main-001-first-steps.md"
+      - ".BRAIN/_02-gameplay/social/player-orders-creation-детально.md"
+      - ".BRAIN/03-lore/visual-guides/visual-style-locations-детально.md"
+      - ".BRAIN/05-technical/content-generation/city-life-population-algorithm.md"
+    related_targets:
+      - "api/v1/character/visuals/archetypes-detailed.yaml"
+      - "api/v1/social/visuals/hubs-detailed.yaml"
+      - "api/v1/world/visuals/events.yaml"
+
   # === WORLD/SOCIAL VISUALS DETAILED (2025-11-08) ===
 
   - source: ".BRAIN/03-lore/_03-lore/visual-guides/visual-style-locations-детально.md"
