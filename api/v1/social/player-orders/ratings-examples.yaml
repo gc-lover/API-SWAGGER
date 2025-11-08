@@ -162,6 +162,36 @@ components:
           - "https://cdn.necpgame.com/orders/3d5bfb02/proof-1.png"
         createdAt: "2025-11-08T16:00:00Z"
         updatedAt: "2025-11-08T16:01:22Z"
+    ReviewListResponseExample:
+      summary: Список отзывов по заказу
+      value:
+        data:
+          - reviewId: "6ab5d3d2-53a8-4f68-8a9d-793b1a3f506d"
+            orderId: "3d5bfb02-6a27-4c9a-9747-6d1e0fb2c912"
+            reviewerId: "7fb0f6c8-93a0-4e9b-94dc-6a3fa0b2c1c2"
+            targetId: "2fa9bd27-bf54-479b-b5ed-ef30cd7a1c8d"
+            role: client
+            ratings:
+              quality: 5
+              communication: 4
+              professionalism: 5
+              fairness: 4
+            text: "Команда выполнила заказ качественно и без задержек."
+            flags: ["positive"]
+            moderation:
+              status: approved
+              toxicityScore: 0.03
+            sentimentScore: 0.82
+            locale: "ru-RU"
+            attachments:
+              - "https://cdn.necpgame.com/orders/3d5bfb02/proof-1.png"
+            createdAt: "2025-11-08T16:00:00Z"
+            updatedAt: "2025-11-08T16:01:22Z"
+        pagination:
+          page: 1
+          pageSize: 20
+          total: 1
+          totalPages: 1
     ReviewSubmissionResponseExample:
       summary: Ответ при создании отзыва
       value:
