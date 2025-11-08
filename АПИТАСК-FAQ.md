@@ -14,6 +14,19 @@
 
 ---
 
+### Q: Какой базовый URL и `x-microservice` нужно ставить?
+
+**A:** Backend полностью микросервисный. Всегда используй gateway `https://api.necp.game/v1/{domain}` и заполняй `info.x-microservice`:
+- `name`: имя сервиса (`social-service`, `world-service`, …)
+- `port`: dev-порт (`8081-8086`)
+- `domain`: домен (`social`, `world`, `economy`, …)
+- `base-path`: `/api/v1/{domain}`
+- `package`: Java пакет (`com.necpgame.socialservice`)
+
+Добавляй локальный сервер `http://localhost:8080/api/v1/{domain}` и WebSocket `wss://api.necp.game/v1/{domain}/...`.
+
+---
+
 ### Q: Как обрабатывать зависимости от других заданий?
 
 **A:** Проверь статус зависимых заданий в `brain-mapping.yaml`. Если зависимость еще не выполнена:

@@ -61,6 +61,25 @@
 - `/api/v1/gameplay/economy/*` → economy-service (8085) + modules/economy/
 - `/api/v1/gameplay/combat/*` → gameplay-service (8083) + modules/combat/
 
+### 4. Servers и `info.x-microservice` (ОБЯЗАТЕЛЬНО)
+
+- Каждый OpenAPI файл обязан иметь заполненный блок `info.x-microservice`:
+  - `name`: имя микросервиса (`auth-service`, `world-service`, …)
+  - `port`: dev-порт сервиса (`8081-8086`)
+  - `domain`: домен API (`auth`, `social`, `world`, …)
+  - `base-path`: базовый путь (`/api/v1/social`)
+  - `package`: Java пакет (`com.necpgame.socialservice`)
+- Секция `servers` содержит **только** gateway URL'ы:
+  ```yaml
+  servers:
+    - url: https://api.necp.game/v1/{domain}
+      description: Production API Gateway
+    - url: http://localhost:8080/api/v1/{domain}
+      description: Local API Gateway
+  ```
+- WebSocket каналы объявляются через `x-websocket` и используют домен `wss://api.necp.game/v1/{domain}/...`.
+- Прямые ссылки на микросервисы (`http://localhost:8084`) допускаются только для dev-документации; в Production всегда используется gateway.
+
 ### 4. Инлайн комментарии для исполнителя
 
 - В начале файла (в `info.description`): комментарии о назначении API, источниках, версиях

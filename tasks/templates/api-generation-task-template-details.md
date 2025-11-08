@@ -38,7 +38,7 @@
    - `domain` — домен API (auth, gameplay, social, economy, world и т.п.)
    - `base-path` — базовый путь (`/api/v1/gameplay/combat`)
    - `package` — Java пакет (`com.necpgame.gameplayservice`)
-2. Секция `servers` должна содержать единственный Production URL `https://api.necp.game/v1`; другие домены запрещены.
+2. Секция `servers` должна содержать gateway URL'ы `https://api.necp.game/v1/{domain}` (production) и `http://localhost:8080/api/v1/{domain}` (local). Другие домены запрещены.
 3. Если документируется новая область, **согласуйте** значения с архитектурой в `.BRAIN/05-technical/microservices-overview.md`.
 4. Скрипт генерации автоматически остановится, если метаданные отсутствуют — добавляйте их до отправки задания.
 

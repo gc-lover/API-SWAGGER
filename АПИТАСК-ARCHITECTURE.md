@@ -82,6 +82,8 @@ api/v1/
 | /api/v1/narrative/* | narrative-service | 8087 | Квесты, диалоги, сюжет |
 | /api/v1/admin/* | admin-service | 8088 | Администрирование, модерация |
 
+**Production:** все запросы проходят через единый gateway `https://api.necp.game/v1/{domain}`; прямые URL микросервисов (`http://localhost:{port}/api/v1/{domain}`) используются только в dev-окружении.
+
 **Дополнительные маппинги API путей:**
 
 | API Path | Микросервис | Порт | Примечание |

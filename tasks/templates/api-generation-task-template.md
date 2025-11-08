@@ -60,7 +60,7 @@
 ### Репозиторий: `API-SWAGGER`
 
 **Целевой файл:** `api/v1/gameplay/combat/shooting.yaml`
-> ⚠️ Бекенд состоит только из микросервисов. Убедись, что в задании определён конкретный микросервис, заполнен блок `info.x-microservice` и в секции `servers` указан единственный Production URL `https://api.necp.game/v1` без дополнительных окружений.
+> ⚠️ Бекенд состоит только из микросервисов. Убедись, что в задании определён конкретный микросервис, заполнен блок `info.x-microservice` и в секции `servers` указаны gateway URL'ы `https://api.necp.game/v1/{domain}` и `http://localhost:8080/api/v1/{domain}`.
 **API версия:** v1
 **Тип файла:** OpenAPI 3.0 Specification (YAML)
 
@@ -324,8 +324,10 @@ API-SWAGGER/
        base-path: /api/v1/gameplay/combat
        package: com.necpgame.gameplayservice
    servers:
-     - url: https://api.necp.game/v1
-       description: Production server
+     - url: https://api.necp.game/v1/gameplay
+       description: Production API Gateway
+     - url: http://localhost:8080/api/v1/gameplay
+       description: Local API Gateway
    paths:
      # Endpoints здесь
    components:
