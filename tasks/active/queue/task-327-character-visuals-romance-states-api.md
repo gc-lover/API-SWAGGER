@@ -242,3 +242,4 @@ API-SWAGGER/
 - 2025-11-08 — Задание создано AI агентом GPT-5 Codex на основе `.BRAIN/03-lore/_03-lore/visual-guides/visual-style-assets-детально.md`.
 
 
+

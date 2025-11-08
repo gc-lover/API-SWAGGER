@@ -124,7 +124,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '../auth/tokens.yaml#/components/schemas/RefreshTokenRequest'
+              $ref: '../tokens/tokens.yaml#/components/schemas/RefreshTokenRequest'
       responses:
         '200':
           description: Выход выполнен

@@ -5,3 +5,4 @@
 
 Источник: `.BRAIN/05-technical/ui-character-creation.md` (v1.1.0)  
 Task: `API-SWAGGER/tasks/completed/2025-11-06/task-026-character-creation-api.md`
+

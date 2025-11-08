@@ -255,15 +255,20 @@ mappings:
   - api/v1/world/achievements/achievement-system.yaml
   - api/v1/gameplay/combat/combat-session.yaml
 - source: .BRAIN/05-technical/backend/daily-weekly-reset-system.md
-  target: api/v1/system/reset-system.yaml
+  target: api/v1/world/system/reset/reset-system.yaml
   task_id: API-TASK-141
   task_file: tasks/active/queue/task-141-daily-reset-api.md
   status: queued
   created: 2025-11-07 10:42
   version: v1.0.0
-  updated: 2025-11-07 10:42
-  related_sources: []
-  related_targets: []
+  updated: 2025-11-08 18:30
+  related_sources:
+  - .BRAIN/05-technical/backend/quest-engine-backend.md
+  - .BRAIN/05-technical/backend/economy-system.md
+  - .BRAIN/05-technical/backend/notification-system.md
+  related_targets:
+  - api/v1/gameplay/quests/quest-engine.yaml
+  - api/v1/economy/trading/trading-system.yaml
 - source: .BRAIN/04-narrative/quest-dnd-checks.md
   target: api/v1/narrative/quest-dnd-checks.yaml
   task_id: API-TASK-142

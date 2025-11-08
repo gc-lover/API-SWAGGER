@@ -159,6 +159,70 @@ mappings:
   - api/v1/narrative/dialogues/templates.yaml
   - api/v1/social/resonance.yaml
   - api/v1/world/world-interaction-suite.yaml
+- source: .BRAIN/06-tasks/active/CURRENT-WORK/active/2025-11-08-gameplay-backend-sync.md
+  target: api/v1/gameplay/combat/combat-ballistics.yaml
+  task_id: API-TASK-382
+  task_file: tasks/active/queue/task-382-combat-ballistics-api.md
+  status: queued
+  created: 2025-11-08 21:55
+  version: 1.0.0
+  updated: 2025-11-08 21:55
+  related_sources:
+  - .BRAIN/02-gameplay/combat/combat-shooting-advanced.md
+  - .BRAIN/02-gameplay/economy/economy-crafting.md
+  - .BRAIN/05-technical/backend/telemetry/combat-telemetry.md
+  related_targets:
+  - api/v1/gameplay/combat/combat-shooting.yaml
+  - api/v1/economy/crafting/crafting-weapon-jobs.yaml
+  - api/v1/social/player-orders/player-orders.yaml
+- source: .BRAIN/06-tasks/active/CURRENT-WORK/active/2025-11-08-gameplay-backend-sync.md
+  target: api/v1/social/orders/orders-lifecycle.yaml
+  task_id: API-TASK-383
+  task_file: tasks/active/queue/task-383-social-orders-lifecycle-api.md
+  status: queued
+  created: 2025-11-08 22:00
+  version: 1.0.0
+  updated: 2025-11-08 22:00
+  related_sources:
+  - .BRAIN/02-gameplay/social/player-orders-system-детально.md
+  - .BRAIN/02-gameplay/social/player-orders-world-impact-детально.md
+  - .BRAIN/05-technical/backend/notification-system.md
+  related_targets:
+  - api/v1/social/player-orders/player-orders.yaml
+  - api/v1/social/player-orders/reviews.yaml
+  - api/v1/economy/escrow/player-orders.yaml
+- source: .BRAIN/06-tasks/active/CURRENT-WORK/active/2025-11-08-gameplay-backend-sync.md
+  target: api/v1/economy/crafting/crafting-weapon-jobs.yaml
+  task_id: API-TASK-384
+  task_file: tasks/active/queue/task-384-economy-crafting-jobs-api.md
+  status: queued
+  created: 2025-11-08 22:05
+  version: 1.0.0
+  updated: 2025-11-08 22:05
+  related_sources:
+  - .BRAIN/02-gameplay/combat/combat-shooting-advanced.md
+  - .BRAIN/02-gameplay/economy/economy-crafting.md
+  - .BRAIN/05-technical/backend/maintenance/maintenance-mode-system.md
+  related_targets:
+  - api/v1/economy/crafting/crafting.yaml
+  - api/v1/social/player-orders/player-orders.yaml
+  - api/v1/gameplay/combat/combat-ballistics.yaml
+- source: .BRAIN/06-tasks/active/CURRENT-WORK/active/2025-11-08-gameplay-backend-sync.md
+  target: api/v1/world/impact/world-impact.yaml
+  task_id: API-TASK-385
+  task_file: tasks/active/queue/task-385-world-impact-simulation-api.md
+  status: queued
+  created: 2025-11-08 22:10
+  version: 1.0.0
+  updated: 2025-11-08 22:10
+  related_sources:
+  - .BRAIN/02-gameplay/world/world-state/living-world-kenshi-hybrid.md
+  - .BRAIN/02-gameplay/social/player-orders-world-impact-детально.md
+  - .BRAIN/02-gameplay/economy/economy-world-impact.md
+  related_targets:
+  - api/v1/world/world-state/living-world.yaml
+  - api/v1/social/orders/orders-lifecycle.yaml
+  - api/v1/economy/crafting/crafting-weapon-jobs.yaml
 - source: .BRAIN/05-technical/backend/player-character-management.md
   target: api/v1/characters/players/players.yaml
   task_id: API-TASK-127

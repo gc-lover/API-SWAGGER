@@ -1,3 +1,120 @@
+# Требования к спецификациям (АПИТАСК)
+
+---
+
+## Ссылки
+- `../GLOBAL-RULES.md` — пять главных правил, карта микросервисов, требования к OpenAPI.
+- `CORE.md` — структура репозитория, трекеры, скрипты.
+- `АПИТАСК-ARCHITECTURE.md`, `АПИТАСК-PROCESS.md`, `АПИТАСК-FAQ.md`, `АПИТАСК-FAQ-EXAMPLES.md`.
+- `tasks/templates/api-generation-task-template.md` — формат входных заданий.
+
+---
+
+## 1. Структура и формат
+1. `openapi: 3.0.3`.
+2. Каждая спецификация ≤ 500 строк. При превышении:
+   - оставь все `paths` в главном файле;
+   - вынеси `components` в дополнительные файлы с `$ref` (`*_models.yaml`, `*_requests.yaml`);
+   - добавь README каталога с описанием структуры; именуй продолжения `*_0002.yaml`.
+3. Формат: YAML, отступ 2 пробела, имена файлов в `kebab-case`.
+4. В начале файла обязательный комментарий «Target Architecture» (микросервис, порт, фронтенд модуль, UI-компоненты, state, `API Base`).
+
+Пример:
+```yaml
+# Target Architecture:
+# - Microservice: social-service (port 8084)
+# - Frontend Module: modules/social/personal-npc
+# - UI Components: @shared/ui (PersonalNpcCard, GuildCard)
+# - State: useSocialStore (personalNpcs)
+# - API Base: /api/v1/social/personal-npc
+openapi: 3.0.3
+```
+
+---
+
+## 2. Блок `info` и `servers`
+- Указывай `title`, `version` (семантическое: 1.0.0), `description` со ссылками на документ `.BRAIN`, Task ID, кратким контекстом.
+- `info.x-microservice` строго следует таблице:
+  - `name`: один из `auth-service`, `character-service`, `gameplay-service`, `social-service`, `economy-service`, `world-service`, `narrative-service`, `admin-service`.
+  - `port`: 8081…8088 (соответствует `name`).
+  - `domain`: `auth`, `characters`, `gameplay`, `social`, `economy`, `world`, `narrative`, `admin`.
+  - `base-path`: `/api/v1/<domain>/<subdomain?>` (совпадает с каталогом).
+  - `package`: `com.necpgame.<service>`.
+- `servers`:
+  ```yaml
+  servers:
+    - url: https://api.necp.game/v1/<domain>
+      description: Production API Gateway
+    - url: http://localhost:8080/api/v1/<domain>
+      description: Development API Gateway
+  ```
+- Дополнительные протоколы (WebSocket) объявляй через `x-websocket`, используя `wss://api.necp.game/v1/<domain>/...`.
+
+---
+
+## 3. Использование общих компонентов (DRY)
+- Стандартные ответы: `../../shared/common/responses.yaml#/components/responses/...`.
+- Пагинация: `../../shared/common/pagination.yaml#/components/...`.
+- Безопасность: `../../shared/common/security.yaml#/components/securitySchemes/...`.
+- Не создавай дублей этих структур — только `$ref`.
+
+---
+
+## 4. Paths
+- Описывай каждый endpoint из задания:
+  - HTTP метод, путь, `summary`, `description`, `tags`.
+  - Параметры (`path`, `query`, `header`) с типами, валидацией, примерами.
+  - `requestBody` (если есть) с `content`, схемами и примерами.
+  - Ответы: минимум `200` + стандартные ошибки (`400`, `401`, `403`, `404`, `409`, `422`, `500`).
+  - Примеры успешных/ошибочных ответов.
+- Все `paths` остаются в основном файле (OpenAPI не поддерживает внешние `$ref` для paths).
+
+---
+
+## 5. Components
+- `schemas` — PascalCase, поля в snake_case, указаны `type`, `format`, `description`, `example`, `required`, `enum`, валидация (`min`, `max`, `pattern`).
+- `parameters`, `requestBodies`, `responses`, `securitySchemes` — по мере необходимости.
+- Если моделей много, вынеси их в отдельный файл и подключи через `$ref`.
+
+---
+
+## 6. Документация и ссылки
+- В `info.description` и комментариях указывай ссылки на исходные `.BRAIN` файлы (с относительным путём и версией) и Task ID.
+- Поясняй бизнес-логику, если она неочевидна.
+- Используй Markdown внутри `description`, когда нужно структурировать информацию (списки, подчёркивания).
+
+---
+
+## 7. Проверки перед сдачей
+- Файл(ы) ≤ 500 строк, структура каталогов корректна.
+- `info.x-microservice`, `servers`, `Target Architecture` соответствуют таблице микросервисов.
+- Все требования задания выполнены, зависимости учтены.
+- Общие компоненты используются через `$ref`.
+- `validate-swagger.ps1` проходит без ошибок.
+- README каталога обновлён (если появились новые файлы или структура).
+- `brain-mapping.yaml` и `implementation-tracker.yaml` обновлены, задание перенесено в `tasks/completed/`.
+- Выполнен коммит (`scripts/autocommit.ps1|.sh`).
+
+---
+
+## 8. Контрольный список
+Перед завершением убедись, что:
+1. Соблюдены пять главных правил (`GLOBAL-RULES.md`).
+2. Комментарий «Target Architecture» присутствует и актуален.
+3. `info.version` обновлён семантически (при изменениях).
+4. Все endpoints и модели из задания реализованы.
+5. Примеры запросов/ответов добавлены.
+6. Ошибки и коды ответов используют `shared/common/responses.yaml`.
+7. Размер файлов и структура соответствуют ограничениям.
+8. Выполнена валидация скриптом.
+9. Трекинг и README синхронизированы.
+10. Пользователь получил отчёт с ссылками на результаты.
+
+---
+
+**История изменений**  
+- 2.0.0 (2025-11-09) — требования упрощены, добавлены новые проверки, обновлены лимиты и таблица микросервисов.  
+- 1.x (2025-11-06—2025-11-08) — исходная версия документа.
 # АПИТАСК-REQUIREMENTS.md
 
 **Обязательные элементы, принципы работы и критерии приемки**

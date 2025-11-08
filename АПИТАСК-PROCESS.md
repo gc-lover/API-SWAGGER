@@ -1,3 +1,119 @@
+# Процесс работы АПИТАСК
+
+## Ссылки
+- `../GLOBAL-RULES.md` — глобальные правила (5 главных пунктов, микросервисы, лимиты, валидация).
+- `CORE.md` — структура репозитория, трекеры и скрипты.
+- `АПИТАСК.MD` — сценарий агента (роль, зона ответственности).
+- `АПИТАСК-ARCHITECTURE.md`, `АПИТАСК-REQUIREMENTS.md`, `АПИТАСК-FAQ.md`, `АПИТАСК-FAQ-EXAMPLES.md`.
+- `tasks/templates/api-generation-task-template.md` — формат задания.
+
+---
+
+## 1. Входные данные
+1. Получи задание из `tasks/active/queue/` (одновременно не более одного `in-progress`).
+2. Сверься с источниками (`.BRAIN`, `brain-mapping.yaml`) и убедись, что документ имеет `api-readiness: ready`.
+3. Перечитай `GLOBAL-RULES.md` и `АПИТАСК-ARCHITECTURE.md`, чтобы подтвердить микросервис, каталог, пакет и фронтенд модуль.
+
+---
+
+## 2. Анализ задания
+- Извлеки:
+  - целевой путь `api/v1/<domain>/<feature>.yaml`;
+  - список endpoints (метод, путь, описание, параметры, ответы);
+  - модели/события/ошибки, которые должны присутствовать;
+  - целевую архитектуру (микросервис, порт, домен, base-path, package, фронтенд модуль, UI-компоненты, state);
+  - критерии приёмки, зависимости и связанные API.
+- Проверь, нет ли конфликтов с уже существующими файлами; при обновлении убедись в совместимости.
+
+---
+
+## 3. Подготовка структуры
+1. Убедись, что целевой каталог существует; если нет — создай его (с README, если там несколько файлов).
+2. Планируй размер: один файл ≤ 500 строк. Если ожидается превышение:
+   - оставь все `paths` в главном файле;
+   - вынеси `components.schemas` в дополнительные файлы (`*_models.yaml`, `*_requests.yaml`) с `$ref`;
+   - добавь ссылки на дополнительные файлы в README каталога.
+3. Добавь в начале файла блок комментариев «Target Architecture» (см. `АПИТАСК-ARCHITECTURE.md`).
+
+---
+
+## 4. Создание спецификации
+1. Заголовок:
+   ```yaml
+   openapi: 3.0.3
+   info:
+     title: …
+     version: 1.0.0
+     description: |
+       Краткое описание + ссылки на источник .BRAIN и Task ID
+     x-microservice:
+       name: <из таблицы>
+       port: <из таблицы>
+       domain: <из таблицы>
+       base-path: /api/v1/<domain>/<subdomain?>
+       package: com.necpgame.<service>
+   servers:
+     - url: https://api.necp.game/v1/<domain>
+       description: Production API Gateway
+     - url: http://localhost:8080/api/v1/<domain>
+       description: Development API Gateway
+   ```
+2. `paths`:
+   - перечисли все endpoints с методами, summary, description;
+   - добавь параметры (`path`, `query`, `header`) и request body;
+   - используй `$ref` для стандартных ответов (`../../shared/common/responses.yaml#/…`);
+   - укажи `security` при необходимости (через `../../shared/common/security.yaml#/…`);
+   - для событий (Kafka/WebSocket) добавь описание в `description` или `x-events`.
+3. `components`:
+   - `schemas` (PascalCase, snake_case для полей) с валидацией и примерами;
+   - `parameters`, `requestBodies`, `responses`, `securitySchemes` — по необходимости;
+   - по возможности переиспользуй структуры из задания и общих компонентов.
+4. При работе с дополнительными файлами (`*_models.yaml`) подключай их через `$ref`:
+   ```yaml
+   components:
+     schemas:
+       CharacterProfile:
+         $ref: './character-models.yaml#/components/schemas/CharacterProfile'
+   ```
+5. Внутри описаний добавляй ссылки на исходные документы и задания (Markdown-ссылки или plain text).
+
+---
+
+## 5. Проверка и валидация
+1. Самопроверка:
+   - все требования задачи выполнены;
+   - структура соответствует `АПИТАСК-ARCHITECTURE.md`;
+   - `info.x-microservice` и `servers` заполнены по таблице;
+   - все ссылки `$ref` корректны;
+   - файл ≤ 500 строк (проверить вспомогательные файлы).
+2. Запусти:
+   - `pwsh -NoProfile -File ../../scripts/validate-swagger.ps1 -ApiSpec <relative-path>`  
+     или `-ApiDirectory <dir>` для пакетной проверки.
+3. Исправь ошибки, повтори валидацию до статуса `validation_ok`.
+
+---
+
+## 6. Финализация
+1. Обнови `tasks/config/brain-mapping.yaml` (перемести задачу в выполненные, укажи ссылку на спецификацию).
+2. Обнови `tasks/config/implementation-tracker.yaml` (статус `backend`/`frontend`: `ready-for-backend-frontend`).
+3. Перемести задание из `tasks/active/queue/` в `tasks/completed/<YYYY-MM-DD>/`.
+4. Синхронизируй README каталога, если структура изменилась.
+5. Сделай коммит через `scripts/autocommit.ps1|.sh` (логический блок → отдельный коммит).
+
+---
+
+## 7. Чеклист перед завершением
+- Соблюдены пять главных правил из `GLOBAL-RULES.md`.
+- Размеры файлов проверены, структура каталогов корректна.
+- `validate-swagger.ps1` отработал без ошибок.
+- Трекинг (`brain-mapping.yaml`, `implementation-tracker.yaml`) обновлён.
+- Задание перенесено в архив, сообщение пользователю содержит ссылку на спецификацию и дальнейшие шаги.
+
+---
+
+**История изменений**  
+- 2.0.0 (2025-11-09) — упрощён процесс, добавлены новые проверки и ссылки на глобальные правила.  
+- 1.x (2025-11-06—2025-11-08) — исходная версия документа.
 # АПИТАСК-PROCESS.md
 
 **Детальный процесс работы агента для создания API спецификаций**
@@ -104,14 +220,14 @@
 ```yaml
 openapi: 3.0.3
 info:
-  title: ...
-  version: 1.0.0  # Версия API (семантическое версионирование)
+  title: …
+  version: <semantic-version>
   description: |
     # Описание API
     
     ## Источник концепции
     - Оригинальный документ: `.BRAIN/02-gameplay/social/personal-npc-tool.md`
-    - Версия документа: v1.0.0
+    - Версия документа: <document version>
     - Задание: `API-SWAGGER/tasks/active/queue/task-001-personal-npc-tool-api.md`
     - Task ID: API-TASK-001
     

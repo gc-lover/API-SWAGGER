@@ -230,7 +230,7 @@ components:
           items:
             $ref: '#/components/schemas/CharacterSummary'
         slot_summary:
-          $ref: './players.yaml#/components/schemas/CharacterSlotSummary'
+          $ref: '../players/players.yaml#/components/schemas/CharacterSlotSummary'
     CharacterSummary:
       type: object
       properties:

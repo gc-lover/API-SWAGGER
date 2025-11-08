@@ -1,3 +1,97 @@
+# Архитектура для АПИТАСК
+
+---
+
+## Ссылки
+- `../GLOBAL-RULES.md` — главные правила (микросервисы, валидация, лимиты).
+- `CORE.md` — структура репозитория и трекеры.
+- `АПИТАСК.MD`, `АПИТАСК-PROCESS.md`, `АПИТАСК-REQUIREMENTS.md`, `АПИТАСК-FAQ.md`.
+- `ARCHITECTURE.md` — расширенная схема `api/v1/`.
+
+---
+
+## 1. Структура каталогов `api/v1`
+```
+api/v1/
+├── auth/            # auth-service
+├── characters/      # character-service
+├── gameplay/        # gameplay-service (combat, progression, quests, systems)
+├── social/          # social-service
+├── economy/         # economy-service
+├── world/           # world-service
+├── narrative/       # narrative-service
+├── admin/           # admin-service
+└── shared/
+    └── common/      # responses.yaml, pagination.yaml, security.yaml
+```
+- Иерархия соответствует `.BRAIN`: файл из `.BRAIN/02-gameplay/...` попадает в `api/v1/gameplay/...`.
+- Каждый доменный подкаталог (`combat`, `quests`, `mail` и т.д.) отражается в `base-path` и `directory`, но **не изменяет** `name`/`domain` микросервиса.
+- Каждый каталог (кроме `shared`) содержит README c обзором и ссылками.
+
+---
+
+## 2. Микросервисы и допустимые значения `info.x-microservice`
+| name              | port | domain      | base-path пример                   | package                        |
+|-------------------|------|-------------|------------------------------------|--------------------------------|
+| auth-service      | 8081 | auth        | /api/v1/auth/sessions              | com.necpgame.authservice      |
+| character-service | 8082 | characters  | /api/v1/characters/profiles        | com.necpgame.characterservice |
+| gameplay-service  | 8083 | gameplay    | /api/v1/gameplay/combat            | com.necpgame.gameplayservice  |
+| social-service    | 8084 | social      | /api/v1/social/guilds              | com.necpgame.socialservice    |
+| economy-service   | 8085 | economy     | /api/v1/economy/trade              | com.necpgame.economyservice   |
+| world-service     | 8086 | world       | /api/v1/world/events               | com.necpgame.worldservice     |
+| narrative-service | 8087 | narrative   | /api/v1/narrative/quests           | com.necpgame.narrativeservice |
+| admin-service     | 8088 | admin       | /api/v1/admin/moderation           | com.necpgame.adminservice     |
+
+Требования:
+1. `name`, `port`, `domain`, `base-path`, `package` должны совпадать с таблицей.
+2. `base-path` начинается с `/api/v1/{domain}` и отражает фактический подкаталог.
+3. `directory` (если указан) совпадает с путём файла относительно `api/v1/`.
+4. `servers` содержит:
+   ```yaml
+   - url: https://api.necp.game/v1/{domain}
+     description: Production API Gateway
+   - url: http://localhost:8080/api/v1/{domain}
+     description: Development API Gateway
+   ```
+
+---
+
+## 3. Требования к файлам OpenAPI
+- Формат: `YAML`, отступ 2 пробела, файл ≤ 500 строк (при превышении создавай `_0002.yaml` и ссылку в README).
+- Название файла: `kebab-case.yaml`, соответствует функциональности (`sessions-lifecycle.yaml`).
+- В начале файла добавляй комментарий с архитектурой:
+  ```yaml
+  # Target Architecture:
+  # - Microservice: gameplay-service (port 8083)
+  # - Frontend Module: modules/combat/shooting
+  # - UI Components: @shared/ui (WeaponCard, AmmoDisplay), @shared/forms (WeaponConfigForm)
+  # - State: useCombatStore (weapons, shooting)
+  # - API Base: /api/v1/gameplay/combat
+  ```
+- Используй общие компоненты через `$ref` (`api/v1/shared/common/responses.yaml#/components/responses/BadRequest` и т.п.).
+- Все параметры и модели документируй (`description`, `example`, `enum`, `validation`).
+
+---
+
+## 4. Связь с фронтендом
+- Каждое задание фиксирует фронтенд-модуль (`modules/{domain}/{feature}`) и используемые клиенты Orval (`src/api/generated`).
+- Указывай ожидаемые UI-компоненты (`@shared/ui`, `@shared/forms`, `@shared/layouts`) и state-сторы (`use{Module}Store`).
+- Список модулей и библиотек — в `../../FRONT-WEB/docs/ФРОНТТАСК-MODULES.md` и `ФРОНТТАСК-LIBRARIES.md`.
+
+---
+
+## 5. Workflow и проверки
+1. До генерации спецификации убедись, что исходный документ `.BRAIN` имеет `api-readiness: ready`.
+2. После создания/обновления файла запусти  
+   `pwsh -NoProfile -File ../../scripts/validate-swagger.ps1 -ApiSpec <relative-path>`.
+3. Обнови `tasks/config/brain-mapping.yaml` и `implementation-tracker.yaml` (совместно с менеджером).
+4. Следи за README в каталогах — краткое описание, список файлов, ссылка на исходные документы.
+
+---
+
+**История изменений**  
+- 2.0.0 (2025-11-09) — документ упрощён, адаптирован под новые глобальные правила и таблицу микросервисов.  
+- 1.x (2025-11-06—2025-11-08) — исходная версия документа.
 # АПИТАСК-ARCHITECTURE.md
 
 **Архитектура, структура директорий и соответствие .BRAIN**
