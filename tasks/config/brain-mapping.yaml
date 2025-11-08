@@ -215,10 +215,11 @@ mappings:
     target: "api/v1/narrative/dialogues/quests/main-001-first-steps.yaml"
     task_id: "API-TASK-312"
     task_file: "tasks/active/queue/task-312-quest-main-001-first-steps-dialogue-api.md"
-    status: "queued"
+    status: "completed"
     created: "2025-11-08 09:35"
     version: "1.0.0"
-    updated: "2025-11-08 09:35"
+    updated: "2025-11-08 09:48"
+    completed: "2025-11-08 09:48"
     related_sources:
       - ".BRAIN/04-narrative/quests/main/001-first-steps-dnd-nodes.md"
       - ".BRAIN/04-narrative/dialogues/npc-marco-fix-sanchez.md"
@@ -229,6 +230,7 @@ mappings:
       - "api/v1/narrative/dialogues/npc-marco-fix-sanchez.yaml"
       - "api/v1/narrative/dialogues/npc-jake-archer.yaml"
       - "api/v1/narrative/dialogues/quest-choose-path.yaml"
+      - "api/v1/narrative/dialogues/quests/main-001-first-steps-components.yaml"
 
   - source: ".BRAIN/04-narrative/dialogues/quest-faction-arasaka-001-tokyo.md"
     target: "api/v1/narrative/dialogues/quests/fq-arasaka-001.yaml"
