@@ -316,6 +316,12 @@ API-SWAGGER/
      title: Combat Shooting API
      version: 1.0.0
      description: API для механик стрельбы
+     x-microservice:
+       name: gameplay-service
+       port: 8083
+       domain: gameplay
+       base-path: /api/v1/gameplay/combat
+       package: com.necpgame.gameplayservice
    servers:
      - url: https://api.necp.game/v1
        description: Production server
@@ -325,6 +331,7 @@ API-SWAGGER/
      schemas:
        # Модели данных здесь
    ```
+   ⚠️ `info.x-microservice` **ОБЯЗАТЕЛЕН**. Заполните поля `name`, `port`, `domain`, `base-path`, `package` в соответствии с целевым микросервисом.
 
 2. **Обязательные элементы:**
    - ✅ OpenAPI версия: 3.0.3

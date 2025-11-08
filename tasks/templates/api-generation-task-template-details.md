@@ -30,6 +30,17 @@
    - Все enum должны иметь описания значений
    - Примеры обязательны для основных endpoints
 
+### Микросервисная метадата
+
+1. Каждая спецификация **обязана** включать `info.x-microservice` с ключами:
+   - `name` — имя микросервиса (auth-service, character-service и т.д.)
+   - `port` — порт микросервиса (8081-8086)
+   - `domain` — домен API (auth, gameplay, social, economy, world и т.п.)
+   - `base-path` — базовый путь (`/api/v1/gameplay/combat`)
+   - `package` — Java пакет (`com.necpgame.gameplayservice`)
+2. Если документируется новая область, **согласуйте** значения с архитектурой в `.BRAIN/05-technical/microservices-overview.md`.
+3. Скрипт генерации автоматически остановится, если метаданные отсутствуют — добавляйте их до отправки задания.
+
 ### Правила из workspace rules
 
 1. **SOLID** - одна фича - один файл

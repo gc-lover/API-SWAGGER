@@ -9,6 +9,12 @@ info:
   description: |
     API для начального интерфейса: аутентификация и создание персонажей.
     Данные в БД PostgreSQL, валидация на бекенде.
+  x-microservice:
+    name: auth-service
+    port: 8081
+    domain: auth
+    base-path: /api/v1/auth
+    package: com.necpgame.authservice
 
 servers:
   - url: https://api.necp.game/v1
