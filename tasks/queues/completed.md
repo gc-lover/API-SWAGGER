@@ -66,3 +66,8 @@
   **Спецификация:** api/v1/economy/analytics/analytics/analytics.yaml  
   **Завершено:** 2025-11-09 21:55 — АПИТАСК  
   **Передано:** Economy Service, Auction House, Notification Service, Analytics Dashboard, Frontend Agent
+
+- **Task ID:** API-TASK-104  
+  **Спецификация:** api/v1/economy/events/economic-events/economic-events.yaml  
+  **Завершено:** 2025-11-09 22:02 — АПИТАСК  
+  **Передано:** Economy Service, Pricing Engine, Stock Exchange, Currency Exchange, Notification Service, Frontend Agent
