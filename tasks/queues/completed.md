@@ -51,3 +51,13 @@
   **╨б╨┐╨╡╤Ж╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П:** api/v1/gameplay/quests/quest-engine/quest-engine.yaml  
   **╨Ч╨░╨▓╨╡╤А╤И╨╡╨╜╨╛:** 2025-11-09 19:48 тАФ ╨Р╨Я╨Ш╨в╨Р╨б╨Ъ  
   **╨Я╨╡╤А╨╡╨┤╨░╨╜╨╛:** Gameplay Service, Narrative Service, Economy Service, Telemetry, Frontend Agent
+
+- **Task ID:** API-TASK-101  
+  **Спецификация:** api/v1/gameplay/progression/progression-core/progression-core.yaml  
+  **Завершено:** 2025-11-09 20:37 — АПИТАСК  
+  **Передано:** Gameplay Service, Character Service, Notification Service, Frontend Agent
+
+- **Task ID:** API-TASK-102  
+  **Спецификация:** api/v1/economy/contracts/contracts.yaml  
+  **Завершено:** 2025-11-09 21:28 — АПИТАСК  
+  **Передано:** Economy Service, Inventory Service, Wallet Service, Logistics Service, Notification Service, Frontend Agent

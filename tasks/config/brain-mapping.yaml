@@ -564,4 +564,12 @@ mappings:
   created: 2025-11-09 18:24
   version: v1.0.0
   updated: 2025-11-09 20:37
+- source: .BRAIN/02-gameplay/economy/economy-contracts.md
+  target: api/v1/economy/contracts/contracts.yaml
+  task_id: API-TASK-102
+  task_file: tasks/completed/2025-11-09/task-102-economy-contracts-api.md
+  status: completed
+  created: 2025-11-09 18:40
+  version: v1.1.0
+  updated: 2025-11-09 21:28
 
