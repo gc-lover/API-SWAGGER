@@ -4,11 +4,11 @@
 > Размер задания ≤ 500 строк. При превышении создавай продолжения (`task-XXX-description_0001.md`).
 
 ## Metadata
-- **Task ID:** API-TASK-115  
+- **Task ID:** API-TASK-401  
 - **Type:** API Generation  
 - **Priority:** high  
 - **Status:** queued  
-- **Created:** 2025-11-09 22:30  
+- **Created:** 2025-11-09 22:35  
 - **Author:** API Task Creator Agent  
 - **Dependencies:** API-TASK-113 (combat session telemetry), API-TASK-382 (combat ballistics data), API-TASK-106 (economy crafting core)
 

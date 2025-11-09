@@ -317,6 +317,24 @@ mappings:
   - api/v1/world/player-orders/effects.yaml
   - api/v1/social/npc-hiring/workforce.yaml
   - api/v1/economy/npc-hiring/payroll.yaml
+- source: .BRAIN/02-gameplay/combat/combat-implants-types.md
+  target: api/v1/gameplay/combat/implants/implants-types.yaml
+  task_id: API-TASK-401
+  task_file: tasks/active/queue/task-401-combat-implants-types-api.md
+  status: queued
+  created: 2025-11-09 22:35
+  version: 1.1.0
+  updated: 2025-11-09 22:35
+  related_sources:
+  - .BRAIN/02-gameplay/combat/combat-abilities.md
+  - .BRAIN/02-gameplay/combat/combat-shooting.md
+  - .BRAIN/02-gameplay/combat/combat-freerun.md
+  - .BRAIN/02-gameplay/combat/combat-hacking-types.md
+  - .BRAIN/02-gameplay/economy/equipment-matrix.md
+  related_targets:
+  - api/v1/gameplay/combat/abilities.yaml
+  - api/v1/gameplay/combat/shooting.yaml
+  - api/v1/economy/crafting/crafting.yaml
 - source: .BRAIN/05-technical/architecture/mvp-backend-architecture.md
   target: api/v1/technical/mvp-backend-architecture.yaml
   task_id: API-TASK-371
