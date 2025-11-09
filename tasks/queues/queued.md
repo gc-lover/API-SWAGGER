@@ -15,7 +15,7 @@
 - **Task ID:** API-TASK-095  
   **Источник:** .BRAIN/03-lore/universe.md (v1.1.0)  
   **Создано:** 2025-11-09 15:10 — ДУАПИТАСК  
-  **Target:** api/v1/lore/universe/universe.yaml
+  **Target:** api/v1/world/universe/universe.yaml
 
 - **Task ID:** API-TASK-096  
   **Источник:** .BRAIN/02-gameplay/social/npc-relationships-system-детально.md (v1.0.0)  
@@ -46,4 +46,9 @@
   **Источник:** .BRAIN/05-technical/backend/progression-backend.md (v1.0.0)  
   **Создано:** 2025-11-09 18:24 — ДУАПИТАСК  
   **Target:** api/v1/gameplay/progression/progression-core.yaml
+
+- **Task ID:** API-TASK-102  
+  **Источник:** .BRAIN/02-gameplay/economy/economy-contracts.md (v1.1.0)  
+  **Создано:** 2025-11-09 18:40 — ДУАПИТАСК  
+  **Target:** api/v1/economy/contracts/contracts.yaml
 
