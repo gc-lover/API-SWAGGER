@@ -77,3 +77,8 @@
   **Создано:** 2025-11-09 20:35 — ДУАПИТАСК  
   **Target:** api/v1/economy/trade/trade-system.yaml
 
+- **Task ID:** API-TASK-113  
+  **Источник:** .BRAIN/05-technical/backend/combat-session-backend.md (v1.0.0)  
+  **Создано:** 2025-11-09 21:15 — ДУАПИТАСК  
+  **Target:** api/v1/gameplay/combat/combat-session.yaml
+

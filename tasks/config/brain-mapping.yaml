@@ -718,4 +718,12 @@ mappings:
     status: "queued"
     priority: "high"
     created: "2025-11-09 20:45"
+  - source: ".BRAIN/05-technical/backend/combat-session-backend.md"
+    version: "v1.0.0"
+    task_id: "API-TASK-113"
+    task_file: "tasks/active/queue/task-113-combat-session-backend-api.md"
+    api_path: "api/v1/gameplay/combat/combat-session.yaml"
+    status: "queued"
+    priority: "critical"
+    created: "2025-11-09 21:15"
 
