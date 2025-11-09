@@ -127,6 +127,14 @@ mappings:
   - api/v1/narrative/npcs/kaede-ishikawa.yaml
   - api/v1/narrative/quests/helios-countermesh-conspiracy.yaml
   - api/v1/social/resonance.yaml
+- source: ".BRAIN/05-technical/backend/auth/README.md"
+  version: "v1.0.1"
+  task_id: "API-TASK-099"
+  task_file: "tasks/completed/2025-11-09/task-099-auth-core-api.md"
+  api_path: "api/v1/auth/auth-core/auth-core.yaml"
+  status: "completed"
+  priority: "critical"
+  created: "2025-11-09 17:50"
 - source: .BRAIN/04-narrative/quests/side/heywood-valentinos-chain.md
   target: api/v1/narrative/dialogues/quests/heywood-valentinos-chain.yaml
   task_id: API-TASK-380
