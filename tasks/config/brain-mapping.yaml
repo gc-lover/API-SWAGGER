@@ -371,6 +371,24 @@ mappings:
   - api/v1/gameplay/combat/roles/roles.yaml
   - api/v1/gameplay/combat/combos/combos-synergies.yaml
   - api/v1/gameplay/combat/implants/implants-types.yaml
+- source: .BRAIN/02-gameplay/combat/combat-stealth.md
+  target: api/v1/gameplay/combat/stealth/stealth.yaml
+  task_id: API-TASK-405
+  task_file: tasks/active/queue/task-405-combat-stealth-api.md
+  status: queued
+  created: 2025-11-09 23:25
+  version: 1.0.0
+  updated: 2025-11-09 23:25
+  related_sources:
+  - .BRAIN/02-gameplay/combat/combat-hacking.md
+  - .BRAIN/02-gameplay/combat/combat-implants-types.md
+  - .BRAIN/02-gameplay/combat/combat-combos-synergies.md
+  - .BRAIN/02-gameplay/combat/combat-roles-detailed.md
+  - .BRAIN/02-gameplay/economy/equipment-matrix.md
+  related_targets:
+  - api/v1/gameplay/combat/abilities/abilities.yaml
+  - api/v1/gameplay/combat/combos/combos-synergies.yaml
+  - api/v1/gameplay/combat/implants/implants-types.yaml
 - source: .BRAIN/02-gameplay/combat/combat-combos-synergies.md
   target: api/v1/gameplay/combat/combos/combos-synergies.yaml
   task_id: API-TASK-402
