@@ -12,11 +12,6 @@
 
 - При смене статуса удалите запись отсюда и перенесите в файл нового статуса (например, `in-progress.md`).
 
-- **Task ID:** API-TASK-095  
-  **Источник:** .BRAIN/03-lore/universe.md (v1.1.0)  
-  **Создано:** 2025-11-09 15:10 — ДУАПИТАСК  
-  **Target:** api/v1/world/universe/universe.yaml
-
 - **Task ID:** API-TASK-096  
   **Источник:** .BRAIN/02-gameplay/social/npc-relationships-system-детально.md (v1.0.0)  
   **Создано:** 2025-11-09 16:40 — ДУАПИТАСК  
@@ -56,4 +51,9 @@
   **Источник:** .BRAIN/02-gameplay/economy/economy-analytics.md (v1.0.0)  
   **Создано:** 2025-11-09 18:56 — ДУАПИТАСК  
   **Target:** api/v1/economy/analytics/analytics.yaml
+
+- **Task ID:** API-TASK-104  
+  **Источник:** .BRAIN/02-gameplay/economy/economy-events.md (v1.1.0)  
+  **Создано:** 2025-11-09 19:12 — ДУАПИТАСК  
+  **Target:** api/v1/economy/events/economic-events.yaml
 
