@@ -1,0 +1,136 @@
+openapi: 3.0.3
+info:
+  title: Trade Service API
+  version: 1.0.0
+  description: |
+    Контракты микросервиса trade-service: создание P2P торговых сессий, обмен
+    предметами и валютой, двойное подтверждение, антифрод механики, история
+    сделок, споры и GM-инструменты. Источник:
+    `.BRAIN/05-technical/backend/trade-system.md` v1.0.0.
+  x-microservice:
+    name: trade-service
+    port: 8095
+    domain: trade
+    base-path: /api/v1/trade
+    directory: api/v1/trade
+    package: com.necpgame.tradeservice
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Development API Gateway
+tags:
+  - name: TradeSessions
+    description: Жизненный цикл торговых сессий и realtime взаимодействия
+  - name: TradeHistory
+    description: История сделок и аудит действий
+  - name: TradeRestrictions
+    description: Ограничения, паузы и модерация торговли
+  - name: TradeAdministration
+    description: GM и Support операции вмешательства
+security:
+  - BearerAuth: []
+x-websocket:
+  sessionStream:
+    url: wss://api.necp.game/v1/trade/sessions/{sessionId}/stream
+    description: |
+      События торговой сессии: session-updated, item-added, item-removed,
+      currency-updated, player-locked, player-confirmed, session-cancelled,
+      trade-completed, dispute-opened.
+    message:
+      $ref: './schemas/index.yaml#/components/schemas/TradeSessionRealtimeMessage'
+paths:
+  /trade/sessions:
+    $ref: './paths/sessions.yaml#/tradeSessionsRoot'
+  /trade/sessions/{sessionId}:
+    $ref: './paths/sessions.yaml#/tradeSessionById'
+  /trade/sessions/{sessionId}/items:
+    $ref: './paths/sessions.yaml#/tradeSessionItems'
+  /trade/sessions/{sessionId}/items/{itemEntryId}:
+    $ref: './paths/sessions.yaml#/tradeSessionItemsById'
+  /trade/sessions/{sessionId}/currency:
+    $ref: './paths/sessions.yaml#/tradeSessionCurrency'
+  /trade/sessions/{sessionId}/lock:
+    $ref: './paths/sessions.yaml#/tradeSessionLock'
+  /trade/sessions/{sessionId}/unlock:
+    $ref: './paths/sessions.yaml#/tradeSessionUnlock'
+  /trade/sessions/{sessionId}/confirm:
+    $ref: './paths/sessions.yaml#/tradeSessionConfirm'
+  /trade/sessions/{sessionId}/cancel:
+    $ref: './paths/sessions.yaml#/tradeSessionCancel'
+  /trade/sessions/{sessionId}/pause:
+    $ref: './paths/sessions.yaml#/tradeSessionPause'
+  /trade/sessions/{sessionId}/resume:
+    $ref: './paths/sessions.yaml#/tradeSessionResume'
+  /trade/sessions/{sessionId}/history:
+    $ref: './paths/sessions.yaml#/tradeSessionHistory'
+  /trade/sessions/{sessionId}/dispute:
+    $ref: './paths/sessions.yaml#/tradeSessionDispute'
+  /trade/sessions/{sessionId}/gm/intervene:
+    $ref: './paths/sessions.yaml#/tradeSessionGMIntervene'
+  /trade/history:
+    $ref: './paths/history.yaml#/tradeHistory'
+  /trade/invitations:
+    $ref: './paths/history.yaml#/tradeInvitations'
+  /trade/stats:
+    $ref: './paths/history.yaml#/tradeStats'
+  /trade/restrictions:
+    $ref: './paths/restrictions.yaml#/tradeRestrictions'
+  /trade/restrictions/apply:
+    $ref: './paths/restrictions.yaml#/tradeRestrictionsApply'
+components:
+  securitySchemes:
+    BearerAuth:
+      $ref: '../shared/common/security.yaml#/components/securitySchemes/BearerAuth'
+    GMToken:
+      $ref: '../shared/common/security.yaml#/components/securitySchemes/GMToken'
+    ServiceToken:
+      $ref: '../shared/common/security.yaml#/components/securitySchemes/ServiceToken'
+  parameters:
+    SessionId:
+      $ref: './schemas/index.yaml#/components/parameters/SessionId'
+    ItemEntryId:
+      $ref: './schemas/index.yaml#/components/parameters/ItemEntryId'
+  schemas:
+    CreateTradeSessionRequest:
+      $ref: './schemas/index.yaml#/components/schemas/CreateTradeSessionRequest'
+    AddTradeItemRequest:
+      $ref: './schemas/index.yaml#/components/schemas/AddTradeItemRequest'
+    OfferTradeCurrencyRequest:
+      $ref: './schemas/index.yaml#/components/schemas/OfferTradeCurrencyRequest'
+    LockTradeOfferRequest:
+      $ref: './schemas/index.yaml#/components/schemas/LockTradeOfferRequest'
+    UnlockTradeOfferRequest:
+      $ref: './schemas/index.yaml#/components/schemas/UnlockTradeOfferRequest'
+    ConfirmTradeSessionRequest:
+      $ref: './schemas/index.yaml#/components/schemas/ConfirmTradeSessionRequest'
+    CancelTradeSessionRequest:
+      $ref: './schemas/index.yaml#/components/schemas/CancelTradeSessionRequest'
+    PauseTradeSessionRequest:
+      $ref: './schemas/index.yaml#/components/schemas/PauseTradeSessionRequest'
+    ResumeTradeSessionRequest:
+      $ref: './schemas/index.yaml#/components/schemas/ResumeTradeSessionRequest'
+    OpenTradeDisputeRequest:
+      $ref: './schemas/index.yaml#/components/schemas/OpenTradeDisputeRequest'
+    GMInterventionRequest:
+      $ref: './schemas/index.yaml#/components/schemas/GMInterventionRequest'
+    TradeSession:
+      $ref: './schemas/index.yaml#/components/schemas/TradeSession'
+    TradeSessionHistoryResponse:
+      $ref: './schemas/index.yaml#/components/schemas/TradeSessionHistoryResponse'
+    TradeHistoryResponse:
+      $ref: './schemas/index.yaml#/components/schemas/TradeHistoryResponse'
+    TradeInvitationRequest:
+      $ref: './schemas/index.yaml#/components/schemas/TradeInvitationRequest'
+    TradeInvitationResponse:
+      $ref: './schemas/index.yaml#/components/schemas/TradeInvitationResponse'
+    TradeRestrictionsResponse:
+      $ref: './schemas/index.yaml#/components/schemas/TradeRestrictionsResponse'
+    UpdateTradeRestrictionRequest:
+      $ref: './schemas/index.yaml#/components/schemas/UpdateTradeRestrictionRequest'
+    TradeStatsResponse:
+      $ref: './schemas/index.yaml#/components/schemas/TradeStatsResponse'
+    TradeError:
+      $ref: './schemas/index.yaml#/components/schemas/TradeError'
+
+

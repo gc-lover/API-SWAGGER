@@ -25,3 +25,4 @@
 - Все ошибки и статусы используют общие компоненты `api/v1/shared/common`.
 - Файл валидации: `scripts/validate-swagger.ps1 -ApiDirectory API-SWAGGER\api\v1\economy\trade`.
 
+
