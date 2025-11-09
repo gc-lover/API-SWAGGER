@@ -55,18 +55,6 @@ mappings:
   related_targets:
   - api/v1/narrative/quest-system.yaml
   - api/v1/gameplay/world/world-state.yaml
-- source: .BRAIN/05-technical/attributes-dnd-mapping.md
-  target: api/v1/gameplay/mechanics/attributes-dnd-mapping.yaml
-  task_id: API-TASK-104
-  task_file: tasks/active/queue/task-104-attributes-dnd-mapping-api.md
-  status: queued
-  created: 2025-11-07 05:10
-  version: v1.0.0
-  updated: 2025-11-07 05:10
-  related_sources:
-  - .BRAIN/02-gameplay/combat/combat-dnd-core.md
-  related_targets:
-  - api/v1/gameplay/mechanics/dnd-checks.yaml
 - source: .BRAIN/05-technical/api-requirements/equipment-matrix-entities.md
   target: api/v1/technical/equipment-entities.yaml
   task_id: API-TASK-105

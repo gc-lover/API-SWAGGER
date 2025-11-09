@@ -223,7 +223,6 @@ mappings:
     updated: "2025-11-08 04:35"
     related_sources:
       - ".BRAIN/04-narrative/npc-lore/important/hiroshi-tanaka.md"
-      - ".BRAIN/04-narrative/quests/main/002-choose-path-dnd-nodes.md"
       - ".BRAIN/04-narrative/quests/faction-world/arasaka-world-quests.md"
       - ".BRAIN/02-gameplay/world/events/world-events-framework.md"
     related_targets:
@@ -359,7 +358,6 @@ mappings:
       - ".BRAIN/06-tasks/active/CURRENT-WORK/open-questions.md"
     related_targets:
       - "api/v1/social/subliminal/network.yaml"
-      - "api/v1/gameplay/quests/dnd-skill-checks.yaml"
 
   - source: ".BRAIN/04-narrative/dialogues/npc-jake-archer.md"
     target: "api/v1/narrative/dialogues/npc-jake-archer.yaml"
@@ -371,7 +369,6 @@ mappings:
     updated: "2025-11-08 04:50"
     related_sources:
       - ".BRAIN/04-narrative/npc-lore/common/traders/jake-archer.md"
-      - ".BRAIN/04-narrative/quests/main/001-first-steps-dnd-nodes.md"
       - ".BRAIN/02-gameplay/economy/economy-trading.md"
       - ".BRAIN/02-gameplay/economy/economy-logistics.md"
       - ".BRAIN/02-gameplay/world/events/world-events-framework.md"

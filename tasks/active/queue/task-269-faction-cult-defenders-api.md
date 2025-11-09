@@ -58,8 +58,8 @@ API-SWAGGER/api/v1/gameplay/world/factions/
 4. `POST /api/v1/world/factions/defenders/{defenderId}/spawn` — принудительный запуск (админ).
 5. `POST /api/v1/world/factions/defenders/{defenderId}/outcome` — фиксация результата, world-state updates.
 6. WebSocket `/ws/world/factions/defenders/{defenderId}` — `Spawn`, `Phase`, `AbilityCast`, `CounterUsed`, `Outcome`, `Aftermath`.
-7. Схемы: `Defender`, `DefenderAbility`, `AbilityCheck`, `Counter`, `SpawnTrigger`, `OutcomePayload`, `ReputationChange`.
-8. Аналитика: `defenderClearTime`, `defenderDndFailRate`, `counterUsage`.
+7. Схемы: `Defender`, `DefenderAbility`, `AbilityChallenge`, `Counter`, `SpawnTrigger`, `OutcomePayload`, `ReputationChange`.
+8. Аналитика: `defenderClearTime`, `defenderAbilityFailRate`, `counterUsage`.
 9. Observability: метрики и PagerDuty (AbilityOverlap, DefenderTimeout).
 10. FAQ — параллельные спавны, отмены, взаимодействия с сюжетом.
 
@@ -69,7 +69,7 @@ API-SWAGGER/api/v1/gameplay/world/factions/
 
 1. Префикс `/api/v1/world/factions/defenders` соблюдён.
 2. Target Architecture комментарий с frontend модулем (`modules/world/events`).
-3. Ответы возвращают `role`, `uniqueSkill`, D&D проверки и контры.
+3. Ответы возвращают `role`, `uniqueSkill`, shooter-based challenge requirements и контры.
 4. Outcomes обновляют world-state (`faction_influence`, `district_security`, `blackwall_stability`) и репутации.
 5. Rewards включают валюты, лут, титулы и ссылки на economy-service.
 6. Сценарии связаны с city unrest/helios ops (описать интеграцию).

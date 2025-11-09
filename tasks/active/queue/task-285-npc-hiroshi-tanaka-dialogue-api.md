@@ -30,7 +30,7 @@
 - `.BRAIN/04-narrative/dialogues/npc-hiroshi-tanaka.md` — состояния, узлы, проверки, последствия
 - Дополнительно:
   - `.BRAIN/04-narrative/npc-lore/important/hiroshi-tanaka.md`
-  - `.BRAIN/04-narrative/quests/main/002-choose-path-dnd-nodes.md`
+  - `.BRAIN/04-narrative/quests/main/002-choose-path.md`
   - `.BRAIN/04-narrative/quests/faction-world/arasaka-world-quests.md`
   - `.BRAIN/02-gameplay/social/reputation-formulas.md`
   - `.BRAIN/02-gameplay/world/events/world-events-framework.md`

@@ -12,7 +12,7 @@
 
 Создать спецификацию `dialogue-quest-main-001-first-steps` для основного квеста «Первые шаги»: описать API получения диалоговых узлов, проверок D&D, реакций на события мира и обновления прогресса.
 
-**Что нужно сделать:** спроектировать `api/v1/narrative/dialogues/quests/main-001-first-steps.yaml`, чтобы narrative-service мог управлять сценами, флагами и проверками стартового квеста, а фронтенд — отображать ветвления Марко Санчеса и обучающие подсказки.
+**Что нужно сделать:** спроектировать `api/v1/narrative/dialogues/quests/main-001-first-steps.yaml`, чтобы narrative-service мог управлять сценариями, флагами и проверками стартового квеста, а фронтенд — отображать ветвления Марко Санчеса и обучающие подсказки.
 
 ---
 
@@ -54,8 +54,8 @@
 
 - `.BRAIN/04-narrative/dialogues/npc-marco-fix-sanchez.md`
 - `.BRAIN/04-narrative/dialogues/npc-jake-archer-dialogue.md`
-- `.BRAIN/04-narrative/quests/main/001-first-steps-dnd-nodes.md`
-- `.BRAIN/04-narrative/quest-dnd-checks.md`
+- `.BRAIN/04-narrative/quests/main/001-first-steps.md`
+- `.BRAIN/04-narrative/quest-system.md`
 - `.BRAIN/02-gameplay/social/reputation-formulas.md`
 - `.BRAIN/02-gameplay/world/events/live-events-system.md`
 

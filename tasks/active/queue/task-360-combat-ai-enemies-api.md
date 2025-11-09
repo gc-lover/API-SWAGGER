@@ -245,7 +245,7 @@ API-SWAGGER/
 
 - **EnemyAiProfile**: id, name, layer(enum Street/Tactical/Mythic/Raid), faction, difficulty(enum Bronze/Silver/Gold/Platinum/Diamond/Mythic), narrativeContext (era, event, questHook), stats (level, hp, armorClass, morale, fear), abilities[], lootTable, worldImpact
 - **AiAbility**: id, title, description, cooldown, effect(enum), counters[], savingThrow (attribute enum {STR, DEX, CON, INT, WIS, CHA}, dc, failureEffect, successEffect), tags[]
-- **RaidBossPhase**: bossId, phaseNumber, hpThreshold, mechanics[], dndChecks[], rewards[], softEnrageTimer
+- **RaidBossPhase**: bossId, phaseNumber, hpThreshold, mechanics[], skillChallenges[], rewards[], softEnrageTimer
 - **EncounterStartRequest**: locationId, raidId?, layer, party(roles, averageLevel, gearScore, composition), worldFlags[], narrativeContext[], desiredDifficulty
 - **EncounterStartResponse**: encounterId, expiresAt, enemyProfiles[], initialPhase, modifiersApplied[], worldImpacts[]
 - **AiTelemetryEvent**: encounterId, profileId, abilityId, result(enum {hit, miss, countered}), damage, appliedCounterId?, playerId?, timestamp, latencyMs, clientVersion

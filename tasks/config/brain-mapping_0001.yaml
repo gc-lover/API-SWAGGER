@@ -183,7 +183,6 @@ mappings:
   - .BRAIN/04-narrative/dialogues/DIALOGUE-TEMPLATE.md
   - .BRAIN/04-narrative/dialogues/npc-hiroshi-tanaka.md
   - .BRAIN/04-narrative/dialogues/npc-aisha-frost.md
-  - .BRAIN/04-narrative/quest-dnd-checks.md
   related_targets: []
 - source: .BRAIN/04-narrative/dialogues/quest-main-001-first-steps.md
   target: api/v1/narrative/dialogues/quests/main-001-first-steps.yaml
@@ -195,11 +194,9 @@ mappings:
   updated: 2025-11-08 09:48
   completed: 2025-11-08 09:48
   related_sources:
-  - .BRAIN/04-narrative/quests/main/001-first-steps-dnd-nodes.md
-  - .BRAIN/04-narrative/dialogues/npc-marco-fix-sanchez.md
-  - .BRAIN/04-narrative/dialogues/npc-jake-archer-dialogue.md
-  - .BRAIN/04-narrative/quest-dnd-checks.md
-  - .BRAIN/02-gameplay/world/events/live-events-system.md
+  - .BRAIN/04-narrative/quests/main/001-first-steps.md
+  - .BRAIN/04-narrative/quest-system.md
+  - .BRAIN/04-narrative/quest-system.md
   related_targets:
   - api/v1/narrative/dialogues/npc-marco-fix-sanchez.yaml
   - api/v1/narrative/dialogues/npc-jake-archer.yaml
@@ -218,7 +215,6 @@ mappings:
   - .BRAIN/04-narrative/dialogues/npc-hiroshi-tanaka.md
   - .BRAIN/04-narrative/dialogues/npc-james-iron-reed.md
   - .BRAIN/04-narrative/dialogues/npc-kaede-ishikawa.md
-  - .BRAIN/04-narrative/quest-dnd-checks.md
   related_targets:
   - api/v1/narrative/dialogues/npc-hiroshi-tanaka.yaml
   - api/v1/narrative/dialogues/npc-james-iron-reed.yaml

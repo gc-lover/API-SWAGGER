@@ -25,7 +25,7 @@
 | API readiness | ready (2025-11-09 02:47) |
 
 **Key points:** lifecycle combat sessions (creation, turn order, rewards); таблицы `combat_sessions`, `combat_logs`; события `combat:started`, `combat:ended`, `combat:enemy-killed`, `combat:player-died`, `combat:damage-dealt`; пересечения с turn-based и real-time боями; anti-cheat хуки; интеграции с character-service, economy-service и quest-service.  
-**Related docs:** `.BRAIN/02-gameplay/combat/combat-shooting.md`, `.BRAIN/02-gameplay/combat/combat-dnd-core.md`, `.BRAIN/05-technical/backend/inventory-system/part1-core-system.md`, `.BRAIN/05-technical/backend/trade-system.md` (loot escrow), `.BRAIN/05-technical/backend/progression-backend.md`.
+**Related docs:** `.BRAIN/02-gameplay/combat/combat-shooting.md`, `.BRAIN/02-gameplay/combat/combat-shooter-core.md`, `.BRAIN/05-technical/backend/inventory-system/part1-core-system.md`, `.BRAIN/05-technical/backend/trade-system.md` (loot escrow), `.BRAIN/05-technical/backend/progression-backend.md`.
 
 ## Target Architecture (⚠️ Обязательно)
 - **Microservice:** gameplay-service  

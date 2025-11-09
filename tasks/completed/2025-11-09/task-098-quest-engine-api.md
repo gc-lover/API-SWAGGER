@@ -40,7 +40,7 @@
 
 - `.BRAIN/05-technical/backend/quest-engine-backend.md` v1.0.0
 - `.BRAIN/04-narrative/quests/quest-system.md`
-- `.BRAIN/02-gameplay/combat/combat-dnd-core.md`
+- `.BRAIN/02-gameplay/combat/combat-shooting.md`
 - `.BRAIN/05-technical/backend/player-character-mgmt/character-management.md`
 - `.BRAIN/05-technical/backend/inventory-system/part1-core-system.md`
 - `.BRAIN/05-technical/backend/progression-backend.md`

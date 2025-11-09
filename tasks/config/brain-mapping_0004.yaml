@@ -25,44 +25,7 @@ mappings:
 
   # === D&D СИСТЕМА ПРОВЕРОК (D&D Checks System) ===
 
-  - source: ".BRAIN/02-gameplay/combat/combat-dnd-core.md"
-    target: "api/v1/gameplay/mechanics/dnd-checks.yaml"
-    task_id: "API-TASK-075"
-    task_file: "tasks/active/queue/task-075-dnd-checks-api.md"
-    status: "queued"
-    created: "2025-11-07 02:10"
-    version: "v1.0.0"
-    updated: "2025-11-07 02:10"
-    related_sources:
-      - ".BRAIN/02-gameplay/progression/progression-skills.md"
-    related_targets:
-      - "api/v1/gameplay/progression/skills.yaml"
-
-  - source: ".BRAIN/02-gameplay/combat/combat-dnd-integration-shooter.md"
-    target: "api/v1/gameplay/mechanics/dnd-shooter-integration.yaml"
-    task_id: "API-TASK-076"
-    task_file: "tasks/active/queue/task-076-dnd-shooter-integration-api.md"
-    status: "queued"
-    created: "2025-11-07 02:15"
-    version: "v1.0.0"
-    updated: "2025-11-07 02:15"
-    related_sources:
-      - ".BRAIN/02-gameplay/combat/combat-shooting.md"
-    related_targets:
-      - "api/v1/gameplay/combat/shooting.yaml"
-
-  - source: ".BRAIN/02-gameplay/combat/combat-dnd-mechanics-integration.md"
-    target: "api/v1/gameplay/mechanics/dnd-mechanics-integration.yaml"
-    task_id: "API-TASK-077"
-    task_file: "tasks/active/queue/task-077-dnd-mechanics-integration-api.md"
-    status: "queued"
-    created: "2025-11-07 02:20"
-    version: "v1.0.0"
-    updated: "2025-11-07 02:20"
-    related_sources:
-      - ".BRAIN/02-gameplay/combat/combat-dnd-core.md"
-    related_targets:
-      - "api/v1/gameplay/mechanics/dnd-checks.yaml"
+  # [Удалено 2025-11-09: DnD механики выведены из проекта, задачи отменены]
 
   # === СОЦИАЛЬНЫЕ СИСТЕМЫ - ДОПОЛНЕНИЯ (Social Extensions) ===
 

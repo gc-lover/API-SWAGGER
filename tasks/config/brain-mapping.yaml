@@ -30,7 +30,6 @@ mappings:
   related_targets:
   - api/v1/social/npc-relationships/status.yaml
   - api/v1/social/npc-relationships/interactions.yaml
-  - api/v1/narrative/quest-dnd-checks.yaml
 - source: .BRAIN/04-narrative/quests/side/2025-11-07-quest-neon-ghosts.md
   target: api/v1/narrative/quests/side/neon-ghosts.yaml
   task_id: API-TASK-374

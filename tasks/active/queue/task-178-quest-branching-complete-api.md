@@ -6,7 +6,7 @@
 
 ## 📋 Описание
 
-Создать API для системы ветвления квестов (4 микрофичи). Database schema, ER diagram, branching logic. DnD skill checks, dialogue choices, consequences.
+Создать API для системы ветвления квестов (4 микрофичи). Database schema, ER diagram, branching logic, shooter-based skill challenges, dialogue choices, consequences.
 
 ---
 

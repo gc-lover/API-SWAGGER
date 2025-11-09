@@ -30,8 +30,8 @@
 - `.BRAIN/04-narrative/dialogues/npc-marco-fix-sanchez.md` — состояния, узлы, проверки, события
 - Дополнительно:
   - `.BRAIN/04-narrative/npc-lore/important/marco-fix-sanchez.md`
-  - `.BRAIN/04-narrative/quests/main/001-first-steps-dnd-nodes.md`
-  - `.BRAIN/04-narrative/quests/main/002-choose-path-dnd-nodes.md`
+  - `.BRAIN/04-narrative/quests/main/001-first-steps.md`
+  - `.BRAIN/04-narrative/quests/main/002-choose-path.md`
   - `.BRAIN/04-narrative/dialogues/npc-jake-archer.md`
   - `.BRAIN/02-gameplay/world/events/world-events-framework.md`
 

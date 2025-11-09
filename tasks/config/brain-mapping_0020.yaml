@@ -13,7 +13,6 @@ mappings:
     updated: "2025-11-08 05:05"
     related_sources:
       - ".BRAIN/04-narrative/npc-lore/important/james-iron-reed.md"
-      - ".BRAIN/04-narrative/quests/main/002-choose-path-dnd-nodes.md"
       - ".BRAIN/04-narrative/quests/faction-world/arasaka-world-quests.md"
       - ".BRAIN/02-gameplay/world/events/world-events-framework.md"
     related_targets:
@@ -31,7 +30,6 @@ mappings:
     updated: "2025-11-08 05:20"
     related_sources:
       - ".BRAIN/04-narrative/npc-lore/important/jose-tiger-ramirez.md"
-      - ".BRAIN/04-narrative/quests/side/heywood-valentinos-chain.md"
       - ".BRAIN/04-narrative/dialogues/npc-rita-moreno.md"
       - ".BRAIN/04-narrative/dialogues/npc-royce.md"
       - ".BRAIN/02-gameplay/world/events/world-events-framework.md"
@@ -50,8 +48,6 @@ mappings:
     updated: "2025-11-08 05:35"
     related_sources:
       - ".BRAIN/04-narrative/npc-lore/important/marco-fix-sanchez.md"
-      - ".BRAIN/04-narrative/quests/main/001-first-steps-dnd-nodes.md"
-      - ".BRAIN/04-narrative/quests/main/002-choose-path-dnd-nodes.md"
       - ".BRAIN/04-narrative/dialogues/npc-jake-archer.md"
       - ".BRAIN/02-gameplay/world/events/world-events-framework.md"
     related_targets:
@@ -124,7 +120,6 @@ mappings:
     updated: "2025-11-08 06:40"
     related_sources:
       - ".BRAIN/04-narrative/npc-lore/important/sara-miller.md"
-      - ".BRAIN/04-narrative/quests/main/002-choose-path-dnd-nodes.md"
       - ".BRAIN/04-narrative/quests/side/ncpd-patrol-chain.md"
       - ".BRAIN/02-gameplay/world/events/world-events-framework.md"
     related_targets:
@@ -141,7 +136,6 @@ mappings:
     version: "v1.0.0"
     updated: "2025-11-08 06:55"
     related_sources:
-      - ".BRAIN/04-narrative/quests/main/002-choose-path-dnd-nodes.md"
       - ".BRAIN/06-tasks/active/CURRENT-WORK/active/quest-branching-database/README.md"
       - ".BRAIN/04-narrative/dialogues/npc-hiroshi-tanaka.md"
       - ".BRAIN/04-narrative/dialogues/npc-jose-tiger-ramirez.md"

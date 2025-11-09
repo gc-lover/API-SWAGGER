@@ -40,7 +40,7 @@
 **Что важно:**
 - Состояния: `briefing`, `transit`, `temptation`, `extraction`.
 - Диалоговые узлы с YAML-псевдокодом, включая варианты лояльности/предательства.
-- Проверки: Persuasion, Stealth, Hacking, Insight (см. `quest-dnd-checks.md`).
+- Проверки: Persuasion, Stealth, Hacking, Insight (используем shooter skill hooks, см. обновление `.BRAIN/04-narrative/quest-system.md`).
 - Флаги (`flag.fqara001.*`), репутации (`corp_arasaka`, `militech`, `street`, `law`), награды и штрафы.
 - Реакции событий: `world.event.corporate_war_escalation`, `flag.militech.arasaka_contact`.
 
@@ -50,7 +50,7 @@
 - `.BRAIN/04-narrative/dialogues/npc-hiroshi-tanaka.md`
 - `.BRAIN/04-narrative/dialogues/npc-james-iron-reed.md`
 - `.BRAIN/04-narrative/dialogues/npc-kaede-ishikawa.md`
-- `.BRAIN/04-narrative/quest-dnd-checks.md`
+- `.BRAIN/04-narrative/quest-skill-challenges.md`
 - `.BRAIN/02-gameplay/world/events/live-events-system.md`
 - `.BRAIN/02-gameplay/social/reputation-formulas.md`
 

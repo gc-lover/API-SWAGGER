@@ -30,7 +30,7 @@
 - `.BRAIN/04-narrative/dialogues/npc-jake-archer.md` — состояния, узлы, YAML, проверки, события
 - Дополнительно:
   - `.BRAIN/04-narrative/npc-lore/common/traders/jake-archer.md`
-  - `.BRAIN/04-narrative/quests/main/001-first-steps-dnd-nodes.md`
+  - `.BRAIN/04-narrative/quests/main/001-first-steps.md`
   - `.BRAIN/02-gameplay/economy/economy-trading.md`
   - `.BRAIN/02-gameplay/economy/economy-logistics.md`
   - `.BRAIN/02-gameplay/world/events/world-events-framework.md`

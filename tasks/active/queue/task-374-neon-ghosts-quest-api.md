@@ -54,7 +54,7 @@
 
 ### Связанные задания
 
-- `task-142-quest-dnd-checks.yaml` — skill-check контракт.
+- `task-113-combat-session-backend-api.md` — combat session lifecycle для шутерных миссий.
 - `task-241-world-interaction-suite-api.md` — мировые модификаторы.
 - `task-243-social-resonance-api.md` — социальные показатели.
 

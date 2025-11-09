@@ -25,7 +25,7 @@
 | API readiness | ready (2025-11-09 02:47) |
 
 **Key points:** экспоненциальная формула опыта и LevelUp события; начисление опыта из combat, quest, skill usage; распределение атрибутов/навыков с капами и аудитом; события `character:level-up`, `character:skill-leveled`, `character:attribute-increased`.  
-**Related docs:** `.BRAIN/02-gameplay/progression/progression-attributes.md`, `.BRAIN/02-gameplay/progression/progression-skills.md`, `.BRAIN/05-technical/backend/player-character-mgmt/character-management.md`, `.BRAIN/02-gameplay/combat/combat-dnd-core.md`, `.BRAIN/05-technical/backend/quest-engine-backend.md`.
+**Related docs:** `.BRAIN/02-gameplay/progression/progression-attributes.md`, `.BRAIN/02-gameplay/progression/progression-skills.md`, `.BRAIN/05-technical/backend/player-character-mgmt/character-management.md`, `.BRAIN/02-gameplay/combat/combat-shooting.md`, `.BRAIN/05-technical/backend/quest-engine-backend.md`.
 
 ## Target Architecture (⚠️ Обязательно)
 - **Microservice:** gameplay-service  

@@ -66,3 +66,5 @@
   - http://localhost:8080/api/v1/gameplay/mechanics
 - WebSocket маршруты публикуй только через wss://api.necp.game/v1/gameplay/mechanics/...
 
+> ⚠️ 2025-11-09 — **Отменено.** Гибридные DnD механики сняты с roadmap; спецификация оставлена в архиве.
+

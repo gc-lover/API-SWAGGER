@@ -40,7 +40,7 @@
 **Ключевые элементы:**
 - Список боссов (`db-echo-guardian`, `db-void-maestro`, `db-bio-harvester`, `db-specter-warden`, `db-rail-tyrant`, `db-glass-reaper`, `db-cinder-archon`).
 - Фазы, уникальные навыки, D&D проверки, Apex/Apex+ модификаторы.
-- REST-контуры `/world/dungeons/...` и WebSocket `PhaseStart`, `AbilityTrigger`, `DndCheck`.
+- REST-контуры `/world/dungeons/...` и WebSocket `PhaseStart`, `AbilityTrigger`, `SkillChallenge`, `Failure`, `Victory`.
 - Таблицы данных `dungeon_bosses`, `dungeon_boss_phases`, `dungeon_boss_difficulties`.
 - Влияние на экономику, прогрессию, репутацию и world flags.
 
@@ -79,7 +79,7 @@ API-SWAGGER/
 
 **Файл должен содержать:**
 - Paths `/api/v1/dungeons/...` (в одном файле).
-- Components для сущностей (Boss, Phase, Ability, Difficulty, Reward, Outcome, DndCheck, TelemetryEvent).
+- Components для сущностей (Boss, Phase, Ability, Difficulty, Reward, Outcome, SkillChallenge, TelemetryEvent).
 - Ссылки на общие компоненты (`#/components/responses/ErrorResponse`, security).
 - Секции описания WebSocket событий и Kafka тем (`x-stream`, `x-kafkaTopics`).
 
@@ -101,7 +101,7 @@ API-SWAGGER/
 - **UI компоненты (@shared/ui):** DungeonBossCard, PhaseTimeline, AbilityTooltip, DifficultyBadge, RewardBreakdownModal.
 - **Формы (@shared/forms):** DungeonDifficultyForm, BossCheckpointForm.
 - **Layout:** `@shared/layouts/GameLayout`, `@shared/layouts/ActivityLayout`.
-- **Hooks:** `@shared/hooks/useRealtime`, `@shared/hooks/useCountdown`, `@shared/hooks/useDndCheck`, `@shared/hooks/useHeatmap`.
+- **Hooks:** `@shared/hooks/useRealtime`, `@shared/hooks/useCountdown`, `@shared/hooks/useSkillChallenge`, `@shared/hooks/useHeatmap`.
 
 ### Комментарии к спецификации
 - В разделе `info.description` описать связь с `dungeon-scenarios`, Live Events и экономикой.
@@ -114,7 +114,7 @@ API-SWAGGER/
 
 1. Проанализировать каталог боссов, фазы, навыки, D&D проверки; сформировать перечень сущностей.
 2. Спроектировать endpoints: GET каталога, GET деталей, POST checkpoint, PUT сложности, POST rewards, POST aftermath, GET rotation schedule, GET analytics.
-3. Определить схемы: `DungeonBoss`, `DungeonBossPhase`, `DungeonAbility`, `DndCheck`, `DifficultyModifier`, `RewardBundle`, `AftermathPayload`, `CheckpointRequest`, `TelemetryEvent`, `BossAnalytics`.
+3. Определить схемы: `DungeonBoss`, `DungeonBossPhase`, `DungeonAbility`, `SkillChallenge`, `DifficultyModifier`, `RewardBundle`, `AftermathPayload`, `CheckpointRequest`, `TelemetryEvent`, `BossAnalytics`.
 4. Описать WebSocket (`/ws/dungeons/{instanceId}/boss`) и события, а также связи с Kafka (метаданные в `x-stream`).
 5. Добавить бизнес-правила: уникальность `bossId`, ограничения таймингов фаз, Apex/Apex+ модификаторы, валидация D&D DC.
 6. Прописать безопасность: `bearerAuth`, scopes `dungeons.boss.read`, `dungeons.boss.manage`, idempotency для checkpoint/rewards/aftermath.
@@ -137,7 +137,7 @@ API-SWAGGER/
 3. **POST `/api/v1/dungeons/bosses/{bossId}/checkpoint`**
    - Фиксация прогресса фазы и выдача промежуточных наград.
    - Заголовки: `Idempotency-Key`, `X-Instance-Id`, `X-Phase-Index`.
-   - Тело (`BossCheckpointRequest`): status (COMPLETED/FAILED), dndChecks[], telemetryRef, participants[].
+   - Тело (`BossCheckpointRequest`): status (COMPLETED/FAILED), skillChallenges[], telemetryRef, participants[].
    - Ответ: 202 (`BossCheckpointAccepted`). Ошибки: 409 (фаза уже закрыта), 422 (проверки не совпадают).
 
 4. **PUT `/api/v1/dungeons/bosses/{bossId}/difficulty`**
@@ -161,7 +161,7 @@ API-SWAGGER/
    - Ответ: 200 (`BossRotationSchedule`). Поддержать query `seasonId`.
 
 8. **GET `/api/v1/dungeons/bosses/{bossId}/analytics`**
-   - Возвращает метрики (clear rate, dnd fail rate, time to kill) с фильтрами по сложности, составу группы, live event.
+   - Возвращает метрики (clear rate, challenge fail rate, time to kill) с фильтрами по сложности, составу группы, live event.
    - Параметры: `mode`, `timeRange`, `partySize`, `liveEventId?`.
    - Ответ: 200 (`BossAnalyticsResponse`).
 
@@ -171,22 +171,22 @@ API-SWAGGER/
    - Тело (`BossTelemetryChunk`): timestamp, phase, events[], anomalies[], heatmap, participants[].
    - Ответ: 202 Accepted. Ошибки: 400, 401 (подпись невалидна), 413 (payload > 256KB).
 
-10. **WebSocket `/ws/dungeons/{instanceId}/boss`** (описать через `x-websocket`): события `PhaseStart`, `PhaseComplete`, `AbilityTrigger`, `DndCheckRequest`, `DndCheckResult`, `Failure`, `Victory`, `AftermathApplied`.
+10. **WebSocket `/ws/dungeons/{instanceId}/boss`** (описать через `x-websocket`): события `PhaseStart`, `PhaseComplete`, `AbilityTrigger`, `SkillChallengeRequest`, `SkillChallengeResult`, `Failure`, `Victory`, `AftermathApplied`.
 
 ---
 
 ## 🧱 Модели данных
 
 - `DungeonBoss` — bossId, dungeonId, name, bossType, baseDifficulty, loreHook, lootTags, apexAvailable.
-- `DungeonBossPhase` — phaseIndex, title, description, abilityRefs[], dndChecks[], loot, timers.
+- `DungeonBossPhase` — phaseIndex, title, description, abilityRefs[], skillChallenges[], loot, timers.
 - `DungeonAbility` — abilityCode, name, description, damageType, checkType (REF/INT/TECH/etc), checkDifficulty, cooldown, visuals.
-- `DndCheck` — stat (WIS/STR/TECH/CON/COOL), dc, failureEffect, successEffect, retryable.
+- `SkillChallenge` — stat (AGI/REF/TECH/COOL), difficulty, failureEffect, successEffect, retryable.
 - `DifficultyModifier` — mode, persistentDebuffs[], addSpawnRules[], timerValues, abilityOverrides.
-- `BossCheckpointRequest` — phaseIndex, status, participants[], dndFailures[], lootGranted[], timestamp.
+- `BossCheckpointRequest` — phaseIndex, status, participants[], challengeFailures[], lootGranted[], timestamp.
 - `BossRewardDistribution` — outcome, participantsRewards[], clanInfluence, reputation, battlePassXp, lootRolls (table, rarity, quantity).
 - `BossAftermathPayload` — outcome, worldFlags[], economyAdjustments[], liveEventHooks[], socialReputation, telemetryRef.
 - `BossRotationSchedule` — weekNumber, dungeonId, bossId, bonusModifier, startAt, endAt.
-- `BossAnalyticsMetric` — metricCode (CLEAR_RATE, DND_FAIL_RATE, TIME_TO_KILL, DAMAGE_TAKEN, WIPE_RATE), value, delta, sampleSize, breakdown (by mode, partySize, composition).
+- `BossAnalyticsMetric` — metricCode (CLEAR_RATE, CHALLENGE_FAIL_RATE, TIME_TO_KILL, DAMAGE_TAKEN, WIPE_RATE), value, delta, sampleSize, breakdown (by mode, partySize, composition).
 - `BossTelemetryChunk` — chunkIndex, timestamp, phase, playerEvents[], anomalyFlags[], abilityTriggers[], heatmapGrid[], signature.
 - `BossTelemetryEvent` — type (ABILITY, CHECK, DAMAGE, WIPE, SUCCESS), payload, actorId, targetId, value.
 
@@ -196,7 +196,7 @@ API-SWAGGER/
 
 ## 📐 Принципы и правила
 
-- Соблюдать SOLID/DRY/KISS, повторяющиеся блоки (`DungeonBoss`, `DndCheck`) вынести в `components/schemas`.
+- Соблюдать SOLID/DRY/KISS, повторяющиеся блоки (`DungeonBoss`, `SkillChallenge`) вынести в `components/schemas`.
 - Использовать `bearerAuth` и scopes `dungeons.boss.read`, `dungeons.boss.manage`, `dungeons.boss.telemetry`.
 - Для идемпотентных операций (`checkpoint`, `rewards`, `aftermath`) требовать `Idempotency-Key`.
 - Ограничения: телеметрия ≤60 req/min на инстанс, checkpoint ≤20 req/min, payload ≤256KB.
@@ -232,7 +232,7 @@ API-SWAGGER/
 **О:** В `BossRewardDistribution` добавить ссылку `economyTransactionId`; сервис экономики подтверждает выдачу и публикует событие `economy.loot.issued`. REST ответ должен содержать поле `transactionStatus`.
 
 **В:** Как фиксировать неудавшиеся D&D проверки?  
-**О:** Хранить их в `dndFailures` (статистика для аналитики). Аналитика агрегирует `DND_FAIL_RATE`, доступную через `/analytics`.
+**О:** Хранить их в `challengeFailures` (статистика для аналитики). Аналитика агрегирует `CHALLENGE_FAIL_RATE`, доступную через `/analytics`.
 
 **В:** Нужно ли поддерживать очки Hard Mode Keycard?  
 **О:** Да, `BossRewardDistribution` должно включать `hardModeKeycardGranted` (boolean) и `keycardId`. При `true` экономический сервис записывает предмет в инвентарь.

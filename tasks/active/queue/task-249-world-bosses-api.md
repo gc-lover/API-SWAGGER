@@ -110,7 +110,7 @@ API-SWAGGER/
 
 1. Систематизировать данные о боссах: идентификаторы, фазовые навыки, live event триггеры, loot, world flags.
 2. Спроектировать REST endpoints: каталог, детали, расписание, состояние боя, участие, награды, последствия, ручные операции (админ).
-3. Описать WebSocket `/ws/world/bosses/{bossId}/{instanceId}` для реального времени (фазы, ability alerts, dnd checks, spawn status, aftermath).
+3. Описать WebSocket `/ws/world/bosses/{bossId}/{instanceId}` для реального времени (фазы, ability alerts, skill challenges, spawn status, aftermath).
 4. Добавить эндпоинты аналитики и лидербордов (top damage/heal, participation metrics).
 5. Создать схемы данных с ссылками на экономику, прогрессию, репутацию, clan influence.
 6. Прописать бизнес-правила: ограничение на одновременные спавны, live event overrides, emergency despawn, retry windows.
@@ -142,7 +142,7 @@ API-SWAGGER/
 
 5. **POST `/api/v1/world/bosses/{bossId}/state`**
    - Обновление состояния боя (PhaseStart, PhaseComplete, Wipe, Victory).
-   - Тело (`WorldBossStateUpdate`): instanceId, stateType, phaseIndex?, abilityCode?, timestamp, dndCheck?, participantsSnapshot.
+   - Тело (`WorldBossStateUpdate`): instanceId, stateType, phaseIndex?, abilityCode?, timestamp, skillChallenge?, participantsSnapshot.
    - Ответ: 202 (`WorldBossStateAccepted`). Ошибки: 422 (неконсистентная фаза), 409 (параллельное обновление).
 
 6. **POST `/api/v1/world/bosses/{bossId}/telemetry`**
@@ -177,7 +177,7 @@ API-SWAGGER/
     - Ответ: 200 (`WorldBossLeaderboardResponse`).
 
 12. **WebSocket `/ws/world/bosses/{bossId}/{instanceId}`**
-    - События: `SpawnScheduled`, `SpawnStarted`, `PhaseStart`, `AbilityBroadcast`, `DndCheckRequest`, `DndCheckResolved`, `Victory`, `Defeat`, `AftermathApplied`, `LiveEventModifier`, `EmergencyDespawn`.
+    - События: `SpawnScheduled`, `SpawnStarted`, `PhaseStart`, `AbilityBroadcast`, `SkillChallengeTriggered`, `SkillChallengeResolved`, `Victory`, `Defeat`, `AftermathApplied`, `LiveEventModifier`, `EmergencyDespawn`.
     - Документировать payload и подписи.
 
 ---
@@ -185,10 +185,10 @@ API-SWAGGER/
 ## 🧱 Модели данных
 
 - `WorldBoss` — bossId, name, location, region, era, baseDifficulty, recommendedLeague, loreHook, liveEventHooks, lootTags.
-- `WorldBossPhase` — phaseIndex, title, description, abilityRefs[], dndChecks[], objectives, failureConditions, duration.
-- `WorldBossAbility` — abilityCode, name, description, damageType, aoe, cooldown, dndRequirement (stat, dc, penalty).
+- `WorldBossPhase` — phaseIndex, title, description, abilityRefs[], skillChallenges[], objectives, failureConditions, duration.
+- `WorldBossAbility` — abilityCode, name, description, damageType, aoe, cooldown, challengeRequirement (stat, difficulty, penalty).
 - `SpawnWindow` — windowId, startAt, endAt, region, liveEventModifier, difficultyBoost, announcementTemplate.
-- `WorldBossStateUpdate` — stateType (SPAWNED, PHASE_START, PHASE_END, WIPE, VICTORY, DESPAWN), phaseIndex, abilityCode, dndCheck, timestamp, triggeredBy.
+- `WorldBossStateUpdate` — stateType (SPAWNED, PHASE_START, PHASE_END, WIPE, VICTORY, DESPAWN), phaseIndex, abilityCode, skillChallenge, timestamp, triggeredBy.
 - `WorldBossTelemetryChunk` — chunkIndex, instanceId, timestamp, events[], heatmapGrid[], damageBreakdown, anomalies, signature.
 - `WorldBossParticipation` — playerId, clanId?, faction, role, contribution (damage, healing, support, objectives), rewardsPreview.
 - `WorldBossRewardDistribution` — participants[], lootRolls[], reputationDeltas[], leaguePoints, battlePassXp, clanInfluence, economyTransactions.
@@ -234,32 +234,4 @@ API-SWAGGER/
 **О:** `WorldBossStateUpdate` допускает `phaseIndex = "EVENT_OVERRIDE"` и `abilityCode` с префиксом `LIVE_EVENT_`. Документируйте условие и включите соответствующий пример.
 
 **В:** Как учитывать участие стримеров и медиапартнёров?  
-**О:** В `WorldBossParticipation` добавить поле `mediaTag`. Лидерборд поддерживает фильтр `media=true`.
-
-**В:** Можно ли перезапустить бой после wipe?  
-**О:** Да, `WorldBossStateUpdate` с `stateType = "RESPAWN"` и `respawnAt`. Требуется `Idempotency-Key`, чтобы избежать повторов.
-
-**В:** Как фиксировать вклад фракций?  
-**О:** В `WorldBossAftermath` предусмотреть массив `factionImpact[]` с кодом фракции и значением влияния. Аналитика агрегирует показатель в `/analytics`.
-
----
-
-## 📦 Результат
-
-- Файл `api/v1/gameplay/world/world-bosses.yaml` с REST, WebSocket, аналитикой и интеграциями.
-- Обновление `brain-mapping.yaml` и `.BRAIN/02-gameplay/world/world-bosses-catalog.md` статуса `queued` с API-TASK-249.
-
-
-
-
-
-
-
-
-### OpenAPI (обязательно)
-
-- Заполни `info.x-microservice` (name, port, domain, base-path, package) по данным целевого микросервиса.
-- В секции `servers` оставь Production gateway `https://api.necp.game/v1` и пример локальной разработки `http://localhost:8080/api/v1`.
-- WebSocket маршруты публикуй только через `wss://api.necp.game/v1/...`.
-
-
+**О:** В `WorldBossParticipation` добавить поле `mediaTag`. Лидерборд поддерживает фильтр `

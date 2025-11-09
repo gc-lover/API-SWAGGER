@@ -41,7 +41,7 @@
 - `.BRAIN/02-gameplay/progression/progression-skills.md`
 - `.BRAIN/05-technical/backend/player-character-mgmt/character-management.md`
 - `.BRAIN/05-technical/backend/quest-engine-backend.md`
-- `.BRAIN/02-gameplay/combat/combat-dnd-core.md`
+- `.BRAIN/02-gameplay/combat/combat-shooting.md`
 
 ---
 

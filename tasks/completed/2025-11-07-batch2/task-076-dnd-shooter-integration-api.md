@@ -65,3 +65,5 @@
   - http://localhost:8080/api/v1/gameplay/mechanics
 - WebSocket маршруты публикуй только через wss://api.necp.game/v1/gameplay/mechanics/...
 
+> ⚠️ 2025-11-09 — **Отменено.** DnD проверки в бою удалены; спецификация сохранена только в архиве.
+
