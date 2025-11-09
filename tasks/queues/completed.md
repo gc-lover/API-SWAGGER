@@ -40,7 +40,12 @@
 - **Task ID:** API-TASK-097  
   **╨б╨┐╨╡╤Ж╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П:** api/v1/characters/players/players.yaml  
   **╨Ч╨░╨▓╨╡╤А╤И╨╡╨╜╨╛:** 2025-11-09 19:35 тАФ ╨Р╨Я╨Ш╨в╨Р╨б╨Ъ  
-  **╨Я╨╡╤А╨╡╨┤╨░╨╜╨╛:** Character Service, Gameplay Service, Economy Service, Frontend Agent
+  **╨Я╨╡╤А╨╡╨┤╨░╨╜╨╛:** Backend Agent, Frontend Agent
+
+- **Task ID:** API-TASK-109  
+  **Источник:** .BRAIN/02-gameplay/economy/auction-house/auction-mechanics.md (v1.0.0)  
+  **Завершено:** 2025-11-09 16:30 — АПИТАСК  
+  **Target:** api/v1/economy/auction-house/auction-mechanics.yaml
 
 - **Task ID:** API-TASK-098  
   **╨б╨┐╨╡╤Ж╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П:** api/v1/gameplay/quests/quest-engine/quest-engine.yaml  
