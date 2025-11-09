@@ -41,3 +41,8 @@
   **Спецификация:** api/v1/characters/players/players.yaml  
   **Завершено:** 2025-11-09 19:35 — АПИТАСК  
   **Передано:** Character Service, Gameplay Service, Economy Service, Frontend Agent
+
+- **Task ID:** API-TASK-098  
+  **Спецификация:** api/v1/gameplay/quests/quest-engine/quest-engine.yaml  
+  **Завершено:** 2025-11-09 19:48 — АПИТАСК  
+  **Передано:** Gameplay Service, Narrative Service, Economy Service, Telemetry, Frontend Agent
