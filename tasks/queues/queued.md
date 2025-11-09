@@ -42,3 +42,8 @@
   **Создано:** 2025-11-09 18:05 — ДУАПИТАСК  
   **Target:** api/v1/economy/inventory/inventory-core.yaml
 
+- **Task ID:** API-TASK-101  
+  **Источник:** .BRAIN/05-technical/backend/progression-backend.md (v1.0.0)  
+  **Создано:** 2025-11-09 18:24 — ДУАПИТАСК  
+  **Target:** api/v1/gameplay/progression/progression-core.yaml
+
