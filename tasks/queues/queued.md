@@ -72,3 +72,8 @@
   **Создано:** 2025-11-09 20:25 — ДУАПИТАСК  
   **Target:** api/v1/economy/auction-house/auction-operations.yaml
 
+- **Task ID:** API-TASK-111  
+  **Источник:** .BRAIN/05-technical/backend/trade-system.md (v1.0.0)  
+  **Создано:** 2025-11-09 20:35 — ДУАПИТАСК  
+  **Target:** api/v1/economy/trade/trade-system.yaml
+
