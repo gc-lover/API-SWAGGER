@@ -36,3 +36,8 @@
   **Спецификация:** api/v1/social/npc-relationships/npc-relationships.yaml  
   **Завершено:** 2025-11-09 19:17 — АПИТАСК  
   **Передано:** Social Service, Gameplay Service, Frontend Agent
+
+- **Task ID:** API-TASK-097  
+  **Спецификация:** api/v1/characters/players/players.yaml  
+  **Завершено:** 2025-11-09 19:35 — АПИТАСК  
+  **Передано:** Character Service, Gameplay Service, Economy Service, Frontend Agent

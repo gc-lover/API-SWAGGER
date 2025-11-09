@@ -12,11 +12,6 @@
 
 - При смене статуса удалите запись отсюда и перенесите в файл нового статуса (например, `in-progress.md`).
 
-- **Task ID:** API-TASK-097  
-  **Источник:** .BRAIN/05-technical/backend/player-character-mgmt/character-management.md (v1.1.0)  
-  **Создано:** 2025-11-09 17:05 — ДУАПИТАСК  
-  **Target:** api/v1/characters/players.yaml
-
 - **Task ID:** API-TASK-098  
   **Источник:** .BRAIN/05-technical/backend/quest-engine-backend.md (v1.0.0)  
   **Создано:** 2025-11-09 17:28 — ДУАПИТАСК  
