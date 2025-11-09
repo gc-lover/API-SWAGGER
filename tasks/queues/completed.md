@@ -46,3 +46,13 @@
   **Спецификация:** api/v1/gameplay/quests/quest-engine/quest-engine.yaml  
   **Завершено:** 2025-11-09 19:48 — АПИТАСК  
   **Передано:** Gameplay Service, Narrative Service, Economy Service, Telemetry, Frontend Agent
+
+- **Task ID:** API-TASK-099  
+  **Спецификация:** api/v1/auth/auth-core/auth-core.yaml  
+  **Завершено:** 2025-11-09 20:05 — АПИТАСК  
+  **Передано:** Auth Service, Session Service, Email Service, Frontend Agent
+
+- **Task ID:** API-TASK-100  
+  **Спецификация:** api/v1/economy/inventory/inventory-core/inventory-core.yaml  
+  **Завершено:** 2025-11-09 20:22 — АПИТАСК  
+  **Передано:** Economy Service, Gameplay Service, Notification Service, Frontend Agent

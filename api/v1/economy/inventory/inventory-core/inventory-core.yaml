@@ -1,0 +1,349 @@
+openapi: 3.0.3
+info:
+  title: Inventory Core API
+  version: 1.0.0
+  description: |
+    Core inventory management contracts for backpack storage, equipment slots, stash, item stacking and weight systems.
+    Source: .BRAIN/05-technical/backend/inventory-system/part1-core-system.md v1.0.1.
+    Integrations: character-service (attributes), gameplay-service (loot drops), economy-service (items & trading),
+    notification-service (item updates).
+  x-microservice:
+    name: economy-service
+    port: 8085
+    domain: economy
+    base-path: /api/v1/economy/inventory/inventory-core
+    directory: api/v1/economy/inventory/inventory-core
+    package: com.necpgame.economyservice
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Development API Gateway
+tags:
+  - name: InventoryState
+    description: Inventory snapshots, weight and templates
+  - name: InventoryItems
+    description: Item pickup, drop, move and stacking operations
+  - name: Equipment
+    description: Equip and unequip operations
+  - name: InventoryTransfers
+    description: Bank, stash and external transfers
+  - name: InventoryAudit
+    description: Audit logs and telemetry
+paths:
+  /economy/inventory/inventory-core/characters/{characterId}/snapshot:
+    parameters:
+      - $ref: './inventory-core-models.yaml#/components/parameters/CharacterIdPath'
+    get:
+      tags: [InventoryState]
+      summary: Get inventory snapshot
+      description: Returns backpack contents, equipment slots, stash summary, weight and encumbrance for character.
+      security:
+        - PlayerSession: []
+      responses:
+        '200':
+          description: Inventory snapshot payload
+          content:
+            application/json:
+              schema:
+                $ref: './inventory-core-models-operations.yaml#/components/schemas/InventorySnapshotResponse'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/inventory/inventory-core/characters/{characterId}/items/pickup:
+    parameters:
+      - $ref: './inventory-core-models.yaml#/components/parameters/CharacterIdPath'
+    post:
+      tags: [InventoryItems]
+      summary: Pickup item
+      description: Adds item stack into backpack, handling stack overflow, weight limits and binding rules.
+      security:
+        - ServiceToken: []
+        - PlayerSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './inventory-core-models-operations.yaml#/components/schemas/ItemPickupRequest'
+      responses:
+        '201':
+          description: Item added to inventory
+          content:
+            application/json:
+              schema:
+                $ref: './inventory-core-models-operations.yaml#/components/schemas/ItemPickupResponse'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/inventory/inventory-core/characters/{characterId}/items/drop:
+    parameters:
+      - $ref: './inventory-core-models.yaml#/components/parameters/CharacterIdPath'
+    post:
+      tags: [InventoryItems]
+      summary: Drop item
+      description: Removes items from backpack, optionally creating a world loot entity.
+      security:
+        - PlayerSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './inventory-core-models-operations.yaml#/components/schemas/ItemDropRequest'
+      responses:
+        '200':
+          description: Item dropped
+          content:
+            application/json:
+              schema:
+                $ref: './inventory-core-models-operations.yaml#/components/schemas/ItemDropResponse'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/inventory/inventory-core/characters/{characterId}/items/move:
+    parameters:
+      - $ref: './inventory-core-models.yaml#/components/parameters/CharacterIdPath'
+    post:
+      tags: [InventoryItems]
+      summary: Move item between storages
+      description: Moves or swaps item between backpack, equipment, bank or stash, respecting slot constraints.
+      security:
+        - PlayerSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './inventory-core-models-operations.yaml#/components/schemas/ItemMoveRequest'
+      responses:
+        '200':
+          description: Item moved
+          content:
+            application/json:
+              schema:
+                $ref: './inventory-core-models-operations.yaml#/components/schemas/ItemMoveResponse'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/inventory/inventory-core/characters/{characterId}/items/split:
+    parameters:
+      - $ref: './inventory-core-models.yaml#/components/parameters/CharacterIdPath'
+    post:
+      tags: [InventoryItems]
+      summary: Split stack
+      description: Splits stackable items into a new slot, handling stack limits and free slot detection.
+      security:
+        - PlayerSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './inventory-core-models-operations.yaml#/components/schemas/ItemSplitRequest'
+      responses:
+        '200':
+          description: Stack split
+          content:
+            application/json:
+              schema:
+                $ref: './inventory-core-models-operations.yaml#/components/schemas/ItemSplitResponse'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/inventory/inventory-core/characters/{characterId}/equipment/equip:
+    parameters:
+      - $ref: './inventory-core-models.yaml#/components/parameters/CharacterIdPath'
+    post:
+      tags: [Equipment]
+      summary: Equip item
+      description: Equips item from inventory into equipment slot after validating requirements and binding rules.
+      security:
+        - PlayerSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './inventory-core-models-operations.yaml#/components/schemas/EquipItemRequest'
+      responses:
+        '200':
+          description: Item equipped
+          content:
+            application/json:
+              schema:
+                $ref: './inventory-core-models-operations.yaml#/components/schemas/EquipItemResponse'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/inventory/inventory-core/characters/{characterId}/equipment/unequip:
+    parameters:
+      - $ref: './inventory-core-models.yaml#/components/parameters/CharacterIdPath'
+    post:
+      tags: [Equipment]
+      summary: Unequip item
+      description: Moves equipped item back to backpack or stash if space allows, updating weight.
+      security:
+        - PlayerSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './inventory-core-models-operations.yaml#/components/schemas/UnequipItemRequest'
+      responses:
+        '200':
+          description: Item unequipped
+          content:
+            application/json:
+              schema:
+                $ref: './inventory-core-models-operations.yaml#/components/schemas/UnequipItemResponse'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/inventory/inventory-core/characters/{characterId}/bank/transfer:
+    parameters:
+      - $ref: './inventory-core-models.yaml#/components/parameters/CharacterIdPath'
+    post:
+      tags: [InventoryTransfers]
+      summary: Transfer items to bank or stash
+      description: Transfers items between backpack and bank/stash, supporting batch transfer metadata.
+      security:
+        - PlayerSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './inventory-core-models-operations.yaml#/components/schemas/BankTransferRequest'
+      responses:
+        '202':
+          description: Transfer accepted
+          content:
+            application/json:
+              schema:
+                $ref: './inventory-core-models-operations.yaml#/components/schemas/BankTransferResponse'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/inventory/inventory-core/characters/{characterId}/weight:
+    parameters:
+      - $ref: './inventory-core-models.yaml#/components/parameters/CharacterIdPath'
+    get:
+      tags: [InventoryState]
+      summary: Get weight summary
+      description: Returns current and maximum weight, encumbrance penalties and modifiers.
+      security:
+        - PlayerSession: []
+      responses:
+        '200':
+          description: Weight summary
+          content:
+            application/json:
+              schema:
+                $ref: './inventory-core-models-operations.yaml#/components/schemas/WeightSummaryResponse'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/inventory/inventory-core/item-templates/{templateId}:
+    parameters:
+      - $ref: './inventory-core-models.yaml#/components/parameters/ItemTemplateIdPath'
+    get:
+      tags: [InventoryState]
+      summary: Get item template
+      description: Returns core item template metadata for inventory operations.
+      security:
+        - ServiceToken: []
+        - PlayerSession: []
+      responses:
+        '200':
+          description: Item template
+          content:
+            application/json:
+              schema:
+                $ref: './inventory-core-models-operations.yaml#/components/schemas/ItemTemplateResponse'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/inventory/inventory-core/characters/{characterId}/audit:
+    parameters:
+      - $ref: './inventory-core-models.yaml#/components/parameters/CharacterIdPath'
+      - $ref: '../../../shared/common/pagination.yaml#/components/parameters/Page'
+      - $ref: '../../../shared/common/pagination.yaml#/components/parameters/PageSize'
+      - $ref: './inventory-core-models.yaml#/components/parameters/AuditActionFilter'
+    get:
+      tags: [InventoryAudit]
+      summary: Get inventory audit log
+      description: Provides paginated audit of inventory operations (pickup, drop, move, equip) with metadata.
+      security:
+        - PlayerSession: []
+        - ModeratorSession: []
+      responses:
+        '200':
+          description: Inventory audit list
+          content:
+            application/json:
+              schema:
+                $ref: './inventory-core-models-operations.yaml#/components/schemas/InventoryAuditResponse'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+components:
+  responses:
+    BadRequest:
+      $ref: '../../../shared/common/responses.yaml#/components/responses/BadRequest'
+    Unauthorized:
+      $ref: '../../../shared/common/responses.yaml#/components/responses/Unauthorized'
+    Forbidden:
+      $ref: '../../../shared/common/responses.yaml#/components/responses/Forbidden'
+    NotFound:
+      $ref: '../../../shared/common/responses.yaml#/components/responses/NotFound'
+    Conflict:
+      $ref: '../../../shared/common/responses.yaml#/components/responses/Conflict'
+    UnprocessableEntity:
+      $ref: '../../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+    InternalServerError:
+      $ref: '../../../shared/common/responses.yaml#/components/responses/InternalServerError'
+  securitySchemes:
+    PlayerSession:
+      $ref: '../../../shared/common/security.yaml#/components/securitySchemes/PlayerSession'
+    ModeratorSession:
+      $ref: '../../../shared/common/security.yaml#/components/securitySchemes/ModeratorSession'
+    ServiceToken:
+      $ref: '../../../shared/common/security.yaml#/components/securitySchemes/ServiceToken'
+  schemas:
+    InventoryItemAddedEvent:
+      $ref: './inventory-core-models-operations.yaml#/components/schemas/InventoryItemAddedEvent'
+    InventoryItemRemovedEvent:
+      $ref: './inventory-core-models-operations.yaml#/components/schemas/InventoryItemRemovedEvent'
+    InventoryItemMovedEvent:
+      $ref: './inventory-core-models-operations.yaml#/components/schemas/InventoryItemMovedEvent'
+    InventoryWeightUpdatedEvent:
+      $ref: './inventory-core-models-operations.yaml#/components/schemas/InventoryWeightUpdatedEvent'
+

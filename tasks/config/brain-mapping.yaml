@@ -127,6 +127,14 @@ mappings:
   - api/v1/narrative/npcs/kaede-ishikawa.yaml
   - api/v1/narrative/quests/helios-countermesh-conspiracy.yaml
   - api/v1/social/resonance.yaml
+- source: ".BRAIN/05-technical/backend/inventory-system/part1-core-system.md"
+  version: "v1.0.1"
+  task_id: "API-TASK-100"
+  task_file: "tasks/completed/2025-11-09/task-100-inventory-core-api.md"
+  api_path: "api/v1/economy/inventory/inventory-core/inventory-core.yaml"
+  status: "completed"
+  priority: "critical"
+  created: "2025-11-09 18:05"
 - source: ".BRAIN/05-technical/backend/auth/README.md"
   version: "v1.0.1"
   task_id: "API-TASK-099"
