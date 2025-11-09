@@ -644,4 +644,12 @@ mappings:
   created: 2025-11-09 18:40
   version: v1.1.0
   updated: 2025-11-09 21:28
+- source: .BRAIN/02-gameplay/economy/economy-analytics.md
+  target: api/v1/economy/analytics/analytics.yaml
+  task_id: API-TASK-103
+  task_file: tasks/completed/2025-11-09/task-103-economy-analytics-api.md
+  status: completed
+  created: 2025-11-09 18:56
+  version: v1.0.0
+  updated: 2025-11-09 21:55
 

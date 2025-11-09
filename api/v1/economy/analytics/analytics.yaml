@@ -3,488 +3,422 @@ info:
   title: Economy Analytics API
   version: 1.0.0
   description: |
-    API для системы экономической аналитики и графиков.
-    
-    Источник: .BRAIN/02-gameplay/economy/economy-analytics.md v1.0.0
-    
-    Типы графиков:
-    - Line Charts (линейные)
-    - Candlestick Charts (японские свечи)
-    - OHLC Charts (открытие/максимум/минимум/закрытие)
-    - Volume Charts (объемы торгов)
-    
-    Технические индикаторы:
-    - Moving Averages (MA, EMA)
-    - RSI (Relative Strength Index)
-    - MACD (Moving Average Convergence Divergence)
-    - Bollinger Bands
-    
-    Market Sentiment: Bull/Bear indicators, Volume trends
-    Portfolio Analytics: Profit/Loss, ROI, diversification
-    Alerts: Price alerts, volume alerts
-    
-    Вдохновение: TradingView, Bloomberg Terminal, EVE Online
-
+    Advanced economy analytics: price charts, indicators, volume, portfolio metrics, heat maps, alerts and sentiment.
+    Source: .BRAIN/02-gameplay/economy/economy-analytics.md v1.0.0.
+    Integrations: auction-house (market data), contracts (trade history), inventory (holdings), telemetry pipeline,
+    notification-service (alerts), anti-fraud-service (anomaly detection).
   x-microservice:
     name: economy-service
     port: 8085
     domain: economy
-    base-path: /api/v1/gameplay/economy
+    base-path: /api/v1/economy/analytics
+    directory: api/v1/economy/analytics
     package: com.necpgame.economyservice
 servers:
   - url: https://api.necp.game/v1
     description: Production API Gateway
   - url: http://localhost:8080/api/v1
-    description: Local API Gateway
-
+    description: Development API Gateway
 tags:
-  - name: Analytics
-    description: Экономическая аналитика
-  - name: Charts
-    description: Графики и индикаторы
-  - name: Portfolio
-    description: Портфолио
-
+  - name: AnalyticsCharts
+    description: Historical charts, candles and indicators
+  - name: AnalyticsVolume
+    description: Volume analytics and liquidity metrics
+  - name: AnalyticsPortfolio
+    description: Portfolio analytics, risk metrics and history
+  - name: AnalyticsHeatMap
+    description: Heat maps for market and portfolios
+  - name: AnalyticsAlerts
+    description: Alert management lifecycle
+  - name: AnalyticsSentiment
+    description: Market sentiment indices and settings
+  - name: AnalyticsRealtime
+    description: Streaming channels for market data and alerts
 paths:
-  /gameplay/economy/analytics/price-chart:
+  /economy/analytics/charts/{asset}:
+    parameters:
+      - $ref: './analytics-models.yaml#/components/parameters/AssetPath'
+      - $ref: './analytics-models.yaml#/components/parameters/TimeframeQuery'
+      - $ref: './analytics-models.yaml#/components/parameters/AggregationQuery'
     get:
-      summary: Получить график цен
+      tags: [AnalyticsCharts]
+      summary: Get historical chart data
       description: |
-        Возвращает исторические данные цен для построения графиков.
-        Поддерживает разные типы: line, candlestick, OHLC.
-      operationId: getPriceChart
-      tags:
-        - Charts
-      parameters:
-        - name: item_id
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: chart_type
-          in: query
-          required: true
-          schema:
-            type: string
-            enum: [line, candlestick, ohlc, volume]
-        - name: timeframe
-          in: query
-          required: true
-          schema:
-            type: string
-            enum: [1h, 4h, 1d, 1w, 1m]
-            description: Таймфрейм (1 час, 4 часа, 1 день, 1 неделя, 1 месяц)
-        - name: start_date
-          in: query
-          schema:
-            type: string
-            format: date-time
-        - name: end_date
-          in: query
-          schema:
-            type: string
-            format: date-time
+        Returns price series for the specified asset including optional indicator overlays. Supports line and area chart
+        visualisations. Rate limit: 60 requests per minute per player.
+      security:
+        - PlayerSession: []
       responses:
         '200':
-          description: График цен
+          description: Chart dataset
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PriceChart'
-              examples:
-                candlestick:
-                  summary: Японские свечи
-                  value:
-                    item_id: "legendary_weapon_001"
-                    chart_type: "candlestick"
-                    timeframe: "1d"
-                    data_points:
-                      - timestamp: "2025-11-06T00:00:00Z"
-                        open: 4500
-                        high: 4800
-                        low: 4400
-                        close: 4700
-                        volume: 125
-                      - timestamp: "2025-11-07T00:00:00Z"
-                        open: 4700
-                        high: 5000
-                        low: 4650
-                        close: 4950
-                        volume: 156
-        '400':
-          $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
-
-  /gameplay/economy/analytics/indicators:
+                $ref: './analytics-models-operations.yaml#/components/schemas/ChartSeriesResponse'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/analytics/charts/{asset}/candles:
+    parameters:
+      - $ref: './analytics-models.yaml#/components/parameters/AssetPath'
+      - $ref: './analytics-models.yaml#/components/parameters/CandleIntervalQuery'
+      - $ref: './analytics-models.yaml#/components/parameters/LimitQuery'
     get:
-      summary: Получить технические индикаторы
-      description: |
-        Рассчитывает технические индикаторы для предмета.
-        MA, EMA, RSI, MACD, Bollinger Bands.
-      operationId: getTechnicalIndicators
-      tags:
-        - Charts
-      parameters:
-        - name: item_id
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: indicators
-          in: query
-          required: true
-          schema:
-            type: array
-            items:
-              type: string
-              enum: [ma, ema, rsi, macd, bollinger]
-          style: form
-          explode: false
-        - name: period
-          in: query
-          schema:
-            type: integer
-            default: 14
-            description: Период для индикаторов
+      tags: [AnalyticsCharts]
+      summary: Get candlestick data
+      description: Provides OHLCV candles for TradingView-style charts with supported intervals 1m, 5m, 15m, 1h, 1d, 1w.
+      security:
+        - PlayerSession: []
       responses:
         '200':
-          description: Технические индикаторы
+          description: Candlestick series
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TechnicalIndicators'
-              examples:
-                rsi_macd:
-                  summary: RSI и MACD
-                  value:
-                    item_id: "legendary_weapon_001"
-                    indicators:
-                      rsi:
-                        value: 68.5
-                        signal: "overbought"
-                        period: 14
-                      macd:
-                        macd_line: 12.5
-                        signal_line: 10.3
-                        histogram: 2.2
-                        signal: "bullish"
-
-  /gameplay/economy/analytics/market-sentiment:
+                $ref: './analytics-models-operations.yaml#/components/schemas/CandleSeriesResponse'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/analytics/volume/{asset}:
+    parameters:
+      - $ref: './analytics-models.yaml#/components/parameters/AssetPath'
+      - $ref: './analytics-models.yaml#/components/parameters/TimeframeQuery'
     get:
-      summary: Получить настроение рынка
-      description: |
-        Возвращает индикаторы настроения рынка.
-        Bull/Bear ratio, Volume trends, Market momentum.
-      operationId: getMarketSentiment
-      tags:
-        - Analytics
-      parameters:
-        - name: market
-          in: query
-          schema:
-            type: string
-            enum: [all, weapons, implants, resources, rare_items]
+      tags: [AnalyticsVolume]
+      summary: Get volume analytics
+      description: Returns histogram and cumulative volume metrics with liquidity flags.
+      security:
+        - PlayerSession: []
       responses:
         '200':
-          description: Настроение рынка
+          description: Volume dataset
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MarketSentiment'
-
-  /gameplay/economy/analytics/heat-map:
-    get:
-      summary: Получить тепловую карту
-      description: |
-        Возвращает тепловую карту изменений цен.
-        Визуализация лучших/худших исполнителей рынка.
-      operationId: getHeatMap
-      tags:
-        - Analytics
-      parameters:
-        - name: category
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: timeframe
-          in: query
-          required: true
-          schema:
-            type: string
-            enum: [1h, 1d, 1w, 1m]
-      responses:
-        '200':
-          description: Тепловая карта
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  category:
-                    type: string
-                  timeframe:
-                    type: string
-                  items:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        item_id:
-                          type: string
-                        item_name:
-                          type: string
-                        price_change_percent:
-                          type: number
-                        volume_change_percent:
-                          type: number
-
-  /gameplay/economy/analytics/portfolio:
-    get:
-      summary: Получить аналитику портфолио
-      description: |
-        Возвращает детальную аналитику портфолио игрока.
-        Profit/Loss, ROI, diversification, performance.
-      operationId: getPortfolioAnalytics
-      tags:
-        - Portfolio
-      parameters:
-        - name: character_id
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Аналитика портфолио
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PortfolioAnalytics'
-              examples:
-                portfolio:
-                  summary: Пример портфолио
-                  value:
-                    character_id: "char_123"
-                    total_value: 500000
-                    total_invested: 400000
-                    profit_loss: 100000
-                    roi_percent: 25.0
-                    diversification:
-                      weapons: 40
-                      implants: 30
-                      resources: 20
-                      stocks: 10
-                    top_performers:
-                      - item_id: "legendary_weapon_001"
-                        roi: 150
-                      - item_id: "rare_implant_003"
-                        roi: 85
-
-  /gameplay/economy/analytics/trade-history:
-    get:
-      summary: Получить историю сделок с аналитикой
-      description: |
-        Возвращает историю торговых сделок с анализом.
-        Успешные/неуспешные сделки, win rate, средняя прибыль.
-      operationId: getTradeHistory
-      tags:
-        - Portfolio
-      parameters:
-        - name: character_id
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            default: 50
-      responses:
-        '200':
-          description: История сделок
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  character_id:
-                    type: string
-                  statistics:
-                    type: object
-                    properties:
-                      total_trades:
-                        type: integer
-                      profitable_trades:
-                        type: integer
-                      win_rate:
-                        type: number
-                      average_profit:
-                        type: number
-                  trades:
-                    type: array
-                    items:
-                      type: object
-
-  /gameplay/economy/analytics/alerts/create:
+                $ref: './analytics-models-operations.yaml#/components/schemas/VolumeSeriesResponse'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/analytics/charts/{asset}/indicators:
+    parameters:
+      - $ref: './analytics-models.yaml#/components/parameters/AssetPath'
     post:
-      summary: Создать price alert
-      description: |
-        Создает оповещение о достижении определенной цены.
-        Уведомление когда цена достигнет target.
-      operationId: createPriceAlert
-      tags:
-        - Analytics
+      tags: [AnalyticsCharts]
+      summary: Calculate technical indicators
+      description: Calculates configured technical indicators (SMA, EMA, RSI, MACD, Bollinger Bands) for player-defined settings.
+      security:
+        - PlayerSession: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - character_id
-                - item_id
-                - alert_type
-                - target_price
-              properties:
-                character_id:
-                  type: string
-                item_id:
-                  type: string
-                alert_type:
-                  type: string
-                  enum: [price_above, price_below, volume_spike]
-                target_price:
-                  type: number
-                notification_method:
-                  type: string
-                  enum: [in_game, email, both]
+              $ref: './analytics-models-operations.yaml#/components/schemas/IndicatorCalculationRequest'
       responses:
         '200':
-          description: Alert создан
+          description: Indicator series payload
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  alert_id:
-                    type: string
-                  status:
-                    type: string
-
-  /gameplay/economy/analytics/alerts:
+                $ref: './analytics-models-operations.yaml#/components/schemas/IndicatorCalculationResponse'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/analytics/portfolio/{playerId}:
+    parameters:
+      - $ref: './analytics-models.yaml#/components/parameters/PlayerIdPath'
     get:
-      summary: Получить активные alerts
-      description: Возвращает список активных price alerts игрока
-      operationId: getActiveAlerts
-      tags:
-        - Analytics
-      parameters:
-        - name: character_id
-          in: query
-          required: true
-          schema:
-            type: string
+      tags: [AnalyticsPortfolio]
+      summary: Get portfolio analytics
+      description: Returns aggregated portfolio metrics such as total return, Sharpe ratio, volatility, max drawdown and beta.
+      security:
+        - PlayerSession: []
+        - ModeratorSession: []
       responses:
         '200':
-          description: Активные alerts
+          description: Portfolio analytics response
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  alerts:
-                    type: array
-                    items:
-                      type: object
-
+                $ref: './analytics-models-operations.yaml#/components/schemas/PortfolioAnalyticsResponse'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/analytics/portfolio/{playerId}/history:
+    parameters:
+      - $ref: './analytics-models.yaml#/components/parameters/PlayerIdPath'
+      - $ref: './analytics-models.yaml#/components/parameters/TimeframeQuery'
+      - $ref: '../../shared/common/pagination.yaml#/components/parameters/Page'
+      - $ref: '../../shared/common/pagination.yaml#/components/parameters/PageSize'
+    get:
+      tags: [AnalyticsPortfolio]
+      summary: Get portfolio history
+      description: Provides portfolio value history, monthly returns and trade statistics for performance review.
+      security:
+        - PlayerSession: []
+        - ModeratorSession: []
+      responses:
+        '200':
+          description: Portfolio history dataset
+          content:
+            application/json:
+              schema:
+                $ref: './analytics-models-operations.yaml#/components/schemas/PortfolioHistoryResponse'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/analytics/market/heatmap:
+    parameters:
+      - $ref: './analytics-models.yaml#/components/parameters/HeatMapScopeQuery'
+      - $ref: './analytics-models.yaml#/components/parameters/TimeframeQuery'
+    get:
+      tags: [AnalyticsHeatMap]
+      summary: Get market heat map
+      description: Delivers market heat map grouped by sector, corporation or region with performance and weight metadata.
+      security:
+        - PlayerSession: []
+      responses:
+        '200':
+          description: Market heat map payload
+          content:
+            application/json:
+              schema:
+                $ref: './analytics-models-operations.yaml#/components/schemas/MarketHeatMapResponse'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/analytics/portfolio/{playerId}/heatmap:
+    parameters:
+      - $ref: './analytics-models.yaml#/components/parameters/PlayerIdPath'
+    get:
+      tags: [AnalyticsHeatMap]
+      summary: Get portfolio heat map
+      description: Returns weighted portfolio heat map by asset category, allocation and performance for the player.
+      security:
+        - PlayerSession: []
+        - ModeratorSession: []
+      responses:
+        '200':
+          description: Portfolio heat map payload
+          content:
+            application/json:
+              schema:
+                $ref: './analytics-models-operations.yaml#/components/schemas/PortfolioHeatMapResponse'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/analytics/alerts:
+    post:
+      tags: [AnalyticsAlerts]
+      summary: Create or update alert
+      description: Creates or edits price, volume or event alerts. Maximum 20 active alerts per player enforced.
+      security:
+        - PlayerSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './analytics-models-operations.yaml#/components/schemas/AlertUpsertRequest'
+      responses:
+        '201':
+          description: Alert created or updated
+          content:
+            application/json:
+              schema:
+                $ref: './analytics-models-operations.yaml#/components/schemas/AlertUpsertResponse'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/analytics/alerts/{alertId}:
+    parameters:
+      - $ref: './analytics-models.yaml#/components/parameters/AlertIdPath'
+    delete:
+      tags: [AnalyticsAlerts]
+      summary: Delete alert
+      description: Deletes an existing alert and releases resources.
+      security:
+        - PlayerSession: []
+      responses:
+        '200':
+          description: Alert deleted
+          content:
+            application/json:
+              schema:
+                $ref: './analytics-models-operations.yaml#/components/schemas/AlertDeleteResponse'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/analytics/alerts/{playerId}:
+    parameters:
+      - $ref: './analytics-models.yaml#/components/parameters/PlayerIdPath'
+    get:
+      tags: [AnalyticsAlerts]
+      summary: List player alerts
+      description: Lists active, triggered and snoozed alerts for the player.
+      security:
+        - PlayerSession: []
+      responses:
+        '200':
+          description: Alert list payload
+          content:
+            application/json:
+              schema:
+                $ref: './analytics-models-operations.yaml#/components/schemas/AlertListResponse'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/analytics/sentiment/index:
+    get:
+      tags: [AnalyticsSentiment]
+      summary: Get sentiment index
+      description: Returns Fear & Greed score, bull/bear power and contributing components.
+      security:
+        - PlayerSession: []
+      responses:
+        '200':
+          description: Sentiment index payload
+          content:
+            application/json:
+              schema:
+                $ref: './analytics-models-operations.yaml#/components/schemas/SentimentIndexResponse'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/analytics/settings/{playerId}:
+    parameters:
+      - $ref: './analytics-models.yaml#/components/parameters/PlayerIdPath'
+    get:
+      tags: [AnalyticsSentiment]
+      summary: Get analytics settings
+      description: Retrieves player analytics preferences such as default timeframe, indicator presets and alert channels.
+      security:
+        - PlayerSession: []
+      responses:
+        '200':
+          description: Analytics settings payload
+          content:
+            application/json:
+              schema:
+                $ref: './analytics-models-operations.yaml#/components/schemas/AnalyticsSettingsResponse'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+    put:
+      tags: [AnalyticsSentiment]
+      summary: Update analytics settings
+      description: Updates analytics preferences, indicator defaults and alert delivery channels for the player.
+      security:
+        - PlayerSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './analytics-models-operations.yaml#/components/schemas/AnalyticsSettingsUpdateRequest'
+      responses:
+        '200':
+          description: Settings updated
+          content:
+            application/json:
+              schema:
+                $ref: './analytics-models-operations.yaml#/components/schemas/AnalyticsSettingsResponse'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+  /economy/analytics/streams/market:
+    get:
+      tags: [AnalyticsRealtime]
+      summary: Connect to market stream
+      description: |
+        Upgrades HTTP to WebSocket for real-time market price and volume ticks (topic `contracts`, `auction-house`,
+        `economy.analytics.market-updated`). Supports subscribing to asset lists and indicator updates. Messages are JSON
+        frames documented in `MarketStreamEnvelope`.
+      security:
+        - PlayerSession: []
+      responses:
+        '101':
+          description: WebSocket upgrade to market stream
+          headers:
+            Connection:
+              schema:
+                type: string
+              description: Upgrade
+          content:
+            application/json:
+              schema:
+                $ref: './analytics-models-operations.yaml#/components/schemas/MarketStreamEnvelope'
+      x-websocket: true
+  /economy/analytics/streams/alerts:
+    get:
+      tags: [AnalyticsRealtime]
+      summary: Connect to alerts stream
+      description: |
+        WebSocket stream delivering real-time alert triggers, acknowledgements and notifications. Messages follow
+        `AlertStreamEnvelope`. Requires player session; moderators may subscribe with elevated permissions to monitor
+        fraud patterns.
+      security:
+        - PlayerSession: []
+        - ModeratorSession: []
+      responses:
+        '101':
+          description: WebSocket upgrade to alerts stream
+          content:
+            application/json:
+              schema:
+                $ref: './analytics-models-operations.yaml#/components/schemas/AlertStreamEnvelope'
+      x-websocket: true
 components:
+  responses:
+    BadRequest:
+      $ref: '../../shared/common/responses.yaml#/components/responses/BadRequest'
+    Unauthorized:
+      $ref: '../../shared/common/responses.yaml#/components/responses/Unauthorized'
+    Forbidden:
+      $ref: '../../shared/common/responses.yaml#/components/responses/Forbidden'
+    NotFound:
+      $ref: '../../shared/common/responses.yaml#/components/responses/NotFound'
+    Conflict:
+      $ref: '../../shared/common/responses.yaml#/components/responses/Conflict'
+    UnprocessableEntity:
+      $ref: '../../shared/common/responses.yaml#/components/responses/UnprocessableEntity'
+    TooManyRequests:
+      $ref: '../../shared/common/responses.yaml#/components/responses/TooManyRequests'
+    InternalServerError:
+      $ref: '../../shared/common/responses.yaml#/components/responses/InternalServerError'
+  securitySchemes:
+    PlayerSession:
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/PlayerSession'
+    ModeratorSession:
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/ModeratorSession'
+    ServiceToken:
+      $ref: '../../shared/common/security.yaml#/components/securitySchemes/ServiceToken'
   schemas:
-    PriceChart:
-      type: object
-      properties:
-        item_id:
-          type: string
-        chart_type:
-          type: string
-        timeframe:
-          type: string
-        data_points:
-          type: array
-          items:
-            oneOf:
-              - $ref: '#/components/schemas/CandlestickDataPoint'
-              - $ref: '#/components/schemas/LineDataPoint'
-
-    CandlestickDataPoint:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-        open:
-          type: number
-        high:
-          type: number
-        low:
-          type: number
-        close:
-          type: number
-        volume:
-          type: integer
-
-    LineDataPoint:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-        price:
-          type: number
-        volume:
-          type: integer
-
-    TechnicalIndicators:
-      type: object
-      properties:
-        item_id:
-          type: string
-        indicators:
-          type: object
-          additionalProperties: true
-
-    MarketSentiment:
-      type: object
-      properties:
-        market:
-          type: string
-        bull_bear_ratio:
-          type: number
-        volume_trend:
-          type: string
-          enum: [increasing, decreasing, stable]
-        momentum:
-          type: string
-          enum: [strong_bullish, bullish, neutral, bearish, strong_bearish]
-
-    PortfolioAnalytics:
-      type: object
-      properties:
-        character_id:
-          type: string
-        total_value:
-          type: number
-        total_invested:
-          type: number
-        profit_loss:
-          type: number
-        roi_percent:
-          type: number
-        diversification:
-          type: object
-        top_performers:
-          type: array
-          items:
-            type: object
-
-
+    AnalyticsMarketUpdatedEvent:
+      $ref: './analytics-models-operations.yaml#/components/schemas/AnalyticsMarketUpdatedEvent'
+    AnalyticsAlertTriggeredEvent:
+      $ref: './analytics-models-operations.yaml#/components/schemas/AnalyticsAlertTriggeredEvent'
+    AnalyticsSentimentUpdatedEvent:
+      $ref: './analytics-models-operations.yaml#/components/schemas/AnalyticsSentimentUpdatedEvent'
