@@ -37,3 +37,8 @@
   **Создано:** 2025-11-09 17:28 — ДУАПИТАСК  
   **Target:** api/v1/gameplay/quests/quest-engine.yaml
 
+- **Task ID:** API-TASK-099  
+  **Источник:** .BRAIN/05-technical/backend/auth/README.md (v1.0.1)  
+  **Создано:** 2025-11-09 17:50 — ДУАПИТАСК  
+  **Target:** api/v1/auth/auth-core.yaml
+
