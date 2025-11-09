@@ -72,3 +72,8 @@
   **Создано:** 2025-11-09 20:15 — ДУАПИТАСК  
   **Target:** api/v1/economy/auction-house/auction-mechanics.yaml
 
+- **Task ID:** API-TASK-110  
+  **Источник:** .BRAIN/02-gameplay/economy/auction-house/auction-operations.md (v1.0.0)  
+  **Создано:** 2025-11-09 20:25 — ДУАПИТАСК  
+  **Target:** api/v1/economy/auction-house/auction-operations.yaml
+
