@@ -57,3 +57,8 @@
   **Создано:** 2025-11-09 19:12 — ДУАПИТАСК  
   **Target:** api/v1/economy/events/economic-events.yaml
 
+- **Task ID:** API-TASK-105  
+  **Источник:** .BRAIN/02-gameplay/economy/economy-investments.md (v1.1.0)  
+  **Создано:** 2025-11-09 19:27 — ДУАПИТАСК  
+  **Target:** api/v1/economy/investments/investments.yaml
+
