@@ -52,3 +52,8 @@
   **Создано:** 2025-11-09 18:40 — ДУАПИТАСК  
   **Target:** api/v1/economy/contracts/contracts.yaml
 
+- **Task ID:** API-TASK-103  
+  **Источник:** .BRAIN/02-gameplay/economy/economy-analytics.md (v1.0.0)  
+  **Создано:** 2025-11-09 18:56 — ДУАПИТАСК  
+  **Target:** api/v1/economy/analytics/analytics.yaml
+
