@@ -12,3 +12,22 @@
 
 - После передачи реализации и фиксации в трекерах переместите запись в `archived.md`.
 
+- **Task ID:** API-TASK-056  
+  **Спецификация:** api/v1/gameplay/social/personal-npc-tool.yaml  
+  **Завершено:** 2025-11-09 13:05 — АПИТАСК  
+  **Передано:** Backend Agent, Frontend Agent
+
+- **Task ID:** API-TASK-001  
+  **Спецификация:** api/v1/narrative/hybrid-media-references/hybrid-media-references.yaml  
+  **Завершено:** 2025-11-09 13:45 — АПИТАСК  
+  **Передано:** Backend Agent, Frontend Agent, Narrative Tools Team
+
+- **Task ID:** API-TASK-002  
+  **Спецификация:** api/v1/gameplay/progression/skills-classes/skills-classes.yaml  
+  **Завершено:** 2025-11-09 13:55 — АПИТАСК  
+  **Передано:** Gameplay Balance Team, Backend Agent, Frontend Agent
+
+- **Task ID:** API-TASK-095  
+  **Спецификация:** api/v1/world/universe/universe.yaml  
+  **Завершено:** 2025-11-09 14:05 — АПИТАСК  
+  **Передано:** World Service, Narrative Service, Economy Service
