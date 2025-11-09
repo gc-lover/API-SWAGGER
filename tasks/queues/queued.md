@@ -27,11 +27,6 @@
   **Создано:** 2025-11-09 18:40 — ДУАПИТАСК  
   **Target:** api/v1/economy/contracts/contracts.yaml
 
-- **Task ID:** API-TASK-103  
-  **Источник:** .BRAIN/02-gameplay/economy/economy-analytics.md (v1.0.0)  
-  **Создано:** 2025-11-09 18:56 — ДУАПИТАСК  
-  **Target:** api/v1/economy/analytics/analytics.yaml
-
 - **Task ID:** API-TASK-104  
   **Источник:** .BRAIN/02-gameplay/economy/economy-events.md (v1.1.0)  
   **Создано:** 2025-11-09 19:12 — ДУАПИТАСК  
@@ -43,9 +38,9 @@
   **Target:** api/v1/economy/investments/investments.yaml
 
 - **Task ID:** API-TASK-106  
-  **Источник:** .BRAIN/02-gameplay/economy/economy-crafting.md (v1.0.0)  
-  **Создано:** 2025-11-09 19:40 — ДУАПИТАСК  
-  **Target:** api/v1/economy/crafting/crafting.yaml
+  **Источник:** .BRAIN/02-gameplay/economy/economy-logistics.md (v1.0.0)  
+  **Создано:** 2025-11-09 19:45 — ДУАПИТАСК  
+  **Target:** api/v1/economy/logistics/logistics.yaml
 
 - **Task ID:** API-TASK-107  
   **Источник:** .BRAIN/02-gameplay/economy/economy-currencies-resources.md (v1.0.0)  
@@ -86,6 +81,11 @@
   **Источник:** .BRAIN/02-gameplay/combat/combat-roles-detailed.md (v1.0.0)  
   **Создано:** 2025-11-09 23:05 — ДУАПИТАСК  
   **Target:** api/v1/gameplay/combat/roles/roles.yaml
+
+- **Task ID:** API-TASK-404  
+  **Источник:** .BRAIN/02-gameplay/combat/combat-abilities.md (v1.2.0)  
+  **Создано:** 2025-11-09 23:15 — ДУАПИТАСК  
+  **Target:** api/v1/gameplay/combat/abilities/abilities.yaml
 
 - **Task ID:** API-TASK-113  
   **Источник:** .BRAIN/05-technical/backend/combat-session-backend.md (v1.0.0)  

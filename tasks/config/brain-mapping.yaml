@@ -353,6 +353,24 @@ mappings:
   - api/v1/gameplay/combat/abilities.yaml
   - api/v1/gameplay/combat/implants/implants-types.yaml
   - api/v1/gameplay/combat/combos/combos-synergies.yaml
+- source: .BRAIN/02-gameplay/combat/combat-abilities.md
+  target: api/v1/gameplay/combat/abilities/abilities.yaml
+  task_id: API-TASK-404
+  task_file: tasks/active/queue/task-404-combat-abilities-api.md
+  status: queued
+  created: 2025-11-09 23:15
+  version: 1.2.0
+  updated: 2025-11-09 23:15
+  related_sources:
+  - .BRAIN/02-gameplay/combat/combat-implants-types.md
+  - .BRAIN/02-gameplay/combat/combat-combos-synergies.md
+  - .BRAIN/02-gameplay/combat/combat-roles-detailed.md
+  - .BRAIN/02-gameplay/combat/combat-session-backend.md
+  - .BRAIN/02-gameplay/economy/equipment-matrix.md
+  related_targets:
+  - api/v1/gameplay/combat/roles/roles.yaml
+  - api/v1/gameplay/combat/combos/combos-synergies.yaml
+  - api/v1/gameplay/combat/implants/implants-types.yaml
 - source: .BRAIN/02-gameplay/combat/combat-combos-synergies.md
   target: api/v1/gameplay/combat/combos/combos-synergies.yaml
   task_id: API-TASK-402
