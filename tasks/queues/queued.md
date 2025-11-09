@@ -12,13 +12,23 @@
 
 - При смене статуса удалите запись отсюда и перенесите в файл нового статуса (например, `in-progress.md`).
 
-- **Task ID:** API-TASK-001  
-  **Источник:** .BRAIN/06-tasks/ideas/2025-11-07-IDEA-hybrid-media-references.md (v1.0.0)  
-  **Создано:** 2025-11-09 11:20 — ДУАПИТАСК  
-  **Target:** api/v1/narrative/hybrid-media-references/hybrid-media-references.yaml
-
 - **Task ID:** API-TASK-002  
   **Источник:** .BRAIN/02-gameplay/progression/progression-skills-classes.md (v1.1.0)  
   **Создано:** 2025-11-09 12:30 — ДУАПИТАСК  
   **Target:** api/v1/gameplay/progression/skills-classes/skills-classes.yaml
+
+- **Task ID:** API-TASK-095  
+  **Источник:** .BRAIN/03-lore/universe.md (v1.1.0)  
+  **Создано:** 2025-11-09 15:10 — ДУАПИТАСК  
+  **Target:** api/v1/lore/universe/universe.yaml
+
+- **Task ID:** API-TASK-096  
+  **Источник:** .BRAIN/02-gameplay/social/npc-relationships-system-детально.md (v1.0.0)  
+  **Создано:** 2025-11-09 16:40 — ДУАПИТАСК  
+  **Target:** api/v1/gameplay/social/npc-relationships.yaml
+
+- **Task ID:** API-TASK-097  
+  **Источник:** .BRAIN/05-technical/backend/player-character-mgmt/character-management.md (v1.1.0)  
+  **Создано:** 2025-11-09 17:05 — ДУАПИТАСК  
+  **Target:** api/v1/characters/players.yaml
 
