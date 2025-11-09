@@ -31,3 +31,8 @@
   **Спецификация:** api/v1/world/universe/universe.yaml  
   **Завершено:** 2025-11-09 14:05 — АПИТАСК  
   **Передано:** World Service, Narrative Service, Economy Service
+
+- **Task ID:** API-TASK-096  
+  **Спецификация:** api/v1/social/npc-relationships/npc-relationships.yaml  
+  **Завершено:** 2025-11-09 19:17 — АПИТАСК  
+  **Передано:** Social Service, Gameplay Service, Frontend Agent
