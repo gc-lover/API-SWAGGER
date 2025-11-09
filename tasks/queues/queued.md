@@ -12,11 +12,6 @@
 
 - При смене статуса удалите запись отсюда и перенесите в файл нового статуса (например, `in-progress.md`).
 
-- **Task ID:** API-TASK-096  
-  **Источник:** .BRAIN/02-gameplay/social/npc-relationships-system-детально.md (v1.0.0)  
-  **Создано:** 2025-11-09 16:40 — ДУАПИТАСК  
-  **Target:** api/v1/gameplay/social/npc-relationships.yaml
-
 - **Task ID:** API-TASK-097  
   **Источник:** .BRAIN/05-technical/backend/player-character-mgmt/character-management.md (v1.1.0)  
   **Создано:** 2025-11-09 17:05 — ДУАПИТАСК  
@@ -71,4 +66,9 @@
   **Источник:** .BRAIN/02-gameplay/economy/economy-currencies-resources.md (v1.0.0)  
   **Создано:** 2025-11-09 19:55 — ДУАПИТАСК  
   **Target:** api/v1/economy/currencies/currencies-resources.yaml
+
+- **Task ID:** API-TASK-108  
+  **Источник:** .BRAIN/02-gameplay/economy/auction-house/auction-database.md (v1.0.0)  
+  **Создано:** 2025-11-09 20:05 — ДУАПИТАСК  
+  **Target:** api/v1/economy/auction-house/auction-database.yaml
 
