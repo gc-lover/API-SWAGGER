@@ -77,9 +77,9 @@
   **Создано:** 2025-11-09 22:05 — ДУАПИТАСК  
   **Target:** api/v1/narrative/quests/america/vancouver/granville-island.yaml
 
-- **Task ID:** API-TASK-401  
+- **Task ID:** API-TASK-115  
   **Источник:** .BRAIN/02-gameplay/combat/combat-implants-types.md (v1.1.0)  
-  **Создано:** 2025-11-09 22:35 — ДУАПИТАСК  
+  **Создано:** 2025-11-09 22:30 — ДУАПИТАСК  
   **Target:** api/v1/gameplay/combat/implants/implants-types.yaml
 
 - **Task ID:** API-TASK-113  
