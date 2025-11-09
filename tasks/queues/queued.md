@@ -77,10 +77,15 @@
   **Создано:** 2025-11-09 22:05 — ДУАПИТАСК  
   **Target:** api/v1/narrative/quests/america/vancouver/granville-island.yaml
 
-- **Task ID:** API-TASK-115  
+- **Task ID:** API-TASK-401  
   **Источник:** .BRAIN/02-gameplay/combat/combat-implants-types.md (v1.1.0)  
-  **Создано:** 2025-11-09 22:30 — ДУАПИТАСК  
+  **Создано:** 2025-11-09 22:35 — ДУАПИТАСК  
   **Target:** api/v1/gameplay/combat/implants/implants-types.yaml
+
+- **Task ID:** API-TASK-403  
+  **Источник:** .BRAIN/02-gameplay/combat/combat-roles-detailed.md (v1.0.0)  
+  **Создано:** 2025-11-09 23:05 — ДУАПИТАСК  
+  **Target:** api/v1/gameplay/combat/roles/roles.yaml
 
 - **Task ID:** API-TASK-113  
   **Источник:** .BRAIN/05-technical/backend/combat-session-backend.md (v1.0.0)  
