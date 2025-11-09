@@ -56,3 +56,8 @@
   **Спецификация:** api/v1/economy/inventory/inventory-core/inventory-core.yaml  
   **Завершено:** 2025-11-09 20:22 — АПИТАСК  
   **Передано:** Economy Service, Gameplay Service, Notification Service, Frontend Agent
+
+- **Task ID:** API-TASK-101  
+  **Спецификация:** api/v1/gameplay/progression/progression-core/progression-core.yaml  
+  **Завершено:** 2025-11-09 20:37 — АПИТАСК  
+  **Передано:** Gameplay Service, Character Service, Notification Service, Frontend Agent

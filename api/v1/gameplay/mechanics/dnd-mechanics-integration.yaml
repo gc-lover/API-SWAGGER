@@ -1,0 +1,47 @@
+openapi: 3.0.3
+info:
+  title: D&D Mechanics Integration API
+  version: 1.0.0
+  description: API для интеграции D&D в игровые механики (квесты, диалоги, крафт, хакерство)
+  x-microservice:
+    name: gameplay-service
+    port: 8083
+    domain: gameplay
+    base-path: /api/v1/gameplay/mechanics
+    package: com.necpgame.gameplayservice
+servers:
+  - url: https://api.necp.game/v1
+    description: Production API Gateway
+  - url: http://localhost:8080/api/v1
+    description: Local API Gateway
+tags:
+  - name: DnD Mechanics Integration
+paths:
+  /gameplay/mechanics/dnd-mechanics/quest-check:
+    post:
+      summary: Проверка в квесте
+      operationId: performQuestCheck
+      tags: [DnD Mechanics Integration]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [character_id, quest_id, check_type, dc]
+              properties:
+                character_id: {type: string}
+                quest_id: {type: string}
+                check_type: {type: string}
+                dc: {type: integer}
+      responses:
+        '200':
+          description: Результат проверки
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas: {}
+
+
