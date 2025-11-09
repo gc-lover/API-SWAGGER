@@ -62,3 +62,13 @@
   **Создано:** 2025-11-09 19:27 — ДУАПИТАСК  
   **Target:** api/v1/economy/investments/investments.yaml
 
+- **Task ID:** API-TASK-106  
+  **Источник:** .BRAIN/02-gameplay/economy/economy-crafting.md (v1.0.0)  
+  **Создано:** 2025-11-09 19:40 — ДУАПИТАСК  
+  **Target:** api/v1/economy/crafting/crafting.yaml
+
+- **Task ID:** API-TASK-107  
+  **Источник:** .BRAIN/02-gameplay/economy/economy-currencies-resources.md (v1.0.0)  
+  **Создано:** 2025-11-09 19:55 — ДУАПИТАСК  
+  **Target:** api/v1/economy/currencies/currencies-resources.yaml
+
