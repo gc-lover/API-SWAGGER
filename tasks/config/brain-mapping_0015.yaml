@@ -246,7 +246,7 @@ mappings:
     version: "v1.0.0"
     updated: "2025-11-07 12:50"
 
-  - source: ".BRAIN/�ܦզݦզԦ֦զ�-PROCEDURES.md"
+  - source: ".BRAIN/МЕНЕДЖЕР-PROCEDURES.md"
     target: "api/v1/narrative/narrative-extended.yaml"
     task_id: "API-TASK-176"
     task_file: "tasks/active/queue/task-176-narrative-split-api.md"
