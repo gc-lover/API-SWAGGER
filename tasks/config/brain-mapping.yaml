@@ -159,6 +159,22 @@ mappings:
   - api/v1/narrative/dialogues/templates.yaml
   - api/v1/social/resonance.yaml
   - api/v1/world/world-interaction-suite.yaml
+- source: .BRAIN/03-lore/_03-lore/timeline-author/quests/america/vancouver/2020-2029/quest-009-granville-island.md
+  target: api/v1/narrative/quests/america/vancouver/granville-island.yaml
+  task_id: API-TASK-114
+  task_file: tasks/active/queue/task-114-granville-island-quest-api.md
+  status: queued
+  created: 2025-11-09 22:05
+  version: 1.0.0
+  updated: 2025-11-09 22:05
+  related_sources:
+  - .BRAIN/04-narrative/quest-system.md
+  - .BRAIN/02-gameplay/economy/player-market/player-market-core.md
+  - .BRAIN/02-gameplay/social/npc-hiring-world-impact-детально.md
+  related_targets:
+  - api/v1/narrative/quest-engine/quest-engine.yaml
+  - api/v1/economy/contracts/contracts.yaml
+  - api/v1/social/resonance/resonance.yaml
 - source: .BRAIN/06-tasks/active/CURRENT-WORK/active/2025-11-08-gameplay-backend-sync.md
   target: api/v1/gameplay/combat/combat-ballistics.yaml
   task_id: API-TASK-382

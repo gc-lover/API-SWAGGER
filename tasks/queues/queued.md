@@ -72,6 +72,11 @@
   **Создано:** 2025-11-09 20:35 — ДУАПИТАСК  
   **Target:** api/v1/economy/trade/trade-system.yaml
 
+- **Task ID:** API-TASK-114  
+  **Источник:** .BRAIN/03-lore/_03-lore/timeline-author/quests/america/vancouver/2020-2029/quest-009-granville-island.md (v1.0.0)  
+  **Создано:** 2025-11-09 22:05 — ДУАПИТАСК  
+  **Target:** api/v1/narrative/quests/america/vancouver/granville-island.yaml
+
 - **Task ID:** API-TASK-113  
   **Источник:** .BRAIN/05-technical/backend/combat-session-backend.md (v1.0.0)  
   **Создано:** 2025-11-09 21:15 — ДУАПИТАСК  
